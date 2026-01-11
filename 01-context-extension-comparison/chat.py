@@ -1,6 +1,10 @@
 import os
 import sys
 from groq import Groq
+from dotenv import load_dotenv
+
+# Carrega variáveis de ambiente
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
 # Importa nossos módulos locais
 try:
@@ -11,7 +15,7 @@ except ImportError as e:
     sys.exit(1)
 
 # Configuração
-REVISION_FILE = "../00-master-thesis-overleaf-help/Chapters/002Revision/Revision.tex"
+REVISION_FILE = "../../00-master-thesis-overleaf-help/Chapters/002Revision/Revision.tex"
 DEFAULT_MODEL = "llama3-70b-8192"
 
 def load_context_file(path):

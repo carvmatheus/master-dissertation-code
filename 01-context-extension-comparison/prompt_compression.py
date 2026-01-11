@@ -33,9 +33,14 @@ class GroqSemanticCompressor(PromptCompressor):
         if not GROQ_AVAILABLE:
             raise ImportError("Biblioteca 'groq' necessária. Rode: pip install groq")
         
+        # Tenta carregar do .env se não estiver no ambiente
+        if not os.environ.get("GROQ_API_KEY"):
+            from dotenv import load_dotenv
+            load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+            
         self.api_key = api_key or os.environ.get("GROQ_API_KEY")
         if not self.api_key:
-            raise ValueError("API Key da Groq não encontrada. Defina GROQ_API_KEY.")
+            raise ValueError("API Key da Groq não encontrada. Defina GROQ_API_KEY no arquivo .env ou no sistema.")
             
         self.client = Groq(api_key=self.api_key)
         self.model_name = model_name

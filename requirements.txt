@@ -1,0 +1,4 @@
+groq
+torch
+transformers
+numpy

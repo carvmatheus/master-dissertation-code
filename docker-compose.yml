@@ -1,0 +1,31 @@
+services:
+  chat:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      # Optional override:
+      # GROQ_MODEL: llama3-70b-8192
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      # Thesis/Overleaf repo mounted read-only inside container
+      - ../_local_repo/00-master-thesis-overleaf-help:/data:ro
+      # Cache HF models so GPT-2 doesn't download every time
+      - ./.cache:/cache
+    stdin_open: true
+    tty: true
+    command: ["python", "01-context-extension-comparison/chat.py", "--context-file", "/data/Chapters/002Revision/Revision.tex"]
+
+  test:
+    build: .
+    image: master-dissertation-code:latest
+    environment:
+      # Variáveis fake para testes (mocks não precisam de chave real)
+      GROQ_API_KEY: fake-key-for-tests
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+    command: ["pytest", "tests/", "-v", "--tb=short"]

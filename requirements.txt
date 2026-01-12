@@ -2,3 +2,16 @@ groq
 torch
 transformers
 numpy
+python-dotenv
+pytest>=7.0
+
+# RIG (Dartboard ranking)
+faiss-cpu
+sentence-transformers
+scikit-learn
+
+# Opcional: para integração com Claude (notebook)
+anthropic
+PyPDF2
+pandas
+openpyxl

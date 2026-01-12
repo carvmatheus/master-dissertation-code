@@ -1,3 +1,17 @@
 .env
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.cache/
+
+# Arquivos de estado do RIG/Dartboard
+*.bin
+dartboard_*.json
+dartboard_*.pkl
+dartboard_*.npy
+
+# Jupyter
+.ipynb_checkpoints/

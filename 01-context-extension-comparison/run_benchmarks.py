@@ -47,12 +47,20 @@ AVAILABLE_MODELS = [
     "llama-3.1-8b-instant",
     "llama-3.3-70b-versatile",
     "llama3-70b-8192",  # modelo legado
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
 ]
 
 # Modelos padrão para testar
 DEFAULT_MODELS = [
     "llama-3.1-8b-instant",
     "llama-3.3-70b-versatile",
+]
+
+# Modelos GPT-OSS
+GPT_OSS_MODELS = [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
 ]
 
 
@@ -227,8 +235,8 @@ def get_model_short_name(model: str) -> str:
         "llama-3.1-8b-instant": "llama3.1-8b",
         "llama-3.3-70b-versatile": "llama3.3-70b",
         "llama3-70b-8192": "llama3-70b",
-        "gpt-oss-120b": "gpt-oss-120b",
-        "gpt-oss-20b": "gpt-oss-20b",
+        "openai/gpt-oss-120b": "gpt-oss-120b",
+        "openai/gpt-oss-20b": "gpt-oss-20b",
     }
     
     return replacements.get(model, short)

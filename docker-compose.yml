@@ -108,6 +108,57 @@ services:
       --models llama-3.3-70b-versatile
       --quick
 
+  # GPT-OSS 120B
+  benchmark-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --models openai/gpt-oss-120b
+      --quick
+
+  # GPT-OSS 20B
+  benchmark-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --models openai/gpt-oss-20b
+      --quick
+
+  # GPT-OSS (ambos 120B e 20B)
+  benchmark-gpt-oss:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --models openai/gpt-oss-120b,openai/gpt-oss-20b
+      --quick
+
   # ============================================================
   # BENCHMARKS POR TESTE (pré-configurados)
   # ============================================================

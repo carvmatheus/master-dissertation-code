@@ -18,6 +18,8 @@ Este módulo foca na análise comparativa de **Estratégias Não-Invasivas para 
 - `prompt_compression.py`: Módulo contendo as classes de compressão.
 - `context_strategies.py`: Módulo contendo lógicas de janelamento e segmentação.
 - `rig/`: Submódulo com o processador Dartboard para RAG híbrido.
+- `benchmarks/`: Módulo de benchmarks especializados para contexto longo.
+- `run_benchmarks.py`: Script principal para executar todos os benchmarks.
 
 ---
 
@@ -65,6 +67,47 @@ docker compose run --rm test
 ```
 
 Os testes usam mocks e **não precisam de API key real** nem de GPU.
+
+### Rodar Benchmarks de Contexto Longo
+
+Execute os benchmarks especializados (Needle-in-a-Haystack, RULER, LongBench):
+
+```bash
+# Benchmark completo com modelos padrão (requer GROQ_API_KEY)
+docker compose run --rm benchmark
+
+# Benchmark rápido (menos casos de teste)
+docker compose run --rm benchmark-quick
+
+# Benchmark mock (valida estrutura sem usar API)
+docker compose run --rm benchmark-mock
+```
+
+**Testar modelos específicos:**
+
+```bash
+docker compose run --rm benchmark \
+  python 01-context-extension-comparison/run_benchmarks.py \
+  --models llama-3.1-8b-instant,llama-3.3-70b-versatile \
+  --strategies raw,rig \
+  --quick
+```
+
+**Modelos Groq disponíveis:**
+- `llama-3.1-8b-instant` (rápido, menor)
+- `llama-3.3-70b-versatile` (maior, mais preciso)
+- `llama3-70b-8192` (legado)
+
+**Resultados salvos em `./benchmark_results/`:**
+- `benchmark_results.csv` - Todos os resultados detalhados
+- `benchmark_results.json` - Relatório completo com sumário
+- `comparison_table.csv` - Tabela estratégia × benchmark
+- `model_comparison.csv` - Tabela modelo × benchmark
+
+**Benchmarks implementados:**
+- **Needle-in-a-Haystack**: Recuperação de informação em posição aleatória
+- **RULER**: Mede o "tamanho real de contexto" expondo degradação posicional
+- **LongBench**: Tarefas de QA multi-documento e sumarização
 
 ---
 

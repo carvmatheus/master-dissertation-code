@@ -29,3 +29,44 @@ services:
     volumes:
       - ./.cache:/cache
     command: ["pytest", "tests/", "-v", "--tb=short"]
+
+  # Benchmark completo (requer GROQ_API_KEY no .env)
+  benchmark:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: ["python", "01-context-extension-comparison/run_benchmarks.py"]
+
+  # Benchmark rápido (menos casos de teste)
+  benchmark-quick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: ["python", "01-context-extension-comparison/run_benchmarks.py", "--quick"]
+
+  # Benchmark mock (sem API, para validar estrutura)
+  benchmark-mock:
+    build: .
+    image: master-dissertation-code:latest
+    environment:
+      GROQ_API_KEY: not-needed-for-mock
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: ["python", "01-context-extension-comparison/run_benchmarks.py", "--mock-only", "--quick"]

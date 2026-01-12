@@ -5,14 +5,10 @@ services:
     env_file:
       - .env
     environment:
-      # Optional override:
-      # GROQ_MODEL: llama3-70b-8192
       HF_HOME: /cache/huggingface
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
-      # Thesis/Overleaf repo mounted read-only inside container
       - ../_local_repo/00-master-thesis-overleaf-help:/data:ro
-      # Cache HF models so GPT-2 doesn't download every time
       - ./.cache:/cache
     stdin_open: true
     tty: true
@@ -22,7 +18,6 @@ services:
     build: .
     image: master-dissertation-code:latest
     environment:
-      # Variáveis fake para testes (mocks não precisam de chave real)
       GROQ_API_KEY: fake-key-for-tests
       HF_HOME: /cache/huggingface
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
@@ -30,7 +25,11 @@ services:
       - ./.cache:/cache
     command: ["pytest", "tests/", "-v", "--tb=short"]
 
-  # Benchmark completo (requer GROQ_API_KEY no .env)
+  # ============================================================
+  # BENCHMARKS
+  # ============================================================
+
+  # Benchmark completo (todos modelos + estratégias)
   benchmark:
     build: .
     image: master-dissertation-code:latest
@@ -70,3 +69,114 @@ services:
       - ./.cache:/cache
       - ./benchmark_results:/app/master-dissertation-code/benchmark_results
     command: ["python", "01-context-extension-comparison/run_benchmarks.py", "--mock-only", "--quick"]
+
+  # ============================================================
+  # BENCHMARKS POR MODELO (pré-configurados)
+  # ============================================================
+
+  # Llama 3.1 8B (rápido)
+  benchmark-llama8b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --models llama-3.1-8b-instant
+      --quick
+
+  # Llama 3.3 70B (mais preciso)
+  benchmark-llama70b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --models llama-3.3-70b-versatile
+      --quick
+
+  # ============================================================
+  # BENCHMARKS POR TESTE (pré-configurados)
+  # ============================================================
+
+  # Apenas Needle-in-a-Haystack
+  benchmark-needle:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --benchmarks needle_in_haystack
+      --quick
+
+  # Apenas RULER
+  benchmark-ruler:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --benchmarks ruler
+      --quick
+
+  # Apenas LongBench
+  benchmark-longbench:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --benchmarks longbench
+      --quick
+
+  # ============================================================
+  # BENCHMARK CUSTOMIZÁVEL (base para sobrescrever comando)
+  # ============================================================
+  
+  # Use: docker compose run --rm bench python 01-context-extension-comparison/run_benchmarks.py --models X --strategies Y --benchmarks Z
+  bench:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
+    working_dir: /app/master-dissertation-code

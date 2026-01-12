@@ -1,0 +1,3 @@
+Model,needle_in_haystack,ruler,longbench,Average
+llama3.1-8b,0.867,0.900,0.938,0.901
+llama3.3-70b,0.867,0.938,0.838,0.881

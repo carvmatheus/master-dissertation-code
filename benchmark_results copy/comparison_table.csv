@@ -1,0 +1,11 @@
+Strategy,needle_in_haystack,ruler,longbench,Average
+raw_llama3.1-8b,1.000,0.938,0.938,0.958
+sliding_window_llama3.1-8b,1.000,1.000,0.938,0.979
+parallel_window_llama3.1-8b,1.000,1.000,0.938,0.979
+semantic_compression_llama3.1-8b,0.333,0.562,0.938,0.611
+rig_llama3.1-8b,1.000,1.000,0.938,0.979
+raw_llama3.3-70b,1.000,1.000,1.000,1.000
+sliding_window_llama3.3-70b,1.000,1.000,0.938,0.979
+parallel_window_llama3.3-70b,1.000,1.000,0.938,0.979
+semantic_compression_llama3.3-70b,0.333,0.688,0.375,0.465
+rig_llama3.3-70b,1.000,1.000,0.938,0.979

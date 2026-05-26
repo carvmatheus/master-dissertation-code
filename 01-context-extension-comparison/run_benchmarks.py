@@ -46,15 +46,16 @@ from prompt_compression import GroqSemanticCompressor, PerplexityCompressor
 AVAILABLE_MODELS = [
     "llama-3.1-8b-instant",
     "llama-3.3-70b-versatile",
-    "llama3-70b-8192",  # modelo legado
     "openai/gpt-oss-120b",
     "openai/gpt-oss-20b",
 ]
 
-# Modelos padrão para testar
+# Modelos padrão para testar (todos os 4 ativos)
 DEFAULT_MODELS = [
     "llama-3.1-8b-instant",
     "llama-3.3-70b-versatile",
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
 ]
 
 # Modelos GPT-OSS

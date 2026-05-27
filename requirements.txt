@@ -1,4 +1,5 @@
 groq
+openai
 torch
 transformers
 numpy

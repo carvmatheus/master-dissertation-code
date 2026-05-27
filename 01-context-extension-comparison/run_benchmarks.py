@@ -6,15 +6,22 @@ Executa todos os benchmarks de contexto longo contra as estratégias implementad
 - Needle-in-a-Haystack
 - RULER
 - LongBench
+- BABILong, NarrativeQA, QASPER, InfiniteBench
 
-Suporta múltiplos modelos Groq para comparação cruzada.
+Suporta múltiplos provedores de LLM para comparação cruzada:
+  - Groq        (GROQ_API_KEY)       — 128K contexto, rápido
+  - Gemini      (GEMINI_API_KEY)     — 1M contexto, free tier Google AI Studio
+  - Cerebras    (CEREBRAS_API_KEY)   — 8K contexto free tier, altíssima velocidade
 
-Gera arquivos de comparação em CSV e JSON.
+Prefixos de modelo:
+  - "gemini-*"      → Google AI Studio
+  - "cerebras/*"    → Cerebras Inference
+  - qualquer outro  → Groq
 
 Uso:
     python run_benchmarks.py
+    python run_benchmarks.py --models gemini-2.5-flash,llama-3.3-70b-versatile
     python run_benchmarks.py --strategies raw,sliding_window
-    python run_benchmarks.py --models llama-3.1-8b-instant,llama-3.3-70b-versatile
     python run_benchmarks.py --benchmarks needle_in_haystack,ruler
     python run_benchmarks.py --output-dir ./results
     python run_benchmarks.py --quick  # Modo rápido com menos testes
@@ -47,37 +54,149 @@ from prompt_compression import GroqSemanticCompressor, PerplexityCompressor
 from rsaw import RSAWStrategy
 
 
-# Modelos Groq disponíveis para benchmark
-AVAILABLE_MODELS = [
+# ---------------------------------------------------------------------------
+# Modelos disponíveis por provedor
+# ---------------------------------------------------------------------------
+
+# Groq — contexto até 128K tokens
+GROQ_MODELS = [
     "llama-3.1-8b-instant",
     "llama-3.3-70b-versatile",
     "openai/gpt-oss-120b",
     "openai/gpt-oss-20b",
 ]
 
-# Modelos padrão para testar (todos os 4 ativos)
+# Google AI Studio (Gemini) — contexto até 1M tokens, gratuito
+GEMINI_MODELS = [
+    "gemini-2.5-flash",
+    "gemini-2.0-flash",
+]
+
+# Cerebras — free tier limita a 8K tokens de contexto; alta velocidade
+CEREBRAS_MODELS = [
+    "cerebras/llama-3.3-70b",
+    "cerebras/qwen3-32b",
+]
+
+AVAILABLE_MODELS = GROQ_MODELS + GEMINI_MODELS + CEREBRAS_MODELS
+
+# Modelos padrão para testar
 DEFAULT_MODELS = [
-    "llama-3.1-8b-instant",
     "llama-3.3-70b-versatile",
-    "openai/gpt-oss-120b",
-    "openai/gpt-oss-20b",
-]
-
-# Modelos GPT-OSS
-GPT_OSS_MODELS = [
-    "openai/gpt-oss-120b",
-    "openai/gpt-oss-20b",
+    "gemini-2.5-flash",
 ]
 
 
-# Limite de chars por modelo (aprox. 75% da janela de contexto para deixar espaço ao prompt)
+# Limite de chars por modelo (≈ 75% da janela de contexto disponível)
 MODEL_CONTEXT_CHAR_LIMITS = {
-    "llama-3.1-8b-instant":    384_000,  # 128K tokens
-    "llama-3.3-70b-versatile": 384_000,  # 128K tokens
-    "openai/gpt-oss-120b":      24_000,  # ~8K tokens (limite observado empiricamente)
+    # Groq
+    "llama-3.1-8b-instant":    384_000,   # 128K tokens
+    "llama-3.3-70b-versatile": 384_000,   # 128K tokens
+    "openai/gpt-oss-120b":      24_000,   # ~8K (limite empírico no Groq)
     "openai/gpt-oss-20b":       24_000,
+    # Gemini (Google AI Studio) — 1M tokens × 3 chars/token × 75%
+    "gemini-2.5-flash":       2_250_000,
+    "gemini-2.0-flash":       2_250_000,
+    # Cerebras — free tier: 8K tokens
+    "cerebras/llama-3.3-70b":   18_000,
+    "cerebras/qwen3-32b":       18_000,
 }
 DEFAULT_CONTEXT_CHAR_LIMIT = 96_000  # fallback seguro
+
+
+def create_openai_compatible_strategy(
+    model: str,
+    base_url: str,
+    api_key_env: str,
+    char_limit: int,
+    model_id: str | None = None,
+) -> Callable[[str, str], str]:
+    """
+    Estratégia genérica para APIs compatíveis com OpenAI (Gemini, Cerebras, etc.).
+
+    Args:
+        model:       nome lógico do modelo (usado em logs)
+        base_url:    endpoint OpenAI-compatible do provedor
+        api_key_env: nome da variável de ambiente com a API key
+        char_limit:  máximo de caracteres no contexto
+        model_id:    ID real do modelo para a API (padrão: igual a model)
+    """
+    import time
+    from openai import OpenAI
+
+    api_key = os.environ.get(api_key_env)
+    if not api_key:
+        raise ValueError(f"{api_key_env} não definida no ambiente")
+
+    client = OpenAI(api_key=api_key, base_url=base_url)
+    actual_model = model_id or model
+
+    def strategy_fn(context: str, query: str) -> str:
+        if len(context) > char_limit:
+            logger.warning(f"[{model}] Contexto truncado: {len(context)} → {char_limit} chars")
+            context = context[:char_limit]
+
+        prompt = (
+            "Baseado no contexto abaixo, responda a pergunta de forma direta e concisa.\n\n"
+            f"CONTEXTO:\n{context}\n\nPERGUNTA: {query}\n\nRESPOSTA:"
+        )
+
+        base_wait = 5.0
+        for attempt in range(5):
+            try:
+                response = client.chat.completions.create(
+                    messages=[{"role": "user", "content": prompt}],
+                    model=actual_model,
+                    temperature=0,
+                    max_tokens=500,
+                )
+                return response.choices[0].message.content.strip()
+            except Exception as e:
+                err_str = str(e)
+                is_rate_limit = "429" in err_str or "rate_limit" in err_str.lower() or "quota" in err_str.lower()
+                if is_rate_limit:
+                    wait = base_wait * (2 ** attempt)
+                    logger.warning(f"[{model}] Rate limit (tentativa {attempt+1}/5). Aguardando {wait:.0f}s…")
+                    time.sleep(wait)
+                else:
+                    logger.error(f"[{model}] Erro na API: {type(e).__name__}: {e}")
+                    return f"[Erro: {e}]"
+        logger.error(f"[{model}] Rate limit persistente após 5 tentativas.")
+        return "[Erro: rate limit]"
+
+    return strategy_fn
+
+
+def create_gemini_strategy(model: str) -> Callable[[str, str], str]:
+    """Estratégia para Google AI Studio (Gemini) — contexto até 1M tokens."""
+    return create_openai_compatible_strategy(
+        model=model,
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        api_key_env="GEMINI_API_KEY",
+        char_limit=MODEL_CONTEXT_CHAR_LIMITS.get(model, DEFAULT_CONTEXT_CHAR_LIMIT),
+    )
+
+
+def create_cerebras_strategy(model: str) -> Callable[[str, str], str]:
+    """Estratégia para Cerebras Inference — free tier limitado a 8K tokens."""
+    # Remove prefixo "cerebras/" para o ID real na API
+    model_id = model.removeprefix("cerebras/")
+    return create_openai_compatible_strategy(
+        model=model,
+        base_url="https://api.cerebras.ai/v1",
+        api_key_env="CEREBRAS_API_KEY",
+        char_limit=MODEL_CONTEXT_CHAR_LIMITS.get(model, DEFAULT_CONTEXT_CHAR_LIMIT),
+        model_id=model_id,
+    )
+
+
+def _route_api_strategy(model: str) -> Callable[[str, str], str]:
+    """Seleciona a função de estratégia correta de acordo com o prefixo do modelo."""
+    if model.startswith("gemini-"):
+        return create_gemini_strategy(model)
+    if model.startswith("cerebras/"):
+        return create_cerebras_strategy(model)
+    return create_groq_strategy(model)
 
 
 def create_groq_strategy(model: str) -> Callable[[str, str], str]:
@@ -157,10 +276,8 @@ def create_groq_strategy(model: str) -> Callable[[str, str], str]:
 
 
 def create_raw_strategy(model: str) -> Callable[[str, str], str]:
-    """
-    Estratégia baseline: envia contexto bruto para o LLM.
-    """
-    return create_groq_strategy(model)
+    """Estratégia baseline: envia contexto bruto para o LLM."""
+    return _route_api_strategy(model)
 
 
 def create_sliding_window_strategy(
@@ -175,7 +292,7 @@ def create_sliding_window_strategy(
     contextos longos sem se limitar apenas ao começo.
     """
     slider = SlidingWindowStrategy(chunk_size=chunk_size, overlap=overlap)
-    base_fn = create_groq_strategy(model)
+    base_fn = _route_api_strategy(model)
 
     def strategy_fn(context: str, query: str) -> str:
         chunks = slider.process(context, query)
@@ -201,7 +318,7 @@ def create_parallel_window_strategy(
     Distribui chunks ao longo do documento para cobrir contextos longos.
     """
     slider = ParallelWindowStrategy(chunk_size=chunk_size)
-    base_fn = create_groq_strategy(model)
+    base_fn = _route_api_strategy(model)
 
     def strategy_fn(context: str, query: str) -> str:
         chunks = slider.process(context, query)
@@ -224,7 +341,7 @@ def create_semantic_compression_strategy(
     Estratégia com compressão semântica via LLM.
     """
     compressor = GroqSemanticCompressor(model_name=model)
-    base_fn = create_groq_strategy(model)
+    base_fn = _route_api_strategy(model)
     
     def strategy_fn(context: str, query: str) -> str:
         compressed = compressor.compress(context, compression_ratio)
@@ -244,7 +361,7 @@ def create_rig_strategy(
     Estratégia RIG com Dartboard ranking.
     """
     rig = RIGStrategy(top_k=top_k, alpha=alpha, beta=beta, gamma=gamma)
-    base_fn = create_groq_strategy(model)
+    base_fn = _route_api_strategy(model)
     
     def strategy_fn(context: str, query: str) -> str:
         chunks = rig.process(context, query)
@@ -281,7 +398,7 @@ def create_rsaw_strategy(model: str) -> Callable[[str, str], str]:
         gamma=cfg["gamma"],
         summarizer_model=model,
     )
-    base_fn = create_groq_strategy(model)
+    base_fn = _route_api_strategy(model)
 
     def strategy_fn(context: str, query: str) -> str:
         chunks = rsaw.process(context, query)
@@ -328,11 +445,15 @@ def get_model_short_name(model: str) -> str:
     
     # Simplifica nomes longos
     replacements = {
-        "llama-3.1-8b-instant": "llama3.1-8b",
+        "llama-3.1-8b-instant":    "llama3.1-8b",
         "llama-3.3-70b-versatile": "llama3.3-70b",
-        "llama3-70b-8192": "llama3-70b",
-        "openai/gpt-oss-120b": "gpt-oss-120b",
-        "openai/gpt-oss-20b": "gpt-oss-20b",
+        "llama3-70b-8192":         "llama3-70b",
+        "openai/gpt-oss-120b":     "gpt-oss-120b",
+        "openai/gpt-oss-20b":      "gpt-oss-20b",
+        "gemini-2.5-flash":        "gemini-2.5-flash",
+        "gemini-2.0-flash":        "gemini-2.0-flash",
+        "cerebras/llama-3.3-70b":  "cb-llama3.3-70b",
+        "cerebras/qwen3-32b":      "cb-qwen3-32b",
     }
     
     return replacements.get(model, short)
@@ -347,7 +468,10 @@ def parse_args() -> argparse.Namespace:
         "--models",
         type=str,
         default=",".join(DEFAULT_MODELS),
-        help=f"Modelos Groq a testar (comma-separated). Disponíveis: {', '.join(AVAILABLE_MODELS)}"
+        help=(
+            f"Modelos a testar (comma-separated). Disponíveis: {', '.join(AVAILABLE_MODELS)}. "
+            "Prefixo 'gemini-*' usa GEMINI_API_KEY; 'cerebras/*' usa CEREBRAS_API_KEY; demais usam GROQ_API_KEY."
+        )
     )
     
     parser.add_argument(
@@ -453,7 +577,7 @@ def main():
                     traceback.print_exc()
     
     if not runner.strategies:
-        print("ERRO: Nenhuma estratégia registrada. Verifique GROQ_API_KEY ou use --mock-only")
+        print("ERRO: Nenhuma estratégia registrada. Verifique GROQ_API_KEY / GEMINI_API_KEY / CEREBRAS_API_KEY ou use --mock-only")
         sys.exit(1)
     
     # Configuração dos benchmarks

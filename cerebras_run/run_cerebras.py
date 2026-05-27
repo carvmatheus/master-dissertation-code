@@ -146,7 +146,8 @@ def create_cerebras_llm(model_id: str, char_limit: int) -> Callable[[str, str], 
                         max_tokens=500,
                     )
                 response = _rate_limited_call(_api_call)
-                return response.choices[0].message.content.strip()
+                content = response.choices[0].message.content
+                return content.strip() if content else ""
             except Exception as e:
                 err = str(e)
                 is_rate_limit = "429" in err or "rate_limit" in err.lower()

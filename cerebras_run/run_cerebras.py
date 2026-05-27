@@ -315,7 +315,8 @@ FULL_CONFIGS = {
     "needle_in_haystack": {"num_paragraphs": 20, "num_needles": 3, "positions": ["start", 0.25, "middle", 0.75, "end"]},
     "ruler":              {"context_sizes": [10, 25, 50], "num_facts_per_context": 3},
     "longbench":          {"num_qa_cases": 5},
-    "babilong":           {"context_lengths": ["4k", "8k", "16k", "32k"], "tasks": ["qa1", "qa2"], "num_examples_per_config": 3},
+    # BABILong: limitado a 4k/8k para respeitar rate limits do Cerebras free tier
+    "babilong":           {"context_lengths": ["4k", "8k"], "tasks": ["qa1", "qa2"], "num_examples_per_config": 3},
     "narrativeqa":        {"num_examples": 20},
     "qasper":             {"num_examples": 20},
     "infinitebench":      {"task": "En.QA", "num_examples": 10},
@@ -329,28 +330,48 @@ def run_model_benchmark(
     strategies: Dict[str, Callable],
     bench_kwargs: dict,
     results_root: Path,
+    max_context_chars: int = 0,
 ):
-    """Roda um benchmark com todas as estratégias para um modelo e salva resultados."""
+    """Roda um benchmark com todas as estratégias para um modelo e salva resultados.
+
+    Args:
+        max_context_chars: descarta casos de teste cujo contexto exceda este limite.
+                           0 = sem filtro (usa o char_limit do modelo como padrão).
+    """
     output_dir = results_root / model_short / benchmark_name
 
     print(f"\n{'='*70}")
     print(f"  Modelo    : {model_id}")
     print(f"  Benchmark : {benchmark_name}")
     print(f"  Estratégias: {', '.join(strategies.keys())}")
+    print(f"  Max chars : {max_context_chars:,}" if max_context_chars else "  Max chars : sem filtro")
     print(f"  Saída     : {output_dir}")
     print(f"{'='*70}")
 
     benchmark = ALL_BENCHMARKS[benchmark_name]()
+
+    # Gera casos e filtra por tamanho de contexto
+    all_cases = benchmark.generate_test_cases(**bench_kwargs)
+    if max_context_chars > 0:
+        before = len(all_cases)
+        all_cases = [tc for tc in all_cases if len(tc.context) <= max_context_chars]
+        dropped = before - len(all_cases)
+        if dropped:
+            print(f"  Filtro: {dropped} caso(s) descartado(s) (contexto > {max_context_chars:,} chars). Restam {len(all_cases)}.")
+
+    if not all_cases:
+        print("  Nenhum caso de teste dentro do limite. Pulando.")
+        return
+
     all_results = []
 
     for strat_name, strat_fn in strategies.items():
         print(f"\n  >> Estratégia: {strat_name}")
         try:
-            results = benchmark.run_all(
-                strategy_fn=strat_fn,
-                strategy_name=strat_name,
-                **bench_kwargs,
-            )
+            results = [
+                benchmark.run_single(tc, strat_fn, strat_name)
+                for tc in all_cases
+            ]
             all_results.extend(results)
 
             avg_score = sum(r.score for r in results) / len(results) if results else 0
@@ -403,6 +424,15 @@ def parse_args():
         action="store_true",
         help="Modo rápido com menos casos de teste",
     )
+    parser.add_argument(
+        "--max-context-chars",
+        type=int,
+        default=0,
+        help=(
+            "Descarta casos de teste com contexto maior que N chars. "
+            "0 = usa o char_limit do modelo automaticamente."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -445,6 +475,9 @@ def main():
             print(f"ERRO ao inicializar modelo '{model_id}': {e}")
             continue
 
+        # max_context_chars: usa valor do CLI ou char_limit do modelo como padrão
+        max_chars = args.max_context_chars if args.max_context_chars > 0 else char_limit
+
         for benchmark_name in benchmarks_to_run:
             bench_kwargs = bench_configs.get(benchmark_name, {})
             run_model_benchmark(
@@ -454,6 +487,7 @@ def main():
                 strategies=strategies,
                 bench_kwargs=bench_kwargs,
                 results_root=results_root,
+                max_context_chars=max_chars,
             )
 
     print("\n\n" + "=" * 70)

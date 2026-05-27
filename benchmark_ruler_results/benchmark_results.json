@@ -1,0 +1,3320 @@
+{
+  "timestamp": "2026-05-26T16:21:11.310326",
+  "strategies": [
+    "raw_llama3.1-8b",
+    "sliding_window_llama3.1-8b",
+    "parallel_window_llama3.1-8b",
+    "semantic_compression_llama3.1-8b",
+    "rig_llama3.1-8b"
+  ],
+  "benchmarks": [
+    "needle_in_haystack",
+    "ruler",
+    "longbench"
+  ],
+  "results": [
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 306.5023330000258,
+      "response": "O valor do parâmetro 1 foi configurado como 90.69.",
+      "expected": "90.69",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 740
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 231.967582999971,
+      "response": "A chave de acesso para o sistema 2 é KEY-4611-BETA.",
+      "expected": "KEY-4611-BETA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 740
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 224.52770899997176,
+      "response": "O valor do parâmetro 3 foi configurado como 36.00.",
+      "expected": "36.00",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 740
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 328.4443750000037,
+      "response": "A chave de acesso para o sistema 1 é KEY-9785-ALPHA.",
+      "expected": "KEY-9785-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 277.99604199998385,
+      "response": "A chave de acesso para o sistema 2 é KEY-2291-GAMMA.",
+      "expected": "KEY-2291-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 223.51145899995117,
+      "response": "A chave de acesso para o sistema 3 é KEY-6925-GAMMA.",
+      "expected": "KEY-6925-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 346.7071670000337,
+      "response": "A chave de acesso para o sistema 1 é KEY-2169-GAMMA.",
+      "expected": "KEY-2169-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 712
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 3267.6920850000215,
+      "response": "22.68",
+      "expected": "22.68",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 712
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 7473.437212000022,
+      "response": "O valor do parâmetro 3 foi configurado como 32.20.",
+      "expected": "32.20",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 712
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 231.4885419999655,
+      "response": "64.50",
+      "expected": "64.50",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 715
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 1476.2098340000307,
+      "response": "59.18",
+      "expected": "59.18",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 715
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 2401.3459600000147,
+      "response": "A chave de acesso para o sistema 3 é KEY-3287-ALPHA.",
+      "expected": "KEY-3287-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 715
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 5378.762669000025,
+      "response": "A chave de acesso para o sistema 1 é KEY-3646-GAMMA.",
+      "expected": "KEY-3646-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1625
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 5472.147210000003,
+      "response": "O valor do parâmetro 2 foi configurado como 1.76.",
+      "expected": "1.76",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1625
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 4365.520960999958,
+      "response": "A chave de acesso para o sistema 3 é KEY-9005-ALPHA.",
+      "expected": "KEY-9005-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1625
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 5451.039169000012,
+      "response": "A chave de acesso para o sistema 1 é KEY-2160-GAMMA.",
+      "expected": "KEY-2160-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1627
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 6307.680502999972,
+      "response": "ID-46500.",
+      "expected": "ID-46500",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1627
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 4382.303209999975,
+      "response": "O valor do parâmetro 3 foi configurado como 63.27.",
+      "expected": "63.27",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1627
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 5324.847503000001,
+      "response": "A chave de acesso para o sistema 1 é KEY-1960-ALPHA.",
+      "expected": "KEY-1960-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 5486.000085000001,
+      "response": "A chave de acesso para o sistema 2 é KEY-1035-BETA.",
+      "expected": "KEY-1035-BETA",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 5539.786794000009,
+      "response": "A chave de acesso para o sistema 3 é KEY-8454-BETA.",
+      "expected": "KEY-8454-BETA",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 4298.887334999961,
+      "response": "ID-11220.",
+      "expected": "ID-11220",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 5476.157585999999,
+      "response": "A chave de acesso para o sistema 2 é KEY-2638-ALPHA.",
+      "expected": "KEY-2638-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 5423.931044999961,
+      "response": "28.64",
+      "expected": "28.64",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 8812.293627999963,
+      "response": "O valor do parâmetro 1 foi configurado como 14.48.",
+      "expected": "14.48",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 3115
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 8840.98858699997,
+      "response": "ID-71694.",
+      "expected": "ID-71694",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 3115
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 8869.105421000086,
+      "response": "ID-36158.",
+      "expected": "ID-36158",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 3115
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 8341.771461999997,
+      "response": "O valor do parâmetro 1 foi configurado como 99.09.",
+      "expected": "99.09",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 2985
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 8411.026837999998,
+      "response": "A chave de acesso para o sistema 2 é KEY-7790-GAMMA.",
+      "expected": "KEY-7790-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 2985
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 9512.498128999938,
+      "response": "O valor do parâmetro 3 foi configurado como 25.91.",
+      "expected": "25.91",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 2985
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 8484.354212000086,
+      "response": "A chave de acesso para o sistema 1 é KEY-3091-GAMMA.",
+      "expected": "KEY-3091-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 8587.56346200005,
+      "response": "O valor do parâmetro 2 foi configurado como 4.50.",
+      "expected": "4.50",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 9538.898463000009,
+      "response": "O valor do parâmetro 3 foi configurado como 73.84.",
+      "expected": "73.84",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 8389.913254000021,
+      "response": "ID-46559.",
+      "expected": "ID-46559",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 3043
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 8515.057920000003,
+      "response": "A chave de acesso para o sistema 2 é KEY-4995-BETA.",
+      "expected": "KEY-4995-BETA",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 3043
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "raw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 8349.803129000065,
+      "response": "O valor do parâmetro 3 foi configurado como 79.85.",
+      "expected": "79.85",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 3043
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 3414.2958349999617,
+      "response": "ID-63271.",
+      "expected": "ID-63271",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 717
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 2273.017459000016,
+      "response": "A chave de acesso para o sistema 2 é KEY-4937-GAMMA.",
+      "expected": "KEY-4937-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 717
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 3335.4276679999657,
+      "response": "A chave de acesso para o sistema 3 é KEY-9041-BETA.",
+      "expected": "KEY-9041-BETA",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 717
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 0.0,
+      "latency_ms": 2265.1702090000754,
+      "response": "O valor do parâmetro 1 é 25,40.",
+      "expected": "25.40",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 698
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 3428.2503350000297,
+      "response": "ID-80236.",
+      "expected": "ID-80236",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 698
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 2523.3020010000473,
+      "response": "24.24",
+      "expected": "24.24",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 698
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 3322.885584000005,
+      "response": "A chave de acesso para o sistema 1 é KEY-3068-GAMMA.",
+      "expected": "KEY-3068-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 756
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 2253.816583999992,
+      "response": "A chave de acesso para o sistema 2 é KEY-2680-ALPHA.",
+      "expected": "KEY-2680-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 756
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 3354.4754589999,
+      "response": "37.60",
+      "expected": "37.60",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 756
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 2260.481917999982,
+      "response": "O valor do parâmetro 1 é 98.53.",
+      "expected": "98.53",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 3456.5835839999863,
+      "response": "77.79",
+      "expected": "77.79",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 2299.26879300001,
+      "response": "ID-78494.",
+      "expected": "ID-78494",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 5309.0378780000265,
+      "response": "ID-31747.",
+      "expected": "ID-31747",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1603
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 5372.838503000025,
+      "response": "A chave de acesso para o sistema 2 é KEY-5728-BETA.",
+      "expected": "KEY-5728-BETA",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1603
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 5478.441960000055,
+      "response": "ID-71433.",
+      "expected": "ID-71433",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1603
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 4323.352918000069,
+      "response": "52.97",
+      "expected": "52.97",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1604
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 5331.984669999997,
+      "response": "O valor do parâmetro 2 foi configurado como 5.58.",
+      "expected": "5.58",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1604
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 5314.149003000011,
+      "response": "ID-51224.",
+      "expected": "ID-51224",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1604
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 5434.966168999949,
+      "response": "A chave de acesso para o sistema 1 é KEY-8736-ALPHA.",
+      "expected": "KEY-8736-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1637
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 4352.197002000025,
+      "response": "A chave de acesso para o sistema 2 é KEY-3369-BETA.",
+      "expected": "KEY-3369-BETA",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1637
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 5418.695377000063,
+      "response": "ID-88561.",
+      "expected": "ID-88561",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1637
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 5594.914170000038,
+      "response": "19.52",
+      "expected": "19.52",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1578
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 4294.784418999939,
+      "response": "20.09",
+      "expected": "20.09",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1578
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 5443.872795000061,
+      "response": "A chave de acesso para o sistema 3 é KEY-5342-BETA.",
+      "expected": "KEY-5342-BETA",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1578
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 8453.730711999924,
+      "response": "ID-89569.",
+      "expected": "ID-89569",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 3035
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 8461.39487800008,
+      "response": "A chave de acesso para o sistema 2 é KEY-4588-GAMMA.",
+      "expected": "KEY-4588-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 3035
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 9437.872629000027,
+      "response": "O identificador único do registro 3 é ID-91381.",
+      "expected": "ID-91381",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 3035
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 8516.380503999926,
+      "response": "A chave de acesso para o sistema 1 é KEY-8285-ALPHA.",
+      "expected": "KEY-8285-ALPHA",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 3032
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 8522.443586999998,
+      "response": "A chave de acesso para o sistema 2 é KEY-2627-GAMMA.",
+      "expected": "KEY-2627-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 3032
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 9639.938336999989,
+      "response": "A chave de acesso para o sistema 3 é KEY-9920-GAMMA.",
+      "expected": "KEY-9920-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 3032
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 8459.02417000002,
+      "response": "A chave de acesso para o sistema 1 é KEY-2557-BETA.",
+      "expected": "KEY-2557-BETA",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3073
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 9388.034379000033,
+      "response": "A chave de acesso para o sistema 2 é KEY-6120-GAMMA.",
+      "expected": "KEY-6120-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3073
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 8508.482253000011,
+      "response": "A chave de acesso para o sistema 3 é KEY-7132-ALPHA.",
+      "expected": "KEY-7132-ALPHA",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3073
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 9639.656962999994,
+      "response": "O valor do parâmetro 1 foi configurado como 40.05.",
+      "expected": "40.05",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 3057
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 8496.431087000019,
+      "response": "ID-61807.",
+      "expected": "ID-61807",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 3057
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "sliding_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 8466.499878000035,
+      "response": "O valor do parâmetro 3 foi configurado como 8.00.",
+      "expected": "8.00",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 3057
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 2344.743167000047,
+      "response": "A chave de acesso para o sistema 1 é KEY-1693-BETA.",
+      "expected": "KEY-1693-BETA",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 718
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 3347.6528350000763,
+      "response": "ID-70260.",
+      "expected": "ID-70260",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 718
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 2459.5404590000953,
+      "response": "ID-51033.",
+      "expected": "ID-51033",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 718
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 3305.6177509999998,
+      "response": "A chave de acesso para o sistema 1 é KEY-7560-GAMMA.",
+      "expected": "KEY-7560-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 714
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 2446.736918000056,
+      "response": "ID-61873.",
+      "expected": "ID-61873",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 714
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 3585.70208499998,
+      "response": "A chave de acesso para o sistema 3 é KEY-6562-ALPHA.",
+      "expected": "KEY-6562-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 714
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 2245.038000999898,
+      "response": "10.22",
+      "expected": "10.22",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 763
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 3378.3312520000663,
+      "response": "64.59",
+      "expected": "64.59",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 763
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 2499.5195430000194,
+      "response": "O valor do parâmetro 3 foi configurado como 98.74.",
+      "expected": "98.74",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 763
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 3345.5735430000004,
+      "response": "ID-17456.",
+      "expected": "ID-17456",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 722
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 2422.2175419999985,
+      "response": "KEY-5703-ALPHA.",
+      "expected": "KEY-5703-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 722
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 2312.937626000007,
+      "response": "12.78",
+      "expected": "12.78",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 722
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 5301.963543999932,
+      "response": "A chave de acesso para o sistema 1 é KEY-6082-GAMMA.",
+      "expected": "KEY-6082-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1617
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 5306.892752999943,
+      "response": "O valor do parâmetro 2 foi configurado como 85.50.",
+      "expected": "85.50",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1617
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 5442.07308600005,
+      "response": "ID-87993.",
+      "expected": "ID-87993",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1617
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 4289.961084999959,
+      "response": "A chave de acesso para o sistema 1 é KEY-8355-ALPHA.",
+      "expected": "KEY-8355-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1612
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 5552.346876999991,
+      "response": "O valor do parâmetro 2 foi configurado como 31.39.",
+      "expected": "31.39",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1612
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 6043.506378000075,
+      "response": "A chave de acesso para o sistema 3 é KEY-4178-BETA.",
+      "expected": "KEY-4178-BETA",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1612
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 4460.143919000075,
+      "response": "ID-51770.",
+      "expected": "ID-51770",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 4440.581003000034,
+      "response": "ID-95191.",
+      "expected": "ID-95191",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 5522.996878000072,
+      "response": "A chave de acesso para o sistema 3 é KEY-3392-ALPHA.",
+      "expected": "KEY-3392-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 5414.1924609999705,
+      "response": "A chave de acesso para o sistema 1 é KEY-1713-GAMMA.",
+      "expected": "KEY-1713-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1624
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 5428.138628000056,
+      "response": "A chave de acesso para o sistema 2 é KEY-7116-BETA.",
+      "expected": "KEY-7116-BETA",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1624
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 4365.9619190000285,
+      "response": "O valor do parâmetro 3 foi configurado como 3.45.",
+      "expected": "3.45",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1624
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 10094.496755000022,
+      "response": "O valor do parâmetro 1 é 87.56.",
+      "expected": "87.56",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 3040
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 7348.122170000011,
+      "response": "ID-26545.",
+      "expected": "ID-26545",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 3040
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 8401.949044999925,
+      "response": "ID-40932.",
+      "expected": "ID-40932",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 3040
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 9369.595962999938,
+      "response": "ID-66704.",
+      "expected": "ID-66704",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 3065
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 8648.035046000019,
+      "response": "O valor do parâmetro 2 foi configurado como 8.15.",
+      "expected": "8.15",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 3065
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 8454.567461999999,
+      "response": "O valor do parâmetro 3 foi configurado como 20.38.",
+      "expected": "20.38",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 3065
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 9389.966546000096,
+      "response": "ID-38199.",
+      "expected": "ID-38199",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3047
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 8417.174295999985,
+      "response": "O valor do parâmetro 2 foi configurado como 46.06.",
+      "expected": "46.06",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3047
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 9129.07475499992,
+      "response": "ID-46877.",
+      "expected": "ID-46877",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3047
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 8395.091586999912,
+      "response": "O valor do parâmetro 1 foi configurado como 100.78.",
+      "expected": "100.78",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 3045
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 8392.851712000038,
+      "response": "A chave de acesso para o sistema 2 é KEY-2020-GAMMA.",
+      "expected": "KEY-2020-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 3045
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "parallel_window_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 8588.081336999949,
+      "response": "ID-77984.",
+      "expected": "ID-77984",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 3045
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 0.0,
+      "latency_ms": 5554.81837800005,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 1.",
+      "expected": "39.28",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 703
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 5836.619127000063,
+      "response": "A chave de acesso para o sistema 2 é KEY-5735-GAMMA.",
+      "expected": "KEY-5735-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 703
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 0.0,
+      "latency_ms": 6028.458877000048,
+      "response": "Não há informações sobre o identificador único do registro 3 no contexto fornecido.",
+      "expected": "ID-74094",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 703
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 0.0,
+      "latency_ms": 5959.2809199998555,
+      "response": "Infelizmente, não há informações suficientes no contexto fornecido para determinar a chave de acesso para o sistema 1. A resposta não está relacionada ao contexto fornecido.",
+      "expected": "KEY-5201-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 6087.417585999901,
+      "response": "Não há informação sobre a chave de acesso para o sistema 2 no contexto fornecido. Apenas são mencionadas as chaves de acesso KEY-5201-GAMMA e KEY-4505-ALPHA.",
+      "expected": "KEY-4505-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 0.0,
+      "latency_ms": 6859.555837000016,
+      "response": "Não há informações suficientes para determinar o valor do parâmetro 3. O contexto fornece informações sobre o processo de backup, a base de dados, eventos de segurança e utilização do servidor, mas não menciona o parâmetro 3.",
+      "expected": "35.71",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 5615.310959999988,
+      "response": "21.52",
+      "expected": "21.52",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 6086.7355020000105,
+      "response": "61.61",
+      "expected": "61.61",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 0.0,
+      "latency_ms": 4938.862377000078,
+      "response": "Infelizmente, não há informações suficientes no contexto para determinar o valor do parâmetro 3.",
+      "expected": "26.96",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 0.0,
+      "latency_ms": 5859.463253000058,
+      "response": "Infelizmente, não há informações suficientes no contexto fornecido para determinar a chave de acesso para o sistema 1. A resposta não está disponível.",
+      "expected": "KEY-4052-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 6807.392629000105,
+      "response": "KEY-1613-ALPHA",
+      "expected": "KEY-1613-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 6746.880752000152,
+      "response": "KEY-2758-BETA",
+      "expected": "KEY-2758-BETA",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 0.0,
+      "latency_ms": 10243.023255000026,
+      "response": "O valor do parâmetro 1 é 93,73.",
+      "expected": "93.73",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1572
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 0.0,
+      "latency_ms": 9098.502420999921,
+      "response": "Infelizmente, não há informações suficientes no contexto para determinar o identificador único do registro 2. O contexto fornece informações sobre a base de dados, transações, taxa de utilização do servidor, tempo de resposta, eventos de segurança, processo de backup e capacidade de armazenamento, mas não menciona o identificador único dos registros.",
+      "expected": "ID-44282",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1572
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 11396.77629599987,
+      "response": "47.88",
+      "expected": "47.88",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1572
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 0.0,
+      "latency_ms": 9258.928504999858,
+      "response": "Infelizmente, não há informações sobre o identificador único do registro 1 no contexto fornecido.",
+      "expected": "ID-69432",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1580
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 0.0,
+      "latency_ms": 8162.872836999895,
+      "response": "Infelizmente, não há informações suficientes no contexto para determinar o identificador único do registro 2. O contexto fornece informações sobre a base de dados, a capacidade de armazenamento, a taxa de utilização do servidor, tempo de resposta, eventos de segurança, transações, backup e taxas de utilização do servidor, mas não menciona nada sobre identificadores únicos de registros.",
+      "expected": "ID-77272",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1580
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 10111.915296000006,
+      "response": "A chave de acesso para o sistema 3 é KEY-8484-GAMMA.",
+      "expected": "KEY-8484-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1580
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 0.0,
+      "latency_ms": 10170.73229599987,
+      "response": "Infelizmente, não há informações suficientes no contexto para determinar o identificador único do registro 1. O contexto fornece informações sobre o número total de registros processados, a taxa de utilização do servidor e a capacidade de armazenamento utilizada, mas não menciona o identificador único de nenhum registro em particular.",
+      "expected": "ID-10455",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1642
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 0.0,
+      "latency_ms": 10001.585088999946,
+      "response": "Não há informação sobre o identificador único do registro 2 no contexto fornecido.",
+      "expected": "ID-49107",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1642
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 8345.455169999923,
+      "response": "A chave de acesso para o sistema 3 é KEY-9920-BETA.",
+      "expected": "KEY-9920-BETA",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1642
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 10607.70271299998,
+      "response": "55.71",
+      "expected": "55.71",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1622
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 10167.724378999992,
+      "response": "Infelizmente, não há nenhuma informação no contexto fornecido que indique a chave de acesso para o sistema 2. A resposta é desconhecida.",
+      "expected": "KEY-1768-BETA",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1622
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 9955.951087999892,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 3.",
+      "expected": "86.48",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1622
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 0.0,
+      "latency_ms": 14360.258880999936,
+      "response": "Infelizmente, não há informações suficientes no contexto para determinar o identificador único do registro 1.",
+      "expected": "ID-75444",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 2980
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 0.0,
+      "latency_ms": 16479.281840000112,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 2.",
+      "expected": "84.87",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 2980
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 14193.660131999877,
+      "response": "A chave de acesso para o sistema 3 é KEY-5216-BETA.",
+      "expected": "KEY-5216-BETA",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 2980
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 0.0,
+      "latency_ms": 16509.46309100004,
+      "response": "Infelizmente, não há informações suficientes no contexto para determinar o identificador único do registro 1.",
+      "expected": "ID-99709",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 3081
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 0.0,
+      "latency_ms": 10065.091380000013,
+      "response": "Não há informações sobre a chave de acesso para o sistema 2 no contexto fornecido.",
+      "expected": "KEY-9897-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 3081
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 14129.019923999977,
+      "response": "O valor do parâmetro 3 é 5.22.",
+      "expected": "5.22",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 3081
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 16317.992090000189,
+      "response": "ID-45247.",
+      "expected": "ID-45247",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 14592.786340000202,
+      "response": "A chave de acesso para o sistema 2 é KEY-5397-BETA.",
+      "expected": "KEY-5397-BETA",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 16632.565298999907,
+      "response": "ID-18292.",
+      "expected": "ID-18292",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 14484.227174000125,
+      "response": "A chave de acesso para o sistema 1 é KEY-8052-ALPHA.",
+      "expected": "KEY-8052-ALPHA",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 2974
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 15532.662257000084,
+      "response": "ID-22924.",
+      "expected": "ID-22924",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 2974
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "semantic_compression_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 17264.468882000074,
+      "response": "A chave de acesso para o sistema 3 é KEY-4637-GAMMA.",
+      "expected": "KEY-4637-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 2974
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 4362.591543999997,
+      "response": "A chave de acesso para o sistema 1 é KEY-4389-GAMMA.",
+      "expected": "KEY-4389-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 750
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 1398.6312929998803,
+      "response": "A chave de acesso para o sistema 2 é KEY-6706-BETA.",
+      "expected": "KEY-6706-BETA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 750
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 2444.758085000103,
+      "response": "ID-67431.",
+      "expected": "ID-67431",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 750
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 3554.249835000064,
+      "response": "55.59",
+      "expected": "55.59",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 3436.4824179999687,
+      "response": "ID-63090.",
+      "expected": "ID-63090",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 2354.43920900002,
+      "response": "24.23",
+      "expected": "24.23",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 3499.418667999862,
+      "response": "A chave de acesso para o sistema 1 é KEY-4228-BETA.",
+      "expected": "KEY-4228-BETA",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 2416.517001000102,
+      "response": "ID-44387.",
+      "expected": "ID-44387",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 3359.478459999991,
+      "response": "63.67",
+      "expected": "63.67",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 2364.363166999965,
+      "response": "ID-41270.",
+      "expected": "ID-41270",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 3459.703584999943,
+      "response": "KEY-2916-ALPHA.",
+      "expected": "KEY-2916-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 2472.138710000081,
+      "response": "KEY-3316-GAMMA.",
+      "expected": "KEY-3316-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 4337.779126999976,
+      "response": "15.73",
+      "expected": "15.73",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1639
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 5460.595961000081,
+      "response": "ID-45112.",
+      "expected": "ID-45112",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1639
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 4497.314377000066,
+      "response": "O valor do parâmetro 3 foi configurado como 47.69.",
+      "expected": "47.69",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1639
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 5469.534835999866,
+      "response": "ID-42725.",
+      "expected": "ID-42725",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1615
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 4456.46554200016,
+      "response": "ID-52217.",
+      "expected": "ID-52217",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1615
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 5397.025585999927,
+      "response": "ID-98635.",
+      "expected": "ID-98635",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1615
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 5593.945043999838,
+      "response": "ID-30707.",
+      "expected": "ID-30707",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 4352.719543000148,
+      "response": "A chave de acesso para o sistema 2 é KEY-8479-ALPHA.",
+      "expected": "KEY-8479-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 5426.811960999885,
+      "response": "A chave de acesso para o sistema 3 é KEY-4314-GAMMA.",
+      "expected": "KEY-4314-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 5427.819877999809,
+      "response": "A chave de acesso para o sistema 1 é KEY-3181-GAMMA.",
+      "expected": "KEY-3181-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 5541.600460999916,
+      "response": "O valor do parâmetro 2 foi configurado como 19.08.",
+      "expected": "19.08",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 5458.280003000027,
+      "response": "O valor do parâmetro 3 foi configurado como 73.01.",
+      "expected": "73.01",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 8605.434795000065,
+      "response": "A chave de acesso para o sistema 1 é KEY-1901-BETA.",
+      "expected": "KEY-1901-BETA",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 3048
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 9565.936212999986,
+      "response": "O valor do parâmetro 2 foi configurado como 95.84.",
+      "expected": "95.84",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 3048
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 8484.991421000132,
+      "response": "23.15",
+      "expected": "23.15",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 3048
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 8436.890421000044,
+      "response": "A chave de acesso para o sistema 1 é KEY-1391-ALPHA.",
+      "expected": "KEY-1391-ALPHA",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 3072
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 9469.178796000051,
+      "response": "O valor do parâmetro 2 foi configurado como 45.81.",
+      "expected": "45.81",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 3072
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 8536.231670999996,
+      "response": "O valor do parâmetro 3 foi configurado como 2.42.",
+      "expected": "2.42",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 3072
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 8577.823004000038,
+      "response": "ID-25919.",
+      "expected": "ID-25919",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3033
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 9545.813963,
+      "response": "ID-18083.",
+      "expected": "ID-18083",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3033
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 8639.484296000091,
+      "response": "ID-27133.",
+      "expected": "ID-27133",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3033
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 8539.12366999998,
+      "response": "O valor do parâmetro 1 foi configurado como 46.72.",
+      "expected": "46.72",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 3008
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 8701.911671000062,
+      "response": "O valor do parâmetro 2 foi configurado como 19.72.",
+      "expected": "19.72",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 3008
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rig_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 8489.277378999986,
+      "response": "ID-74517.",
+      "expected": "ID-74517",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 3008
+    }
+  ],
+  "summary": {
+    "total_tests": 180,
+    "strategies": {
+      "raw_llama3.1-8b": {
+        "avg_score": 1.0,
+        "min_score": 1.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 5120.838024333334,
+        "num_tests": 36
+      },
+      "sliding_window_llama3.1-8b": {
+        "avg_score": 0.9722222222222222,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 5606.836101944454,
+        "num_tests": 36
+      },
+      "parallel_window_llama3.1-8b": {
+        "avg_score": 1.0,
+        "min_score": 1.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 5552.538220194451,
+        "num_tests": 36
+      },
+      "semantic_compression_llama3.1-8b": {
+        "avg_score": 0.5,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 10290.651189805554,
+        "num_tests": 36
+      },
+      "rig_llama3.1-8b": {
+        "avg_score": 1.0,
+        "min_score": 1.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 5614.854488722224,
+        "num_tests": 36
+      }
+    },
+    "benchmarks": {
+      "ruler": {
+        "avg_score": 0.8944444444444445,
+        "num_tests": 180
+      }
+    },
+    "strategy_x_benchmark_matrix": {
+      "raw_llama3.1-8b": {
+        "ruler": 1.0
+      },
+      "sliding_window_llama3.1-8b": {
+        "ruler": 0.9722222222222222
+      },
+      "parallel_window_llama3.1-8b": {
+        "ruler": 1.0
+      },
+      "semantic_compression_llama3.1-8b": {
+        "ruler": 0.5
+      },
+      "rig_llama3.1-8b": {
+        "ruler": 1.0
+      }
+    }
+  }
+}

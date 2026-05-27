@@ -1,0 +1,3785 @@
+{
+  "timestamp": "2026-05-26T05:40:41.467339",
+  "strategies": [
+    "rsaw_llama3.1-8b",
+    "rsaw_llama3.3-70b",
+    "rsaw_gpt-oss-120b",
+    "rsaw_gpt-oss-20b"
+  ],
+  "benchmarks": [
+    "needle_in_haystack",
+    "ruler",
+    "longbench"
+  ],
+  "results": [
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_start_7392",
+      "score": 1.0,
+      "latency_ms": 14996.061257000008,
+      "response": "O código secreto para acessar o cofre é 7392.",
+      "expected": "7392",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4432,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_pos_0.25_7392",
+      "score": 0.0,
+      "latency_ms": 1440.7088339999632,
+      "response": "Não há menção a um código secreto para acessar um cofre no contexto fornecido.",
+      "expected": "7392",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4287,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_middle_7392",
+      "score": 0.0,
+      "latency_ms": 14565.41267399996,
+      "response": "Não há menção a um código secreto para acessar um cofre no contexto fornecido.",
+      "expected": "7392",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4287,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_pos_0.75_7392",
+      "score": 0.0,
+      "latency_ms": 43424.55039500004,
+      "response": "Não há informação sobre o código secreto para acessar o cofre no contexto fornecido.",
+      "expected": "7392",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4267,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_end_7392",
+      "score": 0.0,
+      "latency_ms": 1988.062250999974,
+      "response": "Infelizmente, não há informações suficientes no contexto fornecido para determinar o código secreto para acessar o cofre. O contexto parece se referir a tendências e tecnologias atuais no setor de telecomunicações e empresas em geral, mas não menciona nada sobre um cofre ou código secreto.",
+      "expected": "7392",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4317,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_start_15 de març",
+      "score": 1.0,
+      "latency_ms": 21839.863885,
+      "response": "A reunião foi remarcada para o dia 15 de março às 14h.",
+      "expected": "15 de março às 14h",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4282,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_pos_0.25_15 de març",
+      "score": 0.0,
+      "latency_ms": 24532.499427999996,
+      "response": "Não há menção a uma reunião remarcada no contexto fornecido.",
+      "expected": "15 de março às 14h",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4254,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_middle_15 de març",
+      "score": 0.0,
+      "latency_ms": 24347.027927,
+      "response": "Não há menção a uma reunião remarcada no contexto fornecido.",
+      "expected": "15 de março às 14h",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4381,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_pos_0.75_15 de març",
+      "score": 0.0,
+      "latency_ms": 25250.341511999977,
+      "response": "Não há menção a uma reunião remarcada no contexto fornecido.",
+      "expected": "15 de março às 14h",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4328,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_end_15 de març",
+      "score": 0.0,
+      "latency_ms": 23101.78130200006,
+      "response": "Não há menção a uma reunião remarcada no contexto fornecido.",
+      "expected": "15 de março às 14h",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4306,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_start_Operação F",
+      "score": 1.0,
+      "latency_ms": 24594.856260999906,
+      "response": "Operação Fênix.",
+      "expected": "Operação Fênix",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4299,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_pos_0.25_Operação F",
+      "score": 0.0,
+      "latency_ms": 25158.649094999986,
+      "response": "Não há menção a um projeto secreto no contexto fornecido.",
+      "expected": "Operação Fênix",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4291,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_middle_Operação F",
+      "score": 0.0,
+      "latency_ms": 26401.36097099992,
+      "response": "Não há menção a um projeto secreto no contexto fornecido.",
+      "expected": "Operação Fênix",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4277,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_pos_0.75_Operação F",
+      "score": 0.0,
+      "latency_ms": 22025.58767599999,
+      "response": "Não há menção a um projeto secreto no contexto fornecido.",
+      "expected": "Operação Fênix",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4334,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "needle_end_Operação F",
+      "score": 0.0,
+      "latency_ms": 23861.757635999995,
+      "response": "Não há menção a um projeto secreto no contexto fornecido.",
+      "expected": "Operação Fênix",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4364,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_start_7392",
+      "score": 1.0,
+      "latency_ms": 5312.2497110000495,
+      "response": "7392.",
+      "expected": "7392",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4230,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_pos_0.25_7392",
+      "score": 0.0,
+      "latency_ms": 1591.0910009999952,
+      "response": "Não há menção a um código secreto para acessar um cofre no contexto fornecido. O texto discute transformação digital, inovação e mudanças regulatórias em vários setores, mas não menciona um cofre ou um código secreto.",
+      "expected": "7392",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4305,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_middle_7392",
+      "score": 0.0,
+      "latency_ms": 1651.8570430000636,
+      "response": "Não há informações sobre um código secreto para acessar um cofre no contexto fornecido. O contexto aborda tendências tecnológicas, sustentabilidade corporativa e análise de dados, mas não menciona cofres ou códigos secretos.",
+      "expected": "7392",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4334,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_pos_0.75_7392",
+      "score": 0.0,
+      "latency_ms": 1634.661792000088,
+      "response": "Não há informações sobre um código secreto para acessar um cofre no contexto fornecido. O contexto aborda tópicos como inovação aberta, análise de dados, transformação digital, cibersegurança e sustentabilidade corporativa, mas não menciona um cofre ou um código secreto.",
+      "expected": "7392",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4397,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_end_7392",
+      "score": 0.0,
+      "latency_ms": 1538.6389599999575,
+      "response": "Não há informações sobre um código secreto para acessar um cofre no contexto fornecido. O contexto aborda tendências e evoluções nos setores de telecomunicações, transformação digital e gestão de empresas, mas não menciona um cofre ou um código secreto.",
+      "expected": "7392",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4363,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_start_15 de març",
+      "score": 1.0,
+      "latency_ms": 4290.889751999998,
+      "response": "A reunião foi remarcada para o dia 15 de março às 14h.",
+      "expected": "15 de março às 14h",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4391,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_pos_0.25_15 de març",
+      "score": 0.0,
+      "latency_ms": 1593.3658339999965,
+      "response": "Não há informações sobre uma reunião no contexto fornecido.",
+      "expected": "15 de março às 14h",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4331,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_middle_15 de març",
+      "score": 0.0,
+      "latency_ms": 5751.31300299995,
+      "response": "Não há informações sobre uma reunião remarcada no contexto fornecido.",
+      "expected": "15 de março às 14h",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4267,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_pos_0.75_15 de març",
+      "score": 0.0,
+      "latency_ms": 9895.659421000004,
+      "response": "Não há informações sobre uma reunião no contexto fornecido.",
+      "expected": "15 de março às 14h",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4196,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_end_15 de març",
+      "score": 0.0,
+      "latency_ms": 8745.21112900004,
+      "response": "Não há informações sobre uma reunião remarcada no contexto fornecido.",
+      "expected": "15 de março às 14h",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4167,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_start_Operação F",
+      "score": 1.0,
+      "latency_ms": 9663.072796000051,
+      "response": "Operação Fênix.",
+      "expected": "Operação Fênix",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4338,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_pos_0.25_Operação F",
+      "score": 1.0,
+      "latency_ms": 10191.783170999997,
+      "response": "Operação Fênix.",
+      "expected": "Operação Fênix",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4312,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_middle_Operação F",
+      "score": 1.0,
+      "latency_ms": 9960.48804599991,
+      "response": "Operação Fênix.",
+      "expected": "Operação Fênix",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4130,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_pos_0.75_Operação F",
+      "score": 0.0,
+      "latency_ms": 8666.640088000007,
+      "response": "Não há menção a um projeto secreto no contexto fornecido.",
+      "expected": "Operação Fênix",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4282,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "needle_end_Operação F",
+      "score": 1.0,
+      "latency_ms": 9589.744171999995,
+      "response": "Operação Fênix.",
+      "expected": "Operação Fênix",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4166,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_start_7392",
+      "score": 0.0,
+      "latency_ms": 14076.091046999976,
+      "response": "Desculpe, não posso ajudar com isso.",
+      "expected": "7392",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4247,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_pos_0.25_7392",
+      "score": 1.0,
+      "latency_ms": 20305.515842999965,
+      "response": "7392",
+      "expected": "7392",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4248,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_middle_7392",
+      "score": 1.0,
+      "latency_ms": 53269.41831600004,
+      "response": "7392",
+      "expected": "7392",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4434,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_pos_0.75_7392",
+      "score": 1.0,
+      "latency_ms": 31126.80526400004,
+      "response": "7392",
+      "expected": "7392",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4275,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_end_7392",
+      "score": 1.0,
+      "latency_ms": 52236.48043999993,
+      "response": "7392",
+      "expected": "7392",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4229,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_start_15 de març",
+      "score": 0.0,
+      "latency_ms": 46242.81114600001,
+      "response": "A data da remarcação não foi informada no contexto.",
+      "expected": "15 de março às 14h",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4140,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_pos_0.25_15 de març",
+      "score": 1.0,
+      "latency_ms": 56278.53719300003,
+      "response": "15 de março, às 14h.",
+      "expected": "15 de março às 14h",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4311,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_middle_15 de març",
+      "score": 1.0,
+      "latency_ms": 47708.70114599984,
+      "response": "A reunião foi remarcada para **15 de março, às 14h**.",
+      "expected": "15 de março às 14h",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4179,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_pos_0.75_15 de març",
+      "score": 0.8,
+      "latency_ms": 38219.850268000075,
+      "response": "Para 15 de março, às 14 h.",
+      "expected": "15 de março às 14h",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4274,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_end_15 de març",
+      "score": 0.0,
+      "latency_ms": 53577.00098300006,
+      "response": "A data da remarcação não foi informada no contexto.",
+      "expected": "15 de março às 14h",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4422,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_start_Operação F",
+      "score": 0.0,
+      "latency_ms": 52643.09748300002,
+      "response": "O contexto não fornece o nome do projeto secreto.",
+      "expected": "Operação Fênix",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4307,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_pos_0.25_Operação F",
+      "score": 1.0,
+      "latency_ms": 39203.700851999885,
+      "response": "Operação Fênix.",
+      "expected": "Operação Fênix",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4106,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_middle_Operação F",
+      "score": 0.0,
+      "latency_ms": 41544.67051899996,
+      "response": "O contexto não fornece o nome do projeto secreto.",
+      "expected": "Operação Fênix",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4341,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_pos_0.75_Operação F",
+      "score": 1.0,
+      "latency_ms": 50582.14939799996,
+      "response": "Operação Fênix.",
+      "expected": "Operação Fênix",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4384,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "needle_end_Operação F",
+      "score": 1.0,
+      "latency_ms": 50437.59152300004,
+      "response": "Operação Fênix.",
+      "expected": "Operação Fênix",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4127,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_start_7392",
+      "score": 0.0,
+      "latency_ms": 10944.555587999957,
+      "response": "Desculpe, mas não posso ajudar com isso.",
+      "expected": "7392",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4296,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_pos_0.25_7392",
+      "score": 0.0,
+      "latency_ms": 20998.552009999912,
+      "response": "Desculpe, mas não posso ajudar com isso.",
+      "expected": "7392",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4214,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_middle_7392",
+      "score": 0.0,
+      "latency_ms": 43422.82989499995,
+      "response": "Desculpe, mas não posso ajudar com isso.",
+      "expected": "7392",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4264,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_pos_0.75_7392",
+      "score": 0.0,
+      "latency_ms": 41559.232809999914,
+      "response": "Desculpe, mas não posso ajudar com isso.",
+      "expected": "7392",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4322,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_end_7392",
+      "score": 0.0,
+      "latency_ms": 40848.34785299995,
+      "response": "Desculpe, mas não posso ajudar com isso.",
+      "expected": "7392",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4221,
+      "needle_fact": "O código secreto para acessar o cofre é 7392."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_start_15 de març",
+      "score": 0.0,
+      "latency_ms": 38207.28401800011,
+      "response": "Não há informação no contexto sobre a data da reunião remarcada.",
+      "expected": "15 de março às 14h",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4148,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_pos_0.25_15 de març",
+      "score": 1.0,
+      "latency_ms": 36067.90122300004,
+      "response": "15 de março às 14h.",
+      "expected": "15 de março às 14h",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4291,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_middle_15 de març",
+      "score": 0.2,
+      "latency_ms": 24069.567344999996,
+      "response": "Não há informação suficiente no contexto fornecido para determinar a nova data da reunião.",
+      "expected": "15 de março às 14h",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4252,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_pos_0.75_15 de març",
+      "score": 0.2,
+      "latency_ms": 29860.268055999994,
+      "response": "Não há informação suficiente no contexto fornecido para determinar a nova data da reunião.",
+      "expected": "15 de março às 14h",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4385,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_end_15 de març",
+      "score": 1.0,
+      "latency_ms": 20506.80292600009,
+      "response": "15 de março às 14h.",
+      "expected": "15 de março às 14h",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4249,
+      "needle_fact": "A reunião foi remarcada para o dia 15 de março às 14h."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_start_Operação F",
+      "score": 0.0,
+      "latency_ms": 10855.58296299996,
+      "response": "Desculpe, mas não há contexto fornecido. Poderia compartilhar mais detalhes sobre o projeto secreto para que eu possa responder corretamente?",
+      "expected": "Operação Fênix",
+      "position": "start",
+      "num_paragraphs": 20,
+      "context_chars": 4155,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_pos_0.25_Operação F",
+      "score": 0.0,
+      "latency_ms": 17521.00725900004,
+      "response": "Desculpe, mas não há contexto fornecido. Poderia compartilhar mais detalhes sobre o projeto secreto para que eu possa responder corretamente?",
+      "expected": "Operação Fênix",
+      "position": 0.25,
+      "num_paragraphs": 20,
+      "context_chars": 4292,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_middle_Operação F",
+      "score": 0.0,
+      "latency_ms": 41059.631519000046,
+      "response": "",
+      "expected": "Operação Fênix",
+      "position": "middle",
+      "num_paragraphs": 20,
+      "context_chars": 4355,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_pos_0.75_Operação F",
+      "score": 0.0,
+      "latency_ms": 43564.67301999987,
+      "response": "Desculpe, mas não há contexto fornecido. Poderia compartilhar mais detalhes sobre o projeto secreto para que eu possa responder corretamente?",
+      "expected": "Operação Fênix",
+      "position": 0.75,
+      "num_paragraphs": 20,
+      "context_chars": 4266,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "needle_in_haystack",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "needle_end_Operação F",
+      "score": 0.0,
+      "latency_ms": 39946.35126900016,
+      "response": "Desculpe, mas não há contexto fornecido. Poderia compartilhar mais detalhes sobre o projeto secreto para que eu possa responder corretamente?",
+      "expected": "Operação Fênix",
+      "position": "end",
+      "num_paragraphs": 20,
+      "context_chars": 4232,
+      "needle_fact": "O nome do projeto secreto é Operação Fênix."
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 0.0,
+      "latency_ms": 2159.852667999985,
+      "response": "O valor do parâmetro 1 é 90,69.",
+      "expected": "90.69",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 740
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 1156.020584000089,
+      "response": "A chave de acesso para o sistema 2 é KEY-4611-BETA.",
+      "expected": "KEY-4611-BETA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 740
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 0.0,
+      "latency_ms": 785.9725000000708,
+      "response": "O valor do parâmetro 3 é 3600.",
+      "expected": "36.00",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 740
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 567.153707999978,
+      "response": "A chave de acesso para o sistema 1 é KEY-9785-ALPHAA.",
+      "expected": "KEY-9785-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 0.5,
+      "latency_ms": 755.9847090001313,
+      "response": "Não há informações sobre a chave de acesso para o sistema 2 no contexto fornecido. A chave de acesso mencionada é para o sistema 1, que é KEY-9785-ALPHAA.",
+      "expected": "KEY-2291-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 0.5,
+      "latency_ms": 572.9282500001318,
+      "response": "Não há informações sobre a chave de acesso para o sistema 3 no contexto fornecido. A chave de acesso mencionada é para o sistema 1, que é KEY-9785-ALPHAA.",
+      "expected": "KEY-6925-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 742
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 682.1486670000922,
+      "response": "A chave de acesso para o sistema 1 é KEY-2169-GAMMA.",
+      "expected": "KEY-2169-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 712
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 596.1732089999714,
+      "response": "22.68",
+      "expected": "22.68",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 712
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 0.0,
+      "latency_ms": 820.0660840000182,
+      "response": "O valor do parâmetro 3 é 3220.",
+      "expected": "32.20",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 712
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 854.7298339999543,
+      "response": "64.50",
+      "expected": "64.50",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 715
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 572.1816660000059,
+      "response": "O valor do parâmetro 2 é 5918.",
+      "expected": "59.18",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 715
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 0.5,
+      "latency_ms": 569.0402080001604,
+      "response": "A chave de acesso para o sistema 3 é KEY-3287-ALP.",
+      "expected": "KEY-3287-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 715
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 992.7510009999878,
+      "response": "A chave de acesso para o sistema 1 é KEY-3646-GAMMA.",
+      "expected": "KEY-3646-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1625
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 0.0,
+      "latency_ms": 4765.545085999975,
+      "response": "Infelizmente, não há informações suficientes no contexto para determinar o valor do parâmetro 2. O contexto fornece informações sobre a base de dados, capacidade de armazenamento, tempo de resposta, transações, registros processados, taxa de utilização do servidor e eventos de segurança, mas não menciona explicitamente o parâmetro 2.",
+      "expected": "1.76",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1625
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 8886.283088000027,
+      "response": "A chave de acesso para o sistema 3 é KEY-9005-ALPHA.",
+      "expected": "KEY-9005-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1625
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 9985.178129000133,
+      "response": "A chave de acesso para o sistema 1 é KEY-2160-GAMMA.",
+      "expected": "KEY-2160-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1627
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 3934.7000850000313,
+      "response": "ID-46500.",
+      "expected": "ID-46500",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1627
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 0.0,
+      "latency_ms": 9255.25762899997,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 3.",
+      "expected": "63.27",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1627
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 8964.13954600007,
+      "response": "A chave de acesso para o sistema 1 é KEY-1960-ALPHA.",
+      "expected": "KEY-1960-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 1.0,
+      "latency_ms": 11126.705922000156,
+      "response": "KEY-1035-BETA.",
+      "expected": "KEY-1035-BETA",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 0.0,
+      "latency_ms": 8883.517670000174,
+      "response": "Não há informações sobre a chave de acesso para o sistema 3 no contexto fornecido.",
+      "expected": "KEY-8454-BETA",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 3806.523793999986,
+      "response": "ID-11220.",
+      "expected": "ID-11220",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 8800.355296000134,
+      "response": "Infelizmente, não há informações suficientes no contexto fornecido para determinar a chave de acesso para o sistema 2. A resposta não está disponível.",
+      "expected": "KEY-2638-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 8821.02817100008,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 3.",
+      "expected": "28.64",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1618
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 0.0,
+      "latency_ms": 16829.749215999982,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 1.",
+      "expected": "14.48",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 3115
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 17449.07471600004,
+      "response": "ID-71694.",
+      "expected": "ID-71694",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 3115
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 0.0,
+      "latency_ms": 10033.109505000084,
+      "response": "Não há informação sobre o identificador único do registro 3 no contexto fornecido.",
+      "expected": "ID-36158",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 3115
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 17523.998840999866,
+      "response": "O valor do parâmetro 1 foi configurado como 99.09.",
+      "expected": "99.09",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 2985
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 0.0,
+      "latency_ms": 18127.92867500002,
+      "response": "Não há informações sobre a chave de acesso para o sistema 2 no contexto fornecido.",
+      "expected": "KEY-7790-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 2985
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 0.0,
+      "latency_ms": 17497.100548999697,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 3.",
+      "expected": "25.91",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 2985
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 17913.557716000014,
+      "response": "A chave de acesso para o sistema 1 é KEY-3091-GAMMA.",
+      "expected": "KEY-3091-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 0.0,
+      "latency_ms": 17628.029383000012,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 2.",
+      "expected": "4.50",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 0.0,
+      "latency_ms": 16384.42863299997,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 3.",
+      "expected": "73.84",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 0.0,
+      "latency_ms": 18579.15471599972,
+      "response": "Não há informações sobre o identificador único do registro 1 no contexto fornecido.",
+      "expected": "ID-46559",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 3043
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 17579.152923999573,
+      "response": "Não há informações sobre a chave de acesso para o sistema 2 no contexto fornecido.",
+      "expected": "KEY-4995-BETA",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 3043
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 17666.991550000148,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 3.",
+      "expected": "79.85",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 3043
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 663.7315419998231,
+      "response": "ID-63271",
+      "expected": "ID-63271",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 717
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 0.5,
+      "latency_ms": 529.6584170000642,
+      "response": "KEY4937-GAMMA",
+      "expected": "KEY-4937-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 717
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 0.5,
+      "latency_ms": 637.2321250000823,
+      "response": "Não há informação sobre a chave de acesso para o sistema 3 no contexto fornecido. Apenas há menção à chave de acesso para o sistema 2, que é KEY4937-GAMMA.",
+      "expected": "KEY-9041-BETA",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 717
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 537.8683339999952,
+      "response": "25.40",
+      "expected": "25.40",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 698
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 639.2189579996739,
+      "response": "ID-80236",
+      "expected": "ID-80236",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 698
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 0.0,
+      "latency_ms": 535.1399999999558,
+      "response": "2424",
+      "expected": "24.24",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 698
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 526.0414589997708,
+      "response": "KEY-3068-GAMMA",
+      "expected": "KEY-3068-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 756
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 0.5,
+      "latency_ms": 680.9772509996037,
+      "response": "Não há informação sobre a chave de acesso para o sistema 2 no contexto fornecido. Apenas a chave de acesso para o sistema 1 é mencionada, que é KEY-3068-GAMMA.",
+      "expected": "KEY-2680-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 756
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 713.196833999973,
+      "response": "37.60",
+      "expected": "37.60",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 756
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 0.0,
+      "latency_ms": 485.5541670003731,
+      "response": "9853",
+      "expected": "98.53",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 745.0562510002783,
+      "response": "Não há informação sobre o valor do parâmetro 2 no contexto fornecido.",
+      "expected": "77.79",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 553.9699999999357,
+      "response": "ID-78494",
+      "expected": "ID-78494",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 738
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 1186.655707999762,
+      "response": "Não é possível determinar o identificador único do registro 1 com base nas informações fornecidas. Os identificadores mencionados (ID-31747 e ID-71433) não estão relacionados a um registro específico chamado \"registro 1\".",
+      "expected": "ID-31747",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1603
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 0.0,
+      "latency_ms": 1132.549668000138,
+      "response": "Não há informações sobre a chave de acesso para o sistema 2 no contexto fornecido.",
+      "expected": "KEY-5728-BETA",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1603
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 0.0,
+      "latency_ms": 1034.1390830003547,
+      "response": "Não há informações suficientes no contexto para determinar o identificador único do registro 3. O contexto fornece apenas números relacionados a transações, registros processados, registros ativos na base de dados, taxas de utilização do servidor, tempos de resposta e eventos de segurança, mas não fornece detalhes sobre identificadores únicos de registros.",
+      "expected": "ID-71433",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1603
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 846.5866669998832,
+      "response": "O valor do parâmetro 1 foi configurado como 52.97.",
+      "expected": "52.97",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1604
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 828.3125009998002,
+      "response": "O valor do parâmetro 2 foi configurado como 5.58.",
+      "expected": "5.58",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1604
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 872.8802090004137,
+      "response": "ID-51224.",
+      "expected": "ID-51224",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1604
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 836.3789999998517,
+      "response": "KEY-8736-ALPHA.",
+      "expected": "KEY-8736-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1637
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 0.5,
+      "latency_ms": 885.41000000032,
+      "response": "KEY3369BETA",
+      "expected": "KEY-3369-BETA",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1637
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 977.680459000112,
+      "response": "ID-88561.",
+      "expected": "ID-88561",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1637
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 0.0,
+      "latency_ms": 1074.636208999891,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 1. O contexto fornece várias estatísticas e informações sobre o sistema, mas não menciona explicitamente um \"parâmetro 1\".",
+      "expected": "19.52",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1578
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 750.6437500001084,
+      "response": "Não há informação sobre o valor do parâmetro 2 no contexto fornecido.",
+      "expected": "20.09",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1578
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 774.7168340001735,
+      "response": "A chave de acesso é KEY-5342-BETA.",
+      "expected": "KEY-5342-BETA",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1578
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 7915.211295000063,
+      "response": "Não há informações suficientes no contexto para determinar o identificador único do \"registro 1\". O contexto fornece informações sobre um registro com o ID-89569 e outro com o ID-91381, mas não especifica qual é o \"registro 1\".",
+      "expected": "ID-89569",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 3035
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 8080.159462000211,
+      "response": "Não há informações suficientes no contexto para determinar a chave de acesso para o sistema 2. A chave de acesso mencionada (KEY-4588-GAMMA) está relacionada a um registro específico (ID-89569), mas não há menção a um \"sistema 2\" ou a uma chave de acesso específica para ele.",
+      "expected": "KEY-4588-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 3035
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 0.0,
+      "latency_ms": 7701.098711000213,
+      "response": "Não há informações suficientes no contexto para determinar o identificador único do registro 3. O contexto apenas fornece o identificador único do registro 1, que é ID-89569.",
+      "expected": "ID-91381",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 3035
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 7656.903004000014,
+      "response": "KEY-8285-ALPHA",
+      "expected": "KEY-8285-ALPHA",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 3032
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 7534.541336000075,
+      "response": "KEY-2627-GAMMA",
+      "expected": "KEY-2627-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 3032
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 7684.2115449999255,
+      "response": "KEY-9920-GAMMA",
+      "expected": "KEY-9920-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 3032
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 7672.362295000312,
+      "response": "KEY-2557-BETA e KEY-6120-GAMMA.",
+      "expected": "KEY-2557-BETA",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3073
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 0.5,
+      "latency_ms": 7622.781878999831,
+      "response": "KEY-7132-ALPHA",
+      "expected": "KEY-6120-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3073
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 7758.803421000266,
+      "response": "Não há informações sobre um sistema 3 no contexto fornecido. As chaves de acesso mencionadas são KEY-2557-BETA, KEY-6120-GAMMA e KEY-7132-ALPHA, mas não há uma chave de acesso explicitamente associada a um \"sistema 3\".",
+      "expected": "KEY-7132-ALPHA",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3073
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 0.0,
+      "latency_ms": 7947.934879000059,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 1. O contexto fornece uma variedade de dados estatísticos sobre transações, taxas de utilização do servidor, capacidade de armazenamento, processos de backup, registros ativos, eventos de segurança e registros processados, mas não menciona explicitamente um \"parâmetro 1\". Portanto, não é possível fornecer uma resposta direta e concisa para essa pergunta com base nas informações fornecidas.",
+      "expected": "40.05",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 3057
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 8881.906461999733,
+      "response": "Não há informações suficientes no contexto fornecido para determinar o identificador único do registro 2. O contexto fornece uma variedade de dados estatísticos sobre transações, utilização do servidor, capacidade de armazenamento, eventos de segurança, processamento de registros e registros ativos na base de dados, mas não inclui detalhes sobre identificadores únicos para registros específicos. Portanto, não é possível fornecer uma resposta direta e concisa para essa pergunta com base nas infor",
+      "expected": "ID-61807",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 3057
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 9106.121212999824,
+      "response": "Não há informações suficientes no contexto para determinar o valor do parâmetro 3. O contexto fornece uma variedade de dados sobre transações, taxas de utilização do servidor, capacidade de armazenamento, eventos de segurança, registros processados e tempo de resposta, mas não menciona explicitamente um \"parâmetro 3\" ou qualquer outra referência que permita identificar um valor específico para esse parâmetro.",
+      "expected": "8.00",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 3057
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 2899.0940010003214,
+      "response": "KEY-1693-BETA",
+      "expected": "KEY-1693-BETA",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 718
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 0.5,
+      "latency_ms": 2861.1996259996886,
+      "response": "ID70260",
+      "expected": "ID-70260",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 718
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 0.5,
+      "latency_ms": 1133.8903330001813,
+      "response": "ID351033",
+      "expected": "ID-51033",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 718
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 2145.9220010001445,
+      "response": "KEY-7560-GAMMA",
+      "expected": "KEY-7560-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 714
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 1.0,
+      "latency_ms": 591.275375999885,
+      "response": "ID-61873",
+      "expected": "ID-61873",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 714
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 0.0,
+      "latency_ms": 911.0006259998045,
+      "response": "Não há informação sobre a chave de acesso do sistema 3 no contexto fornecido.",
+      "expected": "KEY-6562-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 714
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 0.0,
+      "latency_ms": 679.3461259999276,
+      "response": "O valor do parâmetro 1 é **10,22**.",
+      "expected": "10.22",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 763
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 0.0,
+      "latency_ms": 748.197916999743,
+      "response": "6459",
+      "expected": "64.59",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 763
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 0.0,
+      "latency_ms": 666.2934589999168,
+      "response": "O valor do parâmetro 3 é **9874**.",
+      "expected": "98.74",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 763
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 738.6424579999584,
+      "response": "O identificador único do registro 1 é **ID-17456A**.",
+      "expected": "ID-17456",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 722
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 3851.319918000172,
+      "response": "A chave de acesso para o sistema 2 é **KEY-5703-ALPHA**.",
+      "expected": "KEY-5703-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 722
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 10839.022214000124,
+      "response": "12,78.",
+      "expected": "12.78",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 722
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 25038.68284500004,
+      "response": "KEY-6082-GAMMA",
+      "expected": "KEY-6082-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1617
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 0.0,
+      "latency_ms": 21952.297093000197,
+      "response": "85,50.",
+      "expected": "85.50",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1617
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 1.0,
+      "latency_ms": 1278.3356259997163,
+      "response": "ID-87993",
+      "expected": "ID-87993",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1617
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 21860.226677000355,
+      "response": "KEY-8355-ALPHA",
+      "expected": "KEY-8355-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1612
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 0.0,
+      "latency_ms": 1286.2163340000734,
+      "response": "O valor do parâmetro 2 é **31,39**.",
+      "expected": "31.39",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1612
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 18990.586716999587,
+      "response": "KEY-4178-BETA",
+      "expected": "KEY-4178-BETA",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1612
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 993.698208999831,
+      "response": "ID-51770",
+      "expected": "ID-51770",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 0.5,
+      "latency_ms": 952.6451669999005,
+      "response": "95191",
+      "expected": "ID-95191",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 26317.97438800004,
+      "response": "KEY-3392-ALPHA",
+      "expected": "KEY-3392-ALPHA",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1595
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 20988.495092999983,
+      "response": "KEY-1713-GAMMA",
+      "expected": "KEY-1713-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1624
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 19867.47225900035,
+      "response": "KEY-7116-BETA",
+      "expected": "KEY-7116-BETA",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1624
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 20171.78438300016,
+      "response": "3,45",
+      "expected": "3.45",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1624
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 0.0,
+      "latency_ms": 44645.87835399971,
+      "response": "81%",
+      "expected": "87.56",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 3040
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 0.5,
+      "latency_ms": 33380.779180999976,
+      "response": "ID‑26545",
+      "expected": "ID-26545",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 3040
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 0.5,
+      "latency_ms": 34781.921848999904,
+      "response": "O identificador único do registro 3 é **ID‑40932**.",
+      "expected": "ID-40932",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 3040
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 17879.644175000067,
+      "response": "ID-66704",
+      "expected": "ID-66704",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 3065
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 0.0,
+      "latency_ms": 34304.38639099975,
+      "response": "O valor do parâmetro 2 é **8,15**.",
+      "expected": "8.15",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 3065
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 0.0,
+      "latency_ms": 30487.694055000247,
+      "response": "O valor do parâmetro 3 é **20,38**.",
+      "expected": "20.38",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 3065
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 14948.577756999839,
+      "response": "ID-38199",
+      "expected": "ID-38199",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3047
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 0.0,
+      "latency_ms": 36582.305975000054,
+      "response": "O parâmetro 2 tem o valor **46,06**.",
+      "expected": "46.06",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3047
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 0.5,
+      "latency_ms": 21434.191008999733,
+      "response": "ID‑46877",
+      "expected": "ID-46877",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3047
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 0.0,
+      "latency_ms": 37256.266933000006,
+      "response": "O valor do parâmetro 1 é **100,78**.",
+      "expected": "100.78",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 3045
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 1.0,
+      "latency_ms": 35186.8671000002,
+      "response": "A chave de acesso para o sistema 2 é **KEY-2020-GAMMA**.",
+      "expected": "KEY-2020-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 3045
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 1.0,
+      "latency_ms": 19075.921633000235,
+      "response": "ID-77984",
+      "expected": "ID-77984",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 3045
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact1",
+      "score": 0.0,
+      "latency_ms": 2982.182501999887,
+      "response": "Desculpe, mas não há contexto fornecido para determinar o valor do parâmetro 1. Poderia fornecer mais detalhes?",
+      "expected": "39.28",
+      "context_size": 10,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 703
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact2",
+      "score": 0.0,
+      "latency_ms": 2794.751460000043,
+      "response": "Desculpe, mas não há contexto suficiente para responder à sua pergunta. Poderia fornecer mais detalhes sobre o “sistema 2” ou o material de referência?",
+      "expected": "KEY-5735-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 703
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.10_0.50_0.90_fact3",
+      "score": 0.5,
+      "latency_ms": 2586.0514589999184,
+      "response": "ID74094",
+      "expected": "ID-74094",
+      "context_size": 10,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 703
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact1",
+      "score": 0.0,
+      "latency_ms": 4097.945376999633,
+      "response": "Desculpe, mas não há contexto suficiente para responder a essa pergunta. Poderia fornecer mais detalhes sobre o “sistema 1” ou o material de referência?",
+      "expected": "KEY-5201-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact2",
+      "score": 0.5,
+      "latency_ms": 14643.760506000035,
+      "response": "SYS2 KEY‑4505‑ALPHA",
+      "expected": "KEY-4505-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.20_0.40_0.60_fact3",
+      "score": 1.0,
+      "latency_ms": 667.1298340002068,
+      "response": "35.71",
+      "expected": "35.71",
+      "context_size": 10,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 663.3067499997196,
+      "response": "21.52",
+      "expected": "21.52",
+      "context_size": 10,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact2",
+      "score": 0.0,
+      "latency_ms": 642.160624999633,
+      "response": "Não há informação sobre o valor do parâmetro 2 no contexto fornecido.",
+      "expected": "61.61",
+      "context_size": 10,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.05_0.15_0.95_fact3",
+      "score": 0.0,
+      "latency_ms": 754.7372080002788,
+      "response": "Não há informação sobre o valor do parâmetro 3 no contexto fornecido.",
+      "expected": "26.96",
+      "context_size": 10,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 734
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 695.4693749999024,
+      "response": "KEY-4052-GAMMA",
+      "expected": "KEY-4052-GAMMA",
+      "context_size": 10,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 1759.0231250001125,
+      "response": "Não há informação disponível no contexto fornecido.",
+      "expected": "KEY-1613-ALPHA",
+      "context_size": 10,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size10_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 2756.6904179998346,
+      "response": "Não há informação disponível no contexto fornecido.",
+      "expected": "KEY-2758-BETA",
+      "context_size": 10,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 768
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact1",
+      "score": 1.0,
+      "latency_ms": 19608.680466999886,
+      "response": "93.73",
+      "expected": "93.73",
+      "context_size": 25,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 1572
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact2",
+      "score": 1.0,
+      "latency_ms": 12698.669922000136,
+      "response": "ID-44282",
+      "expected": "ID-44282",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 1572
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.10_0.50_0.90_fact3",
+      "score": 0.0,
+      "latency_ms": 10330.233546999807,
+      "response": "Desculpe, preciso do contexto para responder essa pergunta.",
+      "expected": "47.88",
+      "context_size": 25,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 1572
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 1770.5717509998067,
+      "response": "ID-69432",
+      "expected": "ID-69432",
+      "context_size": 25,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 1580
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact2",
+      "score": 0.5,
+      "latency_ms": 1047.0772090002356,
+      "response": "77272",
+      "expected": "ID-77272",
+      "context_size": 25,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 1580
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.20_0.40_0.60_fact3",
+      "score": 0.0,
+      "latency_ms": 2737.628834000134,
+      "response": "Desculpe, não tenho essa informação.",
+      "expected": "KEY-8484-GAMMA",
+      "context_size": 25,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 1580
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact1",
+      "score": 1.0,
+      "latency_ms": 1165.4398340001535,
+      "response": "ID-10455",
+      "expected": "ID-10455",
+      "context_size": 25,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 1642
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact2",
+      "score": 0.5,
+      "latency_ms": 1703.5274180002489,
+      "response": "49107A",
+      "expected": "ID-49107",
+      "context_size": 25,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 1642
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.05_0.15_0.95_fact3",
+      "score": 0.5,
+      "latency_ms": 2908.361376999892,
+      "response": "KEY‑9920‑BETA",
+      "expected": "KEY-9920-BETA",
+      "context_size": 25,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 1642
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact1",
+      "score": 1.0,
+      "latency_ms": 1502.3778340000717,
+      "response": "55.71",
+      "expected": "55.71",
+      "context_size": 25,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 1622
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 19215.047716999834,
+      "response": "Desculpe, mas não há contexto suficiente para responder à sua pergunta. Poderia fornecer mais detalhes sobre o “sistema 2” ou o material de referência?",
+      "expected": "KEY-1768-BETA",
+      "context_size": 25,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 1622
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size25_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 3405.8694600003037,
+      "response": "8648",
+      "expected": "86.48",
+      "context_size": 25,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 1622
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact1",
+      "score": 0.0,
+      "latency_ms": 36616.921558000286,
+      "response": "Não há informação disponível no contexto.",
+      "expected": "ID-75444",
+      "context_size": 50,
+      "fact_position": 0.1,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 1,
+      "context_chars": 2980
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact2",
+      "score": 0.0,
+      "latency_ms": 35275.936016999825,
+      "response": "369M",
+      "expected": "84.87",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 2,
+      "context_chars": 2980
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.10_0.50_0.90_fact3",
+      "score": 0.0,
+      "latency_ms": 41687.582017999826,
+      "response": "Desculpe, não tenho essa informação.",
+      "expected": "KEY-5216-BETA",
+      "context_size": 50,
+      "fact_position": 0.9,
+      "position_set": [
+        0.1,
+        0.5,
+        0.9
+      ],
+      "fact_id": 3,
+      "context_chars": 2980
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact1",
+      "score": 1.0,
+      "latency_ms": 16540.224215999842,
+      "response": "ID-99709",
+      "expected": "ID-99709",
+      "context_size": 50,
+      "fact_position": 0.2,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 1,
+      "context_chars": 3081
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact2",
+      "score": 0.0,
+      "latency_ms": 38891.900684000124,
+      "response": "Não há informação suficiente no contexto para determinar a chave de acesso do sistema 2.",
+      "expected": "KEY-9897-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.4,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 2,
+      "context_chars": 3081
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.20_0.40_0.60_fact3",
+      "score": 0.0,
+      "latency_ms": 38864.29889299961,
+      "response": "",
+      "expected": "5.22",
+      "context_size": 50,
+      "fact_position": 0.6,
+      "position_set": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "fact_id": 3,
+      "context_chars": 3081
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact1",
+      "score": 0.0,
+      "latency_ms": 42405.336812000314,
+      "response": "Não há informação no contexto.",
+      "expected": "ID-45247",
+      "context_size": 50,
+      "fact_position": 0.05,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 1,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact2",
+      "score": 0.0,
+      "latency_ms": 40433.830101999774,
+      "response": "",
+      "expected": "KEY-5397-BETA",
+      "context_size": 50,
+      "fact_position": 0.15,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 2,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.05_0.15_0.95_fact3",
+      "score": 1.0,
+      "latency_ms": 40080.49535100008,
+      "response": "ID-18292",
+      "expected": "ID-18292",
+      "context_size": 50,
+      "fact_position": 0.95,
+      "position_set": [
+        0.05,
+        0.15,
+        0.95
+      ],
+      "fact_id": 3,
+      "context_chars": 3011
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact1",
+      "score": 0.0,
+      "latency_ms": 37847.81447500018,
+      "response": "Não há informação suficiente no contexto para determinar a chave de acesso.",
+      "expected": "KEY-8052-ALPHA",
+      "context_size": 50,
+      "fact_position": 0.45,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 1,
+      "context_chars": 2974
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact2",
+      "score": 0.0,
+      "latency_ms": 37128.94805900032,
+      "response": "Não há informação suficiente no contexto para determinar o identificador único do registro 2.",
+      "expected": "ID-22924",
+      "context_size": 50,
+      "fact_position": 0.5,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 2,
+      "context_chars": 2974
+    },
+    {
+      "benchmark": "ruler",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "ruler_size50_pos0.45_0.50_0.55_fact3",
+      "score": 0.0,
+      "latency_ms": 37455.33951699963,
+      "response": "Desculpe, não tenho essa informação.",
+      "expected": "KEY-4637-GAMMA",
+      "context_size": 50,
+      "fact_position": 0.55,
+      "position_set": [
+        0.45,
+        0.5,
+        0.55
+      ],
+      "fact_id": 3,
+      "context_chars": 2974
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 1536.0980000000382,
+      "response": "23%",
+      "expected": "23%",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 1.0,
+      "latency_ms": 1489.4478759997583,
+      "response": "5555",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 1.0,
+      "latency_ms": 1580.5222930002856,
+      "response": "A região Sudeste manteve a liderança com 52% do faturamento total.",
+      "expected": "Sudeste",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 1.0,
+      "latency_ms": 2458.1385850001425,
+      "response": "O XYZ-500 utiliza um processador ARM Cortex-M4 a 180 MHz.",
+      "expected": "ARM Cortex-M4",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 1.0,
+      "latency_ms": 5423.396293999758,
+      "response": "O próximo treinamento de segurança é no dia 15 de abril às 10h no auditório principal.",
+      "expected": "15 de abril às 10h",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.1-8b",
+      "test_case": "longbench_summarization_1",
+      "score": 0.5,
+      "latency_ms": 6938.751169999705,
+      "response": "A inteligência artificial transformou setores da economia global, como financeiro, saúde e varejo, com aplicações em detecção de fraudes, análise de crédito e recomendações de investimento. Além disso, veículos autônomos e sistemas de logística inteligente revolucionam a mobilidade urbana. Essas tecnologias estão melhorando a eficiência e a precisão em diversas áreas.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 0.0,
+      "latency_ms": 1568.0880429999888,
+      "response": "Não há informações sobre o período de garantia padrão no contexto fornecido.",
+      "expected": "24 meses",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 0.0,
+      "latency_ms": 1628.9697509996586,
+      "response": "Não há informações suficientes no contexto para determinar qual região teve a maior participação no faturamento. O contexto apenas menciona o crescimento das vendas do departamento comercial, mas não fornece detalhes sobre a distribuição geográfica dessas vendas.",
+      "expected": "Sudeste",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 1.0,
+      "latency_ms": 1441.6770010002438,
+      "response": "5555",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 1.0,
+      "latency_ms": 1282.371959000102,
+      "response": "Nível 3 superior, aprovada pelo gestor direto do departamento.",
+      "expected": "nível 3",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 1.0,
+      "latency_ms": 1228.0778750000536,
+      "response": "23%",
+      "expected": "23%",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_llama3.3-70b",
+      "test_case": "longbench_summarization_1",
+      "score": 0.75,
+      "latency_ms": 842.403541999829,
+      "response": "A inteligência artificial está transformando vários setores, como financeiro, saúde, varejo e manufatura, por meio de tecnologias como algoritmos de machine learning, chatbots e robôs inteligentes. No entanto, essa transformação também traz desafios éticos e questões regulamentares. Esses desafios precisam ser abordados para garantir o uso responsável e benéfico da inteligência artificial.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 2915.8742509998774,
+      "response": "É necessária credencial de nível 3 superior.",
+      "expected": "nível 3",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 0.0,
+      "latency_ms": 3691.1046679997526,
+      "response": "O período de garantia padrão não está especificado no contexto fornecido.",
+      "expected": "24 meses",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 1.0,
+      "latency_ms": 4366.991876999691,
+      "response": "5555",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 0.0,
+      "latency_ms": 20931.458594000105,
+      "response": "O contexto fornecido não menciona o processador utilizado pelo XYZ‑500.",
+      "expected": "ARM Cortex-M4",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 0.0,
+      "latency_ms": 19767.073426000024,
+      "response": "O crescimento percentual nas vendas do terceiro trimestre foi de **12 %**.",
+      "expected": "23%",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-120b",
+      "test_case": "longbench_summarization_1",
+      "score": 0.0,
+      "latency_ms": 30449.8857640001,
+      "response": "Não foi fornecido nenhum texto para resumir.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 5198.024168999837,
+      "response": "24 meses.",
+      "expected": "24 meses",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 0.0,
+      "latency_ms": 14552.291713999693,
+      "response": "Não há informação sobre o processador no contexto fornecido.",
+      "expected": "ARM Cortex-M4",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 0.0,
+      "latency_ms": 22166.125301000193,
+      "response": "Não há informação suficiente no contexto fornecido para determinar qual região teve a maior participação no faturamento.",
+      "expected": "Sudeste",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 1.0,
+      "latency_ms": 4575.46587700017,
+      "response": "Credencial de nível 3 (superior), aprovada pelo gestor direto do departamento.",
+      "expected": "nível 3",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 1.0,
+      "latency_ms": 8779.626003999965,
+      "response": "5555",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rsaw_gpt-oss-20b",
+      "test_case": "longbench_summarization_1",
+      "score": 0.5,
+      "latency_ms": 17153.79517500014,
+      "response": "A IA está revolucionando setores como finanças, saúde, varejo, manufatura e transportes, aplicando machine learning para detectar fraudes, diagnosticar doenças, personalizar recomendações, otimizar manutenção e viabilizar veículos autônomos. Cada aplicação traz ganhos de eficiência e inovação, mas também gera desafios significativos, como viés algorítmico, privacidade dos dados, impacto no emprego e necessidade de regulamentação adequada.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    }
+  ],
+  "summary": {
+    "total_tests": 228,
+    "strategies": {
+      "rsaw_llama3.1-8b": {
+        "avg_score": 0.43859649122807015,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 11201.427881578946,
+        "num_tests": 57
+      },
+      "rsaw_llama3.3-70b": {
+        "avg_score": 0.5657894736842105,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 3720.6758775087874,
+        "num_tests": 57
+      },
+      "rsaw_gpt-oss-120b": {
+        "avg_score": 0.5578947368421052,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 22759.69935542103,
+        "num_tests": 57
+      },
+      "rsaw_gpt-oss-20b": {
+        "avg_score": 0.3228070175438596,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 19091.635749210516,
+        "num_tests": 57
+      }
+    },
+    "benchmarks": {
+      "needle_in_haystack": {
+        "avg_score": 0.35333333333333333,
+        "num_tests": 60
+      },
+      "ruler": {
+        "avg_score": 0.4965277777777778,
+        "num_tests": 144
+      },
+      "longbench": {
+        "avg_score": 0.6145833333333334,
+        "num_tests": 24
+      }
+    },
+    "strategy_x_benchmark_matrix": {
+      "rsaw_llama3.1-8b": {
+        "needle_in_haystack": 0.2,
+        "ruler": 0.4583333333333333,
+        "longbench": 0.9166666666666666
+      },
+      "rsaw_llama3.3-70b": {
+        "needle_in_haystack": 0.4,
+        "ruler": 0.625,
+        "longbench": 0.625
+      },
+      "rsaw_gpt-oss-120b": {
+        "needle_in_haystack": 0.6533333333333334,
+        "ruler": 0.5555555555555556,
+        "longbench": 0.3333333333333333
+      },
+      "rsaw_gpt-oss-20b": {
+        "needle_in_haystack": 0.16,
+        "ruler": 0.3472222222222222,
+        "longbench": 0.5833333333333334
+      }
+    }
+  }
+}

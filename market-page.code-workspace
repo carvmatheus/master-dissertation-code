@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../market-page"
+		},
+		{
+			"path": "../market-page-mobile"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"postman.settings.dotenv-detection-notification-visibility": false
+	}
+}

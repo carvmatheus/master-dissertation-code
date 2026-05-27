@@ -1,0 +1,121 @@
+benchmark,strategy,test_case,score,latency_ms,context_chars,expected,expected_topics,num_documents,source_doc,task_type
+longbench,raw_llama3.1-8b,longbench_multidoc_qa_1,1.0,382.39850000002207,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,raw_llama3.1-8b,longbench_multidoc_qa_2,1.0,340.6590839999808,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,raw_llama3.1-8b,longbench_multidoc_qa_3,1.0,301.98362500004805,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,raw_llama3.1-8b,longbench_multidoc_qa_4,1.0,273.00562499999614,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,raw_llama3.1-8b,longbench_multidoc_qa_5,1.0,238.10550100006367,2217,15 de abril às 10h,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,raw_llama3.1-8b,longbench_summarization_1,0.75,3702.751459999945,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,sliding_window_llama3.1-8b,longbench_multidoc_qa_1,1.0,3361.2804600001027,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,sliding_window_llama3.1-8b,longbench_multidoc_qa_2,1.0,7382.263251999916,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,sliding_window_llama3.1-8b,longbench_multidoc_qa_3,1.0,7522.374545000048,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,sliding_window_llama3.1-8b,longbench_multidoc_qa_4,1.0,6462.510294999902,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,sliding_window_llama3.1-8b,longbench_multidoc_qa_5,1.0,6420.328795000046,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,sliding_window_llama3.1-8b,longbench_summarization_1,0.75,3712.961084999961,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,parallel_window_llama3.1-8b,longbench_multidoc_qa_1,1.0,7607.566961000089,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,parallel_window_llama3.1-8b,longbench_multidoc_qa_2,1.0,7319.795045000092,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,parallel_window_llama3.1-8b,longbench_multidoc_qa_3,1.0,7473.991794999961,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,parallel_window_llama3.1-8b,longbench_multidoc_qa_4,1.0,6326.68691899994,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,parallel_window_llama3.1-8b,longbench_multidoc_qa_5,1.0,2335.54612599994,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,parallel_window_llama3.1-8b,longbench_summarization_1,0.75,3419.2380420000745,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,semantic_compression_llama3.1-8b,longbench_multidoc_qa_1,0.0,15549.931549999998,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,semantic_compression_llama3.1-8b,longbench_multidoc_qa_2,1.0,20110.467925000194,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,semantic_compression_llama3.1-8b,longbench_multidoc_qa_3,1.0,13348.425381000197,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,semantic_compression_llama3.1-8b,longbench_multidoc_qa_4,1.0,18478.562007999928,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,semantic_compression_llama3.1-8b,longbench_multidoc_qa_5,0.0,17337.94538400002,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,semantic_compression_llama3.1-8b,longbench_summarization_1,0.75,7358.90150299997,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,rig_llama3.1-8b,longbench_multidoc_qa_1,1.0,7525.615129000016,2217,R$ 15 milhões,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,rig_llama3.1-8b,longbench_multidoc_qa_2,1.0,7511.120836999908,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_llama3.1-8b,longbench_multidoc_qa_3,1.0,6574.285877999955,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_llama3.1-8b,longbench_multidoc_qa_4,1.0,7566.019170000118,2217,64,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_llama3.1-8b,longbench_multidoc_qa_5,1.0,6512.427710999873,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,rig_llama3.1-8b,longbench_summarization_1,0.75,4549.256877000062,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,raw_gpt-oss-120b,longbench_multidoc_qa_1,0.0,671.4913750000004,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,raw_gpt-oss-120b,longbench_multidoc_qa_2,1.0,374.4009579999989,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,raw_gpt-oss-120b,longbench_multidoc_qa_3,1.0,414.0634590000012,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,raw_gpt-oss-120b,longbench_multidoc_qa_4,0.5,833.4858329999993,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,raw_gpt-oss-120b,longbench_multidoc_qa_5,0.5,768.4080420000008,2217,15 de abril às 10h,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,raw_gpt-oss-120b,longbench_summarization_1,0.75,776.504751000001,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,sliding_window_gpt-oss-120b,longbench_multidoc_qa_1,1.0,578.9717920000008,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,sliding_window_gpt-oss-120b,longbench_multidoc_qa_2,1.0,468.806292,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,sliding_window_gpt-oss-120b,longbench_multidoc_qa_3,1.0,2424.170043,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,sliding_window_gpt-oss-120b,longbench_multidoc_qa_4,1.0,4709.914378,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,sliding_window_gpt-oss-120b,longbench_multidoc_qa_5,0.0,5550.578627,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,sliding_window_gpt-oss-120b,longbench_summarization_1,0.75,3704.3717099999967,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,parallel_window_gpt-oss-120b,longbench_multidoc_qa_1,1.0,5584.388627000003,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,parallel_window_gpt-oss-120b,longbench_multidoc_qa_2,1.0,5501.215503000005,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,parallel_window_gpt-oss-120b,longbench_multidoc_qa_3,1.0,5515.196211000003,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,parallel_window_gpt-oss-120b,longbench_multidoc_qa_4,0.5,4453.929627,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,parallel_window_gpt-oss-120b,longbench_multidoc_qa_5,0.0,1491.127501000001,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,parallel_window_gpt-oss-120b,longbench_summarization_1,0.5,3871.3402099999994,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,semantic_compression_gpt-oss-120b,longbench_multidoc_qa_1,1.0,17814.739757999996,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,semantic_compression_gpt-oss-120b,longbench_multidoc_qa_2,0.0,13598.450505000003,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,semantic_compression_gpt-oss-120b,longbench_multidoc_qa_3,1.0,33782.135724,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,semantic_compression_gpt-oss-120b,longbench_multidoc_qa_4,1.0,13790.007840000002,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,semantic_compression_gpt-oss-120b,longbench_multidoc_qa_5,0.0,32834.219515000004,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,semantic_compression_gpt-oss-120b,longbench_summarization_1,0.75,25771.408428999992,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,rig_gpt-oss-120b,longbench_multidoc_qa_1,1.0,4833.867543999986,2217,R$ 15 milhões,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,rig_gpt-oss-120b,longbench_multidoc_qa_2,0.5,537.610084000022,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_gpt-oss-120b,longbench_multidoc_qa_3,1.0,5560.7893780000095,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_gpt-oss-120b,longbench_multidoc_qa_4,1.0,4577.5431679999765,2217,64,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_gpt-oss-120b,longbench_multidoc_qa_5,1.0,1620.131334000007,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,rig_gpt-oss-120b,longbench_summarization_1,0.75,2835.103000999993,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,raw_llama3.3-70b,longbench_multidoc_qa_1,1.0,303.5510420000094,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,raw_llama3.3-70b,longbench_multidoc_qa_2,1.0,338.2329159999813,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,raw_llama3.3-70b,longbench_multidoc_qa_3,1.0,501.2070420000043,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,raw_llama3.3-70b,longbench_multidoc_qa_4,1.0,419.7870840000064,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,raw_llama3.3-70b,longbench_multidoc_qa_5,1.0,331.0904169999844,2217,15 de abril às 10h,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,raw_llama3.3-70b,longbench_summarization_1,1.0,450.8813759999839,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,sliding_window_llama3.3-70b,longbench_multidoc_qa_1,1.0,518.132707999996,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,sliding_window_llama3.3-70b,longbench_multidoc_qa_2,1.0,259.15320799998653,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,sliding_window_llama3.3-70b,longbench_multidoc_qa_3,1.0,277.128958999981,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,sliding_window_llama3.3-70b,longbench_multidoc_qa_4,1.0,347.115083999995,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,sliding_window_llama3.3-70b,longbench_multidoc_qa_5,1.0,299.7519170000089,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,sliding_window_llama3.3-70b,longbench_summarization_1,0.75,452.01000000000136,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,parallel_window_llama3.3-70b,longbench_multidoc_qa_1,1.0,461.9064999999978,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,parallel_window_llama3.3-70b,longbench_multidoc_qa_2,1.0,2326.7178340000214,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,parallel_window_llama3.3-70b,longbench_multidoc_qa_3,1.0,1345.8348340000157,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,parallel_window_llama3.3-70b,longbench_multidoc_qa_4,1.0,4786.809293999994,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,parallel_window_llama3.3-70b,longbench_multidoc_qa_5,1.0,2279.0882080000188,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,parallel_window_llama3.3-70b,longbench_summarization_1,0.75,2644.2197099999876,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,semantic_compression_llama3.3-70b,longbench_multidoc_qa_1,1.0,6240.161711000013,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,semantic_compression_llama3.3-70b,longbench_multidoc_qa_2,1.0,6174.158378000016,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,semantic_compression_llama3.3-70b,longbench_multidoc_qa_3,1.0,6230.578751999985,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,semantic_compression_llama3.3-70b,longbench_multidoc_qa_4,1.0,7566.925878000006,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,semantic_compression_llama3.3-70b,longbench_multidoc_qa_5,1.0,6070.012087000009,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,semantic_compression_llama3.3-70b,longbench_summarization_1,0.5,2920.7319180000013,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,rig_llama3.3-70b,longbench_multidoc_qa_1,1.0,4682.614711000042,2217,R$ 15 milhões,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,rig_llama3.3-70b,longbench_multidoc_qa_2,1.0,2611.7495429999735,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_llama3.3-70b,longbench_multidoc_qa_3,1.0,3887.7309190000346,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_llama3.3-70b,longbench_multidoc_qa_4,1.0,3535.5937100000006,2217,64,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_llama3.3-70b,longbench_multidoc_qa_5,1.0,3539.436959999989,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,rig_llama3.3-70b,longbench_summarization_1,0.75,1592.7750010000068,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,raw_gpt-oss-20b,longbench_multidoc_qa_1,1.0,1264.806541999974,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,raw_gpt-oss-20b,longbench_multidoc_qa_2,1.0,448.0960000000209,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,raw_gpt-oss-20b,longbench_multidoc_qa_3,1.0,282.9532499999914,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,raw_gpt-oss-20b,longbench_multidoc_qa_4,0.5,336.61579199997504,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,raw_gpt-oss-20b,longbench_multidoc_qa_5,1.0,536.3077499999918,2217,15 de abril às 10h,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,raw_gpt-oss-20b,longbench_summarization_1,0.5,1315.8087090000095,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,sliding_window_gpt-oss-20b,longbench_multidoc_qa_1,1.0,528.9937090000194,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,sliding_window_gpt-oss-20b,longbench_multidoc_qa_2,1.0,3539.128084999959,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,sliding_window_gpt-oss-20b,longbench_multidoc_qa_3,1.0,7064.899502999992,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,sliding_window_gpt-oss-20b,longbench_multidoc_qa_4,1.0,4419.735085000013,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,sliding_window_gpt-oss-20b,longbench_multidoc_qa_5,1.0,5599.162586000034,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,sliding_window_gpt-oss-20b,longbench_summarization_1,1.0,3612.0375429999854,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,parallel_window_gpt-oss-20b,longbench_multidoc_qa_1,1.0,4439.543919000016,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,parallel_window_gpt-oss-20b,longbench_multidoc_qa_2,1.0,5413.610251999955,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,parallel_window_gpt-oss-20b,longbench_multidoc_qa_3,1.0,5441.2618779999775,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,parallel_window_gpt-oss-20b,longbench_multidoc_qa_4,0.5,5504.135378000001,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,parallel_window_gpt-oss-20b,longbench_multidoc_qa_5,1.0,5423.092876999988,2217,23%,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,parallel_window_gpt-oss-20b,longbench_summarization_1,1.0,2451.448417999984,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,semantic_compression_gpt-oss-20b,longbench_multidoc_qa_1,1.0,14222.265298000024,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,semantic_compression_gpt-oss-20b,longbench_multidoc_qa_2,0.0,21599.877967999986,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,semantic_compression_gpt-oss-20b,longbench_multidoc_qa_3,0.0,24216.885511000044,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,semantic_compression_gpt-oss-20b,longbench_multidoc_qa_4,1.0,22528.973635999988,2217,nível 3,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,semantic_compression_gpt-oss-20b,longbench_multidoc_qa_5,0.0,22463.387802,2217,5555,,3,Manual de Procedimentos de Segurança,multi_doc_qa
+longbench,semantic_compression_gpt-oss-20b,longbench_summarization_1,0.0,20081.71138399996,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization
+longbench,rig_gpt-oss-20b,longbench_multidoc_qa_1,1.0,5717.154794000009,2217,R$ 15 milhões,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,rig_gpt-oss-20b,longbench_multidoc_qa_2,0.5,6458.858919999955,2217,ARM Cortex-M4,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_gpt-oss-20b,longbench_multidoc_qa_3,1.0,3560.346293000009,2217,24 meses,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_gpt-oss-20b,longbench_multidoc_qa_4,1.0,5602.569627000037,2217,64,,3,Especificação Técnica do Produto XYZ-500,multi_doc_qa
+longbench,rig_gpt-oss-20b,longbench_multidoc_qa_5,1.0,1571.247000000028,2217,Sudeste,,3,Relatório Trimestral de Vendas,multi_doc_qa
+longbench,rig_gpt-oss-20b,longbench_summarization_1,1.0,3563.6934600000245,1015,inteligência artificial setores desafios ética,"['inteligência artificial', 'setores', 'desafios', 'ética']",,,summarization

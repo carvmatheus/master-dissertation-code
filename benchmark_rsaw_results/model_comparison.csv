@@ -1,0 +1,5 @@
+Model,needle_in_haystack,ruler,longbench,Average
+llama3.1-8b,0.200,0.458,0.917,0.525
+llama3.3-70b,0.400,0.625,0.625,0.550
+gpt-oss-120b,0.653,0.556,0.333,0.514
+gpt-oss-20b,0.160,0.347,0.583,0.364

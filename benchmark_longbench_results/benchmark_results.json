@@ -1,0 +1,490 @@
+{
+  "timestamp": "2026-05-26T15:27:16.096577",
+  "strategies": [
+    "raw_gpt-oss-20b",
+    "sliding_window_gpt-oss-20b",
+    "parallel_window_gpt-oss-20b",
+    "semantic_compression_gpt-oss-20b",
+    "rig_gpt-oss-20b"
+  ],
+  "benchmarks": [
+    "needle_in_haystack",
+    "ruler",
+    "longbench"
+  ],
+  "results": [
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 1264.806541999974,
+      "response": "23%",
+      "expected": "23%",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 1.0,
+      "latency_ms": 448.0960000000209,
+      "response": "5555",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 1.0,
+      "latency_ms": 282.9532499999914,
+      "response": "Sudeste.",
+      "expected": "Sudeste",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 0.5,
+      "latency_ms": 336.61579199997504,
+      "response": "ARM Cortex‑M4 (180 MHz).",
+      "expected": "ARM Cortex-M4",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 1.0,
+      "latency_ms": 536.3077499999918,
+      "response": "15 de abril às 10h.",
+      "expected": "15 de abril às 10h",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_gpt-oss-20b",
+      "test_case": "longbench_summarization_1",
+      "score": 0.5,
+      "latency_ms": 1315.8087090000095,
+      "response": "A IA tem impulsionado setores como finanças, saúde, varejo, manufatura e transportes, com aplicações que vão de detecção de fraudes a diagnósticos médicos, chatbots, robôs inteligentes e veículos autônomos. Apesar dos benefícios, persistem desafios éticos, de privacidade e de emprego, levando à criação de regulamentações específicas em vários países.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "sliding_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 528.9937090000194,
+      "response": "24 meses.",
+      "expected": "24 meses",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "sliding_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 1.0,
+      "latency_ms": 3539.128084999959,
+      "response": "Sudeste.",
+      "expected": "Sudeste",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "sliding_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 1.0,
+      "latency_ms": 7064.899502999992,
+      "response": "5555",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "sliding_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 1.0,
+      "latency_ms": 4419.735085000013,
+      "response": "Nível 3 ou superior.",
+      "expected": "nível 3",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "sliding_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 1.0,
+      "latency_ms": 5599.162586000034,
+      "response": "23%",
+      "expected": "23%",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "sliding_window_gpt-oss-20b",
+      "test_case": "longbench_summarization_1",
+      "score": 1.0,
+      "latency_ms": 3612.0375429999854,
+      "response": "A inteligência artificial tem impulsionado setores como finanças, saúde, varejo, manufatura e transportes, aplicando machine learning para fraudes, diagnósticos, recomendações, robótica e logística. Apesar dos ganhos, questões éticas—viés, privacidade e desemprego—e a necessidade de regulamentação ainda são desafios críticos. Reguladores em vários países estão desenvolvendo normas para garantir o uso responsável dessas tecnologias.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "parallel_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 4439.543919000016,
+      "response": "Credencial nível 3 ou superior.",
+      "expected": "nível 3",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "parallel_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 1.0,
+      "latency_ms": 5413.610251999955,
+      "response": "24 meses.",
+      "expected": "24 meses",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "parallel_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 1.0,
+      "latency_ms": 5441.2618779999775,
+      "response": "5555",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "parallel_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 0.5,
+      "latency_ms": 5504.135378000001,
+      "response": "ARM Cortex‑M4 a 180 MHz.",
+      "expected": "ARM Cortex-M4",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "parallel_window_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 1.0,
+      "latency_ms": 5423.092876999988,
+      "response": "23%",
+      "expected": "23%",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "parallel_window_gpt-oss-20b",
+      "test_case": "longbench_summarization_1",
+      "score": 1.0,
+      "latency_ms": 2451.448417999984,
+      "response": "A inteligência artificial tem impulsionado setores como finanças, saúde, varejo, manufatura e transportes, aplicando machine learning para fraudes, diagnósticos, recomendações, robótica e logística. Apesar dos ganhos, questões éticas—viés, privacidade e desemprego—e a necessidade de regulamentação ainda são desafios críticos. Reguladores em vários países estão desenvolvendo normas para garantir o uso responsável dessas tecnologias.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "semantic_compression_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 14222.265298000024,
+      "response": "12 meses (um ano).",
+      "expected": "24 meses",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "semantic_compression_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 0.0,
+      "latency_ms": 21599.877967999986,
+      "response": "Não há informação suficiente no contexto fornecido para determinar o processador do XYZ‑500.",
+      "expected": "ARM Cortex-M4",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "semantic_compression_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 0.0,
+      "latency_ms": 24216.885511000044,
+      "response": "Desculpe, mas não há contexto fornecido para eu determinar qual região teve a maior participação no faturamento. Se puder compartilhar os dados ou informações relevantes, ficarei feliz em ajudar.",
+      "expected": "Sudeste",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "semantic_compression_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 1.0,
+      "latency_ms": 22528.973635999988,
+      "response": "Credencial de nível 3 (ou superior).",
+      "expected": "nível 3",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "semantic_compression_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 0.0,
+      "latency_ms": 22463.387802,
+      "response": "112",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "semantic_compression_gpt-oss-20b",
+      "test_case": "longbench_summarization_1",
+      "score": 0.0,
+      "latency_ms": 20081.71138399996,
+      "response": "Não há texto fornecido para resumir.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rig_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 5717.154794000009,
+      "response": "R$ 15 milhões.",
+      "expected": "R$ 15 milhões",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rig_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 0.5,
+      "latency_ms": 6458.858919999955,
+      "response": "ARM Cortex‑M4 a 180 MHz.",
+      "expected": "ARM Cortex-M4",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rig_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 1.0,
+      "latency_ms": 3560.346293000009,
+      "response": "24 meses.",
+      "expected": "24 meses",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rig_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_4",
+      "score": 1.0,
+      "latency_ms": 5602.569627000037,
+      "response": "64 sensores simultâneos.",
+      "expected": "64",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Especificação Técnica do Produto XYZ-500",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rig_gpt-oss-20b",
+      "test_case": "longbench_multidoc_qa_5",
+      "score": 1.0,
+      "latency_ms": 1571.247000000028,
+      "response": "Sudeste.",
+      "expected": "Sudeste",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "rig_gpt-oss-20b",
+      "test_case": "longbench_summarization_1",
+      "score": 1.0,
+      "latency_ms": 3563.6934600000245,
+      "response": "A inteligência artificial tem impulsionado setores como finanças, saúde, varejo, manufatura e transportes, aplicando machine learning para fraudes, diagnósticos, recomendações, robótica e logística. Apesar dos ganhos, questões éticas—viés, privacidade e desemprego—e a necessidade de regulamentação ainda são desafios críticos. Reguladores em vários países estão desenvolvendo normas para garantir o uso responsável dessas tecnologias.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    }
+  ],
+  "summary": {
+    "total_tests": 30,
+    "strategies": {
+      "raw_gpt-oss-20b": {
+        "avg_score": 0.8333333333333334,
+        "min_score": 0.5,
+        "max_score": 1.0,
+        "avg_latency_ms": 697.4313404999938,
+        "num_tests": 6
+      },
+      "sliding_window_gpt-oss-20b": {
+        "avg_score": 1.0,
+        "min_score": 1.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 4127.326085166666,
+        "num_tests": 6
+      },
+      "parallel_window_gpt-oss-20b": {
+        "avg_score": 0.9166666666666666,
+        "min_score": 0.5,
+        "max_score": 1.0,
+        "avg_latency_ms": 4778.848786999987,
+        "num_tests": 6
+      },
+      "semantic_compression_gpt-oss-20b": {
+        "avg_score": 0.3333333333333333,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 20852.18359983333,
+        "num_tests": 6
+      },
+      "rig_gpt-oss-20b": {
+        "avg_score": 0.9166666666666666,
+        "min_score": 0.5,
+        "max_score": 1.0,
+        "avg_latency_ms": 4412.311682333344,
+        "num_tests": 6
+      }
+    },
+    "benchmarks": {
+      "longbench": {
+        "avg_score": 0.8,
+        "num_tests": 30
+      }
+    },
+    "strategy_x_benchmark_matrix": {
+      "raw_gpt-oss-20b": {
+        "longbench": 0.8333333333333334
+      },
+      "sliding_window_gpt-oss-20b": {
+        "longbench": 1.0
+      },
+      "parallel_window_gpt-oss-20b": {
+        "longbench": 0.9166666666666666
+      },
+      "semantic_compression_gpt-oss-20b": {
+        "longbench": 0.3333333333333333
+      },
+      "rig_gpt-oss-20b": {
+        "longbench": 0.9166666666666666
+      }
+    }
+  }
+}

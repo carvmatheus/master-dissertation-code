@@ -29,6 +29,500 @@ services:
   # BENCHMARKS
   # ============================================================
 
+  # ============================================================
+  # RULER ISOLADO — reexecução com rate limit controlado
+  # Rodar na ordem: 120b → 70b → 20b → 8b
+  # ============================================================
+
+  ruler-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_ruler_results:/app/master-dissertation-code/benchmark_ruler_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks ruler
+      --models openai/gpt-oss-120b
+      --output-dir ./benchmark_ruler_results
+
+  ruler-llama70b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_ruler_results:/app/master-dissertation-code/benchmark_ruler_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks ruler
+      --models llama-3.3-70b-versatile
+      --output-dir ./benchmark_ruler_results
+
+  ruler-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_ruler_results:/app/master-dissertation-code/benchmark_ruler_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks ruler
+      --models openai/gpt-oss-20b
+      --output-dir ./benchmark_ruler_results
+
+  ruler-llama8b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_ruler_results:/app/master-dissertation-code/benchmark_ruler_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks ruler
+      --models llama-3.1-8b-instant
+      --output-dir ./benchmark_ruler_results
+
+  # ============================================================
+  # LONGBENCH ISOLADO — reexecução com rate limit controlado
+  # Rodar na ordem: 120b → 70b → 20b → 8b
+  # ============================================================
+
+  longbench-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_longbench_results:/app/master-dissertation-code/benchmark_longbench_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks longbench
+      --models openai/gpt-oss-120b
+      --output-dir ./benchmark_longbench_results
+
+  longbench-llama70b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_longbench_results:/app/master-dissertation-code/benchmark_longbench_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks longbench
+      --models llama-3.3-70b-versatile
+      --output-dir ./benchmark_longbench_results
+
+  longbench-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_longbench_results:/app/master-dissertation-code/benchmark_longbench_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks longbench
+      --models openai/gpt-oss-20b
+      --output-dir ./benchmark_longbench_results
+
+  longbench-llama8b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_longbench_results:/app/master-dissertation-code/benchmark_longbench_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks longbench
+      --models llama-3.1-8b-instant
+      --output-dir ./benchmark_longbench_results
+
+  # Benchmark RSAW isolado (salva em benchmark_rsaw_results/)
+  benchmark-rsaw:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_rsaw_results:/app/master-dissertation-code/benchmark_rsaw_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies rsaw
+      --output-dir ./benchmark_rsaw_results
+
+  # Benchmark RSAW rápido
+  benchmark-rsaw-quick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_rsaw_results:/app/master-dissertation-code/benchmark_rsaw_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies rsaw
+      --quick
+      --output-dir ./benchmark_rsaw_results
+
+  # ============================================================
+  # BABILONG ISOLADO — reexecução com rate limit controlado
+  # Rodar na ordem: 120b → 70b → 20b → 8b
+  # ============================================================
+
+  babilong-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_babilong_results:/app/master-dissertation-code/benchmark_babilong_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig,rsaw
+      --benchmarks babilong
+      --models openai/gpt-oss-120b
+      --output-dir ./benchmark_babilong_results
+
+  babilong-llama70b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_babilong_results:/app/master-dissertation-code/benchmark_babilong_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig,rsaw
+      --benchmarks babilong
+      --models llama-3.3-70b-versatile
+      --output-dir ./benchmark_babilong_results
+
+  babilong-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_babilong_results:/app/master-dissertation-code/benchmark_babilong_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig,rsaw
+      --benchmarks babilong
+      --models openai/gpt-oss-20b
+      --output-dir ./benchmark_babilong_results
+
+  babilong-llama8b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_babilong_results:/app/master-dissertation-code/benchmark_babilong_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig,rsaw
+      --benchmarks babilong
+      --models llama-3.1-8b-instant
+      --output-dir ./benchmark_babilong_results
+
+  # ============================================================
+  # NARRATIVEQA ISOLADO — reexecução com rate limit controlado
+  # ============================================================
+
+  narrativeqa-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_narrativeqa_results:/app/master-dissertation-code/benchmark_narrativeqa_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks narrativeqa
+      --models openai/gpt-oss-120b
+      --output-dir ./benchmark_narrativeqa_results
+
+  narrativeqa-llama70b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_narrativeqa_results:/app/master-dissertation-code/benchmark_narrativeqa_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks narrativeqa
+      --models llama-3.3-70b-versatile
+      --output-dir ./benchmark_narrativeqa_results
+
+  narrativeqa-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_narrativeqa_results:/app/master-dissertation-code/benchmark_narrativeqa_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks narrativeqa
+      --models openai/gpt-oss-20b
+      --output-dir ./benchmark_narrativeqa_results
+
+  narrativeqa-llama8b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_narrativeqa_results:/app/master-dissertation-code/benchmark_narrativeqa_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks narrativeqa
+      --models llama-3.1-8b-instant
+      --output-dir ./benchmark_narrativeqa_results
+
+  # ============================================================
+  # QASPER ISOLADO — reexecução com rate limit controlado
+  # ============================================================
+
+  qasper-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_qasper_results:/app/master-dissertation-code/benchmark_qasper_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks qasper
+      --models openai/gpt-oss-120b
+      --output-dir ./benchmark_qasper_results
+
+  qasper-llama70b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_qasper_results:/app/master-dissertation-code/benchmark_qasper_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks qasper
+      --models llama-3.3-70b-versatile
+      --output-dir ./benchmark_qasper_results
+
+  qasper-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_qasper_results:/app/master-dissertation-code/benchmark_qasper_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks qasper
+      --models openai/gpt-oss-20b
+      --output-dir ./benchmark_qasper_results
+
+  qasper-llama8b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_qasper_results:/app/master-dissertation-code/benchmark_qasper_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks qasper
+      --models llama-3.1-8b-instant
+      --output-dir ./benchmark_qasper_results
+
+  # ============================================================
+  # INFINITEBENCH ISOLADO — reexecução com rate limit controlado
+  # ============================================================
+
+  infinitebench-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_infinitebench_results:/app/master-dissertation-code/benchmark_infinitebench_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks infinitebench
+      --models openai/gpt-oss-120b
+      --output-dir ./benchmark_infinitebench_results
+
+  infinitebench-llama70b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_infinitebench_results:/app/master-dissertation-code/benchmark_infinitebench_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks infinitebench
+      --models llama-3.3-70b-versatile
+      --output-dir ./benchmark_infinitebench_results
+
+  infinitebench-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_infinitebench_results:/app/master-dissertation-code/benchmark_infinitebench_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks infinitebench
+      --models openai/gpt-oss-20b
+      --output-dir ./benchmark_infinitebench_results
+
+  infinitebench-llama8b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./benchmark_infinitebench_results:/app/master-dissertation-code/benchmark_infinitebench_results
+    command: >
+      python 01-context-extension-comparison/run_benchmarks.py
+      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
+      --benchmarks infinitebench
+      --models llama-3.1-8b-instant
+      --output-dir ./benchmark_infinitebench_results
+
   # Benchmark completo (todos modelos + estratégias)
   benchmark:
     build: .

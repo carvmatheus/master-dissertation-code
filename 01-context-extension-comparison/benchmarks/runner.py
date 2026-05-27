@@ -16,6 +16,10 @@ from .base import BaseBenchmark, BenchmarkResult
 from .needle_haystack import NeedleInHaystackBenchmark
 from .ruler import RulerBenchmark
 from .longbench import LongBenchTasks
+from .babilong import BABILongBenchmark
+from .narrativeqa import NarrativeQABenchmark
+from .qasper import QASPERBenchmark
+from .infinitebench import InfiniteBenchBenchmark
 
 
 @dataclass
@@ -56,6 +60,10 @@ class BenchmarkRunner:
             "needle_in_haystack": NeedleInHaystackBenchmark(),
             "ruler": RulerBenchmark(),
             "longbench": LongBenchTasks(),
+            "babilong": BABILongBenchmark(),
+            "narrativeqa": NarrativeQABenchmark(),
+            "qasper": QASPERBenchmark(),
+            "infinitebench": InfiniteBenchBenchmark(),
         }
         
         # Estratégias registradas
@@ -272,17 +280,18 @@ class BenchmarkRunner:
         detail_keys = sorted(all_detail_keys - excluded_keys)
         fieldnames.extend(detail_keys)
         
-        with open(filepath, "w", newline="", encoding="utf-8") as f:
+        file_exists = filepath.exists()
+        with open(filepath, "a", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
-            writer.writeheader()
-            
+            if not file_exists:
+                writer.writeheader()
+
             for r in self.results:
                 row = r.to_dict()
-                # Flatten details
                 for k in detail_keys:
                     row[k] = r.details.get(k, "")
                 writer.writerow(row)
-        
+
         print(f"Resultados salvos em: {filepath}")
         return str(filepath)
     

@@ -10,6 +10,12 @@ faiss-cpu
 sentence-transformers
 scikit-learn
 
+# RSAW (token-based segmentation)
+tiktoken
+
+# Benchmarks long-context (BABILong, NarrativeQA, QASPER, InfiniteBench)
+datasets
+
 # Opcional: para integração com Claude (notebook)
 anthropic
 PyPDF2

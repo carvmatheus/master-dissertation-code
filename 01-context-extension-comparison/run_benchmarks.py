@@ -20,10 +20,14 @@ Uso:
     python run_benchmarks.py --quick  # Modo rápido com menos testes
 """
 import argparse
+import logging
 import os
 import sys
 from typing import List, Callable, Dict, Any
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(name)s: %(message)s")
 
 # Adiciona o diretório ao path
 sys.path.insert(0, str(Path(__file__).parent))
@@ -40,6 +44,7 @@ from context_strategies import (
     RIGStrategy,
 )
 from prompt_compression import GroqSemanticCompressor, PerplexityCompressor
+from rsaw import RSAWStrategy
 
 
 # Modelos Groq disponíveis para benchmark
@@ -65,46 +70,89 @@ GPT_OSS_MODELS = [
 ]
 
 
+# Limite de chars por modelo (aprox. 75% da janela de contexto para deixar espaço ao prompt)
+MODEL_CONTEXT_CHAR_LIMITS = {
+    "llama-3.1-8b-instant":    384_000,  # 128K tokens
+    "llama-3.3-70b-versatile": 384_000,  # 128K tokens
+    "openai/gpt-oss-120b":      24_000,  # ~8K tokens (limite observado empiricamente)
+    "openai/gpt-oss-20b":       24_000,
+}
+DEFAULT_CONTEXT_CHAR_LIMIT = 96_000  # fallback seguro
+
+
 def create_groq_strategy(model: str) -> Callable[[str, str], str]:
-    """
-    Cria estratégia que usa Groq para responder perguntas.
-    
-    Args:
-        model: Nome do modelo Groq a usar
-        
-    Returns:
-        Função (context, query) -> response
-    """
+    """Cria estratégia base Groq com retry, truncação e log de erros."""
+    import time
     from groq import Groq
-    
+
     api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
         raise ValueError("GROQ_API_KEY não definida no ambiente")
-    
+
     client = Groq(api_key=api_key)
-    
+    char_limit = MODEL_CONTEXT_CHAR_LIMITS.get(model, DEFAULT_CONTEXT_CHAR_LIMIT)
+
+    def _parse_retry_after(e: Exception) -> float:
+        """Extrai o tempo de espera sugerido pelo Groq no erro 429.
+        Formatos: '12.3s', '1m30s', '1h2m3.4s'
+        """
+        import re
+        err_str = str(e)
+        match = re.search(r'try again in ((?:\d+h)?(?:\d+m)?(?:[0-9.]+s)?)', err_str)
+        if not match:
+            return None
+        raw = match.group(1)
+        total = 0.0
+        for val, unit in re.findall(r'([0-9.]+)(h|m|s)', raw):
+            v = float(val)
+            if unit == 'h':
+                total += v * 3600
+            elif unit == 'm':
+                total += v * 60
+            else:
+                total += v
+        return total + 2.0 if total > 0 else None
+
     def strategy_fn(context: str, query: str) -> str:
-        """Envia contexto + query para o Groq e retorna resposta."""
-        prompt = f"""Baseado no contexto abaixo, responda a pergunta de forma direta e concisa.
-
-CONTEXTO:
-{context}
-
-PERGUNTA: {query}
-
-RESPOSTA:"""
-        
-        try:
-            response = client.chat.completions.create(
-                messages=[{"role": "user", "content": prompt}],
-                model=model,
-                temperature=0,
-                max_tokens=500,
+        # Trunca contexto se exceder limite do modelo
+        if len(context) > char_limit:
+            logger.warning(
+                f"[{model}] Contexto truncado: {len(context)} → {char_limit} chars"
             )
-            return response.choices[0].message.content.strip()
-        except Exception as e:
-            return f"[Erro: {e}]"
-    
+            context = context[:char_limit]
+
+        prompt = (
+            "Baseado no contexto abaixo, responda a pergunta de forma direta e concisa.\n\n"
+            f"CONTEXTO:\n{context}\n\nPERGUNTA: {query}\n\nRESPOSTA:"
+        )
+
+        base_wait = 5.0
+        for attempt in range(5):
+            try:
+                response = client.chat.completions.create(
+                    messages=[{"role": "user", "content": prompt}],
+                    model=model,
+                    temperature=0,
+                    max_tokens=500,
+                )
+                return response.choices[0].message.content.strip()
+            except Exception as e:
+                err_str = str(e)
+                is_rate_limit = "429" in err_str or "rate_limit" in err_str.lower()
+                if is_rate_limit:
+                    wait = _parse_retry_after(e)
+                    if wait is None:
+                        wait = base_wait * (2 ** attempt)  # 5, 10, 20, 40, 80s
+                    logger.warning(
+                        f"[{model}] Rate limit (tentativa {attempt+1}/5). Aguardando {wait:.0f}s… | msg: {err_str[:200]}"
+                    )
+                    time.sleep(wait)
+                else:
+                    logger.error(f"[{model}] Erro na API: {type(e).__name__}: {e}")
+                    return f"[Erro: {e}]"
+        logger.error(f"[{model}] Rate limit persistente após 5 tentativas.")
+        return "[Erro: rate limit]"
+
     return strategy_fn
 
 
@@ -118,41 +166,53 @@ def create_raw_strategy(model: str) -> Callable[[str, str], str]:
 def create_sliding_window_strategy(
     model: str,
     chunk_size: int = 500,
-    overlap: int = 50
+    overlap: int = 50,
+    max_chunks: int = 6,
 ) -> Callable[[str, str], str]:
     """
     Estratégia com janela deslizante.
-    Usa apenas os primeiros chunks que cabem no contexto.
+    Distribui chunks ao longo do documento (início, meio, fim) para cobrir
+    contextos longos sem se limitar apenas ao começo.
     """
     slider = SlidingWindowStrategy(chunk_size=chunk_size, overlap=overlap)
     base_fn = create_groq_strategy(model)
-    
+
     def strategy_fn(context: str, query: str) -> str:
         chunks = slider.process(context, query)
-        # Usa os 3 primeiros chunks
-        limited_context = "\n---\n".join(chunks[:3])
+        if len(chunks) <= max_chunks:
+            selected = chunks
+        else:
+            # Distribui uniformemente: início, meio e fim
+            indices = [int(i * (len(chunks) - 1) / (max_chunks - 1)) for i in range(max_chunks)]
+            selected = [chunks[i] for i in indices]
+        limited_context = "\n---\n".join(selected)
         return base_fn(limited_context, query)
-    
+
     return strategy_fn
 
 
 def create_parallel_window_strategy(
     model: str,
-    chunk_size: int = 1000
+    chunk_size: int = 1000,
+    max_chunks: int = 4,
 ) -> Callable[[str, str], str]:
     """
     Estratégia com janela paralela.
-    Processa chunks em paralelo e agrega respostas.
+    Distribui chunks ao longo do documento para cobrir contextos longos.
     """
     slider = ParallelWindowStrategy(chunk_size=chunk_size)
     base_fn = create_groq_strategy(model)
-    
+
     def strategy_fn(context: str, query: str) -> str:
         chunks = slider.process(context, query)
-        # Concatena primeiros chunks
-        limited_context = "\n---\n".join(chunks[:3])
+        if len(chunks) <= max_chunks:
+            selected = chunks
+        else:
+            indices = [int(i * (len(chunks) - 1) / (max_chunks - 1)) for i in range(max_chunks)]
+            selected = [chunks[i] for i in indices]
+        limited_context = "\n---\n".join(selected)
         return base_fn(limited_context, query)
-    
+
     return strategy_fn
 
 
@@ -194,6 +254,41 @@ def create_rig_strategy(
         combined_context = "\n---\n".join(chunks)
         return base_fn(combined_context, query)
     
+    return strategy_fn
+
+
+def create_rsaw_strategy(model: str) -> Callable[[str, str], str]:
+    """
+    Estratégia RSAW: Relevance-Stratified Adaptive Window.
+    Lê hiperparâmetros de rsaw/config.json.
+    """
+    import json
+
+    config_path = Path(__file__).parent / "rsaw" / "config.json"
+    with open(config_path, "r") as f:
+        cfg = json.load(f)
+
+    rsaw = RSAWStrategy(
+        theta_alto=cfg["theta_alto"],
+        theta_baixo=cfg["theta_baixo"],
+        budget_tokens=cfg["budget_tokens"],
+        chunk_size=cfg["chunk_size"],
+        overlap=cfg["overlap"],
+        tier2_ratio=cfg["tier2_ratio"],
+        top_k=cfg["top_k"],
+        alpha=cfg["alpha"],
+        beta=cfg["beta"],
+        gamma=cfg["gamma"],
+        summarizer_model=model,
+    )
+    base_fn = create_groq_strategy(model)
+
+    def strategy_fn(context: str, query: str) -> str:
+        chunks = rsaw.process(context, query)
+        if not chunks:
+            return base_fn(context, query)
+        return base_fn(chunks[0], query)
+
     return strategy_fn
 
 
@@ -259,14 +354,14 @@ def parse_args() -> argparse.Namespace:
         "--strategies",
         type=str,
         default="all",
-        help="Estratégias a testar (comma-separated). Opções: raw, sliding_window, parallel_window, semantic_compression, rig, mock, all"
+        help="Estratégias a testar (comma-separated). Opções: raw, sliding_window, parallel_window, semantic_compression, rig, rsaw, mock, all"
     )
     
     parser.add_argument(
         "--benchmarks",
         type=str,
         default="all",
-        help="Benchmarks a executar (comma-separated). Opções: needle_in_haystack, ruler, longbench, all"
+        help="Benchmarks a executar (comma-separated). Opções: needle_in_haystack, ruler, longbench, babilong, narrativeqa, qasper, infinitebench, all"
     )
     
     parser.add_argument(
@@ -313,7 +408,7 @@ def main():
     elif args.strategies == "all":
         strategy_types = [
             "raw", "sliding_window", "parallel_window",
-            "semantic_compression", "rig"
+            "semantic_compression", "rig", "rsaw"
         ]
     else:
         strategy_types = [s.strip() for s in args.strategies.split(",")]
@@ -325,6 +420,7 @@ def main():
         "parallel_window": lambda m: create_parallel_window_strategy(m),
         "semantic_compression": lambda m: create_semantic_compression_strategy(m),
         "rig": lambda m: create_rig_strategy(m),
+        "rsaw": lambda m: create_rsaw_strategy(m),
     }
     
     # Registra estratégias para cada modelo
@@ -352,7 +448,9 @@ def main():
                     description = f"{strat_type} com {model}"
                     runner.register_strategy(strategy_name, strategy_fn, description)
                 except Exception as e:
-                    print(f"  AVISO: Não foi possível registrar '{strategy_name}': {e}")
+                    import traceback
+                    print(f"  AVISO: Não foi possível registrar '{strategy_name}': {type(e).__name__}: {e}")
+                    traceback.print_exc()
     
     if not runner.strategies:
         print("ERRO: Nenhuma estratégia registrada. Verifique GROQ_API_KEY ou use --mock-only")
@@ -373,6 +471,21 @@ def main():
             "longbench": {
                 "num_qa_cases": 3,
             },
+            "babilong": {
+                "context_lengths": ["4k", "8k"],
+                "tasks": ["qa1"],
+                "num_examples_per_config": 2,
+            },
+            "narrativeqa": {
+                "num_examples": 5,
+            },
+            "qasper": {
+                "num_examples": 5,
+            },
+            "infinitebench": {
+                "task": "En.QA",
+                "num_examples": 5,
+            },
         }
     else:
         benchmark_configs = {
@@ -387,6 +500,21 @@ def main():
             },
             "longbench": {
                 "num_qa_cases": 5,
+            },
+            "babilong": {
+                "context_lengths": ["4k", "8k", "16k", "32k"],
+                "tasks": ["qa1", "qa2"],
+                "num_examples_per_config": 3,
+            },
+            "narrativeqa": {
+                "num_examples": 10,
+            },
+            "qasper": {
+                "num_examples": 10,
+            },
+            "infinitebench": {
+                "task": "En.QA",
+                "num_examples": 10,
             },
         }
     

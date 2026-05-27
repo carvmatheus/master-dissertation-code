@@ -26,15 +26,10 @@ services:
     command: ["pytest", "tests/", "-v", "--tb=short"]
 
   # ============================================================
-  # BENCHMARKS
+  # GROQ — serviço genérico (sobrescreva o comando conforme precisar)
+  # docker compose run --rm groq python groq_run/run_groq.py --model llama-3.3-70b-versatile --benchmark babilong
   # ============================================================
-
-  # ============================================================
-  # RULER ISOLADO — reexecução com rate limit controlado
-  # Rodar na ordem: 120b → 70b → 20b → 8b
-  # ============================================================
-
-  ruler-gpt120b:
+  groq:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -44,15 +39,11 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_ruler_results:/app/master-dissertation-code/benchmark_ruler_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks ruler
-      --models openai/gpt-oss-120b
-      --output-dir ./benchmark_ruler_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    working_dir: /app/master-dissertation-code
+    command: ["python", "groq_run/run_groq.py"]
 
-  ruler-llama70b:
+  groq-quick:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -62,56 +53,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_ruler_results:/app/master-dissertation-code/benchmark_ruler_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks ruler
-      --models llama-3.3-70b-versatile
-      --output-dir ./benchmark_ruler_results
-
-  ruler-gpt20b:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_ruler_results:/app/master-dissertation-code/benchmark_ruler_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks ruler
-      --models openai/gpt-oss-20b
-      --output-dir ./benchmark_ruler_results
-
-  ruler-llama8b:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_ruler_results:/app/master-dissertation-code/benchmark_ruler_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks ruler
-      --models llama-3.1-8b-instant
-      --output-dir ./benchmark_ruler_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    working_dir: /app/master-dissertation-code
+    command: ["python", "groq_run/run_groq.py", "--quick"]
 
   # ============================================================
-  # LONGBENCH ISOLADO — reexecução com rate limit controlado
-  # Rodar na ordem: 120b → 70b → 20b → 8b
+  # GROQ — RULER
   # ============================================================
-
-  longbench-gpt120b:
+  groq-ruler-llama8b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -121,15 +70,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_longbench_results:/app/master-dissertation-code/benchmark_longbench_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks longbench
-      --models openai/gpt-oss-120b
-      --output-dir ./benchmark_longbench_results
+      python groq_run/run_groq.py
+      --model llama-3.1-8b-instant
+      --benchmark ruler
+      --output-dir ./groq_results
 
-  longbench-llama70b:
+  groq-ruler-llama70b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -139,15 +87,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_longbench_results:/app/master-dissertation-code/benchmark_longbench_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks longbench
-      --models llama-3.3-70b-versatile
-      --output-dir ./benchmark_longbench_results
+      python groq_run/run_groq.py
+      --model llama-3.3-70b-versatile
+      --benchmark ruler
+      --output-dir ./groq_results
 
-  longbench-gpt20b:
+  groq-ruler-gpt120b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -157,15 +104,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_longbench_results:/app/master-dissertation-code/benchmark_longbench_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks longbench
-      --models openai/gpt-oss-20b
-      --output-dir ./benchmark_longbench_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-120b
+      --benchmark ruler
+      --output-dir ./groq_results
 
-  longbench-llama8b:
+  groq-ruler-gpt20b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -175,55 +121,17 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_longbench_results:/app/master-dissertation-code/benchmark_longbench_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks longbench
-      --models llama-3.1-8b-instant
-      --output-dir ./benchmark_longbench_results
-
-  # Benchmark RSAW isolado (salva em benchmark_rsaw_results/)
-  benchmark-rsaw:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_rsaw_results:/app/master-dissertation-code/benchmark_rsaw_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies rsaw
-      --output-dir ./benchmark_rsaw_results
-
-  # Benchmark RSAW rápido
-  benchmark-rsaw-quick:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_rsaw_results:/app/master-dissertation-code/benchmark_rsaw_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies rsaw
-      --quick
-      --output-dir ./benchmark_rsaw_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-20b
+      --benchmark ruler
+      --output-dir ./groq_results
 
   # ============================================================
-  # BABILONG ISOLADO — reexecução com rate limit controlado
-  # Rodar na ordem: 120b → 70b → 20b → 8b
+  # GROQ — LONGBENCH
   # ============================================================
-
-  babilong-gpt120b:
+  groq-longbench-llama8b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -233,15 +141,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_babilong_results:/app/master-dissertation-code/benchmark_babilong_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig,rsaw
-      --benchmarks babilong
-      --models openai/gpt-oss-120b
-      --output-dir ./benchmark_babilong_results
+      python groq_run/run_groq.py
+      --model llama-3.1-8b-instant
+      --benchmark longbench
+      --output-dir ./groq_results
 
-  babilong-llama70b:
+  groq-longbench-llama70b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -251,15 +158,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_babilong_results:/app/master-dissertation-code/benchmark_babilong_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig,rsaw
-      --benchmarks babilong
-      --models llama-3.3-70b-versatile
-      --output-dir ./benchmark_babilong_results
+      python groq_run/run_groq.py
+      --model llama-3.3-70b-versatile
+      --benchmark longbench
+      --output-dir ./groq_results
 
-  babilong-gpt20b:
+  groq-longbench-gpt120b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -269,15 +175,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_babilong_results:/app/master-dissertation-code/benchmark_babilong_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig,rsaw
-      --benchmarks babilong
-      --models openai/gpt-oss-20b
-      --output-dir ./benchmark_babilong_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-120b
+      --benchmark longbench
+      --output-dir ./groq_results
 
-  babilong-llama8b:
+  groq-longbench-gpt20b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -287,19 +192,17 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_babilong_results:/app/master-dissertation-code/benchmark_babilong_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig,rsaw
-      --benchmarks babilong
-      --models llama-3.1-8b-instant
-      --output-dir ./benchmark_babilong_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-20b
+      --benchmark longbench
+      --output-dir ./groq_results
 
   # ============================================================
-  # NARRATIVEQA ISOLADO — reexecução com rate limit controlado
+  # GROQ — BABILONG
   # ============================================================
-
-  narrativeqa-gpt120b:
+  groq-babilong-llama8b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -309,15 +212,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_narrativeqa_results:/app/master-dissertation-code/benchmark_narrativeqa_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks narrativeqa
-      --models openai/gpt-oss-120b
-      --output-dir ./benchmark_narrativeqa_results
+      python groq_run/run_groq.py
+      --model llama-3.1-8b-instant
+      --benchmark babilong
+      --output-dir ./groq_results
 
-  narrativeqa-llama70b:
+  groq-babilong-llama70b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -327,15 +229,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_narrativeqa_results:/app/master-dissertation-code/benchmark_narrativeqa_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks narrativeqa
-      --models llama-3.3-70b-versatile
-      --output-dir ./benchmark_narrativeqa_results
+      python groq_run/run_groq.py
+      --model llama-3.3-70b-versatile
+      --benchmark babilong
+      --output-dir ./groq_results
 
-  narrativeqa-gpt20b:
+  groq-babilong-gpt120b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -345,15 +246,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_narrativeqa_results:/app/master-dissertation-code/benchmark_narrativeqa_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks narrativeqa
-      --models openai/gpt-oss-20b
-      --output-dir ./benchmark_narrativeqa_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-120b
+      --benchmark babilong
+      --output-dir ./groq_results
 
-  narrativeqa-llama8b:
+  groq-babilong-gpt20b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -363,19 +263,17 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_narrativeqa_results:/app/master-dissertation-code/benchmark_narrativeqa_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks narrativeqa
-      --models llama-3.1-8b-instant
-      --output-dir ./benchmark_narrativeqa_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-20b
+      --benchmark babilong
+      --output-dir ./groq_results
 
   # ============================================================
-  # QASPER ISOLADO — reexecução com rate limit controlado
+  # GROQ — NARRATIVEQA
   # ============================================================
-
-  qasper-gpt120b:
+  groq-narrativeqa-llama8b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -385,15 +283,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_qasper_results:/app/master-dissertation-code/benchmark_qasper_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks qasper
-      --models openai/gpt-oss-120b
-      --output-dir ./benchmark_qasper_results
+      python groq_run/run_groq.py
+      --model llama-3.1-8b-instant
+      --benchmark narrativeqa
+      --output-dir ./groq_results
 
-  qasper-llama70b:
+  groq-narrativeqa-llama70b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -403,15 +300,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_qasper_results:/app/master-dissertation-code/benchmark_qasper_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks qasper
-      --models llama-3.3-70b-versatile
-      --output-dir ./benchmark_qasper_results
+      python groq_run/run_groq.py
+      --model llama-3.3-70b-versatile
+      --benchmark narrativeqa
+      --output-dir ./groq_results
 
-  qasper-gpt20b:
+  groq-narrativeqa-gpt120b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -421,15 +317,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_qasper_results:/app/master-dissertation-code/benchmark_qasper_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks qasper
-      --models openai/gpt-oss-20b
-      --output-dir ./benchmark_qasper_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-120b
+      --benchmark narrativeqa
+      --output-dir ./groq_results
 
-  qasper-llama8b:
+  groq-narrativeqa-gpt20b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -439,19 +334,17 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_qasper_results:/app/master-dissertation-code/benchmark_qasper_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks qasper
-      --models llama-3.1-8b-instant
-      --output-dir ./benchmark_qasper_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-20b
+      --benchmark narrativeqa
+      --output-dir ./groq_results
 
   # ============================================================
-  # INFINITEBENCH ISOLADO — reexecução com rate limit controlado
+  # GROQ — QASPER
   # ============================================================
-
-  infinitebench-gpt120b:
+  groq-qasper-llama8b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -461,15 +354,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_infinitebench_results:/app/master-dissertation-code/benchmark_infinitebench_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks infinitebench
-      --models openai/gpt-oss-120b
-      --output-dir ./benchmark_infinitebench_results
+      python groq_run/run_groq.py
+      --model llama-3.1-8b-instant
+      --benchmark qasper
+      --output-dir ./groq_results
 
-  infinitebench-llama70b:
+  groq-qasper-llama70b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -479,15 +371,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_infinitebench_results:/app/master-dissertation-code/benchmark_infinitebench_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks infinitebench
-      --models llama-3.3-70b-versatile
-      --output-dir ./benchmark_infinitebench_results
+      python groq_run/run_groq.py
+      --model llama-3.3-70b-versatile
+      --benchmark qasper
+      --output-dir ./groq_results
 
-  infinitebench-gpt20b:
+  groq-qasper-gpt120b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -497,15 +388,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_infinitebench_results:/app/master-dissertation-code/benchmark_infinitebench_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks infinitebench
-      --models openai/gpt-oss-20b
-      --output-dir ./benchmark_infinitebench_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-120b
+      --benchmark qasper
+      --output-dir ./groq_results
 
-  infinitebench-llama8b:
+  groq-qasper-gpt20b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -515,16 +405,17 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_infinitebench_results:/app/master-dissertation-code/benchmark_infinitebench_results
+      - ./groq_results:/app/master-dissertation-code/groq_results
     command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --strategies raw,sliding_window,parallel_window,semantic_compression,rig
-      --benchmarks infinitebench
-      --models llama-3.1-8b-instant
-      --output-dir ./benchmark_infinitebench_results
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-20b
+      --benchmark qasper
+      --output-dir ./groq_results
 
-  # Benchmark completo (todos modelos + estratégias)
-  benchmark:
+  # ============================================================
+  # GROQ — INFINITEBENCH
+  # ============================================================
+  groq-infinitebench-llama8b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -534,11 +425,14 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: ["python", "01-context-extension-comparison/run_benchmarks.py"]
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    command: >
+      python groq_run/run_groq.py
+      --model llama-3.1-8b-instant
+      --benchmark infinitebench
+      --output-dir ./groq_results
 
-  # Benchmark rápido (menos casos de teste)
-  benchmark-quick:
+  groq-infinitebench-llama70b:
     build: .
     image: master-dissertation-code:latest
     env_file:
@@ -548,10 +442,650 @@ services:
       TRANSFORMERS_CACHE: /cache/huggingface/transformers
     volumes:
       - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: ["python", "01-context-extension-comparison/run_benchmarks.py", "--quick"]
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    command: >
+      python groq_run/run_groq.py
+      --model llama-3.3-70b-versatile
+      --benchmark infinitebench
+      --output-dir ./groq_results
 
-  # Benchmark mock (sem API, para validar estrutura)
+  groq-infinitebench-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    command: >
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-120b
+      --benchmark infinitebench
+      --output-dir ./groq_results
+
+  groq-infinitebench-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    command: >
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-20b
+      --benchmark infinitebench
+      --output-dir ./groq_results
+
+  # ============================================================
+  # GROQ — NEEDLE IN A HAYSTACK
+  # ============================================================
+  groq-needle-llama8b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    command: >
+      python groq_run/run_groq.py
+      --model llama-3.1-8b-instant
+      --benchmark needle_in_haystack
+      --output-dir ./groq_results
+
+  groq-needle-llama70b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    command: >
+      python groq_run/run_groq.py
+      --model llama-3.3-70b-versatile
+      --benchmark needle_in_haystack
+      --output-dir ./groq_results
+
+  groq-needle-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    command: >
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-120b
+      --benchmark needle_in_haystack
+      --output-dir ./groq_results
+
+  groq-needle-gpt20b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./groq_results:/app/master-dissertation-code/groq_results
+    command: >
+      python groq_run/run_groq.py
+      --model openai/gpt-oss-20b
+      --benchmark needle_in_haystack
+      --output-dir ./groq_results
+
+  # ============================================================
+  # CEREBRAS — serviço genérico
+  # docker compose run --rm cerebras python cerebras_run/run_cerebras.py --model gpt-oss-120b --benchmark babilong
+  # ============================================================
+  cerebras:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    working_dir: /app/master-dissertation-code
+    command: ["python", "cerebras_run/run_cerebras.py"]
+
+  cerebras-quick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    working_dir: /app/master-dissertation-code
+    command: ["python", "cerebras_run/run_cerebras.py", "--quick"]
+
+  # ============================================================
+  # CEREBRAS — RULER
+  # ============================================================
+  cb-ruler-maverick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model llama-4-maverick-17b-128e-instruct
+      --benchmark ruler
+      --output-dir ./cerebras_results
+
+  cb-ruler-qwen235b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model qwen-3-235b-a22b-instruct-2507
+      --benchmark ruler
+      --output-dir ./cerebras_results
+
+  cb-ruler-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model gpt-oss-120b
+      --benchmark ruler
+      --output-dir ./cerebras_results
+
+  cb-ruler-glm47:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model zai-glm-4.7
+      --benchmark ruler
+      --output-dir ./cerebras_results
+
+  # ============================================================
+  # CEREBRAS — LONGBENCH
+  # ============================================================
+  cb-longbench-maverick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model llama-4-maverick-17b-128e-instruct
+      --benchmark longbench
+      --output-dir ./cerebras_results
+
+  cb-longbench-qwen235b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model qwen-3-235b-a22b-instruct-2507
+      --benchmark longbench
+      --output-dir ./cerebras_results
+
+  cb-longbench-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model gpt-oss-120b
+      --benchmark longbench
+      --output-dir ./cerebras_results
+
+  cb-longbench-glm47:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model zai-glm-4.7
+      --benchmark longbench
+      --output-dir ./cerebras_results
+
+  # ============================================================
+  # CEREBRAS — BABILONG
+  # ============================================================
+  cb-babilong-maverick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model llama-4-maverick-17b-128e-instruct
+      --benchmark babilong
+      --output-dir ./cerebras_results
+
+  cb-babilong-qwen235b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model qwen-3-235b-a22b-instruct-2507
+      --benchmark babilong
+      --output-dir ./cerebras_results
+
+  cb-babilong-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model gpt-oss-120b
+      --benchmark babilong
+      --output-dir ./cerebras_results
+
+  cb-babilong-glm47:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model zai-glm-4.7
+      --benchmark babilong
+      --output-dir ./cerebras_results
+
+  # ============================================================
+  # CEREBRAS — NARRATIVEQA
+  # ============================================================
+  cb-narrativeqa-maverick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model llama-4-maverick-17b-128e-instruct
+      --benchmark narrativeqa
+      --output-dir ./cerebras_results
+
+  cb-narrativeqa-qwen235b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model qwen-3-235b-a22b-instruct-2507
+      --benchmark narrativeqa
+      --output-dir ./cerebras_results
+
+  cb-narrativeqa-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model gpt-oss-120b
+      --benchmark narrativeqa
+      --output-dir ./cerebras_results
+
+  cb-narrativeqa-glm47:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model zai-glm-4.7
+      --benchmark narrativeqa
+      --output-dir ./cerebras_results
+
+  # ============================================================
+  # CEREBRAS — QASPER
+  # ============================================================
+  cb-qasper-maverick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model llama-4-maverick-17b-128e-instruct
+      --benchmark qasper
+      --output-dir ./cerebras_results
+
+  cb-qasper-qwen235b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model qwen-3-235b-a22b-instruct-2507
+      --benchmark qasper
+      --output-dir ./cerebras_results
+
+  cb-qasper-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model gpt-oss-120b
+      --benchmark qasper
+      --output-dir ./cerebras_results
+
+  cb-qasper-glm47:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model zai-glm-4.7
+      --benchmark qasper
+      --output-dir ./cerebras_results
+
+  # ============================================================
+  # CEREBRAS — INFINITEBENCH
+  # ============================================================
+  cb-infinitebench-maverick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model llama-4-maverick-17b-128e-instruct
+      --benchmark infinitebench
+      --output-dir ./cerebras_results
+
+  cb-infinitebench-qwen235b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model qwen-3-235b-a22b-instruct-2507
+      --benchmark infinitebench
+      --output-dir ./cerebras_results
+
+  cb-infinitebench-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model gpt-oss-120b
+      --benchmark infinitebench
+      --output-dir ./cerebras_results
+
+  cb-infinitebench-glm47:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model zai-glm-4.7
+      --benchmark infinitebench
+      --output-dir ./cerebras_results
+
+  # ============================================================
+  # CEREBRAS — NEEDLE IN A HAYSTACK
+  # ============================================================
+  cb-needle-maverick:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model llama-4-maverick-17b-128e-instruct
+      --benchmark needle_in_haystack
+      --output-dir ./cerebras_results
+
+  cb-needle-qwen235b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model qwen-3-235b-a22b-instruct-2507
+      --benchmark needle_in_haystack
+      --output-dir ./cerebras_results
+
+  cb-needle-gpt120b:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model gpt-oss-120b
+      --benchmark needle_in_haystack
+      --output-dir ./cerebras_results
+
+  cb-needle-glm47:
+    build: .
+    image: master-dissertation-code:latest
+    env_file:
+      - .env
+    environment:
+      HF_HOME: /cache/huggingface
+      TRANSFORMERS_CACHE: /cache/huggingface/transformers
+    volumes:
+      - ./.cache:/cache
+      - ./cerebras_results:/app/master-dissertation-code/cerebras_results
+    command: >
+      python cerebras_run/run_cerebras.py
+      --model zai-glm-4.7
+      --benchmark needle_in_haystack
+      --output-dir ./cerebras_results
+
+  # ============================================================
+  # BENCHMARK MOCK — valida estrutura sem API
+  # ============================================================
   benchmark-mock:
     build: .
     image: master-dissertation-code:latest
@@ -563,165 +1097,3 @@ services:
       - ./.cache:/cache
       - ./benchmark_results:/app/master-dissertation-code/benchmark_results
     command: ["python", "01-context-extension-comparison/run_benchmarks.py", "--mock-only", "--quick"]
-
-  # ============================================================
-  # BENCHMARKS POR MODELO (pré-configurados)
-  # ============================================================
-
-  # Llama 3.1 8B (rápido)
-  benchmark-llama8b:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --models llama-3.1-8b-instant
-      --quick
-
-  # Llama 3.3 70B (mais preciso)
-  benchmark-llama70b:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --models llama-3.3-70b-versatile
-      --quick
-
-  # GPT-OSS 120B
-  benchmark-gpt120b:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --models openai/gpt-oss-120b
-      --quick
-
-  # GPT-OSS 20B
-  benchmark-gpt20b:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --models openai/gpt-oss-20b
-      --quick
-
-  # GPT-OSS (ambos 120B e 20B)
-  benchmark-gpt-oss:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --models openai/gpt-oss-120b,openai/gpt-oss-20b
-      --quick
-
-  # ============================================================
-  # BENCHMARKS POR TESTE (pré-configurados)
-  # ============================================================
-
-  # Apenas Needle-in-a-Haystack
-  benchmark-needle:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --benchmarks needle_in_haystack
-      --quick
-
-  # Apenas RULER
-  benchmark-ruler:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --benchmarks ruler
-      --quick
-
-  # Apenas LongBench
-  benchmark-longbench:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    command: >
-      python 01-context-extension-comparison/run_benchmarks.py
-      --benchmarks longbench
-      --quick
-
-  # ============================================================
-  # BENCHMARK CUSTOMIZÁVEL (base para sobrescrever comando)
-  # ============================================================
-  
-  # Use: docker compose run --rm bench python 01-context-extension-comparison/run_benchmarks.py --models X --strategies Y --benchmarks Z
-  bench:
-    build: .
-    image: master-dissertation-code:latest
-    env_file:
-      - .env
-    environment:
-      HF_HOME: /cache/huggingface
-      TRANSFORMERS_CACHE: /cache/huggingface/transformers
-    volumes:
-      - ./.cache:/cache
-      - ./benchmark_results:/app/master-dissertation-code/benchmark_results
-    working_dir: /app/master-dissertation-code

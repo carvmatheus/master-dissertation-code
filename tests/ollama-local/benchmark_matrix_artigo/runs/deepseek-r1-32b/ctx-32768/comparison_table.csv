@@ -1,0 +1,6 @@
+Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+raw_deepseek-r1-32b,-,-,0.750,-,-,-,-,0.813,0.164,1.000,1.000,0.833,0.395,0.708
+sliding_window_deepseek-r1-32b,-,-,0.750,-,-,-,-,0.422,0.142,1.000,1.000,0.500,0.335,0.593
+parallel_window_deepseek-r1-32b,-,-,0.500,-,-,-,-,0.500,0.142,1.000,0.667,0.583,0.269,0.523
+semantic_compression_deepseek-r1-32b,-,-,0.750,-,-,-,-,0.624,0.172,1.000,0.667,0.333,0.307,0.550
+rig_deepseek-r1-32b,-,-,0.750,-,-,-,-,0.520,0.142,1.000,0.667,0.667,0.380,0.589

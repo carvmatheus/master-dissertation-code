@@ -1,0 +1,2 @@
+Model,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+deepseek-r1-32b,-,-,0.700,-,-,-,-,0.576,0.152,1.000,0.800,0.583,0.337,0.593

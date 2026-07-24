@@ -1,0 +1,93 @@
+% =====================================================================
+% MASTER_THESIS_REVISADA  (formato COPPE/UFRJ)
+% Compressão Seletiva de Contexto via Problema da Mochila:
+% um Framework Não Invasivo para Extensão da Janela de Contexto em LLMs
+%
+% Autor: Matheus Cardoso  |  Programa: PESC / COPPE / UFRJ
+% Requer: coppe.cls e coppe-unsrt.bst no mesmo diretório (ou no TEXINPUTS).
+% =====================================================================
+\documentclass[msc,numbers]{coppe} %% Mestrado: "msc"; Doutorado: "dsc"
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds,calc}
+\usepackage{hyperref}
+
+% Cores auxiliares para figuras
+\definecolor{primary}{RGB}{41, 128, 185}
+\definecolor{secondary}{RGB}{39, 174, 96}
+\definecolor{dark}{RGB}{44, 62, 80}
+\definecolor{light}{RGB}{236, 240, 241}
+
+% Marcador de conteúdo pendente. Renderiza um bloco visível no PDF.
+% Uso: \TODO{TESTES}{descrição do que ainda será preenchido}
+\newcommand{\TODO}[2]{%
+  \par\medskip\noindent
+  \fcolorbox{red!60!black}{yellow!20}{%
+    \parbox{0.94\linewidth}{{\ttfamily\bfseries <<TODO-#1>>}\normalfont\par\smallskip #2}%
+  }\par\medskip}
+
+\makelosymbols
+\makeloabbreviations
+
+\begin{document}
+
+  \title{Compressão Seletiva de Contexto via Problema da Mochila: um \textit{Framework} Não Invasivo para Extensão da Janela de Contexto em LLMs}
+  \foreigntitle{Selective Context Compression via the Knapsack Problem: a Non-Invasive Framework for Context Window Extension in LLMs}
+  \author{Matheus}{Cardoso}
+  \advisor{Prof.}{Geraldo}{Xexeo}{D.Sc.}
+  \advisor{Profa.}{Claudia}{Susie}{D.Sc.}
+
+  % TODO preencher com os examinadores reais da banca
+  \examiner{Prof.}{Geraldo Bonorino Xexeo}{D.Sc.}
+  \examiner{Profa.}{Claudia Susie Camargo Rodrigues}{D.Sc.}
+  \examiner{Prof.}{Nome do Examinador Externo}{D.Sc.}
+
+  \department{PESC}
+  \date{07}{2026}
+
+  \keyword{Extensão de Contexto}
+  \keyword{Compressão de \textit{Prompt}}
+  \keyword{Problema da Mochila}
+
+  \maketitle
+
+  \frontmatter
+
+  \include{Chapters/000AcknowledgmentAndAbstract/00Acknowledgment}
+  \include{Chapters/000AcknowledgmentAndAbstract/01Abstract}
+
+  \tableofcontents
+  \listoffigures
+  \listoftables
+  \printlosymbols
+  \printloabbreviations
+
+  \mainmatter
+
+  \include{Chapters/001Introduction/Introduction}
+  \include{Chapters/002Revision/Revision}
+  \include{Chapters/003Methodology/Methodology}
+  \include{Chapters/004Results/Results}
+  \include{Chapters/005Conclusion/Conclusion}
+
+  \backmatter
+
+  % =====================================================================
+  % REFERENCIAS BIBLIOGRAFICAS
+  % Fluxo BibTeX nativo do COPPE. As entradas ficam em
+  % Bibliography/references.bib e o estilo em Styles/coppe-unsrt.bst.
+  % =====================================================================
+  \bibliographystyle{coppe-unsrt}
+  \bibliography{Bibliography/references}
+
+\end{document}

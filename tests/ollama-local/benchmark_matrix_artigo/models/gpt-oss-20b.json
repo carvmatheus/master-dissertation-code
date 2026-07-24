@@ -1,0 +1,24 @@
+{
+  "captured_at": "2026-07-17T17:25:18.867727+00:00",
+  "model": "gpt-oss:20b",
+  "details": {
+    "parent_model": "",
+    "format": "gguf",
+    "family": "gptoss",
+    "families": [
+      "gptoss"
+    ],
+    "parameter_size": "20.9B",
+    "quantization_level": "MXFP4"
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ],
+  "parameters": "temperature                    1",
+  "declared_context_length": 131072,
+  "context_length_fields": {
+    "gptoss.context_length": 131072
+  }
+}

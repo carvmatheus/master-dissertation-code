@@ -1,0 +1,5 @@
+Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+llmlingua_llama3.1-8b-instruct-q8,-,-,0.688,-,-,-,-,0.190,0.050,1.000,0.333,0.083,0.222,0.367
+llmlingua2_llama3.1-8b-instruct-q8,-,-,0.812,-,-,-,-,0.606,0.080,1.000,0.333,0.333,0.356,0.503
+selective_context_llama3.1-8b-instruct-q8,-,-,0.688,-,-,-,-,0.656,0.362,1.000,0.000,0.417,0.290,0.487
+cpc_llama3.1-8b-instruct-q8,-,-,0.688,-,-,-,-,0.583,0.362,1.000,0.333,0.417,0.335,0.531

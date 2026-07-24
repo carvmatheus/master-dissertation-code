@@ -1,0 +1,2 @@
+Model,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+gemma4-26b-mlx,-,-,0.672,-,-,-,-,0.285,0.420,0.917,0.417,0.167,0.043,0.417

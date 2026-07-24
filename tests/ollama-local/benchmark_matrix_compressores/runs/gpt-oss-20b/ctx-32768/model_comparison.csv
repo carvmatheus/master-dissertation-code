@@ -1,0 +1,2 @@
+Model,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+gpt-oss-20b-ollama,-,-,0.594,-,-,-,-,0.212,0.054,1.000,0.500,0.333,0.229,0.418

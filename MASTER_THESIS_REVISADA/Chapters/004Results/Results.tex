@@ -1,0 +1,155 @@
+\chapter{Resultados e Discussão}
+\label{cap:resultados}
+
+Este capítulo interpreta os resultados da avaliação empírica descrita no Capítulo~\ref{cap:metodologia}. A matriz compara nove técnicas de tratamento de contexto em cinco modelos e dois orçamentos. As cinco técnicas da etapa inicial e os quatro compressores incorporados posteriormente foram executados nas dez combinações de modelo e orçamento. A triagem dos compressores registrou 880 execuções; uma chamada ao DeepSeek-R1 32B terminou por \textit{timeout}, de modo que as agregações dependentes da resposta consideram 879 observações válidas.
+
+\section{Escopo da Evidência Experimental}
+\label{sec:analise-empirica}
+
+As Tabelas~\ref{tab:acuracia-atual-8k} e \ref{tab:acuracia-atual-32k} organizam as nove técnicas como linhas de uma única matriz, agrupadas pelo modelo alvo. Os resultados de \textit{Raw}, \textit{Sliding Window}, \textit{Parallel Window}, \textit{Semantic Compression}, RIG, LLMLingua-GPT2, LLMLingua-2, Selective Context e CPC-MiniLM estão disponíveis para os cinco modelos nos orçamentos de 8192 e 32768 \textit{tokens}. No bloco CPC-MiniLM, DeepSeek-R1 32B e 8192 \textit{tokens}, a pontuação do QMSum e a média macro excluem a observação encerrada por \textit{timeout} e são identificadas por um asterisco.
+
+Cada célula das duas matrizes corresponde à pontuação agregada no respectivo \textit{benchmark}. A última coluna atribui o mesmo peso às sete tarefas e, portanto, constitui uma média macro por \textit{benchmark}. Na análise operacional dos quatro compressores, também é apresentada a média calculada diretamente sobre os 22 casos de cada combinação. Como essa segunda estatística pondera os \textit{benchmarks} pelo número de casos, seus valores não precisam coincidir com a média macro da matriz principal.
+
+\section{Desempenho na Matriz Multimodelo}
+\label{sec:desempenho-multimodelo}
+
+\subsection{Efeito do Orçamento de Contexto}
+
+Na etapa inicial, a \textit{Sliding Window} apresenta a maior média sob o orçamento de 8192 \textit{tokens} no Llama 3.1 8B, no Gemma 4 26B e no GPT-OSS 20B, com 0.626, 0.573 e 0.600, respectivamente. A RIG lidera no Qwen 3 30B-A3B, com 0.521, enquanto a estratégia \textit{Raw} lidera no DeepSeek-R1 32B, com 0.673. Nesse orçamento, portanto, uma técnica que trata o contexto supera o envio direto em quatro dos cinco modelos da matriz inicial.
+
+Sob o orçamento de 32768 \textit{tokens}, a relação se altera. Entre as cinco técnicas da etapa inicial, a estratégia \textit{Raw} lidera no Llama 3.1 8B, no Gemma 4 26B e no DeepSeek-R1 32B, com 0.627, 0.570 e 0.708. A RIG permanece à frente no Qwen 3 30B-A3B, com 0.521, enquanto a \textit{Sliding Window} mantém o maior resultado no GPT-OSS 20B, com 0.647. A ampliação do orçamento beneficia particularmente a estratégia \textit{Raw} no GPT-OSS 20B, cuja média passa de 0.530 para 0.637, e no DeepSeek-R1 32B, em que aumenta de 0.673 para 0.708. No conjunto ampliado de nove técnicas, CPC-MiniLM alcança 0.573 no Gemma 4 26B e supera por 0.003 a estratégia \textit{Raw}. Essa combinação constitui a única liderança de um dos quatro compressores adicionados na matriz completa.
+
+Os resultados indicam que a utilidade da segmentação varia com a pressão exercida pelo orçamento e com o modelo alvo. Quando o limite é menor, a seleção de trechos pode evitar parte da perda causada pelo truncamento do contexto integral. Quando o orçamento acomoda uma fração maior da entrada, essa vantagem diminui no Llama 3.1 8B e entre as cinco técnicas originalmente avaliadas no Gemma 4 26B. O comportamento do Qwen 3 30B-A3B, do GPT-OSS 20B e do próprio CPC-MiniLM no Gemma 4 26B impede, contudo, que essa relação seja generalizada independentemente da técnica e do modelo.
+
+\subsection{Variação entre Modelos e Tarefas}
+
+A média macro não identifica uma técnica dominante em todas as tarefas. O TriviaQA atinge 1.000 em grande parte das combinações da matriz original e, por isso, apresenta menor poder discriminante nesta amostra. Em contraste, o Natural Questions varia de forma acentuada. Sob 8192 \textit{tokens}, por exemplo, a \textit{Semantic Compression} obtém 0.691 no Llama 3.1 8B e 0.000 no Gemma 4 26B. A mesma técnica não lidera a média global em nenhum modelo, mostrando que o desempenho elevado em uma tarefa isolada não implica estabilidade na suíte.
+
+Também se observam diferenças entre modelos de uma mesma categoria ampla. No Qwen 3 30B-A3B, a RIG apresenta as maiores médias globais nos dois orçamentos; no GPT-OSS 20B, essa posição pertence à \textit{Sliding Window}. Entre os modelos densos, o Llama 3.1 8B favorece a \textit{Sliding Window} em 8192 \textit{tokens} e a estratégia \textit{Raw} em 32768 \textit{tokens}, enquanto o Gemma 4 26B passa da \textit{Sliding Window} para CPC-MiniLM. Essas observações caracterizam a matriz avaliada, mas não isolam o efeito causal da arquitetura, pois tamanho, treinamento, quantização e implementação também variam entre os modelos.
+
+\section{Relação entre Qualidade, Compressão e Latência}
+\label{sec:acuracia-latencia}
+
+A Tabela~\ref{tab:latencia-compressao-atual} evidencia que redução de contexto, qualidade e custo não produzem uma ordenação única. Entre as cinco técnicas da etapa inicial, a RIG apresenta a menor latência entre as que tratam o contexto em todos os modelos sob 8192 \textit{tokens} e em quatro dos cinco modelos sob 32768 \textit{tokens}. Sua taxa retida é de aproximadamente 0.692, mas essa vantagem de tempo não é acompanhada pela maior média de qualidade na maior parte da matriz.
+
+A \textit{Semantic Compression} retém entre 0.328 e 0.417 do contexto e constitui a redução mais agressiva entre as técnicas da etapa inicial. Como exige chamadas adicionais ao modelo alvo, também apresenta as maiores latências nos cinco modelos. No Gemma 4 26B, a média alcança 306142 ms em 8192 \textit{tokens} e 354957 ms em 32768 \textit{tokens}. A técnica ainda exibe forte variação entre tarefas, de modo que a maior redução de \textit{tokens} não se traduz em melhor desempenho final.
+
+A \textit{Sliding Window} retém aproximadamente 0.857 do contexto e ocupa uma posição intermediária de custo. Sua escolha como estratégia base decorre da regularidade observada na etapa inicial: em sete das dez combinações de modelo e orçamento, ela apresenta a maior média entre as técnicas que tratam o contexto. Esse resultado não estabelece uma solução universal, pois RIG lidera nas duas combinações do Qwen 3 30B-A3B e CPC-MiniLM supera toda a matriz no Gemma 4 26B sob 32768 \textit{tokens}.
+
+\section{Análise dos Novos Compressores}
+\label{subsec:resultados-triagem-compressores}
+
+LLMLingua-GPT2, LLMLingua-2, Selective Context e CPC-MiniLM foram avaliados com taxa nominal de retenção de 0,5. Para cada combinação de modelo e orçamento, as quatro técnicas processaram os mesmos 22 casos: quatro do LongBench e três de cada um dos outros seis \textit{benchmarks}. Os dez artefatos consolidados registram 88 execuções cada, totalizando 880 observações. Uma delas não produziu resposta válida, conforme descrito na Seção~\ref{sec:analise-empirica}; as comparações de pontuação e latência utilizam as 879 respostas restantes.
+
+No Llama 3.1 8B, CPC-MiniLM apresenta a maior média entre os quatro compressores nos dois orçamentos, com 0.531 em ambos. Em 8192 \textit{tokens}, LLMLingua-2, Selective Context e LLMLingua-GPT2 obtêm 0.492, 0.480 e 0.379; em 32768 \textit{tokens}, as médias correspondentes são 0.503, 0.487 e 0.367. Embora CPC-MiniLM lidere o grupo, permanece abaixo da \textit{Sliding Window}, com 0.626 em 8192 \textit{tokens}, e da estratégia \textit{Raw}, com 0.627 em 32768 \textit{tokens}.
+
+No Gemma 4 26B, CPC-MiniLM também ocupa a primeira posição entre os compressores, com 0.547 e 0.573 nos dois orçamentos. LLMLingua-2 alcança 0.457 e 0.467, Selective Context obtém 0.353 e 0.336, e LLMLingua-GPT2 registra 0.274 e 0.292. O resultado de 0.573 do CPC-MiniLM em 32768 \textit{tokens} supera as oito alternativas da matriz, ainda que por margem reduzida em relação aos 0.570 da estratégia \textit{Raw}.
+
+No Qwen 3 30B-A3B, a ordenação se inverte. LLMLingua-2 lidera entre os compressores com 0.430 em 8192 \textit{tokens} e 0.413 em 32768 \textit{tokens}. CPC-MiniLM permanece em segundo lugar, com 0.394 nos dois orçamentos, seguido por Selective Context, com 0.258 e 0.282, e LLMLingua-GPT2, com 0.206 e 0.190. Nenhum dos quatro supera a RIG, que obtém 0.521 nos dois orçamentos.
+
+No DeepSeek-R1 32B, CPC-MiniLM lidera o grupo com médias de 0.613 e 0.634 nos orçamentos de 8192 e 32768 \textit{tokens}. LLMLingua-2 obtém 0.581 e 0.578, enquanto Selective Context alcança 0.576 e 0.585. LLMLingua-GPT2 permanece abaixo dos demais, com 0.321 e 0.333. CPC-MiniLM também ocupa a segunda posição entre as nove técnicas nos dois orçamentos, atrás da estratégia \textit{Raw}. O resultado de 0.613 deve ser interpretado como provisório, pois sua média de QMSum utiliza duas respostas válidas.
+
+No GPT-OSS 20B, CPC-MiniLM também apresenta a maior média entre os compressores, com 0.585 em 8192 \textit{tokens} e 0.537 em 32768 \textit{tokens}. LLMLingua-2 registra 0.487 e 0.438, Selective Context obtém 0.427 e 0.405, e LLMLingua-GPT2 alcança 0.290 nos dois orçamentos. Em 8192 \textit{tokens}, CPC-MiniLM fica 0.001 abaixo da RIG e 0.015 abaixo da \textit{Sliding Window}; em 32768 \textit{tokens}, a diferença para a \textit{Sliding Window} aumenta para 0.110. Consideradas as dez combinações, CPC-MiniLM lidera o grupo em oito, e LLMLingua-2 lidera nas duas combinações do Qwen.
+
+O detalhamento por tarefa explica parte dessa mudança de ordenação. LLMLingua-2 alcança as maiores pontuações de ZeroSCROLLS entre todas as técnicas no Gemma 4 26B e no Qwen 3 30B-A3B sob 8192 \textit{tokens}, com 0.583 e 0.592. Selective Context, por sua vez, alcança 0.656 no ZeroSCROLLS do Llama 3.1 8B sob 32768 \textit{tokens}. CPC-MiniLM obtém 0.743 e 0.827 no ZeroSCROLLS do DeepSeek-R1 32B e 0.707 no GPT-OSS 20B sob 8192 \textit{tokens}, os maiores valores das respectivas colunas. Assim, a média agregada decorre de perfis distintos por tarefa e por modelo, e não de uma vantagem uniforme de um único compressor.
+
+A Tabela~\ref{tab:triagem-compressores-operacional} complementa a matriz principal com a pontuação média por caso, a taxa efetivamente retida, a fidelidade semântica e a latência total. A fidelidade mede a cobertura do contexto original por meio de \textit{embeddings} do all-MiniLM-L6-v2, enquanto a latência inclui a compressão e a geração da resposta pelo modelo alvo. Na coluna de taxa retida, valores menores representam compressão mais agressiva. O asterisco identifica as métricas de pontuação e latência calculadas após a exclusão da chamada encerrada por \textit{timeout}; as métricas de compressão dessa chamada permanecem incluídas.
+
+{
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{llcccc}
+\caption{Métricas operacionais dos quatro compressores nas dez combinações de modelo e orçamento}
+\label{tab:triagem-compressores-operacional} \\
+\toprule
+\textbf{Técnica} & \textbf{Contexto} & \textbf{Pontuação} & \textbf{Taxa retida} & \textbf{Fidelidade} & \textbf{Latência (ms)} \\
+\midrule
+\endfirsthead
+\multicolumn{6}{c}{\tablename\ \thetable{} -- continuação} \\
+\toprule
+\textbf{Técnica} & \textbf{Contexto} & \textbf{Pontuação} & \textbf{Taxa retida} & \textbf{Fidelidade} & \textbf{Latência (ms)} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{Continua na próxima página} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{6}{l}{\textit{Llama 3.1 8B}} \\*
+LLMLingua-GPT2    & 8192  & 0.393 & 0.503 & 0.613 & 8451 \\*
+LLMLingua-2       & 8192  & 0.506 & \textbf{0.457} & 0.666 & 9484 \\*
+Selective Context & 8192  & 0.489 & 0.548 & \textbf{0.732} & 10344 \\*
+CPC-MiniLM        & 8192  & \textbf{0.538} & 0.517 & 0.678 & \textbf{6736} \\*
+LLMLingua-GPT2    & 32768 & 0.381 & 0.512 & 0.616 & \textbf{10127} \\*
+LLMLingua-2       & 32768 & 0.517 & \textbf{0.482} & 0.673 & 12385 \\*
+Selective Context & 32768 & 0.496 & 0.584 & \textbf{0.738} & 14825 \\*
+CPC-MiniLM        & 32768 & \textbf{0.538} & 0.531 & 0.679 & 10345 \\
+\midrule
+\multicolumn{6}{l}{\textit{Gemma 4 26B}} \\*
+LLMLingua-GPT2    & 8192  & 0.273 & 0.503 & 0.613 & 18237 \\*
+LLMLingua-2       & 8192  & 0.479 & \textbf{0.457} & 0.666 & 17477 \\*
+Selective Context & 8192  & 0.369 & 0.548 & \textbf{0.732} & 19508 \\*
+CPC-MiniLM        & 8192  & \textbf{0.554} & 0.517 & 0.678 & \textbf{14307} \\*
+LLMLingua-GPT2    & 32768 & 0.296 & 0.512 & 0.616 & 18864 \\*
+LLMLingua-2       & 32768 & 0.489 & \textbf{0.482} & 0.673 & 20048 \\*
+Selective Context & 32768 & 0.352 & 0.584 & \textbf{0.738} & 22037 \\*
+CPC-MiniLM        & 32768 & \textbf{0.578} & 0.531 & 0.679 & \textbf{15755} \\
+\midrule
+\multicolumn{6}{l}{\textit{Qwen 3 30B-A3B}} \\*
+LLMLingua-GPT2    & 8192  & 0.197 & 0.503 & 0.613 & 14144 \\*
+LLMLingua-2       & 8192  & \textbf{0.444} & \textbf{0.457} & 0.666 & 14503 \\*
+Selective Context & 8192  & 0.269 & 0.548 & \textbf{0.732} & 16140 \\*
+CPC-MiniLM        & 8192  & 0.398 & 0.517 & 0.678 & \textbf{11840} \\*
+LLMLingua-GPT2    & 32768 & 0.182 & 0.512 & 0.616 & 17128 \\*
+LLMLingua-2       & 32768 & \textbf{0.428} & \textbf{0.482} & 0.673 & 18423 \\*
+Selective Context & 32768 & 0.292 & 0.584 & \textbf{0.738} & 21096 \\*
+CPC-MiniLM        & 32768 & 0.398 & 0.531 & 0.679 & \textbf{15836} \\
+\midrule
+\multicolumn{6}{l}{\textit{DeepSeek-R1 32B}} \\*
+LLMLingua-GPT2    & 8192  & 0.329 & 0.503 & 0.613 & \textbf{72195} \\*
+LLMLingua-2       & 8192  & 0.577 & \textbf{0.457} & 0.666 & 78809 \\*
+Selective Context & 8192  & 0.573 & 0.548 & \textbf{0.732} & 108964 \\*
+CPC-MiniLM        & 8192  & \textbf{0.623}\textsuperscript{*} & 0.517 & 0.678 & 75366\textsuperscript{*} \\*
+LLMLingua-GPT2    & 32768 & 0.341 & 0.512 & 0.616 & \textbf{80249} \\*
+LLMLingua-2       & 32768 & 0.575 & \textbf{0.482} & 0.673 & 90642 \\*
+Selective Context & 32768 & 0.581 & 0.584 & \textbf{0.738} & 89828 \\*
+CPC-MiniLM        & 32768 & \textbf{0.628} & 0.531 & 0.679 & 83529 \\
+\midrule
+\multicolumn{6}{l}{\textit{GPT-OSS 20B}} \\*
+LLMLingua-GPT2    & 8192  & 0.296 & 0.503 & 0.613 & 15449 \\*
+LLMLingua-2       & 8192  & 0.507 & \textbf{0.457} & 0.666 & 14546 \\*
+Selective Context & 8192  & 0.421 & 0.548 & \textbf{0.732} & 15940 \\*
+CPC-MiniLM        & 8192  & \textbf{0.589} & 0.517 & 0.678 & \textbf{9214} \\*
+LLMLingua-GPT2    & 32768 & 0.296 & 0.512 & 0.616 & 16308 \\*
+LLMLingua-2       & 32768 & 0.461 & \textbf{0.482} & 0.673 & 15648 \\*
+Selective Context & 32768 & 0.401 & 0.584 & \textbf{0.738} & 17707 \\*
+CPC-MiniLM        & 32768 & \textbf{0.544} & 0.531 & 0.679 & \textbf{11079} \\
+\end{longtable}
+}
+
+O padrão operacional é consistente nas dez combinações. LLMLingua-2 produz a menor taxa retida em todas elas, com 0.457 em 8192 \textit{tokens} e 0.482 em 32768 \textit{tokens}. Selective Context apresenta a maior fidelidade semântica, com 0.732 e 0.738. CPC-MiniLM alcança a maior pontuação média por caso em oito combinações e a menor latência entre os compressores em sete. LLMLingua-GPT2 é o compressor mais rápido no Llama 3.1 8B sob 32768 \textit{tokens} e nas duas combinações do DeepSeek-R1 32B. No caso marcado por asterisco, a pontuação e a latência do CPC-MiniLM baseiam-se em 21 respostas válidas, enquanto as taxas de retenção e fidelidade consideram as 22 compressões concluídas. Esses resultados mostram que qualidade, redução de \textit{tokens}, cobertura semântica e latência favorecem métodos diferentes.
+
+As latências devem ser interpretadas com cautela. Cada combinação de modelo e orçamento foi executada em um único processo que registrou os quatro compressores, permitindo a coexistência dos respectivos modelos auxiliares durante a rodada. Os valores representam, portanto, o custo de ponta a ponta observado no ambiente local e são comparáveis de forma descritiva dentro desse protocolo; eles não isolam o custo de compressão nem reproduzem diretamente as medições de hardware dos artigos originais.
+
+\section{Seleção das Opções do MCKP}
+\label{sec:posicionamento}
+
+Os resultados sustentam uma seleção inicial, e não definitiva, de LLMLingua-2, Selective Context e CPC-MiniLM como opções de compressão do MCKP. CPC-MiniLM apresenta a maior média do grupo no Llama 3.1 8B, no Gemma 4 26B, no DeepSeek-R1 32B e no GPT-OSS 20B, enquanto LLMLingua-2 lidera no Qwen 3 30B-A3B. Além da qualidade por tarefa, os três métodos preservam propriedades complementares: LLMLingua-2 realiza a compressão mais agressiva, Selective Context mantém a maior fidelidade semântica segundo a métrica utilizada e CPC-MiniLM associa seleção condicionada à pergunta a resultados mais altos em oito das dez combinações. LLMLingua-GPT2 permanece como baseline externo, pois apresenta a menor média do grupo em todas as combinações.
+
+Essa seleção deve ser interpretada à luz das adaptações descritas na Seção~\ref{subsec:implementacao}. LLMLingua-GPT2 utiliza GPT-2 como modelo auxiliar para viabilizar sua execução ao lado de uma LLM local. CPC-MiniLM substitui o codificador do método publicado pelo all-MiniLM-L6-v2 disponível no Hugging Face. Os resultados caracterizam, portanto, essas configurações experimentais e não constituem uma reprodução direta do desempenho das configurações canônicas descritas nos artigos originais.
+
+A heterogeneidade entre modelos e tarefas fornece a motivação empírica para manter múltiplas opções no MCKP, mas não demonstra, por si só, que a alocação seletiva por partição supera a aplicação uniforme dos compressores. Essa hipótese depende da execução específica do \textit{framework}, de comparações sob o mesmo orçamento e de estudos de ablação da função de importância e da penalização de transição. A triagem seleciona e caracteriza as opções candidatas; ela não equivale à validação do resolvedor MCKP.
+
+\section{Limitações da Análise}
+\label{sec:limitacoes-resultados}
+
+A primeira limitação é o tamanho da triagem, composta por 22 casos em cada combinação de modelo e orçamento e sem repetições independentes. A média macro reduz o efeito do número desigual de casos entre tarefas, mas não substitui uma avaliação em escala maior nem quantifica a incerteza das diferenças observadas. Além disso, uma chamada do CPC-MiniLM no DeepSeek-R1 32B sob 8192 \textit{tokens} terminou por \textit{timeout}; por isso, sua pontuação agregada utiliza 21 respostas e a média de QMSum utiliza somente duas. Margens reduzidas, como a diferença de 0.003 entre CPC-MiniLM e \textit{Raw} no Gemma 4 26B sob 32768 \textit{tokens}, devem ser interpretadas de forma descritiva.
+
+A segunda limitação está associada às adaptações locais. O \textit{scorer} GPT-2 do LLMLingua-GPT2 difere das configurações alinhadas avaliadas no trabalho original, e CPC-MiniLM não incorpora o treinamento contrastivo nem a representação contextual do CPC. A métrica de fidelidade utiliza o mesmo codificador MiniLM empregado por CPC-MiniLM e, portanto, não é inteiramente independente dessa técnica. Por essa razão, a pontuação nas tarefas é adotada como critério principal, enquanto a fidelidade atua apenas como evidência complementar.
+
+A terceira limitação é que a triagem compara compressores aplicados uniformemente a cada entrada, mas não avalia a política seletiva proposta. O \textit{framework} MCKP ainda requer execução sob os mesmos orçamentos, comparação com as melhores estratégias uniformes e estudos de ablação da função de importância e da penalização de transição. Assim, a heterogeneidade observada fundamenta a escolha das opções, mas não demonstra superioridade da alocação por partição.
+
+\section{Síntese dos Resultados}
+\label{sec:sintese-resultados}
+
+Três conclusões delimitadas pela evidência podem ser extraídas. Primeiro, nenhuma técnica domina simultaneamente todos os modelos, tarefas e orçamentos. A \textit{Sliding Window} apresenta o melhor equilíbrio recorrente entre as cinco técnicas da etapa inicial, enquanto a estratégia \textit{Raw} se torna mais competitiva com a ampliação do orçamento. Segundo, redução de \textit{tokens}, fidelidade, latência e qualidade final não são objetivos equivalentes: LLMLingua-2 comprime mais, Selective Context preserva maior similaridade semântica e CPC-MiniLM alcança as maiores pontuações entre os compressores em oito das dez combinações. Terceiro, o Qwen 3 30B-A3B altera essa ordenação em favor de LLMLingua-2, e o CPC-MiniLM supera toda a matriz apenas no Gemma 4 26B sob 32768 \textit{tokens}. Em conjunto, os resultados justificam manter opções de compressão com perfis distintos no espaço de decisão do MCKP. A ausência da avaliação completa do resolvedor, porém, impede concluir que a alocação seletiva supera a melhor aplicação uniforme dessas opções.

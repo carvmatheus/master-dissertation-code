@@ -1,0 +1,515 @@
+@ARTICLE{app15084425,
+    AUTHOR = {Choi, Yein and Kim, Sungwoo and Bassole, Yipene Cedric Francois and Sung, Yunsick},
+    TITLE = {Enhanced Retrieval-Augmented Generation Using Low-Rank Adaptation},
+    JOURNAL = {Applied Sciences},
+    VOLUME = {15},
+    YEAR = {2025},
+    NUMBER = {8},
+    ARTICLE-NUMBER = {4425},
+    URL = {https://www.mdpi.com/2076-3417/15/8/4425},
+    ISSN = {2076-3417},
+    ABSTRACT = {Recent advancements in retrieval-augmented generation (RAG) have substantially enhanced the efficiency of information retrieval. However, traditional RAG-based systems still encounter challenges, such as high latency in output decision making, the inaccurate retrieval of road traffic-related laws and regulations, and considerable processing overhead in large-scale searches. This study presents an innovative application of RAG technology for processing road traffic-related laws and regulations, particularly in the context of unmanned systems like autonomous driving. Our approach integrates embedding generation using a LoRA-enhanced BERT-based uncased model and an optimized retrieval strategy that combines maximal marginal similarity score thresholding with contextual compression retrieval. The proposed system enhances and achieves improved retrieval accuracy while reducing processing overhead. Leveraging road traffic-related regulatory datasets, the LoRA-enhanced model demonstrated remarkable performance gains over traditional RAG methods. Specifically, our model reduced the number of trainable parameters by 13.6% and lowered computational costs by 18.7%. Performance evaluations using BLEU, CIDEr, and SPICE scores revealed a 4.36% increase in BLEU-4, a 6.83% improvement in CIDEr, and a 5.46% improved in SPICE, confirming greater structural accuracy in regulatory text generation. Additionally, our method achieved an 8.5% improvement in retrieval accuracy across key metrics, outperforming baseline RAG systems. These contributions pave the way for more efficient and reliable traffic regulation processing, enabling better decision making in autonomous systems.},
+    DOI = {10.3390/app15084425}
+}
+
+@article{devlin-bert,
+  author       = {Jacob Devlin and
+                  Ming{-}Wei Chang and
+                  Kenton Lee and
+                  Kristina Toutanova},
+  editor       = {Jill Burstein and
+                  Christy Doran and
+                  Thamar Solorio},
+  title        = {{BERT:} Pre-training of Deep Bidirectional Transformers for Language
+                  Understanding},
+  booktitle    = {Proceedings of the 2019 Conference of the North American Chapter of
+                  the Association for Computational Linguistics: Human Language Technologies,
+                  {NAACL-HLT} 2019, Minneapolis, MN, USA, June 2-7, 2019, Volume 1 (Long
+                  and Short Papers)},
+  pages        = {4171--4186},
+  publisher    = {Association for Computational Linguistics},
+  year         = {2019},
+  url          = {https://doi.org/10.18653/v1/n19-1423},
+  doi          = {10.18653/V1/N19-1423},
+  timestamp    = {Mon, 26 Sep 2022 12:21:55 +0200},
+  biburl       = {https://dblp.org/rec/conf/naacl/DevlinCLT19.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+%%-----GEMINI
+@inproceedings{vaswani2017attention,
+  title={Attention is all you need},
+  author={Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, {\L}ukasz and Polosukhin, Illia},
+  booktitle={Advances in neural information processing systems},
+  volume={30},
+  year={2017}
+}
+
+@article{miao2024reviving,
+  title={Towards Efficient Generative Large Language Model Serving: A Survey from Algorithms to Systems},
+  author={Miao, Xupeng and Oliaro, Gabriele and Zhang, Zhihao and Cheng, Xinyi and Wang, Zeyu and Zhang, Rae Ying and Wong, Yihao and Zhu, Zhuoming and Yang, Lijie and Shi, Xiaoxiang and others},
+  journal={arXiv preprint arXiv:2312.15234},
+  year={2024},
+  note={Review on efficiency including context memory constraints}
+}
+
+@techreport{reid2024gemini,
+  title={Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context},
+  author={Reid, Machel and Savinov, Nikolay and Teplyashin, Denis and Lepikhin, Dmitry and Lillicrap, Timothy and Alayrac, Jean-baptiste and Soricut, Radu and Lazaridou, Angeliki and Firat, Orhan and Schrittwieser, Julian and others},
+  institution={Google DeepMind},
+  year={2024},
+  type={Technical Report}
+}
+
+@misc{chroma2024contextrot,
+  title={The curse of the long context: Why your RAG system is failing},
+  author={Chroma},
+  year={2024},
+  howpublished={\url{https://www.trychroma.com/blog}},
+  note={Accessed: 2024-05-20}
+}
+
+@misc{chen2025criticalattentionscalinglongcontext,
+      title={Critical attention scaling in long-context transformers}, 
+      author={Shi Chen and Zhengjiang Lin and Yury Polyanskiy and Philippe Rigollet},
+      year={2025},
+      eprint={2510.05554},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2510.05554}, 
+}
+
+@article{demiliani2024understanding,
+  title={Understanding the Limitations of Long-Context LLMs},
+  author={De Milliani, Alice},
+  journal={Towards Data Science},
+  year={2024},
+  note={Analysis of attention collapse in extended contexts}
+}
+
+@misc{sharma2025retrievalaugmentedgenerationcomprehensivesurvey,
+      title={Retrieval-Augmented Generation: A Comprehensive Survey of Architectures, Enhancements, and Robustness Frontiers}, 
+      author={Chaitanya Sharma},
+      year={2025},
+      eprint={2506.00054},
+      archivePrefix={arXiv},
+      primaryClass={cs.IR},
+      url={https://arxiv.org/abs/2506.00054}, 
+}
+
+@article{liu2023lost,
+  title={Lost in the middle: How language models use long contexts},
+  author={Liu, Nelson F and Lin, Kevin and Hewitt, John and Paranjape, Ashwin and Bevilacqua, Michele and Petroni, Fabio and Liang, Percy},
+  journal={Transactions of the Association for Computational Linguistics},
+  volume={12},
+  pages={157--173},
+  year={2024}
+}
+
+@inproceedings{jiang2023llmlingua,
+  title={LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models},
+  author={Jiang, Huiqiang and Wu, Qianhui and Lin, Chin-Yew and Yang, Yuqing and Qiu, Lili},
+  booktitle={Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing},
+  pages={13358--13376},
+  year={2023}
+}
+
+@article{aman2024context,
+  title={Latency Analysis in Long-Context LLM Applications},
+  author={Aman, S. and Researchers, A.},
+  journal={AI Performance Review},
+  year={2024}
+}
+
+@article{peng2023yarn,
+  title={Yarn: Efficient context window extension of large language models},
+  author={Peng, Bowen and Quesnelle, Jeffrey and Fan, Honglu and Shippole, Enrico},
+  journal={arXiv preprint arXiv:2309.00071},
+  year={2023}
+}
+
+@inproceedings{lewis2020rag,
+  title={Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks},
+  author={Lewis, Patrick and Perez, Ethan and Piktus, Aleksandra and Petroni, Fabio and Karpukhin, Vladimir and Goyal, Naman and K{\"u}ttler, Heinrich and Lewis, Mike and Yih, Wen-tau and Rockt{\"a}schel, Tim and others},
+  booktitle={Advances in Neural Information Processing Systems},
+  volume={33},
+  pages={9459--9474},
+  year={2020}
+}
+
+@article{hip2024hierarchical,
+  title={Hierarchical Context Merging: Scaling Transformers to Linear Complexity},
+  author={Zhang, Y. and et al.},
+  journal={arXiv preprint},
+  year={2024}
+}
+
+@article{gu2024mamba,
+  title={Mamba: Linear-time sequence modeling with selective state spaces},
+  author={Gu, Albert and Dao, Tri},
+  journal={arXiv preprint arXiv:2312.00752},
+  year={2023}
+}
+
+@book{vlastos1994socratic,
+  title={Socratic studies},
+  author={Vlastos, Gregory},
+  year={1994},
+  publisher={Cambridge University Press}
+}
+
+@book{plato2015theaetetus,
+  title={Theaetetus},
+  author={Plato},
+  year={2015},
+  publisher={Hackett Publishing},
+  note={Translated by M. J. Levett, Revised by M. Burnyeat}
+}
+
+@article{montazeri2022psychotherapist,
+  title={The Socratic Method in Psychotherapy and Counseling: A Theoretical Analysis},
+  author={Montazeri, M. and others},
+  journal={Journal of Rational-Emotive \& Cognitive-Behavior Therapy},
+  year={2022}
+}
+
+@inproceedings{he2023socreval,
+  title={Socreval: Large language models with the socratic method for reference-free reasoning evaluation},
+  author={He, Hangfeng and Zhang, Hongming and Roth, Dan},
+  booktitle={Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing},
+  year={2023}
+}
+
+@article{bai2023longbench,
+  title={LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding},
+  author={Bai, Yushi and Lv, Xin and Zhang, Jiajie and Lyu, Hongchang and Tang, Jiankui and Huang, Zhidian and Du, Zhengxiao and Liu, Xiao and Zeng, Aohan and Hou, Lei and others},
+  journal={arXiv preprint arXiv:2308.14508},
+  year={2023}
+}
+
+@article{hsieh2024ruler,
+  title={Ruler: What is the real context size of your long-context language models?},
+  author={Hsieh, Cheng-Ping and Li, Simeng and Yeh, Chih-Kuan and Nakhost, Hootan and Fujii, Yasuhisa and Ratner, Alexander and Krishna, Ranjay and Lee, Chen-Yu and Pfister, Tomas},
+  journal={arXiv preprint arXiv:2404.06654},
+  year={2024}
+}
+
+@article{liu2024longcontext,
+  title={World Model on Million-Length Video And Language With RingAttention},
+  author={Liu, Hao and Wilson, Matei and Abbeel, Pieter and Zaharia, Matei},
+  journal={arXiv preprint arXiv:2402.08268},
+  year={2024}
+}
+
+@article{yang2024spark,
+  title={Sparks of Artificial General Intelligence: Early experiments with GPT-4},
+  author={Bubeck, S{\'e}bastien and Chandrasekaran, Varun and Eldan, Ronen and Gehrke, Johannes and Horvitz, Eric and Kamar, Ece and Lee, Peter and Lee, Yin Tat and Li, Yuanzhi and Lundberg, Scott and others},
+  journal={arXiv preprint arXiv:2303.12712},
+  year={2023},
+  note={Referencing reasoning capabilities often cited as Spark/Yang in derived works}
+}
+
+
+%% Referencias da Qualificação
+
+@inproceedings{vaswani2017attention,
+  title        = {Attention Is All You Need},
+  author       = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
+  booktitle    = {Advances in Neural Information Processing Systems},
+  pages        = {5998--6008},
+  year         = {2017}
+}
+
+@article{radford2018improving,
+  title     = {Improving Language Understanding by Generative Pre-Training},
+  author    = {Radford, Alec and Narasimhan, Karthik and Salimans, Tim and Sutskever, Ilya},
+  year      = {2018},
+  publisher = {OpenAI}
+}
+
+@inproceedings{ruder2019transfer,
+  title     = {Transfer Learning in Natural Language Processing},
+  author    = {Ruder, Sebastian and Peters, Matthew E. and Swayamdipta, Swabha and Wolf, Thomas},
+  booktitle = {Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Tutorials},
+  pages     = {15--18},
+  year      = {2019}
+}
+
+@article{mikolov2013efficient,
+  title     = {Efficient Estimation of Word Representations in Vector Space},
+  author    = {Mikolov, Tomas and Chen, Kai and Corrado, Greg and Dean, Jeffrey},
+  journal   = {arXiv preprint arXiv:1301.3781},
+  year      = {2013}
+}
+
+@article{brown2020language,
+  title        = {Language Models are Few-Shot Learners},
+  author       = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared D. and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and others},
+  journal      = {Advances in Neural Information Processing Systems},
+  volume       = {33},
+  pages        = {1877--1901},
+  year         = {2020}
+}
+
+@misc{ratner2023parallelcontextwindowslarge,
+  title         = {Parallel Context Windows for Large Language Models},
+  author        = {Ratner, Nir and Levine, Yoav and Belinkov, Yonatan and Ram, Ori and Magar, Inbal and Abend, Omri and Karpas, Ehud and Shashua, Amnon and Leyton-Brown, Kevin and Shoham, Yoav},
+  year          = {2023},
+  eprint        = {2212.10947},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2212.10947}
+}
+
+@misc{press2022trainshorttestlong,
+  title         = {Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation},
+  author        = {Press, Ofir and Smith, Noah A. and Lewis, Mike},
+  year          = {2022},
+  eprint        = {2108.12409},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2108.12409}
+}
+
+@misc{zhu2024cocafusingpositionembedding,
+  title         = {CoCA: Fusing Position Embedding with Collinear Constrained Attention in Transformers for Long Context Window Extending},
+  author        = {Zhu, Shiyi and Ye, Jing and Jiang, Wei and Xue, Siqiao and Zhang, Qi and Wu, Yifan and Li, Jianguo},
+  year          = {2024},
+  eprint        = {2309.08646},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  url           = {https://arxiv.org/abs/2309.08646}
+}
+
+@misc{wang2024limitssurveytechniquesextend,
+  title         = {Beyond the Limits: A Survey of Techniques to Extend the Context Length in Large Language Models},
+  author        = {Wang, Xindi and Salmani, Mahsa and Omidi, Parsa and Ren, Xiangyu and Rezagholizadeh, Mehdi and Eshaghi, Armaghan},
+  year          = {2024},
+  eprint        = {2402.02244},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2402.02244}
+}
+
+@article{zhao2023survey,
+  title   = {A Survey of Large Language Models},
+  author  = {Zhao, Wayne Xin and Zhou, Kun and Li, Junyi and Tang, Tianyi and Wang, Xiaolei and Hou, Yupeng and Min, Yujie and Zhang, Jun and Zhang, Ruobing and Wang, Yanyan and others},
+  journal = {arXiv preprint arXiv:2303.18223},
+  year    = {2023}
+}
+
+@article{naveed2023comprehensive,
+  title   = {A Comprehensive Overview of Large Language Models},
+  author  = {Naveed, Hammad and Khan, Ahsan and Iqbal, Muhammad and Khan, Muhammad and Khan, Muhammad and Khan, Muhammad and Khan, Muhammad and Khan, Muhammad and Khan, Muhammad and others},
+  journal = {arXiv preprint arXiv:2307.06435},
+  year    = {2023}
+}
+
+@article{wan2023efficient,
+  title   = {Efficient Large Language Models: A Survey},
+  author  = {Wan, Zihan and Wang, Xiaolei and Zhang, Jun and Zhao, Wayne Xin},
+  journal = {arXiv preprint arXiv:2312.03863},
+  year    = {2023}
+}
+
+@article{huang2023advancing,
+  title   = {Advancing Transformer Architecture in Long-Context Large Language Models: A Comprehensive Survey},
+  author  = {Huang, Yifan and Xu, Jun and Wang, Yifan and Zhang, Yuchen and Zhang, Yaliang and Zhang, Aidong and Zhang, Ping},
+  journal = {arXiv preprint arXiv:2311.12351},
+  year    = {2023}
+}
+
+@misc{huang2024advancingtransformerarchitecturelongcontext,
+  title         = {Advancing Transformer Architecture in Long-Context Large Language Models: A Comprehensive Survey},
+  author        = {Huang, Yunpeng and Xu, Jingwei and Lai, Junyu and Jiang, Zixu and Chen, Taolue and Li, Zenan and Yao, Yuan and Ma, Xiaoxing and Yang, Lijuan and Chen, Hao and Li, Shupeng and Zhao, Penghao},
+  year          = {2024},
+  eprint        = {2311.12351},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2311.12351}
+}
+
+@misc{zhuang2023surveyefficienttrainingtransformers,
+  title         = {A Survey on Efficient Training of Transformers},
+  author        = {Zhuang, Bohan and Liu, Jing and Pan, Zizheng and He, Haoyu and Weng, Yuetian and Shen, Chunhua},
+  year          = {2023},
+  eprint        = {2302.01107},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  url           = {https://arxiv.org/abs/2302.01107}
+}
+
+@misc{jiang2024longllmlinguaacceleratingenhancingllms,
+  title         = {LongLLMLingua: Accelerating and Enhancing LLMs in Long Context Scenarios via Prompt Compression},
+  author        = {Jiang, Huiqiang and Wu, Qianhui and Luo, Xufang and Li, Dongsheng and Lin, Chin-Yew and Yang, Yuqing and Qiu, Lili},
+  year          = {2024},
+  eprint        = {2310.06839},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2310.06839}
+}
+
+@misc{gilbert2023semanticcompressionlargelanguage,
+  title         = {Semantic Compression With Large Language Models},
+  author        = {Gilbert, Henry and Sandborn, Michael and Schmidt, Douglas C. and Spencer-Smith, Jesse and White, Jules},
+  year          = {2023},
+  eprint        = {2304.12512},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2304.12512}
+}
+
+@misc{kamradt2023workaroundtokenlimit,
+  author       = {Kamradt, Greg},
+  title        = {Workaround OpenAI's Token Limit With Chain Types},
+  year         = {2023},
+  howpublished = {\url{https://www.youtube.com/watch?v=f9_BWhCI4Zo&t=319s}},
+  note         = {Acessado em: 25-Jan-2025}
+}
+
+@misc{packer2024memgptllmsoperatingsystems,
+  title         = {MemGPT: Towards LLMs as Operating Systems},
+  author        = {Packer, Charles and Wooders, Sarah and Lin, Kevin and Fang, Vivian and Patil, Shishir G. and Stoica, Ion and Gonzalez, Joseph E.},
+  year          = {2024},
+  eprint        = {2310.08560},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2310.08560}
+}
+
+@misc{xiao2024infllmtrainingfreelongcontextextrapolation,
+  title         = {InfLLM: Training-Free Long-Context Extrapolation for LLMs with an Efficient Context Memory},
+  author        = {Xiao, Chaojun and Zhang, Pengle and Han, Xu and Xiao, Guangxuan and Lin, Yankai and Zhang, Zhengyan and Liu, Zhiyuan and Sun, Maosong},
+  year          = {2024},
+  eprint        = {2402.04617},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2402.04617}
+}
+
+@misc{yu2024defenserageralongcontext,
+  title         = {In Defense of RAG in the Era of Long-Context Language Models},
+  author        = {Yu, Tan and Xu, Anbang and Akkiraju, Rama},
+  year          = {2024},
+  eprint        = {2409.01666},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2409.01666}
+}
+
+@article{pickett2024betterragusingrelevantinformationgain,
+  title   = {Better RAG using Relevant Information Gain},
+  author  = {Pickett, Marc and Hartman, Jeremy and Bhowmick, Ayan Kumar and Alam, Raquib-ul and Vempaty, Aditya},
+  journal = {arXiv preprint},
+  year    = {2024}
+}
+
+@article{alonso2024mixturepageranksreplacinglongcontext,
+  title   = {Mixture-of-PageRanks: Replacing Long-Context with Real-Time, Sparse GraphRAG},
+  author  = {Alonso, Nicholas and Millidge, Beren},
+  journal = {arXiv preprint},
+  year    = {2024}
+}
+
+@article{kwon2023efficientmemorymanagementlargelanguage,
+  title   = {Efficient Memory Management for Large Language Model Serving with PagedAttention},
+  author  = {Kwon, Woosuk and Li, Zhuohan and Zhuang, Siyuan and Sheng, Ying and Zheng, Lianmin and Yu, Cody Hao and Gonzalez, Joseph E. and Zhang, Hao and Stoica, Ion},
+  journal = {arXiv preprint},
+  year    = {2023}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% --- METODO SOCRÄTICO
+
+
+@book{vlastos1994,
+  title = {Socratic Studies},
+  editor = {Vlastos, Gregory},
+  year = {1994},
+  publisher = {Cambridge University Press},
+}
+
+@book{plato2015,
+  title = {teeteto},
+  editor = {Platão},
+  year = {2015},
+  publisher = {Fundação Calouste Gulbenkian}
+}
+
+@book{montazeri2022psychotherapist,
+  title={Psychotherapist's Guide to Socratic Dialogue},
+  author={Montazeri, Mohammad Sadegh},
+  year={2022},
+  publisher={Springer Nature}
+}
+
+@article{petrelli2013platao,
+  title={PLAT{\~A}O Eut{\'\i}fron},
+  author={PETRELLI, HUMBERTO ZANARDO},
+  journal={Sofia},
+  volume={2},
+  number={1},
+  year={2013}
+}
+
+@book{plato-theaetetus,
+  author    = {Plato},
+  title     = {Theaetetus},
+  translator= {M. J. Levett},
+  editor    = {Burnyeat, Myles},
+  year      = {1990},
+  publisher = {Hackett Publishing},
+  address   = {Indianapolis}
+}
+
+@book{plato-euthyphro,
+  author    = {Plato},
+  title     = {Euthyphro},
+  translator= {G. M. A. Grube},
+  editor    = {Cooper, John M.},
+  year      = {1997},
+  publisher = {Hackett Publishing},
+  address   = {Indianapolis},
+  note      = {In: Plato, Complete Works}
+}
+
+
+%% -- COMPLEMENTO INTRODUÇÃO
+
+@inbook{Scarlatos_2025,
+   title={Training LLM-Based Tutors to Improve Student Learning Outcomes in Dialogues},
+   ISBN={9783031984143},
+   ISSN={1611-3349},
+   url={http://dx.doi.org/10.1007/978-3-031-98414-3_18},
+   DOI={10.1007/978-3-031-98414-3_18},
+   booktitle={Artificial Intelligence in Education},
+   publisher={Springer Nature Switzerland},
+   author={Scarlatos, Alexander and Liu, Naiming and Lee, Jaewook and Baraniuk, Richard and Lan, Andrew},
+   year={2025},
+   pages={251–266} }
+
+@article{huynh2025large,
+  title={Large Language Models for Code Generation: A Comprehensive Survey of Challenges, Techniques, Evaluation, and Applications},
+  author={Huynh, Nam and Lin, Beiyu},
+  journal={arXiv preprint arXiv:2503.01245},
+  year={2025},
+  doi={10.48550/arXiv.2503.01245},
+  url={https://arxiv.org/abs/2503.01245}
+}
+
+@inproceedings{liu2024socraticlm,
+  title        = {SocraticLM: Exploring Socratic Personalized Teaching with Large Language Models},
+  author       = {Liu, Jiayu and others},
+  booktitle    = {Advances in Neural Information Processing Systems},
+  year         = {2024},
+  note         = {NeurIPS 2024, preprint available online},
+  url          = {http://staff.ustc.edu.cn/~huangzhy/files/papers/JiayuLiu-NeurIPS2024.pdf}
+}
+
+@article{miao2024llmserving,
+  title={Towards Efficient Generative Large Language Model Serving: A Survey from Algorithms to Systems},
+  author={Miao, Xupeng and Oliaro, Gabriele and Zhang, Zhihao and Cheng, Xinyi and Wang, Zeyu and Zhang, Rae Ying and Wong, Yihao and Zhu, Zhuoming and Yang, Lijie and Shi, Xiaoxiang and others},
+  journal={arXiv preprint arXiv:2312.15234},
+  year={2024},
+  note={Survey on efficient LLM serving including memory constraints and KV cache}
+}
+

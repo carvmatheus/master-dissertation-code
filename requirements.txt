@@ -1,24 +1,17 @@
-groq
-openai
 torch
-transformers
+transformers==4.46.3  # llmlingua 0.2.2 requer o formato legado de KV cache
 numpy
 python-dotenv
 pytest>=7.0
 
 # RIG (Dartboard ranking)
 faiss-cpu
-sentence-transformers
+sentence-transformers==5.6.0
 scikit-learn
 
 # RSAW (token-based segmentation)
 tiktoken
+llmlingua==0.2.2
 
 # Benchmarks long-context (BABILong, NarrativeQA, QASPER, InfiniteBench)
 datasets
-
-# Opcional: para integração com Claude (notebook)
-anthropic
-PyPDF2
-pandas
-openpyxl

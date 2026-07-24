@@ -1,0 +1,7 @@
+Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,Average
+raw_llama3.1-8b,-,-,-,0.083,-,-,-,0.083
+sliding_window_llama3.1-8b,-,-,-,0.083,-,-,-,0.083
+parallel_window_llama3.1-8b,-,-,-,0.083,-,-,-,0.083
+semantic_compression_llama3.1-8b,-,-,-,0.000,-,-,-,0.000
+rig_llama3.1-8b,-,-,-,0.083,-,-,-,0.083
+rsaw_llama3.1-8b,-,-,-,0.000,-,-,-,0.000

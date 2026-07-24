@@ -1,6 +1,0 @@
-Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,Average
-raw_gpt-oss-120b,-,-,-,0.042,-,-,-,0.042
-sliding_window_gpt-oss-120b,-,-,-,0.042,-,-,-,0.042
-parallel_window_gpt-oss-120b,-,-,-,0.000,-,-,-,0.000
-semantic_compression_gpt-oss-120b,-,-,-,0.000,-,-,-,0.000
-rig_gpt-oss-120b,-,-,-,0.000,-,-,-,0.000

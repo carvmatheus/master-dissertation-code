@@ -1,0 +1,22 @@
+{
+  "captured_at": "2026-07-17T01:20:17.780614+00:00",
+  "model": "gemma4:26b-mlx",
+  "details": {
+    "parent_model": "",
+    "format": "safetensors",
+    "family": "gemma4",
+    "families": null,
+    "parameter_size": "26.2B",
+    "quantization_level": "nvfp4"
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ],
+  "parameters": "temperature                    1\ntop_k                          64\ntop_p                          0.95",
+  "declared_context_length": 262144,
+  "context_length_fields": {
+    "gemma4.context_length": 262144
+  }
+}

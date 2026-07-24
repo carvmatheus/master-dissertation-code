@@ -1,0 +1,5 @@
+Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+llmlingua_gpt-oss-20b-ollama,-,-,0.438,-,-,-,-,0.000,0.114,1.000,0.333,0.000,0.144,0.290
+llmlingua2_gpt-oss-20b-ollama,-,-,0.938,-,-,-,-,0.467,0.025,1.000,0.333,0.333,0.313,0.487
+selective_context_gpt-oss-20b-ollama,-,-,0.312,-,-,-,-,0.391,0.028,1.000,0.667,0.333,0.255,0.427
+cpc_gpt-oss-20b-ollama,-,-,0.688,-,-,-,-,0.707,0.050,1.000,0.667,0.667,0.315,0.585

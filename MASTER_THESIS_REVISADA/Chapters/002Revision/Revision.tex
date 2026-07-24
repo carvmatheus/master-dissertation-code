@@ -1,0 +1,303 @@
+\chapter{Fundamentos Técnicos e Teóricos}
+\label{cap:fundamentos}
+
+Este capítulo revisa os fundamentos técnicos necessários à compreensão do problema tratado nesta dissertação e organiza a literatura de extensão de contexto não invasiva em uma taxonomia. A Seção~\ref{sec:fundamentos-llms} apresenta os princípios dos LLMs, o mecanismo de atenção e a origem da complexidade quadrática. A Seção~\ref{sec:tecnicas-nao-invasivas} revisa e classifica as principais estratégias de extensão de contexto que operam sem modificação do modelo base.
+
+\section{Fundamentos Técnicos de LLMs}
+\label{sec:fundamentos-llms}
+
+\subsection{Modelos de Linguagem de Grande Escala}
+\label{subsec:llms}
+
+LLMs podem ser classificados como redes neurais profundas, baseadas na arquitetura \textit{Transformer} \cite{vaswani2017attention}, treinadas para prever o próximo \textit{token} em um grande \textit{corpus} de texto. Matematicamente, esses modelos aproximam uma distribuição condicional $p(x_t \mid x_{<t})$, onde $x_t$ representa o \textit{token} atual e $x_{<t}$ denota todos os \textit{tokens} anteriores da sequência \cite{vaswani2017attention,brown2020fewshot}.
+
+Diferentemente de modelos de rede neural especializados, que necessitam de treinamento e ajuste fino para realizar uma tarefa específica, os LLMs funcionam como plataformas de propósito geral em que o próprio usuário, em linguagem natural, especifica o comportamento e a ação desejada, como resumir documentos, responder perguntas, traduzir textos, analisar dados ou gerar código \cite{brown2020fewshot,huynh2025codegen,zhao2023survey}. Essa capacidade de generalização sem exemplos rotulados é denominada \textit{zero-shot} ou \textit{few-shot}. Isso é possível em razão do alto volume e da variação das fontes de dados utilizados no treinamento dos modelos. Esses dados provêm de diversas origens, como internet, livros, códigos e artigos, permitindo ao modelo capturar padrões linguísticos, estruturas semânticas e conhecimento contidos nesses documentos. A qualidade e a diversidade dos dados de treinamento determinam fundamentalmente a capacidade desses modelos generalistas em realizar tarefas específicas sem supervisão.
+
+\subsection{Mecanismo de Atenção e Janela de Contexto}
+\label{subsec:atencao}
+
+O mecanismo central dos LLMs é a \textbf{atenção multi-cabeças}, proposta por Vaswani et al. \cite{vaswani2017attention}. Seu funcionamento consiste no seguinte. Para cada \textit{token} de entrada, o mecanismo calcula pontuações de atenção que quantificam o quanto esse \textit{token} é importante para os demais, permitindo capturar dependências textuais de forma paralela.
+
+Do ponto de vista matemático, cada \textit{token} da sequência é projetado em três partes, a Consulta $Q$, a Chave $K$ e o Valor $V$. A auto-atenção pode ser abstraída como um mecanismo que mede a similaridade entre a consulta e as chaves e que, em seguida, usa essas pontuações como pesos para combinar os valores correspondentes. Formalmente, o mecanismo de atenção pode ser representado pela Equação~\ref{eq:atencao}.
+
+\begin{equation}
+\label{eq:atencao}
+\mathrm{Attention}(Q,K,V) = \mathrm{softmax}\!\left(\frac{QK^{\top}}{\sqrt{d_k}}\right) V.
+\end{equation}
+
+O termo $QK^{\top}$ produz uma matriz em que cada entrada representa a similaridade (via produto escalar) entre a consulta de um \textit{token} e a chave de outro. Com isso, cada linha dessa matriz indica o quanto um \textit{token} considera relevantes os demais. O fator $\sqrt{d_k}$, onde $d_k$ é a dimensão dos vetores de chave, é usado para normalizar esses produtos escalares e evitar valores muito grandes, que poderiam saturar a função de ativação e dificultar o treinamento \cite{vaswani2017attention}. Em seguida, a função \textit{softmax} é aplicada a cada linha dessa matriz de similaridade para transformá-la em uma distribuição de probabilidades, de modo que os pesos de atenção de um \textit{token} sobre todos os outros somam 1. Por fim, essa matriz de probabilidades é multiplicada por $V$, de modo que cada \textit{token} receba uma combinação linear dos vetores de valor de todos os \textit{tokens}, ponderada pela importância atribuída a cada um. O resultado é uma nova representação em que um \textit{token} incorpora, de forma explícita, informação dos demais \textit{tokens} considerados relevantes.
+
+\subsection{Complexidade Computacional Quadrática}
+\label{subsec:complexidade}
+
+Conforme mencionado na Seção~\ref{subsec:atencao}, o mecanismo de auto-atenção apresenta complexidade $O(n^2 \cdot d)$. Essa complexidade decorre diretamente do cálculo da matriz de similaridade. Do ponto de vista de implementação, essa matriz de atenção $n \times n$ precisa ser armazenada em memória durante o cálculo, e cada camada do modelo (tipicamente entre 24 e 96 camadas em modelos modernos) mantém seu próprio \textit{cache} de chaves e valores (\textit{KV cache}) para evitar reprocessamento durante a geração autorregressiva. O consumo total de memória cresce não apenas com $n^2$, mas também com o número de camadas e o tamanho dos \textit{batches} processados simultaneamente \cite{kwon2023pagedattention,miao2024serving}.
+
+As implicações práticas dessa complexidade incluem os pontos a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Limitação de memória em GPU}. Em modelos com contexto muito longo, o armazenamento simultâneo das matrizes de atenção ao longo de todas as camadas pode rapidamente consumir a maior parte da memória disponível, exigindo estratégias como particionamento de \textit{cache}, paginação de memória (\textit{PagedAttention}) e gerenciamento fino de alocação para viabilizar o funcionamento de LLMs em servidores de produção \cite{kwon2023pagedattention}.
+
+\item \textbf{Latência em inferência}. O tempo de processamento do \textit{prefill} cresce de forma quadrática com $n$. Em cenários de contexto muito longo, essa etapa pode prejudicar a latência do modelo, elevando o tempo de resposta e degradando a experiência do usuário.
+
+\item \textbf{Custo operacional}. Em ambientes de produção com precificação por \textit{token}, processar repetidamente grandes quantidades de contexto eleva os custos financeiros da aplicação. Isso motiva o uso de estratégias de compressão de \textit{prompt}, seleção de trechos importantes e recuperação seletiva da informação, que reduzem a necessidade de reprocessar interações \cite{jiang2023llmlingua}.
+\end{itemize}
+
+Esses fatores reforçam a necessidade de buscar novas abordagens para processar o conteúdo da janela de contexto de forma mais eficiente. Como o objetivo deste trabalho é desenvolver um \textit{framework} agnóstico a modelos de LLM produtivos de mercado, sem necessidade de retreinamento ou implementação de arquiteturas customizadas, a seção seguinte revisa sistematicamente as estratégias não invasivas, que operam sobre modelos já treinados sem modificações arquiteturais.
+
+\section{Estratégias Não Invasivas para Extensão de Contexto}
+\label{sec:tecnicas-nao-invasivas}
+
+Em razão do problema de aumento de \textit{tokens} na janela de contexto e do fato de que os novos modelos não estão evoluindo exclusivamente no aumento da quantidade de \textit{tokens} de entrada, uma variedade de técnicas não invasivas vem surgindo para contornar essas restrições. Definem-se como \textbf{técnicas não invasivas} aquelas que operam \textbf{sem modificação do modelo base}, ou seja, sem retreinamento, sem acesso aos parâmetros internos e sem modificação das matrizes internas de peso e posição. Essa restrição visa permitir a aplicação em modelos acessados via API e comercialmente mais utilizados, como ChatGPT, Claude, Gemini ou Grok. Na literatura, poucos trabalhos tratam especificamente do aumento de janela de contexto não invasivo \cite{huang2024longcontext,wang2024beyondlimits}. Cabe registrar que algumas abordagens estendem a janela sem ajuste fino, mas ainda intervêm na computação da atenção, como o Self-Extend, que combina atenção agrupada e atenção de vizinhança para extrapolar o comprimento sem treinamento \cite{jin2024selfextend}. Como essa intervenção exige acesso ao mecanismo interno de atenção, tais métodos não se aplicam a modelos disponibilizados apenas via API e ficam fora do escopo aqui adotado.
+
+Esta seção revisa as principais técnicas de aumento da janela de contexto e elabora uma proposta de taxonomia das principais estratégias identificadas na literatura. Essa classificação é organizada em quatro categorias principais conforme sua lógica operacional, sendo elas a compressão de \textit{prompt}, a segmentação de contexto e janela deslizante, os métodos baseados em \textit{MapReduce} e a alocação e gerenciamento de memória externa.
+
+\subsection{Compressão de Prompt}
+\label{subsec:compressao-prompt}
+
+A \textbf{compressão de \textit{prompt}} reduz a entrada entregue ao modelo alvo e procura preservar a informação necessária à tarefa. Revisões recentes organizam a área em métodos de \textit{prompt} rígido (\textit{hard prompt}) e contínuo (\textit{soft prompt}) \cite{li2025survey,jha2024characterizing}. Os primeiros selecionam unidades discretas do texto e produzem uma saída textual, enquanto os segundos substituem parte do contexto por representações vetoriais. Essa distinção se refere à representação produzida, e não à necessidade de treinamento. LLMLingua-2 e CPC, por exemplo, geram texto comprimido, mas dependem de modelos auxiliares previamente treinados \cite{pan2024llmlingua2,li2024cpc}. Ainda assim, ambos preservam o modelo alvo sem alteração e podem ser empregados com LLMs acessados por API. Essa propriedade torna os métodos de \textit{hard prompt} particularmente relevantes para o escopo não invasivo desta dissertação.
+
+Seja $x$ um \textit{prompt} com $L$ \textit{tokens} e $\widetilde{x}$ sua versão comprimida com $\widetilde{L}$ \textit{tokens}. A taxa de retenção é definida por $\tau=\widetilde{L}/L$, enquanto a razão de compressão corresponde a $1/\tau$. O problema pode ser interpretado como a busca por $\widetilde{x}$ que reduz $\tau$ e mantém a distribuição das respostas do modelo próxima àquela induzida por $x$ \cite{jiang2023llmlingua}. Essa formulação evidencia que a redução de comprimento não constitui, isoladamente, uma medida de qualidade. Uma avaliação adequada também deve considerar o desempenho na tarefa, a fidelidade, a latência do compressor e o custo total de inferência.
+
+\paragraph{LLMLingua.}
+Jiang et al. \cite{jiang2023llmlingua} propõem uma arquitetura de compressão do geral para o específico (\textit{coarse-to-fine}) baseada na perplexidade estimada por um modelo de linguagem menor. O controlador de orçamento distingue instrução, demonstrações e pergunta, preservando uma fração maior da instrução e da pergunta, diretamente associadas à definição da tarefa, e atribuindo maior compressão ao conjunto potencialmente redundante de demonstrações. Sob restrições mais severas, demonstrações inteiras podem ser removidas antes da etapa fina. Em seguida, o algoritmo iterativo de compressão em nível de \textit{token} processa o texto em segmentos e condiciona a análise de cada segmento ao prefixo já comprimido. Tokens com maior perplexidade são preservados, pois são tratados como menos previsíveis e, portanto, mais informativos para o modelo. Um estágio opcional de alinhamento ajusta o modelo auxiliar com textos gerados pelo LLM alvo, procurando reduzir a diferença entre as distribuições dos dois modelos. A formulação admite modelos causais de diferentes portes, incluindo GPT-2 e LLaMA. Os experimentos do artigo empregam principalmente Alpaca-7B e uma variante GPT2-small ajustada no conjunto Alpaca, evidenciando que a escolha do modelo auxiliar é parte da configuração experimental, e não a definição do método.
+
+O método foi avaliado em raciocínio matemático, tarefas do BIG-Bench Hard, conversação e sumarização, por meio de GSM8K, BBH, ShareGPT e Arxiv-March23. Nos experimentos com GSM8K, a configuração mais agressiva reteve aproximadamente um vigésimo do \textit{prompt} e apresentou redução de 1,52 ponto em correspondência exata em relação ao \textit{prompt} completo. A análise de latência em uma GPU V100 reportou aceleração de ponta a ponta entre 1,7 e 5,7 vezes para razões de compressão entre 2 e 10 vezes \cite{jiang2023llmlingua}. Esses valores caracterizam as configurações do artigo e não devem ser generalizados diretamente para outros modelos ou infraestruturas. Os próprios autores observam degradação acentuada em GSM8K entre 25 e 30 vezes de compressão. Além disso, o desempenho depende da proximidade entre o modelo auxiliar e o LLM alvo, e a remoção de \textit{tokens} pode produzir texto de difícil leitura humana. Por anteceder os demais métodos considerados e aparecer como comparador recorrente nos trabalhos posteriores, LLMLingua é adotado nesta dissertação como baseline de compressão.
+
+\paragraph{Selective Context.}
+Li et al. \cite{li2023selective} propõem um compressor sem treinamento específico que estima a auto-informação de cada \textit{token} por meio de um modelo causal. Os valores podem ser agregados em frases nominais ou sentenças, e as unidades com auto-informação abaixo de um percentil definido são removidas. A seleção é agnóstica à pergunta e se fundamenta na hipótese de que conteúdo facilmente previsto pelo modelo auxiliar contém maior redundância. A avaliação dos autores abrange reconstrução de contexto, sumarização, resposta a perguntas e continuação de conversas sobre artigos do arXiv, notícias da BBC e diálogos do ShareGPT. A granularidade de frase nominal apresentou os resultados mais estáveis, enquanto a remoção de sentenças foi mais sensível à configuração.
+
+Com redução de 50\% do contexto, o estudo reporta diminuição de 36\% no uso de memória de inferência e de 32\% no tempo por \textit{token}, acompanhada por queda de 0,023 em BERTScore-F1. Na análise manual de fidelidade para resposta a perguntas, 3,8\% das tuplas extraídas das respostas comprimidas não foram sustentadas pelas respostas de referência nessa mesma taxa \cite{li2023selective}. A interpretação desses resultados requer cautela, pois grande parte da avaliação toma como referência a resposta produzida pelo próprio modelo com o contexto integral, e os textos foram limitados a 2048 \textit{tokens}. Os autores também identificam dependência do segmentador de frases nominais e variação do percentil ótimo entre tarefas e contextos. Para o MCKP, o método oferece uma alternativa de baixo acoplamento e sem treinamento adicional, mas sua medida de surpresa não representa diretamente a relevância de uma unidade para a consulta.
+
+\paragraph{LLMLingua-2.}
+Pan et al. \cite{pan2024llmlingua2} questionam o uso da entropia de modelos causais como critério de compressão, pois esse sinal considera apenas o contexto anterior e não é aprendido especificamente para decidir quais palavras preservar. LLMLingua-2 reformula a compressão como classificação binária de palavras. O conjunto de treinamento é construído por destilação, mediante compressões extrativas produzidas pelo GPT-4 a partir de transcrições do MeetingBank. Os textos são divididos em blocos de até 512 \textit{tokens}, as palavras preservadas são alinhadas ao original e exemplos com maior taxa de variação lexical ou maior lacuna de alinhamento são filtrados. Um codificador bidirecional, XLM-RoBERTa-large na configuração principal e mBERT na versão menor, aprende a probabilidade de preservação. Na inferência, as palavras com maior probabilidade são selecionadas até o orçamento desejado, mantendo-se sua ordem original e a integridade de palavras divididas em múltiplos sub\textit{tokens}.
+
+O artigo avalia generalização dentro e fora do domínio por meio de MeetingBank, LongBench, ZeroSCROLLS, GSM8K e BBH. Sob restrições de 2000 e 3000 \textit{tokens}, LLMLingua-2 superou LLMLingua e Selective Context na média reportada para LongBench e ZeroSCROLLS, embora tenha permanecido abaixo de LongLLMLingua, que utiliza a pergunta, em parte das tarefas de contexto longo. Em uma V100, o compressor foi de três a seis vezes mais rápido que os baselines de compressão avaliados e produziu aceleração de ponta a ponta entre 1,6 e 2,9 vezes para razões entre 2 e 5 vezes \cite{pan2024llmlingua2}. A principal limitação reconhecida pelos autores é a concentração da destilação em transcrições do MeetingBank. Os testes fora do domínio reduzem essa preocupação, mas não eliminam a possibilidade de mudança de distribuição. Sua natureza agnóstica à tarefa também evita recompressão por consulta, ao custo de não explorar relevância específica para a pergunta.
+
+\paragraph{Context-aware Prompt Compression.}
+Liskavets et al. \cite{li2024cpc} apresentam o Context-aware Prompt Compression (CPC, sigla adotada no artigo), que remove sentenças completas segundo sua relevância para a pergunta. O método constrói o conjunto Context-aware Question-Relevance a partir de textos do WikiText. Pares sintéticos de pergunta e resposta são gerados para sentenças positivas, verificados para exigir informação distribuída no contexto e associados a sentenças negativas filtradas por similaridade semântica e pelo efeito de sua remoção sobre a probabilidade da resposta. Um Mistral-7B-Instruct é então ajustado com LoRA usando uma perda contrastiva entre pergunta, sentenças positivas e negativas, combinada a uma perda de predição de \textit{tokens} mascarados para aprender representações bidirecionais. Durante a inferência, cada sentença recebe uma similaridade em relação à pergunta, e as mais relevantes são selecionadas até o orçamento de \textit{tokens}, com restauração da ordem original.
+
+Nos resultados publicados, CPC obteve as maiores médias entre os métodos comparados no LongBench sob limites de 2000 e 3000 \textit{tokens}, além de resultados superiores nos conjuntos específicos Krapivin, PubMed, MeetingBank e SummScreen. O custo do compressor foi substancialmente menor que o de LLMLingua e LongLLMLingua. Entretanto, LLMLingua-2 permaneceu ligeiramente mais rápido na mesma avaliação de latência, com médias de 0,23 segundo para LLMLingua-2 e 0,28 segundo para CPC por amostra do LongBench \cite{li2024cpc}. O artigo não apresenta uma seção específica de limitações. Para esta dissertação, três implicações decorrem da arquitetura. A seleção precisa ser refeita para cada pergunta, o codificador Mistral-7B tem custo de memória superior ao dos codificadores empregados pelo LLMLingua-2 e a granularidade de sentença preserva legibilidade, mas não remove redundância interna das sentenças selecionadas. Essas propriedades tornam CPC complementar, e não estritamente substituto, aos métodos em nível de palavra ou frase.
+
+A Tabela~\ref{tab:comparacao-compressores} sintetiza as diferenças que afetam a composição do conjunto de opções do MCKP.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Comparação dos compressores de \textit{hard prompt} considerados nesta dissertação}
+\label{tab:comparacao-compressores}
+\begin{tabular}{>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{1.5cm}>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}p{2.9cm}}
+\toprule
+\textbf{Método} & \textbf{Unidade} & \textbf{Usa a pergunta} & \textbf{Modelo auxiliar} & \textbf{Compromisso principal} \\
+\midrule
+LLMLingua \cite{jiang2023llmlingua} & Demonstração e \textit{token} & Não diretamente & Modelo causal, com alinhamento opcional & Baseline consolidado, mas com maior latência e baixa legibilidade \\
+\addlinespace
+Selective Context \cite{li2023selective} & \textit{Token}, frase ou sentença & Não & Modelo causal sem treino específico & Baixo acoplamento, mas limiar e segmentação sensíveis ao contexto \\
+\addlinespace
+LLMLingua-2 \cite{pan2024llmlingua2} & Palavra & Não & Codificador treinado por destilação & Baixa latência, mas dependência dos dados de destilação \\
+\addlinespace
+CPC \cite{li2024cpc} & Sentença & Sim & Codificador ajustado contrastivamente & Preserva legibilidade e relevância, com custo maior e recompressão por pergunta \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Com base nessa complementaridade, LLMLingua permanece como baseline externo, enquanto LLMLingua-2, Selective Context e CPC formam o conjunto de três candidatos à composição das opções do MCKP. O nome \texttt{llm-lingua}, por sua vez, designa o pacote oficial que reúne implementações de métodos da família, incluindo LLMLingua e LLMLingua-2, e não um quarto algoritmo de compressão independente \cite{microsoft2023llmlingua}. A escolha cobre decisões em nível de palavra, unidade lexical e sentença, além de incluir critérios agnósticos e condicionados à pergunta. Essa recomendação decorre da diversidade operacional dos métodos, e não de uma conclusão antecipada de superioridade. A decisão experimental deve considerar conjuntamente qualidade na tarefa, fidelidade, taxa efetiva de compressão, latência e falhas de execução nos benchmarks descritos no Capítulo~\ref{cap:metodologia}.
+
+\paragraph{Métodos de prompt contínuo.}
+Uma linha alternativa substitui trechos do contexto por vetores aprendidos, em geral obtidos por meio de treinamento ou ajuste do modelo. O Gisting treina o modelo para condensar instruções em um conjunto reduzido de \textit{gist tokens} reutilizáveis \cite{mu2023gist}. O AutoCompressor adapta o modelo para gerar vetores de sumarização que condensam contextos longos como \textit{soft prompts} \cite{chevalier2023autocompressor}. O ICAE emprega um autoencoder de contexto para produzir representações compactas interpretáveis pelo modelo alvo \cite{ge2023icae}. O SoftPromptComp combina sumarização em linguagem natural com \textit{soft prompts} treináveis \cite{wang2024softpromptcomp}, e o LLoCO aprende contextos longos de forma \textit{offline} combinados a adaptação de baixo \textit{rank} \cite{tan2024lloco}. Por dependerem de treinamento, esses métodos alcançam taxas de compressão elevadas, mas não satisfazem a restrição de não invasividade adotada neste trabalho.
+
+\paragraph{Compressão orientada a recuperação.}
+No contexto de geração aumentada por recuperação, alguns métodos comprimem os documentos recuperados antes de fornecê-los ao modelo. O RECOMP propõe compressores extrativo e abstrativo para condensar múltiplos documentos recuperados \cite{xu2023recomp}. O COCOM comprime os documentos em conjuntos de \textit{embeddings} de contexto entregues ao decodificador \cite{rau2024cocom}, e o PISCO aplica destilação em nível de sentença para obter compressão elevada com pouca perda de acurácia \cite{louis2025pisco}. Assim como os métodos de \textit{prompt} contínuo, essas abordagens dependem de treinamento dos compressores.
+
+\paragraph{Compressão em linguagem natural.}
+Uma vertente busca reescrever o contexto em linguagem natural mais condensada, preservando a legibilidade do \textit{prompt}. Gilbert et al. \cite{gilbert2023semanticcompression} comparam três abordagens de compressão, sendo a primeira básica (remoção de \textit{stopwords}), a segunda semântica (seleção orientada por \textit{embeddings}) e a terceira \textit{lossless} (compressão sem perda informacional), e relatam que a compressão semântica, orientada apenas por instruções de \textit{prompt}, sem modelo de compressão adicional, alcança reduções similares com ganhos em eficiência computacional. O Nano-Capsulator, por sua vez, aprende a comprimir \textit{prompts} em um formato de linguagem natural transferível entre modelos \cite{chuang2024nanocapsulator}.
+
+Os benefícios práticos da compressão de \textit{prompt} incluem os pontos a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Redução de custos}. Diminui custos operacionais proporcionalmente ao número de \textit{tokens} removidos, particularmente relevante em APIs com precificação por \textit{token}.
+
+\item \textbf{Manutenção de qualidade}. Preserva a semântica por meio da seleção de \textit{tokens} informativos \cite{jiang2023llmlingua}.
+
+\item \textbf{Adequação a respostas rápidas}. Reduz a carga computacional no \textit{prefill}, sendo apropriada para aplicações que demandam baixa latência.
+\end{itemize}
+
+\subsection{Segmentação de Contexto e Janela Deslizante}
+\label{subsec:segmentacao}
+
+A \textbf{segmentação de contexto} baseia-se na divisão de textos longos em segmentos menores que cabem individualmente na janela de contexto do modelo, processados em paralelo ou sequencialmente com estratégias de janelas deslizantes (\textit{sliding windows}) \cite{ratner2023parallelwindows}.
+
+Essa abordagem envolve quatro etapas principais, descritas a seguir.
+
+\begin{enumerate}[leftmargin=1.8em]
+\item \textbf{Particionamento}. Divisão do documento longo em trechos com tamanho adequado à janela de contexto disponível.
+
+\item \textbf{Processamento paralelo ou sequencial}. Cada segmento é processado independentemente ou em sequência, dependendo dos recursos disponíveis.
+
+\item \textbf{Preservação de continuidade}. A utilização de janelas sobrepostas (\textit{overlapping windows}) ajuda a preservar a continuidade semântica entre segmentos sucessivos, evitando perda de informação nas fronteiras.
+
+\item \textbf{Agregação}. Os resultados de cada segmento são combinados em uma resposta unificada, preservando a coerência global.
+\end{enumerate}
+
+A eficácia dessa abordagem depende criticamente de dois fatores, a correta definição dos limites dos segmentos, de modo a não quebrar dependências semânticas ou sintáticas importantes, e uma estratégia adequada de agregação dos resultados \cite{ratner2023parallelwindows}. Ratner et al. \cite{ratner2023parallelwindows} propõem o uso de \textbf{janelas paralelas de contexto}, em que múltiplos segmentos são processados simultaneamente e seus resultados combinados por mecanismos de votação ponderada ou fusão de representações.
+
+Entre os benefícios dessa abordagem estão os pontos a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Inclusão de maior volume de dados}. Permite o processamento de textos que excedem significativamente a janela nominal do modelo.
+
+\item \textbf{Redução de custos}. Em alguns cenários, pode reduzir custos ao permitir que apenas segmentos relevantes sejam processados em detalhe.
+
+\item \textbf{Adequação a textos multi-documento}. Beneficia tarefas em que a informação relevante está distribuída entre múltiplos documentos com conteúdo potencialmente redundante.
+\end{itemize}
+
+\subsection{Métodos Baseados em MapReduce}
+\label{subsec:mapreduce}
+
+Os \textbf{métodos MapReduce} fragmentam o texto em segmentos (fase \textit{Map}), processam cada segmento individualmente e, em seguida, agregam os resultados intermediários (fase \textit{Reduce}), seguindo um paradigma de computação distribuída aplicado ao processamento de linguagem natural \cite{kamradt2023workaround}. Kamradt et al. \cite{kamradt2023workaround} descrevem e avaliam três variações principais dessa abordagem, apresentadas a seguir.
+
+\begin{enumerate}[leftmargin=1.8em]
+\item \textbf{Reduce Simples}. Agregação contínua de resumos e segmentos processados, concatenando resultados de forma sequencial. Cada segmento é sumarizado, e os resumos são progressivamente combinados até que caibam na janela de contexto final.
+
+\item \textbf{QA Rank}. Utiliza perguntas e respostas (\textit{question answering}) para identificar os pontos principais de cada segmento que serão passados adiante na agregação, priorizando informação relevante à tarefa específica.
+
+\item \textbf{Refine}. Agregação de resultados de forma hierárquica, em que \textit{outputs} intermediários são refinados iterativamente até a convergência.
+\end{enumerate}
+
+Esses métodos oferecem uma estrutura modular para processamento e agregação de informações, aumentando a precisão em tarefas de síntese e análise de textos extensos \cite{kamradt2023workaround}. Entre os benefícios práticos estão os pontos a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Modularidade}. Permite compor de forma flexível as etapas de processamento, facilitando a customização para diferentes domínios e tarefas.
+
+\item \textbf{Escalabilidade}. Pode ser aplicado recursivamente a textos arbitrariamente longos, sem limite teórico de comprimento.
+
+\item \textbf{Precisão em síntese}. É particularmente eficaz em tarefas de sumarização multi-documento e análise comparativa, em que informações complementares devem ser integradas.
+\end{itemize}
+
+\subsection{Alocação e Gerenciamento de Memória Externa}
+\label{subsec:memoria-externa}
+
+A \textbf{memória externa} oferece uma abordagem fundamentalmente distinta das anteriores. Em vez de tentar processar todo o conteúdo dentro da janela de contexto (comprimindo, segmentando ou agregando), o sistema mantém um repositório persistente de informações, como histórico de diálogos, documentos indexados ou grafos de conhecimento estruturados, e recupera dinamicamente apenas a informação mais relevante para cada consulta específica. Esta categoria engloba diversas técnicas complementares que compartilham o princípio de externalizar o armazenamento de contexto e recuperá-lo sob demanda, detalhadas a seguir.
+
+\paragraph{MemGPT como Sistema Operacional.}
+O MemGPT \cite{packer2024memgpt} integra LLMs a capacidades de memória hierárquica e gerenciamento de tarefas, fazendo com que o modelo funcione de forma análoga a um sistema operacional autônomo capaz de coordenar operações computacionais complexas. A abordagem caracteriza-se por três componentes principais, descritos a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Memória hierárquica}. Distinção explícita entre memória de curto prazo, que corresponde à janela de contexto ativa do modelo, e memória de longo prazo, que corresponde ao armazenamento persistente externo, tipicamente em banco de dados vetorial.
+
+\item \textbf{Gerenciamento automático}. O sistema determina dinamicamente quais informações manter em contexto ativo e quais arquivar na memória de longo prazo, utilizando heurísticas de relevância e recência.
+
+\item \textbf{Recuperação sob demanda}. Busca de informações históricas baseada em similaridade semântica, por meio de \textit{embeddings}, e em critérios de relevância contextual.
+\end{itemize}
+
+A arquitetura do MemGPT inspira-se em sistemas operacionais tradicionais, tratando a janela de contexto como análoga à memória RAM, limitada e rápida, e o armazenamento externo como análogo ao disco, ilimitado e mais lento. O sistema decide autonomamente quando fazer a paginação de informações entre os dois níveis \cite{packer2024memgpt}.
+
+\paragraph{InfLLM e a Memória de Contexto Eficiente.}
+O InfLLM \cite{xiao2024infllm} propõe um método de extrapolação de contexto longo sem treinamento adicional, baseado em uma memória de contexto eficiente que organiza e armazena informações de maneira escalável. A abordagem distingue-se por três características, descritas a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Armazenamento estruturado}. As informações do contexto são segmentadas e indexadas em estruturas de dados otimizadas para busca rápida.
+
+\item \textbf{Recuperação seletiva}. Apenas os segmentos mais relevantes para a consulta atual são injetados na janela de contexto, reduzindo a carga computacional.
+
+\item \textbf{Manutenção de coerência}. Mecanismos de controle garantem que dependências de longo alcance sejam preservadas mesmo quando informações intermediárias não estão ativas no contexto.
+\end{itemize}
+
+Dessa forma, o InfLLM possibilita que o modelo mantenha coerência e qualidade na geração de texto mesmo ao processar entradas extremamente longas, sem necessidade de retreinamento ou modificação arquitetural \cite{xiao2024infllm}.
+
+\paragraph{Relevant Information Gain (RIG).}
+Pickett et al. \cite{pickett2024rig} propõem uma melhoria nos métodos de RAG (\textit{Retrieval-Augmented Generation}) ao incorporar o conceito de \textbf{ganho de informação relevante} para otimizar a seleção e integração dos dados recuperados. A abordagem tradicional de RAG recupera documentos baseando-se apenas em similaridade semântica, o que não garante que os trechos recuperados sejam os mais informativos para responder à consulta. O RIG introduz uma métrica que quantifica o quanto cada documento recuperado contribui para reduzir a incerteza sobre a resposta correta, priorizando trechos verdadeiramente informativos. Formalmente, dado um conjunto de documentos candidatos $\{d_1, d_2, \ldots, d_k\}$, o RIG é calculado conforme a Equação~\ref{eq:rig}.
+
+\begin{equation}
+\label{eq:rig}
+\mathrm{RIG}(d_i) = H(Y) - H(Y \mid d_i),
+\end{equation}
+
+onde $H(Y)$ é a entropia da distribuição de respostas antes de observar o documento, e $H(Y \mid d_i)$ é a entropia condicional após observar $d_i$. Documentos que maximizam o ganho de informação são prioritariamente incluídos no contexto \cite{pickett2024rig}.
+
+\paragraph{PagedAttention e a Otimização de Memória.}
+O PagedAttention \cite{kwon2023pagedattention} aborda especificamente o problema de gerenciamento de memória durante a inferência de LLMs, propondo uma técnica que segmenta o \textit{cache} de atenção (\textit{KV cache}) em ``páginas'', analogamente a sistemas de paginação em memória virtual. Durante a geração autorregressiva, o modelo precisa armazenar os vetores \textit{key} e \textit{value} de todos os \textit{tokens} previamente gerados, e em sequências longas esse \textit{cache} consome memória significativa. O PagedAttention atua sobre esse \textit{cache} de três formas, descritas a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Segmentação do \textit{cache}}. Divide o \textit{KV cache} em blocos, ou páginas, de tamanho fixo.
+
+\item \textbf{Alocação dinâmica}. As páginas são alocadas sob demanda conforme a geração avança, reduzindo o desperdício de memória.
+
+\item \textbf{Compartilhamento}. Múltiplas sequências geradas em paralelo, como em \textit{beam search} ou inferência em lote, podem compartilhar páginas comuns, economizando memória.
+\end{itemize}
+
+Entre os benefícios estão a melhor escalabilidade, uma vez que permite processar sequências maiores ou mais sequências em paralelo com o mesmo hardware, a redução da sobrecarga de memória causada por alocação inflexível, e a preservação da qualidade das representações apesar da fragmentação do \textit{cache} \cite{kwon2023pagedattention}.
+
+\paragraph{Knowledge Graph Extraction.}
+A abordagem de extração de grafos de conhecimento propõe a transformação de textos longos e não estruturados em representações estruturadas baseadas em grafos, nas quais nós representam entidades ou conceitos e arestas representam relações entre eles \cite{alonso2024mixturepageranks}. O processo de criação divide-se em três etapas principais, descritas a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Extração de informações relevantes}. Identificação de entidades, como pessoas, organizações, locais e conceitos, e de relações causais, temporais ou hierárquicas presentes no texto.
+
+\item \textbf{Definição de conceitos e entidades}. Estruturação semântica que organiza as entidades extraídas em uma ontologia ou taxonomia coerente.
+
+\item \textbf{Canonização}. Padronização dos dados extraídos para resolver ambiguidades, como entidades distintas com nomes similares ou a mesma entidade referenciada de formas diferentes.
+\end{itemize}
+
+Essa metodologia permite a compactação de informações em estruturas ordenadas, reduzindo o espaço de armazenamento necessário enquanto mantém relações semânticas explícitas e navegáveis. Em vez de manter o texto completo em memória, o sistema armazena apenas o grafo de conhecimento e recupera subgrafos relevantes quando necessário \cite{alonso2024mixturepageranks}.
+
+\paragraph{Sparse GraphRAG e Mixture-of-PageRanks.}
+Alonso e Millidge \cite{alonso2024mixturepageranks} apresentam uma abordagem denominada \textit{Mixture-of-PageRanks}, que substitui a dependência de longos contextos em LLMs por um mecanismo de grafos esparsos em tempo real, inspirado no algoritmo PageRank, utilizado originalmente para ranqueamento de páginas web. Em vez de manter toda a informação na janela de contexto, o sistema opera de três formas, descritas a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Construção de grafos de entidades e relações}. Representação estruturada do conhecimento contido em documentos longos ou coleções de documentos, em que a estrutura do grafo captura dependências e relevância relativa.
+
+\item \textbf{Cálculo de relevância dinâmica}. Uso de variantes do algoritmo PageRank para identificar os nós mais importantes no contexto da consulta atual, ponderando a importância global, medida pela centralidade no grafo, e a relevância local, medida pela proximidade semântica à consulta.
+
+\item \textbf{Recuperação dinâmica}. Injeção na janela de contexto apenas das partes do grafo, ou subgrafos, relevantes à consulta, com suas conexões explícitas preservadas.
+\end{itemize}
+
+A abordagem denomina-se \textit{Mixture-of-PageRanks} porque combina múltiplas funções de ranqueamento aplicadas simultaneamente ao mesmo grafo, capturando diferentes dimensões de relevância, como a temporal, a causal e a topológica. Entre os benefícios estão a escalabilidade, uma vez que pode processar bases de conhecimento de tamanho arbitrário, limitada apenas pela capacidade de armazenamento do grafo, a eficiência na redução do número de \textit{tokens} necessários e a rastreabilidade, dado que grafos explícitos tornam as fontes de informação transparentes e auditáveis, facilitando a verificação e mitigando alucinações \cite{alonso2024mixturepageranks}.
+
+\subsection{Síntese e Taxonomia de Técnicas Não Invasivas}
+\label{subsec:taxonomia}
+
+A Tabela~\ref{tab:taxonomia} oferece uma visão consolidada das técnicas revisadas, organizadas por categoria operacional, com indicação de seus mecanismos principais e aplicações ideais.
+
+\begin{table}[htbp]
+\centering
+\caption{Taxonomia de técnicas não invasivas para extensão de contexto em LLMs}
+\label{tab:taxonomia}
+\begin{tabular}{p{2.6cm}p{3.0cm}p{3.2cm}p{3.2cm}}
+\toprule
+\textbf{Categoria} & \textbf{Técnicas} & \textbf{Mecanismo Principal} & \textbf{Aplicação Ideal} \\
+\midrule
+Compressão de \textit{Prompt} & \textit{Hard prompt} (LLMLingua, Selective Context, CPC), \textit{soft prompt} (Gist, ICAE, LLoCO), compressão para RAG e linguagem natural & Seleção de \textit{tokens} ou sentenças, ou substituição por representações aprendidas, com preservação semântica & Respostas rápidas, redução de custo, APIs com limitação de \textit{tokens} \\
+\addlinespace
+Segmentação de Contexto & Janela Deslizante, Janelas Paralelas & Divisão em trechos, processamento paralelo ou sequencial e agregação & Textos multi-documento, processamento paralelo \\
+\addlinespace
+Métodos MapReduce & Reduce Simples, QA Rank, Refine & Fragmentação (Map), processamento e agregação hierárquica (Reduce) & Síntese e análise de textos extensos, sumarização multi-documento \\
+\addlinespace
+Memória Externa & MemGPT, InfLLM, RIG, PagedAttention, Knowledge Graphs, Sparse GraphRAG & Armazenamento persistente e recuperação dinâmica baseada em relevância & Diálogos prolongados, bases de conhecimento extensas, análises detalhadas \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Avaliação de Eficácia, Métricas e Resultados}
+\label{subsec:avaliacao-eficacia}
+
+A eficácia das técnicas de extensão de contexto é avaliada segundo múltiplas dimensões complementares, conforme documentado na literatura revisada \cite{choi2025loraragg,bai2023longbench,hsieh2024ruler}. Técnicas de compressão relatam capacidade significativa de redução de \textit{tokens} mantendo a qualidade em tarefas de \textit{question answering} e sumarização \cite{jiang2023llmlingua,gilbert2023semanticcompression}. Ganhos em eficiência computacional, como menor tempo de \textit{prefill} e menor utilização de memória, também são documentados em múltiplos trabalhos \cite{miao2024serving}. No que diz respeito ao desempenho em tarefas específicas, avaliações reportam melhorias em tarefas de \textit{question answering}, extração de informações e sumarização, particularmente quando a informação relevante está distribuída em múltiplos documentos \cite{bai2023longbench,choi2025loraragg}. Estudos empíricos dedicados à compressão de \textit{prompt} examinam efeitos menos evidentes, como o impacto sobre o tamanho da resposta, a ocorrência de alucinações e a generalização entre tarefas \cite{zhang2025empirical}, e análises voltadas à preservação de informação avaliam o quanto o conteúdo original é retido sob diferentes esquemas de compressão \cite{lajewska2025understanding}. Esses trabalhos sugerem que ganhos de eficiência devem ser interpretados em conjunto com a fidelidade da informação preservada, e não isoladamente.
+
+\subsection{Benchmarks Especializados para Contexto Longo}
+\label{subsec:benchmarks}
+
+A avaliação rigorosa de capacidades de longo contexto requer \textit{benchmarks} que testem não apenas a capacidade técnica de processar sequências longas, mas o uso \textit{efetivo} da informação distribuída ao longo do contexto \cite{bai2023longbench,hsieh2024ruler}. Os principais \textit{benchmarks} utilizados são descritos a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{LongBench} \cite{bai2023longbench}. \textit{Benchmark} bilíngue e multitarefa para compreensão de contexto longo, incluindo tarefas de \textit{question answering}, sumarização e análise de código. Avalia capacidade de recuperação, síntese e raciocínio sobre informações dispersas.
+
+\item \textbf{RULER} \cite{hsieh2024ruler}. \textit{Framework} que mede o ``tamanho real de contexto'' de LLMs por meio de testes de recuperação de informação inserida em posições variadas ao longo da sequência, expondo quantitativamente fenômenos como \textit{lost in the middle} e degradação posicional.
+
+\item \textbf{Needle-in-a-Haystack}. Teste simples mas revelador no qual um fato específico (``agulha'') é inserido em posição aleatória em um contexto longo (``palheiro''), e o modelo deve recuperá-lo com precisão. Expõe vieses posicionais, degradação de atenção e limitações práticas de janelas nominalmente grandes.
+\end{itemize}
+
+Esses \textit{benchmarks} revelam sistematicamente que janelas de contexto nominalmente grandes frequentemente não são utilizadas de forma eficaz pelo modelo, com desempenho degradando de maneira significativa quando a informação crítica está além dos primeiros 32 a 64 mil \textit{tokens} ou posicionada em regiões centrais da sequência \cite{liu2024lostmiddle,bai2023longbench,hsieh2024ruler}.
+
+\subsection{Síntese e Lacunas Identificadas}
+\label{subsec:lacunas}
+
+Os trabalhos revisados demonstram ganhos significativos em eficiência e desempenho utilizando apenas técnicas não invasivas. Contudo, parte dos métodos de teste é inconsistente ou demasiado básica para avaliar o comportamento dos modelos em cenários reais, e as técnicas são, em geral, aplicadas de forma uniforme sobre todo o \textit{prompt}. Essa uniformidade é uma lacuna relevante. Como \textit{prompts} têm estrutura interna heterogênea, uma taxa de compressão única tende a comprometer regiões de alto valor informacional ou a desperdiçar orçamento em regiões redundantes. Com isso, no capítulo seguinte, este trabalho realiza a avaliação empírica das estratégias mais promissoras e formaliza um \textit{framework} que aloca a compressão de forma seletiva entre as regiões do \textit{prompt}.

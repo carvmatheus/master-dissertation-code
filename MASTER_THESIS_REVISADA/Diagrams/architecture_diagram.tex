@@ -1,0 +1,77 @@
+% Arquitetura conceitual do framework proposto de compressao seletiva.
+% Este diagrama representa a formulacao da dissertacao, nao uma
+% implementacao de software ja concluida.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[
+    node distance=0.75cm and 0.9cm,
+    stage/.style={rectangle, rounded corners=2pt, draw=dark, thick,
+        minimum width=3.25cm, minimum height=1.25cm, align=center,
+        font=\small, fill=white},
+    artifact/.style={rectangle, draw=dark!65, minimum width=2.8cm,
+        minimum height=0.8cm, align=center, font=\scriptsize, fill=light},
+    detail/.style={rectangle, draw=dark!45, minimum width=2.45cm,
+        minimum height=0.65cm, align=center, font=\scriptsize, fill=white},
+    arrow/.style={-{Stealth[length=2.4mm]}, thick, draw=dark},
+    dataarrow/.style={-{Stealth[length=2.2mm]}, thick, dashed, draw=dark!70}
+]
+
+% Entrada e analise do prompt
+\node[artifact, fill=blue!10] (input) {\textit{Prompt} $C$, consulta $q$\\e orcamento $B$};
+\node[stage, right=of input, fill=blue!10] (partition) {1. Particionamento\\semantico};
+\node[artifact, right=of partition] (parts) {$T=(t_1,\ldots,t_n)$\\particoes ordenadas};
+\node[stage, right=of parts, fill=blue!10] (importance) {2. Estimativa de\\importancia $I(t_j;q)$};
+
+\draw[arrow] (input) -- (partition);
+\draw[arrow] (partition) -- (parts);
+\draw[arrow] (parts) -- (importance);
+
+% Componentes da importancia
+\node[detail, below=0.55cm of importance, xshift=-2.7cm] (relevance) {Relevancia para\\a tarefa};
+\node[detail, right=0.25cm of relevance] (density) {Densidade de\\informacao};
+\node[detail, right=0.25cm of density] (position) {Saliencia\\posicional};
+
+\draw[dataarrow] (relevance.north) |- (importance.south);
+\draw[dataarrow] (density.north) -- (importance.south);
+\draw[dataarrow] (position.north) |- (importance.south);
+
+% Geracao de opcoes
+\node[stage, below=2.35cm of parts, fill=green!10] (options) {3. Geracao de opcoes\\por particao};
+\node[artifact, left=of options, minimum width=3.25cm] (pool) {Compressores \textit{text-in/text-out}\\identidade e candidatos};
+\node[artifact, right=of options, minimum width=3.25cm] (optiondata) {$O_j=\{o_{j,0},\ldots,o_{j,m}\}$\\custo $c_{j,o}$ e qualidade $Q_{j,o}$};
+
+\draw[arrow] (parts.south) -- (options.north);
+\draw[dataarrow] (importance.east) -- ++(0.45,0) |- (optiondata.east);
+\draw[dataarrow] (pool) -- (options);
+\draw[arrow] (options) -- (optiondata);
+
+% Otimizacao e saida
+\node[stage, below=1.05cm of optiondata, fill=orange!15, minimum width=4.1cm]
+    (solver) {4. Otimizacao MCKP\\por programacao dinamica};
+\node[detail, left=of solver, minimum width=3.25cm] (constraints)
+    {Uma opcao por particao\\$\sum c_{j,o}\leq B$};
+\node[detail, right=of solver, minimum width=3.25cm] (transition)
+    {Qualidade preservada\\e penalizacao de transicao};
+
+\draw[arrow] (optiondata) -- (solver);
+\draw[dataarrow] (constraints) -- (solver);
+\draw[dataarrow] (transition) -- (solver);
+
+\node[artifact, below=1cm of solver, fill=green!8] (compressed)
+    {\textit{Prompt} comprimido\\com no maximo $B$ tokens};
+\node[stage, left=of compressed, fill=green!10] (rebuild)
+    {5. Reconstrucao na\\ordem original};
+\node[artifact, right=of compressed, fill=purple!10] (llm)
+    {Modelo de linguagem\\acessado via API};
+
+\draw[arrow] (solver.south) -- ++(0,-0.35) -| (rebuild.north);
+\draw[arrow] (rebuild) -- (compressed);
+\draw[arrow] (compressed) -- (llm);
+
+\end{tikzpicture}%
+}
+\caption{Arquitetura conceitual do \textit{framework} proposto. O sistema transforma cada particao em alternativas com custo e qualidade, seleciona uma alternativa por particao sob o orcamento global e reconstrói o \textit{prompt} antes da chamada ao modelo.}
+\label{fig:framework}
+\end{figure}

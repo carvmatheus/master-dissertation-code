@@ -1,0 +1,2546 @@
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_llama3.1-8b-instruct-q8
+Estratégia registrada: sliding_window_llama3.1-8b-instruct-q8
+Estratégia registrada: parallel_window_llama3.1-8b-instruct-q8
+Estratégia registrada: semantic_compression_llama3.1-8b-instruct-q8
+Estratégia registrada: rig_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_llama3.1-8b-instruct-q8', 'sliding_window_llama3.1-8b-instruct-q8', 'parallel_window_llama3.1-8b-instruct-q8', 'semantic_compression_llama3.1-8b-instruct-q8', 'rig_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_llama3.1-8b-instruct-q8
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 16976.98it/s]
+   Score médio: 1.000 | Latência média: 1527.5ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2059.2ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2095.3ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.938 | Latência média: 26352.1ms | 4 casos
+
+>> Executando longbench com estratégia: rig_llama3.1-8b-instruct-q8
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 8548.46it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 17.68it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 88.37it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 95.04it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.78it/s]
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 153411 -> 22308 chars (num_ctx=8192)
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 2931.6ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.443 | Latência média: 20040.1ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.642 | Latência média: 14000.4ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.329 | Latência média: 17497.3ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.377 | Latência média: 55365.7ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.58it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.56it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 19.17it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  4.47it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  5.75it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  6.94it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.404 | Latência média: 6804.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 1210.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 1187.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 355.6ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.691 | Latência média: 9088.1ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 110.74it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 23.68it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 30.08it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.362 | Latência média: 436.9ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2758.2ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 1964.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 846.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 19513.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 31.13it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 71.44it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 50.63it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 1443.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 6391.1ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 6338.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 3535.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 37659.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 29.79it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 64.67it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.39it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.667 | Latência média: 4474.3ms | 3 casos
+
+>> Executando musique com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.417 | Latência média: 9928.7ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.333 | Latência média: 10688.8ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.417 | Latência média: 8103.0ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.333 | Latência média: 65032.1ms | 3 casos
+
+>> Executando musique com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.70it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.75it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 48.22it/s]
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 22703 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 22703 -> 22308 chars (num_ctx=8192)
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.417 | Latência média: 5731.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.273 | Latência média: 17970.0ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.379 | Latência média: 12675.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.240 | Latência média: 17632.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.239 | Latência média: 39063.9ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.68it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.45it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 12.29it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.083 | Latência média: 9216.0ms | 3 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_llama3.1-8b-instruct-q8:
+  Score médio: 0.613
+  Score min/max: 0.000 / 1.000
+  Latência média: 8227.5ms
+
+sliding_window_llama3.1-8b-instruct-q8:
+  Score médio: 0.643
+  Score min/max: 0.000 / 1.000
+  Latência média: 6763.7ms
+
+parallel_window_llama3.1-8b-instruct-q8:
+  Score médio: 0.593
+  Score min/max: 0.000 / 1.000
+  Latência média: 6922.3ms
+
+semantic_compression_llama3.1-8b-instruct-q8:
+  Score médio: 0.621
+  Score min/max: 0.000 / 1.000
+  Latência média: 35571.7ms
+
+rig_llama3.1-8b-instruct-q8:
+  Score médio: 0.582
+  Score min/max: 0.000 / 1.000
+  Latência média: 4365.7ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_llama3.1-8b-instruct-q81.000               0.443               0.362               1.000               0.667               0.417               0.273               
+sliding_window_llama3.1-8b-instruct-q81.000               0.642               0.362               1.000               0.667               0.333               0.379               
+parallel_window_llama3.1-8b-instruct-q81.000               0.329               0.362               1.000               0.667               0.417               0.240               
+semantic_compression_llama3.1-8b-instruct-q80.938               0.377               0.691               1.000               0.667               0.333               0.239               
+rig_llama3.1-8b-instruct-q81.000               0.404               0.362               1.000               0.667               0.417               0.083               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_llama3.1-8b-instruct-q8
+Estratégia registrada: sliding_window_llama3.1-8b-instruct-q8
+Estratégia registrada: parallel_window_llama3.1-8b-instruct-q8
+Estratégia registrada: semantic_compression_llama3.1-8b-instruct-q8
+Estratégia registrada: rig_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_llama3.1-8b-instruct-q8', 'sliding_window_llama3.1-8b-instruct-q8', 'parallel_window_llama3.1-8b-instruct-q8', 'semantic_compression_llama3.1-8b-instruct-q8', 'rig_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 16384
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=16384)...
+
+>> Executando longbench com estratégia: raw_llama3.1-8b-instruct-q8
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 10192.12it/s]
+   Score médio: 1.000 | Latência média: 2284.5ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2754.9ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2557.1ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.938 | Latência média: 27386.3ms | 4 casos
+
+>> Executando longbench com estratégia: rig_llama3.1-8b-instruct-q8
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 14966.68it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 18.38it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 87.99it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 85.96it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 31.14it/s]
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 153411 -> 46884 chars (num_ctx=16384)
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 4050.4ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.619 | Latência média: 36148.0ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.642 | Latência média: 13758.5ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.329 | Latência média: 17362.7ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.354 | Latência média: 77913.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.13it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.39it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  6.81it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  7.66it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  8.89it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.404 | Latência média: 6705.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 1221.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 1193.8ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 360.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.691 | Latência média: 9017.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 115.19it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.09it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 30.07it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.362 | Latência média: 445.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2761.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 1947.9ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 818.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 19038.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 30.46it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 70.58it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 57.57it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 1407.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 6399.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 6363.9ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 3536.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 38059.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.69it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 63.00it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 25.06it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.667 | Latência média: 4533.9ms | 3 casos
+
+>> Executando musique com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.417 | Latência média: 10019.8ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.333 | Latência média: 10684.4ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.417 | Latência média: 8231.1ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.333 | Latência média: 66914.6ms | 3 casos
+
+>> Executando musique com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.54it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 25.93it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 49.61it/s]
+ERROR prompt_compression: [llama3.1:8b-instruct-q8_0] Erro na API Ollama: TimeoutError: timed out
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.417 | Latência média: 5826.8ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.326 | Latência média: 37887.5ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.379 | Latência média: 12902.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.247 | Latência média: 18020.5ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.158 | Latência média: 373898.7ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.11it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.74it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.73it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 12.22it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.083 | Latência média: 9354.0ms | 3 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-16384/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-16384/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-16384/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_llama3.1-8b-instruct-q8:
+  Score médio: 0.644
+  Score min/max: 0.000 / 1.000
+  Latência média: 13293.2ms
+
+sliding_window_llama3.1-8b-instruct-q8:
+  Score médio: 0.643
+  Score min/max: 0.000 / 1.000
+  Latência média: 6889.7ms
+
+parallel_window_llama3.1-8b-instruct-q8:
+  Score médio: 0.594
+  Score min/max: 0.000 / 1.000
+  Latência média: 7055.4ms
+
+semantic_compression_llama3.1-8b-instruct-q8:
+  Score médio: 0.607
+  Score min/max: 0.000 / 1.000
+  Latência média: 84730.5ms
+
+rig_llama3.1-8b-instruct-q8:
+  Score médio: 0.582
+  Score min/max: 0.000 / 1.000
+  Latência média: 4591.9ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_llama3.1-8b-instruct-q81.000               0.619               0.362               1.000               0.667               0.417               0.326               
+sliding_window_llama3.1-8b-instruct-q81.000               0.642               0.362               1.000               0.667               0.333               0.379               
+parallel_window_llama3.1-8b-instruct-q81.000               0.329               0.362               1.000               0.667               0.417               0.247               
+semantic_compression_llama3.1-8b-instruct-q80.938               0.354               0.691               1.000               0.667               0.333               0.158               
+rig_llama3.1-8b-instruct-q81.000               0.404               0.362               1.000               0.667               0.417               0.083               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-16384/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_llama3.1-8b-instruct-q8
+Estratégia registrada: sliding_window_llama3.1-8b-instruct-q8
+Estratégia registrada: parallel_window_llama3.1-8b-instruct-q8
+Estratégia registrada: semantic_compression_llama3.1-8b-instruct-q8
+Estratégia registrada: rig_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_llama3.1-8b-instruct-q8', 'sliding_window_llama3.1-8b-instruct-q8', 'parallel_window_llama3.1-8b-instruct-q8', 'semantic_compression_llama3.1-8b-instruct-q8', 'rig_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=32768)...
+
+>> Executando longbench com estratégia: raw_llama3.1-8b-instruct-q8
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 10111.96it/s]
+   Score médio: 1.000 | Latência média: 2340.5ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2804.4ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2548.5ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.938 | Latência média: 27115.0ms | 4 casos
+
+>> Executando longbench com estratégia: rig_llama3.1-8b-instruct-q8
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 14283.79it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 19.66it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 89.55it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 84.62it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 28.65it/s]
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 153411 -> 96036 chars (num_ctx=32768)
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 3897.1ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.619 | Latência média: 60741.0ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.642 | Latência média: 14200.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.329 | Latência média: 17486.0ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.354 | Latência média: 93668.2ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.94it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.92it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.54it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  7.33it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  7.85it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  8.83it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.404 | Latência média: 6753.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 1200.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 1192.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.362 | Latência média: 366.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.691 | Latência média: 9098.2ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 119.00it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 26.69it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 29.35it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.362 | Latência média: 440.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 2760.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 1963.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 835.5ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 1.000 | Latência média: 19434.5ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 31.33it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 63.69it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 68.90it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 1446.1ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 6380.9ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 6378.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 3552.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.667 | Latência média: 38199.4ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 26.69it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 63.63it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.06it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.667 | Latência média: 4580.4ms | 3 casos
+
+>> Executando musique com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.417 | Latência média: 9992.8ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.333 | Latência média: 10847.8ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.417 | Latência média: 8159.5ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.333 | Latência média: 67475.2ms | 3 casos
+
+>> Executando musique com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 17.98it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 23.79it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 41.33it/s]
+ERROR prompt_compression: [llama3.1:8b-instruct-q8_0] Erro na API Ollama: TimeoutError: timed out
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.417 | Latência média: 5788.8ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_llama3.1-8b-instruct-q8
+   Score médio: 0.326 | Latência média: 37449.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_llama3.1-8b-instruct-q8
+   Score médio: 0.379 | Latência média: 12967.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_llama3.1-8b-instruct-q8
+   Score médio: 0.247 | Latência média: 18097.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_llama3.1-8b-instruct-q8
+   Score médio: 0.158 | Latência média: 374542.8ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_llama3.1-8b-instruct-q8
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.02it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.01it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.04it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.02it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 12.03it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.083 | Latência média: 9589.6ms | 3 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_llama3.1-8b-instruct-q8:
+  Score médio: 0.644
+  Score min/max: 0.000 / 1.000
+  Latência média: 16588.0ms
+
+sliding_window_llama3.1-8b-instruct-q8:
+  Score médio: 0.643
+  Score min/max: 0.000 / 1.000
+  Latência média: 6994.0ms
+
+parallel_window_llama3.1-8b-instruct-q8:
+  Score médio: 0.594
+  Score min/max: 0.000 / 1.000
+  Latência média: 7076.6ms
+
+semantic_compression_llama3.1-8b-instruct-q8:
+  Score médio: 0.607
+  Score min/max: 0.000 / 1.000
+  Latência média: 87078.0ms
+
+rig_llama3.1-8b-instruct-q8:
+  Score médio: 0.582
+  Score min/max: 0.000 / 1.000
+  Latência média: 4608.5ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_llama3.1-8b-instruct-q81.000               0.619               0.362               1.000               0.667               0.417               0.326               
+sliding_window_llama3.1-8b-instruct-q81.000               0.642               0.362               1.000               0.667               0.333               0.379               
+parallel_window_llama3.1-8b-instruct-q81.000               0.329               0.362               1.000               0.667               0.417               0.247               
+semantic_compression_llama3.1-8b-instruct-q80.938               0.354               0.691               1.000               0.667               0.333               0.158               
+rig_llama3.1-8b-instruct-q81.000               0.404               0.362               1.000               0.667               0.417               0.083               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/llama3.1-8b-instruct-q8_0/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25h
+RUN llama3.1:8b-instruct-q8_0 com num_ctx=8192
+
+RUN llama3.1:8b-instruct-q8_0 com num_ctx=16384
+
+RUN llama3.1:8b-instruct-q8_0 com num_ctx=32768
+Comparação salva em: tests/ollama-local/benchmark_matrix_artigo/context_comparison.csv
+
+RUN gemma4:26b-mlx com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_gemma4-26b-mlx
+Estratégia registrada: sliding_window_gemma4-26b-mlx
+Estratégia registrada: parallel_window_gemma4-26b-mlx
+Estratégia registrada: semantic_compression_gemma4-26b-mlx
+Estratégia registrada: rig_gemma4-26b-mlx
+
+Modelos: ['ollama/gemma4:26b-mlx']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_gemma4-26b-mlx', 'sliding_window_gemma4-26b-mlx', 'parallel_window_gemma4-26b-mlx', 'semantic_compression_gemma4-26b-mlx', 'rig_gemma4-26b-mlx']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando gemma4:26b-mlx (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_gemma4-26b-mlx
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 8585.49it/s]
+   Score médio: 0.938 | Latência média: 9484.6ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.938 | Latência média: 11561.7ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.750 | Latência média: 9027.8ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 0.812 | Latência média: 186172.2ms | 4 casos
+
+>> Executando longbench com estratégia: rig_gemma4-26b-mlx
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 8614.25it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 16.97it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 74.57it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 79.84it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 26.74it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.500 | Latência média: 11919.0ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_gemma4-26b-mlx
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 153411 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.333 | Latência média: 22836.7ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 20113.2ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 23371.3ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 217215.7ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.89it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.85it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 18.52it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  7.04it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  7.82it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  9.02it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.333 | Latência média: 15103.2ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_gemma4-26b-mlx
+   Score médio: 0.671 | Latência média: 7894.8ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.671 | Latência média: 7977.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.671 | Latência média: 5446.2ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_gemma4-26b-mlx
+ERROR prompt_compression: [gemma4:26b-mlx] Erro na API Ollama: TimeoutError: timed out
+ERROR prompt_compression: [gemma4:26b-mlx] Erro na API Ollama: TimeoutError: timed out
+ERROR prompt_compression: [gemma4:26b-mlx] Erro na API Ollama: TimeoutError: timed out
+   Score médio: 0.000 | Latência média: 914046.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 14.18it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 15.52it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.73it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.671 | Latência média: 7445.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 7801.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 6631.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 5988.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 143190.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 26.44it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.86it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 54.51it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 10548.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_gemma4-26b-mlx
+   Score médio: 0.667 | Latência média: 16009.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.667 | Latência média: 14805.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.667 | Latência média: 14319.7ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 292009.4ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.26it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 63.66it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.34it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.000 | Latência média: 15491.1ms | 3 casos
+
+>> Executando musique com estratégia: raw_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 20104.0ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 20354.4ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 19627.3ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 268950.4ms | 3 casos
+
+>> Executando musique com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 17.95it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 26.08it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 41.26it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.333 | Latência média: 15804.0ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_gemma4-26b-mlx
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.000 | Latência média: 28707.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.068 | Latência média: 22883.8ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_gemma4-26b-mlx
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 22703 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 22703 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.014 | Latência média: 26057.5ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 0.061 | Latência média: 161397.9ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.05it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.04it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.43it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 12.04it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.088 | Latência média: 16864.2ms | 3 casos
+Descarregando gemma4:26b-mlx...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/gemma4-26b-mlx/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/gemma4-26b-mlx/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/gemma4-26b-mlx/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_gemma4-26b-mlx:
+  Score médio: 0.580
+  Score min/max: 0.000 / 1.000
+  Latência média: 15818.2ms
+
+sliding_window_gemma4-26b-mlx:
+  Score médio: 0.589
+  Score min/max: 0.000 / 1.000
+  Latência média: 14752.0ms
+
+parallel_window_gemma4-26b-mlx:
+  Score médio: 0.548
+  Score min/max: 0.000 / 1.000
+  Latência média: 14570.2ms
+
+semantic_compression_gemma4-26b-mlx:
+  Score médio: 0.429
+  Score min/max: 0.000 / 1.000
+  Latência média: 306141.8ms
+
+rig_gemma4-26b-mlx:
+  Score médio: 0.422
+  Score min/max: 0.000 / 1.000
+  Latência média: 13247.5ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_gemma4-26b-mlx  0.938               0.333               0.671               1.000               0.667               0.333               0.000               
+sliding_window_gemma4-26b-mlx0.938               0.333               0.671               1.000               0.667               0.333               0.068               
+parallel_window_gemma4-26b-mlx0.750               0.333               0.671               1.000               0.667               0.333               0.014               
+semantic_compression_gemma4-26b-mlx0.812               0.333               0.000               1.000               0.333               0.333               0.061               
+rig_gemma4-26b-mlx  0.500               0.333               0.671               1.000               0.000               0.333               0.088               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/gemma4-26b-mlx/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+
+RUN gemma4:26b-mlx com num_ctx=32768
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_gemma4-26b-mlx
+Estratégia registrada: sliding_window_gemma4-26b-mlx
+Estratégia registrada: parallel_window_gemma4-26b-mlx
+Estratégia registrada: semantic_compression_gemma4-26b-mlx
+Estratégia registrada: rig_gemma4-26b-mlx
+
+Modelos: ['ollama/gemma4:26b-mlx']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_gemma4-26b-mlx', 'sliding_window_gemma4-26b-mlx', 'parallel_window_gemma4-26b-mlx', 'semantic_compression_gemma4-26b-mlx', 'rig_gemma4-26b-mlx']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando gemma4:26b-mlx (num_ctx=32768)...
+
+>> Executando longbench com estratégia: raw_gemma4-26b-mlx
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 13186.41it/s]
+   Score médio: 0.938 | Latência média: 8133.3ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.938 | Latência média: 7814.1ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.750 | Latência média: 7509.8ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 0.812 | Latência média: 124701.2ms | 4 casos
+
+>> Executando longbench com estratégia: rig_gemma4-26b-mlx
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7915.67it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 22.69it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 92.33it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 94.24it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 28.90it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.750 | Latência média: 9531.2ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_gemma4-26b-mlx
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 153411 -> 96036 chars (num_ctx=32768)
+   Score médio: 0.583 | Latência média: 44361.2ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.373 | Latência média: 18656.3ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 22487.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 0.583 | Latência média: 199374.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.74it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.71it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 19.97it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  7.59it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  8.16it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  9.46it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.333 | Latência média: 14083.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_gemma4-26b-mlx
+   Score médio: 0.671 | Latência média: 7495.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.671 | Latência média: 7525.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.339 | Latência média: 6746.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_gemma4-26b-mlx
+ERROR prompt_compression: [gemma4:26b-mlx] Erro na API Ollama: TimeoutError: timed out
+ERROR prompt_compression: [gemma4:26b-mlx] Erro na API Ollama: TimeoutError: timed out
+   Score médio: 0.000 | Latência média: 774117.1ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 22.02it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 25.16it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 26.48it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.671 | Latência média: 7053.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 7622.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 6347.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 5919.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 161801.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.50it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.68it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 58.92it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 9264.7ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_gemma4-26b-mlx
+   Score médio: 0.667 | Latência média: 15769.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 16109.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 1.000 | Latência média: 12791.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_gemma4-26b-mlx
+ERROR prompt_compression: [gemma4:26b-mlx] Erro na API Ollama: TimeoutError: timed out
+   Score médio: 0.333 | Latência média: 515205.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 18.88it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 60.17it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 25.00it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.333 | Latência média: 15562.5ms | 3 casos
+
+>> Executando musique com estratégia: raw_gemma4-26b-mlx
+   Score médio: 0.000 | Latência média: 20194.5ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 19470.0ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.333 | Latência média: 19178.7ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_gemma4-26b-mlx
+ERROR prompt_compression: [gemma4:26b-mlx] Erro na API Ollama: TimeoutError: timed out
+   Score médio: 0.333 | Latência média: 634628.3ms | 3 casos
+
+>> Executando musique com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 14.46it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.07it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 34.36it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.333 | Latência média: 15722.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_gemma4-26b-mlx
+   Score médio: 0.129 | Latência média: 35691.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_gemma4-26b-mlx
+   Score médio: 0.000 | Latência média: 23311.9ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_gemma4-26b-mlx
+   Score médio: 0.014 | Latência média: 27027.8ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_gemma4-26b-mlx
+   Score médio: 0.109 | Latência média: 151621.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_gemma4-26b-mlx
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.65it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.63it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.62it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.60it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 12.42it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.054 | Latência média: 18109.3ms | 3 casos
+Descarregando gemma4:26b-mlx...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/gemma4-26b-mlx/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/gemma4-26b-mlx/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/gemma4-26b-mlx/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_gemma4-26b-mlx:
+  Score médio: 0.586
+  Score min/max: 0.000 / 1.000
+  Latência média: 19360.6ms
+
+sliding_window_gemma4-26b-mlx:
+  Score médio: 0.540
+  Score min/max: 0.000 / 1.000
+  Latência média: 13887.2ms
+
+parallel_window_gemma4-26b-mlx:
+  Score médio: 0.548
+  Score min/max: 0.000 / 1.000
+  Latência média: 14204.3ms
+
+semantic_compression_gemma4-26b-mlx:
+  Score médio: 0.469
+  Score min/max: 0.000 / 1.000
+  Latência média: 354956.8ms
+
+rig_gemma4-26b-mlx:
+  Score médio: 0.508
+  Score min/max: 0.000 / 1.000
+  Latência média: 12614.2ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_gemma4-26b-mlx  0.938               0.583               0.671               1.000               0.667               0.000               0.129               
+sliding_window_gemma4-26b-mlx0.938               0.373               0.671               1.000               0.333               0.333               0.000               
+parallel_window_gemma4-26b-mlx0.750               0.333               0.339               1.000               1.000               0.333               0.014               
+semantic_compression_gemma4-26b-mlx0.812               0.583               0.000               1.000               0.333               0.333               0.109               
+rig_gemma4-26b-mlx  0.750               0.333               0.671               1.000               0.333               0.333               0.054               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/gemma4-26b-mlx/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25h
+RUN qwen3:30b-a3b com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_qwen3:30b-a3b
+Estratégia registrada: sliding_window_qwen3:30b-a3b
+Estratégia registrada: parallel_window_qwen3:30b-a3b
+Estratégia registrada: semantic_compression_qwen3:30b-a3b
+Estratégia registrada: rig_qwen3:30b-a3b
+
+Modelos: ['ollama/qwen3:30b-a3b']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_qwen3:30b-a3b', 'sliding_window_qwen3:30b-a3b', 'parallel_window_qwen3:30b-a3b', 'semantic_compression_qwen3:30b-a3b', 'rig_qwen3:30b-a3b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando qwen3:30b-a3b (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_qwen3:30b-a3b
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 9593.90it/s]
+   Score médio: 0.750 | Latência média: 7033.6ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.750 | Latência média: 7083.9ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.750 | Latência média: 6525.4ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.625 | Latência média: 31066.6ms | 4 casos
+
+>> Executando longbench com estratégia: rig_qwen3:30b-a3b
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 13816.03it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 18.06it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 80.03it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 84.27it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 26.29it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.750 | Latência média: 8696.0ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_qwen3:30b-a3b
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 153411 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.389 | Latência média: 21565.0ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.222 | Latência média: 17264.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.222 | Latência média: 19742.7ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.417 | Latência média: 55105.9ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.96it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.94it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 16.67it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  5.07it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  6.52it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  7.64it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.409 | Latência média: 11570.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_qwen3:30b-a3b
+   Score médio: 0.667 | Latência média: 7990.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.667 | Latência média: 7561.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 6101.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 24567.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 54.52it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 23.71it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 33.55it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 6199.9ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 8991.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 8062.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 7366.5ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 25241.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 34.85it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.67it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 49.47it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 8489.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 12430.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 12779.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 10809.9ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 40332.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 28.02it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 67.68it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 22.86it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.000 | Latência média: 11597.9ms | 3 casos
+
+>> Executando musique com estratégia: raw_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 16481.1ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 17518.6ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 16493.6ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 67478.1ms | 3 casos
+
+>> Executando musique com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 17.51it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 23.27it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 42.96it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.333 | Latência média: 13635.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_qwen3:30b-a3b
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.141 | Latência média: 21876.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 17763.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_qwen3:30b-a3b
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 22703 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 22703 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.010 | Latência média: 21509.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.153 | Latência média: 61558.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.75it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.75it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.87it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.85it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.83it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.82it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.157 | Latência média: 12907.7ms | 3 casos
+Descarregando qwen3:30b-a3b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/qwen3-30b-a3b/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/qwen3-30b-a3b/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/qwen3-30b-a3b/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_qwen3:30b-a3b:
+  Score médio: 0.527
+  Score min/max: 0.000 / 1.000
+  Latência média: 13460.9ms
+
+sliding_window_qwen3:30b-a3b:
+  Score médio: 0.439
+  Score min/max: 0.000 / 1.000
+  Latência média: 12326.6ms
+
+parallel_window_qwen3:30b-a3b:
+  Score médio: 0.486
+  Score min/max: 0.000 / 1.000
+  Latência média: 12371.5ms
+
+semantic_compression_qwen3:30b-a3b:
+  Score médio: 0.373
+  Score min/max: 0.000 / 1.000
+  Latência média: 43050.8ms
+
+rig_qwen3:30b-a3b:
+  Score médio: 0.532
+  Score min/max: 0.000 / 1.000
+  Latência média: 10363.1ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_qwen3:30b-a3b   0.750               0.389               0.667               1.000               0.333               0.333               0.141               
+sliding_window_qwen3:30b-a3b0.750               0.222               0.667               1.000               0.000               0.333               0.000               
+parallel_window_qwen3:30b-a3b0.750               0.222               1.000               1.000               0.000               0.333               0.010               
+semantic_compression_qwen3:30b-a3b0.625               0.417               0.333               1.000               0.000               0.000               0.153               
+rig_qwen3:30b-a3b   0.750               0.409               1.000               1.000               0.000               0.333               0.157               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/qwen3-30b-a3b/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+
+RUN qwen3:30b-a3b com num_ctx=32768
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_qwen3:30b-a3b
+Estratégia registrada: sliding_window_qwen3:30b-a3b
+Estratégia registrada: parallel_window_qwen3:30b-a3b
+Estratégia registrada: semantic_compression_qwen3:30b-a3b
+Estratégia registrada: rig_qwen3:30b-a3b
+
+Modelos: ['ollama/qwen3:30b-a3b']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_qwen3:30b-a3b', 'sliding_window_qwen3:30b-a3b', 'parallel_window_qwen3:30b-a3b', 'semantic_compression_qwen3:30b-a3b', 'rig_qwen3:30b-a3b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando qwen3:30b-a3b (num_ctx=32768)...
+
+>> Executando longbench com estratégia: raw_qwen3:30b-a3b
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 11637.04it/s]
+   Score médio: 0.750 | Latência média: 7002.0ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.750 | Latência média: 7095.1ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.750 | Latência média: 6498.6ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.625 | Latência média: 31090.2ms | 4 casos
+
+>> Executando longbench com estratégia: rig_qwen3:30b-a3b
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 9841.30it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 16.17it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 88.98it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 81.27it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 24.55it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.750 | Latência média: 8717.7ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_qwen3:30b-a3b
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 153411 -> 96036 chars (num_ctx=32768)
+   Score médio: 0.472 | Latência média: 58531.9ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.222 | Latência média: 17442.2ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.222 | Latência média: 19697.5ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.306 | Latência média: 87915.0ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.97it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.92it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 18.86it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  5.91it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  7.11it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  8.09it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.409 | Latência média: 11860.6ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_qwen3:30b-a3b
+   Score médio: 0.667 | Latência média: 7996.3ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.667 | Latência média: 7567.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 6115.2ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 24441.6ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.80it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 37.26it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.22it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 6082.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 8969.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 8022.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 7500.5ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 1.000 | Latência média: 25045.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 31.27it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.87it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.86it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 46.09it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 8425.7ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 12485.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 12859.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 10844.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 40169.4ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 31.93it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 67.57it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 23.50it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.000 | Latência média: 11441.9ms | 3 casos
+
+>> Executando musique com estratégia: raw_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 16074.0ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 17247.8ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.333 | Latência média: 16511.6ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 67721.3ms | 3 casos
+
+>> Executando musique com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 19.02it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.17it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 45.10it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.333 | Latência média: 13689.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 35807.0ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_qwen3:30b-a3b
+   Score médio: 0.000 | Latência média: 17896.9ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_qwen3:30b-a3b
+   Score médio: 0.010 | Latência média: 21638.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_qwen3:30b-a3b
+   Score médio: 0.112 | Latência média: 88590.5ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_qwen3:30b-a3b
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.25it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.22it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.46it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.44it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 11.28it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.157 | Latência média: 13002.1ms | 3 casos
+Descarregando qwen3:30b-a3b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/qwen3-30b-a3b/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/qwen3-30b-a3b/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/qwen3-30b-a3b/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_qwen3:30b-a3b:
+  Score médio: 0.519
+  Score min/max: 0.000 / 1.000
+  Latência média: 20345.5ms
+
+sliding_window_qwen3:30b-a3b:
+  Score médio: 0.439
+  Score min/max: 0.000 / 1.000
+  Latência média: 12340.4ms
+
+parallel_window_qwen3:30b-a3b:
+  Score médio: 0.486
+  Score min/max: 0.000 / 1.000
+  Latência média: 12405.3ms
+
+semantic_compression_qwen3:30b-a3b:
+  Score médio: 0.352
+  Score min/max: 0.000 / 1.000
+  Latência média: 51182.3ms
+
+rig_qwen3:30b-a3b:
+  Score médio: 0.532
+  Score min/max: 0.000 / 1.000
+  Latência média: 10380.8ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_qwen3:30b-a3b   0.750               0.472               0.667               1.000               0.333               0.333               0.000               
+sliding_window_qwen3:30b-a3b0.750               0.222               0.667               1.000               0.000               0.333               0.000               
+parallel_window_qwen3:30b-a3b0.750               0.222               1.000               1.000               0.000               0.333               0.010               
+semantic_compression_qwen3:30b-a3b0.625               0.306               0.333               1.000               0.000               0.000               0.112               
+rig_qwen3:30b-a3b   0.750               0.409               1.000               1.000               0.000               0.333               0.157               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/qwen3-30b-a3b/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25h
+RUN deepseek-r1:32b com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_deepseek-r1-32b
+Estratégia registrada: sliding_window_deepseek-r1-32b
+Estratégia registrada: parallel_window_deepseek-r1-32b
+Estratégia registrada: semantic_compression_deepseek-r1-32b
+Estratégia registrada: rig_deepseek-r1-32b
+
+Modelos: ['ollama/deepseek-r1:32b']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_deepseek-r1-32b', 'sliding_window_deepseek-r1-32b', 'parallel_window_deepseek-r1-32b', 'semantic_compression_deepseek-r1-32b', 'rig_deepseek-r1-32b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando deepseek-r1:32b (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_deepseek-r1-32b
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 10316.49it/s]
+   Score médio: 0.750 | Latência média: 47178.6ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.750 | Latência média: 49820.5ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.500 | Latência média: 49978.9ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.750 | Latência média: 248250.8ms | 4 casos
+
+>> Executando longbench com estratégia: rig_deepseek-r1-32b
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7965.88it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 18.46it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 68.20it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 67.56it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 28.21it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.750 | Latência média: 56757.1ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_deepseek-r1-32b
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 153411 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.620 | Latência média: 134322.6ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.422 | Latência média: 117950.9ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.500 | Latência média: 123328.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_deepseek-r1-32b
+ERROR prompt_compression: [deepseek-r1:32b] Erro na API Ollama: HTTPError: HTTP Error 400: Bad Request
+ERROR prompt_compression: [deepseek-r1:32b] Erro na API Ollama: HTTPError: HTTP Error 400: Bad Request
+   Score médio: 0.629 | Latência média: 119738.1ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.63it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.37it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 12.43it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  6.02it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  7.22it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  8.20it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.520 | Latência média: 75379.8ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_deepseek-r1-32b
+   Score médio: 0.164 | Latência média: 46388.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.142 | Latência média: 48881.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.142 | Latência média: 44885.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.172 | Latência média: 171248.2ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 26.80it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 24.96it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.70it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.142 | Latência média: 45434.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 56795.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 51583.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 45961.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 174069.1ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 32.93it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.58it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 17.90it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 46899.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 72636.1ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 73152.9ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.667 | Latência média: 65793.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.667 | Latência média: 228397.5ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.24it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 54.81it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 21.50it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.667 | Latência média: 65170.2ms | 3 casos
+
+>> Executando musique com estratégia: raw_deepseek-r1-32b
+   Score médio: 0.833 | Latência média: 94869.2ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.500 | Latência média: 97961.0ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.583 | Latência média: 95689.7ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.333 | Latência média: 370827.9ms | 3 casos
+
+>> Executando musique com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 12.73it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 19.03it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.28it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.667 | Latência média: 78425.9ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_deepseek-r1-32b
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.344 | Latência média: 132473.7ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.335 | Latência média: 105295.7ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_deepseek-r1-32b
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 22703 -> 22308 chars (num_ctx=8192)
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 22703 -> 22308 chars (num_ctx=8192)
+   Score médio: 0.230 | Latência média: 126712.5ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_deepseek-r1-32b
+ERROR prompt_compression: [deepseek-r1:32b] Erro na API Ollama: HTTPError: HTTP Error 400: Bad Request
+ERROR prompt_compression: [deepseek-r1:32b] Erro na API Ollama: HTTPError: HTTP Error 400: Bad Request
+ERROR prompt_compression: [deepseek-r1:32b] Erro na API Ollama: HTTPError: HTTP Error 400: Bad Request
+   Score médio: 0.213 | Latência média: 60915.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  6.89it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  6.87it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.00it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.99it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.85it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.380 | Latência média: 70503.9ms | 3 casos
+Descarregando deepseek-r1:32b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/deepseek-r1-32b/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/deepseek-r1-32b/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/deepseek-r1-32b/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_deepseek-r1-32b:
+  Score médio: 0.677
+  Score min/max: 0.000 / 1.000
+  Latência média: 81871.5ms
+
+sliding_window_deepseek-r1-32b:
+  Score médio: 0.600
+  Score min/max: 0.000 / 1.000
+  Latência média: 76534.3ms
+
+parallel_window_deepseek-r1-32b:
+  Score médio: 0.517
+  Score min/max: 0.000 / 1.000
+  Latência média: 77592.2ms
+
+semantic_compression_deepseek-r1-32b:
+  Score médio: 0.547
+  Score min/max: 0.000 / 1.000
+  Latência média: 198572.3ms
+
+rig_deepseek-r1-32b:
+  Score médio: 0.597
+  Score min/max: 0.000 / 1.000
+  Latência média: 62384.9ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_deepseek-r1-32b 0.750               0.620               0.164               1.000               1.000               0.833               0.344               
+sliding_window_deepseek-r1-32b0.750               0.422               0.142               1.000               1.000               0.500               0.335               
+parallel_window_deepseek-r1-32b0.500               0.500               0.142               1.000               0.667               0.583               0.230               
+semantic_compression_deepseek-r1-32b0.750               0.629               0.172               1.000               0.667               0.333               0.213               
+rig_deepseek-r1-32b 0.750               0.520               0.142               1.000               0.667               0.667               0.380               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/deepseek-r1-32b/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+
+RUN deepseek-r1:32b com num_ctx=32768
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_deepseek-r1-32b
+Estratégia registrada: sliding_window_deepseek-r1-32b
+Estratégia registrada: parallel_window_deepseek-r1-32b
+Estratégia registrada: semantic_compression_deepseek-r1-32b
+Estratégia registrada: rig_deepseek-r1-32b
+
+Modelos: ['ollama/deepseek-r1:32b']
+Estratégias base: ['raw', 'sliding_window', 'parallel_window', 'semantic_compression', 'rig']
+Estratégias registradas: ['raw_deepseek-r1-32b', 'sliding_window_deepseek-r1-32b', 'parallel_window_deepseek-r1-32b', 'semantic_compression_deepseek-r1-32b', 'rig_deepseek-r1-32b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando deepseek-r1:32b (num_ctx=32768)...
+
+>> Executando longbench com estratégia: raw_deepseek-r1-32b
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7797.79it/s]
+   Score médio: 0.750 | Latência média: 47562.1ms | 4 casos
+
+>> Executando longbench com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.750 | Latência média: 50183.1ms | 4 casos
+
+>> Executando longbench com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.500 | Latência média: 51195.2ms | 4 casos
+
+>> Executando longbench com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.750 | Latência média: 251518.4ms | 4 casos
+
+>> Executando longbench com estratégia: rig_deepseek-r1-32b
+Carregando modelo de embeddings: all-MiniLM-L6-v2...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7849.93it/s]
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:86: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.29it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 63.74it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 52.62it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 16.83it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.750 | Latência média: 57476.4ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: raw_deepseek-r1-32b
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 153411 -> 96036 chars (num_ctx=32768)
+   Score médio: 0.813 | Latência média: 286945.9ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.422 | Latência média: 121692.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.500 | Latência média: 125687.2ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: semantic_compression_deepseek-r1-32b
+ERROR prompt_compression: [deepseek-r1:32b] Erro na API Ollama: HTTPError: HTTP Error 400: Bad Request
+   Score médio: 0.624 | Latência média: 227694.1ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  6.69it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  6.65it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 7 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 11.08it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Gerando embeddings para 77 chunk(s)...
+Batches:   0%|          | 0/3 [00:00<?, ?it/s]Batches:  33%|███▎      | 1/3 [00:00<00:00,  6.02it/s]Batches:  67%|██████▋   | 2/3 [00:00<00:00,  7.16it/s]Batches: 100%|██████████| 3/3 [00:00<00:00,  8.12it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 77 chunks com sucesso!
+   Score médio: 0.520 | Latência média: 77406.8ms | 3 casos
+
+>> Executando naturalquestions com estratégia: raw_deepseek-r1-32b
+   Score médio: 0.164 | Latência média: 47669.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.142 | Latência média: 49955.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.142 | Latência média: 45945.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.172 | Latência média: 173683.3ms | 3 casos
+
+>> Executando naturalquestions com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 12.89it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 11.21it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  6.57it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  6.54it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+   Score médio: 0.142 | Latência média: 46049.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: raw_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 59715.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 55857.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 55058.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 183636.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 1 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.53it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.83it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.79it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+Gerando embeddings para 2 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.09it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  9.06it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+   Score médio: 1.000 | Latência média: 49902.1ms | 3 casos
+
+>> Executando hotpotqa com estratégia: raw_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 74321.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 1.000 | Latência média: 76290.7ms | 3 casos
+
+>> Executando hotpotqa com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.667 | Latência média: 75366.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.667 | Latência média: 241417.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.90it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  7.88it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 3 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 38.08it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 20.85it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.667 | Latência média: 67795.9ms | 3 casos
+
+>> Executando musique com estratégia: raw_deepseek-r1-32b
+   Score médio: 0.833 | Latência média: 97091.8ms | 3 casos
+
+>> Executando musique com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.500 | Latência média: 103333.0ms | 3 casos
+
+>> Executando musique com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.583 | Latência média: 102742.1ms | 3 casos
+
+>> Executando musique com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.333 | Latência média: 440164.8ms | 3 casos
+
+>> Executando musique com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 8 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.59it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+Gerando embeddings para 5 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 14.43it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+Gerando embeddings para 4 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 15.82it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+   Score médio: 0.667 | Latência média: 77901.7ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: raw_deepseek-r1-32b
+   Score médio: 0.395 | Latência média: 184938.5ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: sliding_window_deepseek-r1-32b
+   Score médio: 0.335 | Latência média: 111617.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: parallel_window_deepseek-r1-32b
+   Score médio: 0.269 | Latência média: 134191.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: semantic_compression_deepseek-r1-32b
+   Score médio: 0.307 | Latência média: 344359.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: rig_deepseek-r1-32b
+Gerando embeddings para 22 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.23it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.22it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.71it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.69it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+Gerando embeddings para 21 chunk(s)...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.85it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  8.79it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 21 chunks com sucesso!
+   Score médio: 0.380 | Latência média: 72646.9ms | 3 casos
+Descarregando deepseek-r1:32b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/deepseek-r1-32b/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_artigo/runs/deepseek-r1-32b/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_artigo/runs/deepseek-r1-32b/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 110
+
+--- Métricas por Estratégia ---
+
+raw_deepseek-r1-32b:
+  Score médio: 0.710
+  Score min/max: 0.000 / 1.000
+  Latência média: 111013.3ms
+
+sliding_window_deepseek-r1-32b:
+  Score médio: 0.600
+  Score min/max: 0.000 / 1.000
+  Latência média: 79862.4ms
+
+parallel_window_deepseek-r1-32b:
+  Score médio: 0.522
+  Score min/max: 0.000 / 1.000
+  Latência média: 82806.9ms
+
+semantic_compression_deepseek-r1-32b:
+  Score médio: 0.560
+  Score min/max: 0.000 / 1.000
+  Latência média: 265406.3ms
+
+rig_deepseek-r1-32b:
+  Score médio: 0.597
+  Score min/max: 0.000 / 1.000
+  Latência média: 63864.3ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_deepseek-r1-32b 0.750               0.813               0.164               1.000               1.000               0.833               0.395               
+sliding_window_deepseek-r1-32b0.750               0.422               0.142               1.000               1.000               0.500               0.335               
+parallel_window_deepseek-r1-32b0.500               0.500               0.142               1.000               0.667               0.583               0.269               
+semantic_compression_deepseek-r1-32b0.750               0.624               0.172               1.000               0.667               0.333               0.307               
+rig_deepseek-r1-32b 0.750               0.520               0.142               1.000               0.667               0.667               0.380               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_artigo/runs/deepseek-r1-32b/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+python(12899) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25hTraceback (most recent call last):
+  File "/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/scripts/run_ollama_benchmark_matrix.py", line 233, in <module>
+    
+  File "/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/scripts/run_ollama_benchmark_matrix.py", line 220, in main
+    "--output-dir",
+            ^^^^^^^^
+  File "/Users/mathcardoso/.pyenv/versions/3.12.3/lib/python3.12/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mathcardoso/.pyenv/versions/3.12.3/lib/python3.12/subprocess.py", line 1201, in communicate
+    self.wait()
+  File "/Users/mathcardoso/.pyenv/versions/3.12.3/lib/python3.12/subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mathcardoso/.pyenv/versions/3.12.3/lib/python3.12/subprocess.py", line 2053, in _wait
+    (pid, sts) = self._try_wait(0)
+                 ^^^^^^^^^^^^^^^^^
+  File "/Users/mathcardoso/.pyenv/versions/3.12.3/lib/python3.12/subprocess.py", line 2011, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

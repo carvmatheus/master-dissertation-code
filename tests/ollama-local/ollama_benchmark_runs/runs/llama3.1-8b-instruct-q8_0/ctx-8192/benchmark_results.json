@@ -1,0 +1,420 @@
+{
+  "timestamp": "2026-07-14T01:18:30.807253",
+  "strategies": [
+    "raw_llama3.1-8b-instruct-q8"
+  ],
+  "benchmarks": [
+    "needle_in_haystack",
+    "ruler",
+    "longbench",
+    "babilong",
+    "narrativeqa",
+    "qasper",
+    "infinitebench",
+    "zeroscrolls",
+    "naturalquestions",
+    "triviaqa",
+    "hotpotqa",
+    "musique",
+    "meeting_summarization"
+  ],
+  "results": [
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "longbench_multidoc_qa_1",
+      "score": 1.0,
+      "latency_ms": 2801.9973750051577,
+      "response": "23%",
+      "expected": "23%",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "longbench_multidoc_qa_2",
+      "score": 1.0,
+      "latency_ms": 462.647291002213,
+      "response": "5555.",
+      "expected": "5555",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Manual de Procedimentos de Segurança",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "longbench_multidoc_qa_3",
+      "score": 1.0,
+      "latency_ms": 1715.217124990886,
+      "response": "A região Sudeste manteve a liderança com 52% do faturamento total.",
+      "expected": "Sudeste",
+      "task_type": "multi_doc_qa",
+      "source_doc": "Relatório Trimestral de Vendas",
+      "context_chars": 2217,
+      "num_documents": 3
+    },
+    {
+      "benchmark": "longbench",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "longbench_summarization_1",
+      "score": 1.0,
+      "latency_ms": 4481.559249994461,
+      "response": "A inteligência artificial tem transformado vários setores da economia global. Alguns desafios importantes permanecem, como questões éticas e regulamentações específicas para garantir o uso responsável dessas tecnologias.",
+      "expected": "inteligência artificial setores desafios ética",
+      "task_type": "summarization",
+      "expected_topics": [
+        "inteligência artificial",
+        "setores",
+        "desafios",
+        "ética"
+      ],
+      "context_chars": 1015
+    },
+    {
+      "benchmark": "zeroscrolls",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "zeroscrolls_0",
+      "score": 0.41333333333333333,
+      "latency_ms": 23459.360916007427,
+      "response": "The Industrial Designer disagreed with the User Interface because he thought that using a tomato-shaped remote control was not a good idea, as it would be too gimmicky and might not appeal to customers.",
+      "expected": "The User Interface proposed to give up the idea of a hand-held model and give its way to the voice recognition system, while the Industrial Design thought it would be necessary for remote control to be able to be held in hand. Industrial Design believed that not all the people would always use the voice recognition system and most of the time they have to take it by hand. For most, voice recognition is only a kind of addition. If the remote control was not in a suitable shape, like something round, it would bring some troubles.",
+      "dataset_id": "qmsum:va-sq-11",
+      "context_chars": 43538,
+      "all_answers": [
+        "The User Interface proposed to give up the idea of a hand-held model and give its way to the voice recognition system, while the Industrial Design thought it would be necessary for remote control to be able to be held in hand. Industrial Design believed that not all the people would always use the voice recognition system and most of the time they have to take it by hand. For most, voice recognition is only a kind of addition. If the remote control was not in a suitable shape, like something round, it would bring some troubles."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qmsum"
+    },
+    {
+      "benchmark": "zeroscrolls",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "zeroscrolls_1",
+      "score": 0.6666666666666666,
+      "latency_ms": 10118.95029200241,
+      "response": "Unif e Stopword.",
+      "expected": "Unif and Stopword",
+      "dataset_id": "qasper:3fad42be0fb2052bb404b989cc7d58b440cd23a0",
+      "context_chars": 12299,
+      "all_answers": [
+        "Unif and Stopword"
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qasper"
+    },
+    {
+      "benchmark": "zeroscrolls",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "zeroscrolls_2",
+      "score": 0.25,
+      "latency_ms": 26861.887125007343,
+      "response": "Não há menção de um personagem chamado Charles no texto fornecido. O texto menciona que Edward, o pai de Mary, a casou com Eliza, e que ela prometeu \"amorar, honrar e obedecer\" (um homem descrito como \"vicioso\") após ser recomendada por ele para outro homem em uma posição social mais alta.",
+      "expected": "He leaves for the Continent.",
+      "dataset_id": "narrative_qa:3858",
+      "context_chars": 153411,
+      "all_answers": [
+        "He leaves for the Continent."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "narrative_qa"
+    },
+    {
+      "benchmark": "naturalquestions",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "naturalquestions_0",
+      "score": 1.0,
+      "latency_ms": 1945.561540997005,
+      "response": "2001",
+      "expected": "Richmond Football Club Richmond began 2017 with 5 straight wins, a feat it had not achieved since 1995. A series of close losses hampered the Tigers throughout the middle of the season, including a 5-point loss to the Western Bulldogs, 2-point loss to Fremantle, and a 3-point loss to the Giants. Richmond ended the season strongly with convincing victories over Fremantle and St Kilda in the final two rounds, elevating the club to 3rd on the ladder. Richmond's first final of the season against the Cats at the MCG attracted a record qualifying final crowd of 95,028; the Tigers won by 51 points. Having advanced to the first preliminary finals for the first time since 2001, Richmond defeated Greater Western Sydney by 36 points in front of a crowd of 94,258 to progress to the Grand Final against Adelaide, their first Grand Final appearance since 1982. The attendance was 100,021, the largest crowd to a grand final since 1986. The Crows led at quarter time and led by as many as 13, but the Tigers took over the game as it progressed and scored seven straight goals at one point. They eventually would win by 48 points – 16.12 (108) to Adelaide's 8.12 (60) – to end their 37-year flag drought.[22] Dustin Martin also became the first player to win a Premiership medal, the Brownlow Medal and the Norm Smith Medal in the same season, while Damien Hardwick was named AFL Coaches Association Coach of the Year. Richmond's jump from 13th to premiers also marked the biggest jump from one AFL season to the next.",
+      "dataset_id": "0",
+      "context_chars": 1539,
+      "all_answers": [
+        "Richmond Football Club Richmond began 2017 with 5 straight wins, a feat it had not achieved since 1995. A series of close losses hampered the Tigers throughout the middle of the season, including a 5-point loss to the Western Bulldogs, 2-point loss to Fremantle, and a 3-point loss to the Giants. Richmond ended the season strongly with convincing victories over Fremantle and St Kilda in the final two rounds, elevating the club to 3rd on the ladder. Richmond's first final of the season against the Cats at the MCG attracted a record qualifying final crowd of 95,028; the Tigers won by 51 points. Having advanced to the first preliminary finals for the first time since 2001, Richmond defeated Greater Western Sydney by 36 points in front of a crowd of 94,258 to progress to the Grand Final against Adelaide, their first Grand Final appearance since 1982. The attendance was 100,021, the largest crowd to a grand final since 1986. The Crows led at quarter time and led by as many as 13, but the Tigers took over the game as it progressed and scored seven straight goals at one point. They eventually would win by 48 points – 16.12 (108) to Adelaide's 8.12 (60) – to end their 37-year flag drought.[22] Dustin Martin also became the first player to win a Premiership medal, the Brownlow Medal and the Norm Smith Medal in the same season, while Damien Hardwick was named AFL Coaches Association Coach of the Year. Richmond's jump from 13th to premiers also marked the biggest jump from one AFL season to the next."
+      ],
+      "source": "sentence-transformers/natural-questions",
+      "note": "qa_pair"
+    },
+    {
+      "benchmark": "naturalquestions",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "naturalquestions_1",
+      "score": 0.07228915662650602,
+      "latency_ms": 1152.8849999886006,
+      "response": "Jack Scott.",
+      "expected": "Jack Scott (singer) At the beginning of 1960, Scott again changed record labels, this time to Top Rank Records.[1] He then recorded four Billboard Hot 100 hits – \"What in the World's Come Over You\" (#5), \"Burning Bridges\" (#3) b/w \"Oh Little One\" (#34), and \"It Only Happened Yesterday\" (#38).[1] \"What in the World's Come Over You\" was Scott's second gold disc winner.[6] Scott continued to record and perform during the 1960s and 1970s.[1] His song \"You're Just Gettin' Better\" reached the country charts in 1974.[1] In May 1977, Scott recorded a Peel session for BBC Radio 1 disc jockey, John Peel.",
+      "dataset_id": "1",
+      "context_chars": 627,
+      "all_answers": [
+        "Jack Scott (singer) At the beginning of 1960, Scott again changed record labels, this time to Top Rank Records.[1] He then recorded four Billboard Hot 100 hits – \"What in the World's Come Over You\" (#5), \"Burning Bridges\" (#3) b/w \"Oh Little One\" (#34), and \"It Only Happened Yesterday\" (#38).[1] \"What in the World's Come Over You\" was Scott's second gold disc winner.[6] Scott continued to record and perform during the 1960s and 1970s.[1] His song \"You're Just Gettin' Better\" reached the country charts in 1974.[1] In May 1977, Scott recorded a Peel session for BBC Radio 1 disc jockey, John Peel."
+      ],
+      "source": "sentence-transformers/natural-questions",
+      "note": "qa_pair"
+    },
+    {
+      "benchmark": "naturalquestions",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "naturalquestions_2",
+      "score": 0.012345679012345678,
+      "latency_ms": 858.186333993217,
+      "response": "China.",
+      "expected": "Wool Global wool production is about 2 million tonnes per year, of which 60% goes into apparel. Wool comprises ca 3% of the global textile market, but its value is higher owing to dying and other modifications of the material.[1] Australia is a leading producer of wool which is mostly from Merino sheep but has been eclipsed by China in terms of total weight.[30] New Zealand (2016) is the third-largest producer of wool, and the largest producer of crossbred wool. Breeds such as Lincoln, Romney, Drysdale, and Elliotdale produce coarser fibers, and wool from these sheep is usually used for making carpets.",
+      "dataset_id": "2",
+      "context_chars": 635,
+      "all_answers": [
+        "Wool Global wool production is about 2 million tonnes per year, of which 60% goes into apparel. Wool comprises ca 3% of the global textile market, but its value is higher owing to dying and other modifications of the material.[1] Australia is a leading producer of wool which is mostly from Merino sheep but has been eclipsed by China in terms of total weight.[30] New Zealand (2016) is the third-largest producer of wool, and the largest producer of crossbred wool. Breeds such as Lincoln, Romney, Drysdale, and Elliotdale produce coarser fibers, and wool from these sheep is usually used for making carpets."
+      ],
+      "source": "sentence-transformers/natural-questions",
+      "note": "qa_pair"
+    },
+    {
+      "benchmark": "triviaqa",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "triviaqa_0",
+      "score": 1.0,
+      "latency_ms": 1243.212000001222,
+      "response": "Richard Marx.",
+      "expected": "richard marx",
+      "dataset_id": "feabd1ae0c0246699a00e4e4b84cae69",
+      "context_chars": 866,
+      "all_answers": [
+        "richard marx"
+      ],
+      "source": "lucadiliello/triviaqa"
+    },
+    {
+      "benchmark": "triviaqa",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "triviaqa_1",
+      "score": 1.0,
+      "latency_ms": 3084.886541008018,
+      "response": "Nikkei.",
+      "expected": "nikkei",
+      "dataset_id": "7220f2933b0c4c8d803fe2cd007d8bad",
+      "context_chars": 2977,
+      "all_answers": [
+        "nikkei"
+      ],
+      "source": "lucadiliello/triviaqa"
+    },
+    {
+      "benchmark": "triviaqa",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "triviaqa_2",
+      "score": 1.0,
+      "latency_ms": 3955.697000012151,
+      "response": "Exile.",
+      "expected": "exile",
+      "dataset_id": "3afcef827e4443e680f8b72ab35015e0",
+      "context_chars": 3710,
+      "all_answers": [
+        "exile"
+      ],
+      "source": "lucadiliello/triviaqa"
+    },
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "hotpotqa_0",
+      "score": 1.0,
+      "latency_ms": 4907.76529199502,
+      "response": "Yes. Both are American.",
+      "expected": "yes",
+      "dataset_id": "5a8b57f25542995d1e6f1371",
+      "context_chars": 4716,
+      "all_answers": [
+        "yes"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "comparison",
+      "level": "hard"
+    },
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "hotpotqa_1",
+      "score": 0.0,
+      "latency_ms": 8438.76720800472,
+      "response": "There is no information about the woman who portrayed Corliss Archer in the film Kiss and Tell holding a government position. However, it's mentioned that Shirley Temple played the role of Corliss Archer in the 1945 film \"Kiss and Tell\".",
+      "expected": "Chief of Protocol",
+      "dataset_id": "5a8c7595554299585d9e36b6",
+      "context_chars": 5071,
+      "all_answers": [
+        "Chief of Protocol"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "bridge",
+      "level": "hard"
+    },
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "hotpotqa_2",
+      "score": 1.0,
+      "latency_ms": 6246.113040993805,
+      "response": "The Animorphs series.",
+      "expected": "Animorphs",
+      "dataset_id": "5a85ea095542994775f606a8",
+      "context_chars": 6704,
+      "all_answers": [
+        "Animorphs"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "bridge",
+      "level": "hard"
+    },
+    {
+      "benchmark": "musique",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "musique_0",
+      "score": 1.0,
+      "latency_ms": 12441.500125001767,
+      "response": "PowerShare.",
+      "expected": "PowerShare",
+      "dataset_id": "2hop__25797_25855",
+      "context_chars": 14548,
+      "all_answers": [
+        "PowerShare"
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "musique"
+    },
+    {
+      "benchmark": "musique",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "musique_1",
+      "score": 0.25,
+      "latency_ms": 10927.378583000973,
+      "response": "Roncalli deixou o lugar onde Luigi Nono trabalhava para participar do conclave em Roma.",
+      "expected": "for the conclave in Rome",
+      "dataset_id": "3hop1__222497_309482_27537",
+      "context_chars": 9589,
+      "all_answers": [
+        "for the conclave in Rome"
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "musique"
+    },
+    {
+      "benchmark": "musique",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "musique_2",
+      "score": 0.0,
+      "latency_ms": 6955.5640000035055,
+      "response": "Appleton, Wisconsin.",
+      "expected": "Green Bay",
+      "dataset_id": "4hop1__638706_378185_282674_759393",
+      "context_chars": 6935,
+      "all_answers": [
+        "Green Bay"
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "musique"
+    },
+    {
+      "benchmark": "meeting_summarization",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "meeting_summarization_0",
+      "score": 0.41333333333333333,
+      "latency_ms": 3250.276374994428,
+      "response": "The Industrial Designer disagreed with the User Interface because he thought that using a tomato-shaped remote control was not a good idea, as it would be too gimmicky and might not appeal to customers.",
+      "expected": "The User Interface proposed to give up the idea of a hand-held model and give its way to the voice recognition system, while the Industrial Design thought it would be necessary for remote control to be able to be held in hand. Industrial Design believed that not all the people would always use the voice recognition system and most of the time they have to take it by hand. For most, voice recognition is only a kind of addition. If the remote control was not in a suitable shape, like something round, it would bring some troubles.",
+      "dataset_id": "va-sq-11",
+      "context_chars": 43538,
+      "all_answers": [
+        "The User Interface proposed to give up the idea of a hand-held model and give its way to the voice recognition system, while the Industrial Design thought it would be necessary for remote control to be able to be held in hand. Industrial Design believed that not all the people would always use the voice recognition system and most of the time they have to take it by hand. For most, voice recognition is only a kind of addition. If the remote control was not in a suitable shape, like something round, it would bring some troubles."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qmsum"
+    },
+    {
+      "benchmark": "meeting_summarization",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "meeting_summarization_1",
+      "score": 0.40625,
+      "latency_ms": 30161.5797909908,
+      "response": "The discussion about industrial components focused on the following points:\n\n* The use of a simple battery instead of solar cells due to energy concerns.\n* The proposal to use titanium for the design, but with limitations in terms of manufacturing and cost.\n* The decision to use push buttons instead of LCD displays due to cost and complexity considerations.\n* The discussion about the type of chip to be used, with a focus on speech recognition technology.\n* The consideration of using nickel or al",
+      "expected": "The industrial designer provided several options respectively for energy, material and interface. Among these options, the industrial designer preferred traditional battery, titanium and simple push buttons so that they would have enough money for speech recognition. After that, the user interface designer proposed an LCD display only for output, which might be taken into account. The group also talked about how to enable the users to find their controllers.",
+      "dataset_id": "va-sq-50",
+      "context_chars": 40498,
+      "all_answers": [
+        "The industrial designer provided several options respectively for energy, material and interface. Among these options, the industrial designer preferred traditional battery, titanium and simple push buttons so that they would have enough money for speech recognition. After that, the user interface designer proposed an LCD display only for output, which might be taken into account. The group also talked about how to enable the users to find their controllers."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qmsum"
+    },
+    {
+      "benchmark": "meeting_summarization",
+      "strategy": "raw_llama3.1-8b-instruct-q8",
+      "test_case": "meeting_summarization_2",
+      "score": 0.0,
+      "latency_ms": 1289.5910410006763,
+      "response": "Sammy will give a trend watching on what he's been doing.",
+      "expected": "The marketing found that trends were quite the same in many areas. Take this year's fruit and vegetable as an example, it applies to everything from clothing to furniture, which meant it was quite general. It might be surprising that people liked products that looked natural and round rather than some futuristic remote control with angles and titanium.",
+      "dataset_id": "va-sq-57",
+      "context_chars": 40498,
+      "all_answers": [
+        "The marketing found that trends were quite the same in many areas. Take this year's fruit and vegetable as an example, it applies to everything from clothing to furniture, which meant it was quite general. It might be surprising that people liked products that looked natural and round rather than some futuristic remote control with angles and titanium."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qmsum"
+    }
+  ],
+  "summary": {
+    "total_tests": 22,
+    "strategies": {
+      "raw_llama3.1-8b-instruct-q8": {
+        "avg_score": 0.6129190076805539,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 7580.026511181627,
+        "num_tests": 22
+      }
+    },
+    "benchmarks": {
+      "longbench": {
+        "avg_score": 1.0,
+        "num_tests": 4
+      },
+      "zeroscrolls": {
+        "avg_score": 0.44333333333333336,
+        "num_tests": 3
+      },
+      "naturalquestions": {
+        "avg_score": 0.3615449452129506,
+        "num_tests": 3
+      },
+      "triviaqa": {
+        "avg_score": 1.0,
+        "num_tests": 3
+      },
+      "hotpotqa": {
+        "avg_score": 0.6666666666666666,
+        "num_tests": 3
+      },
+      "musique": {
+        "avg_score": 0.4166666666666667,
+        "num_tests": 3
+      },
+      "meeting_summarization": {
+        "avg_score": 0.27319444444444446,
+        "num_tests": 3
+      }
+    },
+    "strategy_x_benchmark_matrix": {
+      "raw_llama3.1-8b-instruct-q8": {
+        "longbench": 1.0,
+        "zeroscrolls": 0.44333333333333336,
+        "naturalquestions": 0.3615449452129506,
+        "triviaqa": 1.0,
+        "hotpotqa": 0.6666666666666666,
+        "musique": 0.4166666666666667,
+        "meeting_summarization": 0.27319444444444446
+      }
+    }
+  }
+}

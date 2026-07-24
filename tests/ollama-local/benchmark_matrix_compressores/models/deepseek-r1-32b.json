@@ -1,0 +1,24 @@
+{
+  "captured_at": "2026-07-18T07:45:22.273832+00:00",
+  "model": "deepseek-r1:32b",
+  "details": {
+    "parent_model": "",
+    "format": "gguf",
+    "family": "qwen2",
+    "families": [
+      "qwen2"
+    ],
+    "parameter_size": "32.8B",
+    "quantization_level": "Q4_K_M"
+  },
+  "capabilities": [
+    "tools",
+    "thinking",
+    "completion"
+  ],
+  "parameters": "stop                           \"<｜begin▁of▁sentence｜>\"\nstop                           \"<｜end▁of▁sentence｜>\"\nstop                           \"<｜User｜>\"\nstop                           \"<｜Assistant｜>\"",
+  "declared_context_length": 131072,
+  "context_length_fields": {
+    "qwen2.context_length": 131072
+  }
+}

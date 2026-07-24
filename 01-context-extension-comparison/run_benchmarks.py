@@ -8,28 +8,25 @@ Executa todos os benchmarks de contexto longo contra as estratégias implementad
 - LongBench
 - BABILong, NarrativeQA, QASPER, InfiniteBench
 
-Suporta múltiplos provedores de LLM para comparação cruzada:
-  - Groq        (GROQ_API_KEY)       — 128K contexto, rápido
-  - Gemini      (GEMINI_API_KEY)     — 1M contexto, free tier Google AI Studio
-  - Cerebras    (CEREBRAS_API_KEY)   — 8K contexto free tier, altíssima velocidade
-
-Prefixos de modelo:
-  - "gemini-*"      → Google AI Studio
-  - "cerebras/*"    → Cerebras Inference
-  - qualquer outro  → Groq
+Roda contra modelos locais via Ollama (http://localhost:11434).
+Modelos usam o prefixo "ollama/", removido antes da chamada à API.
 
 Uso:
     python run_benchmarks.py
-    python run_benchmarks.py --models gemini-2.5-flash,llama-3.3-70b-versatile
+    python run_benchmarks.py --models ollama/llama3.1:8b-instruct-q8_0
     python run_benchmarks.py --strategies raw,sliding_window
     python run_benchmarks.py --benchmarks needle_in_haystack,ruler
     python run_benchmarks.py --output-dir ./results
     python run_benchmarks.py --quick  # Modo rápido com menos testes
 """
 import argparse
+import json
 import logging
 import os
 import sys
+import urllib.error
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from typing import List, Callable, Dict, Any
 from pathlib import Path
 
@@ -45,239 +42,162 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent.parent / ".env")
 
 from benchmarks import BenchmarkRunner
+from benchmarks.base import StrategyOutput
 from context_strategies import (
     SlidingWindowStrategy,
     ParallelWindowStrategy,
     RIGStrategy,
 )
-from prompt_compression import GroqSemanticCompressor, PerplexityCompressor
+from prompt_compression import OllamaSemanticCompressor, PerplexityCompressor
 from rsaw import RSAWStrategy
+from mckp import MCKPStrategy, MCKPConfig
 
 
 # ---------------------------------------------------------------------------
-# Modelos disponíveis por provedor
+# Modelos disponíveis (Ollama local)
 # ---------------------------------------------------------------------------
 
-# Groq — contexto até 128K tokens
-GROQ_MODELS = [
-    "llama-3.1-8b-instant",
-    "llama-3.3-70b-versatile",
-    "openai/gpt-oss-120b",
-    "openai/gpt-oss-20b",
+OLLAMA_MODELS = [
+    "ollama/hf.co/mradermacher/Llama-4-Scout-17B-6E-Instruct-GGUF:Q4_K_S",
+    "ollama/gpt-oss:20b",
+    "ollama/llama3.1:8b-instruct-q8_0",
+    "ollama/gemma4:26b-mlx",
+    "ollama/qwen3.6:35b-mlx",
+    "ollama/llama3.1:8b-text-q4_K_M",
+    "ollama/deepseek-r1:32b",
 ]
 
-# Google AI Studio (Gemini) — contexto até 1M tokens, gratuito
-GEMINI_MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.0-flash",
-]
-
-# Cerebras — free tier limita a 8K tokens de contexto; alta velocidade
-CEREBRAS_MODELS = [
-    "cerebras/llama-3.3-70b",
-    "cerebras/qwen3-32b",
-]
-
-AVAILABLE_MODELS = GROQ_MODELS + GEMINI_MODELS + CEREBRAS_MODELS
+AVAILABLE_MODELS = OLLAMA_MODELS
 
 # Modelos padrão para testar
 DEFAULT_MODELS = [
-    "llama-3.3-70b-versatile",
-    "gemini-2.5-flash",
+    "ollama/llama3.1:8b-instruct-q8_0",
 ]
 
 
-# Limite de chars por modelo (≈ 75% da janela de contexto disponível)
-MODEL_CONTEXT_CHAR_LIMITS = {
-    # Groq
-    "llama-3.1-8b-instant":    384_000,   # 128K tokens
-    "llama-3.3-70b-versatile": 384_000,   # 128K tokens
-    "openai/gpt-oss-120b":      24_000,   # ~8K (limite empírico no Groq)
-    "openai/gpt-oss-20b":       24_000,
-    # Gemini (Google AI Studio) — 1M tokens × 3 chars/token × 75%
-    "gemini-2.5-flash":       2_250_000,
-    "gemini-2.0-flash":       2_250_000,
-    # Cerebras — free tier: 8K tokens
-    "cerebras/llama-3.3-70b":   18_000,
-    "cerebras/qwen3-32b":       18_000,
-}
-DEFAULT_CONTEXT_CHAR_LIMIT = 96_000  # fallback seguro
+def _ollama_api_base() -> str:
+    """Retorna a raiz da API nativa mesmo se OLLAMA_BASE_URL terminar em /v1."""
+    base_url = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
+    return base_url.removesuffix("/v1").rstrip("/")
 
 
-def create_openai_compatible_strategy(
-    model: str,
-    base_url: str,
-    api_key_env: str,
-    char_limit: int,
-    model_id: str | None = None,
+def _ollama_request(path: str, payload: Dict[str, Any], timeout: int = 900) -> Dict[str, Any]:
+    request = urllib.request.Request(
+        f"{_ollama_api_base()}{path}",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def set_ollama_model_loaded(model: str, num_ctx: int, loaded: bool) -> None:
+    """Carrega um modelo com a janela pedida ou o remove imediatamente da memória."""
+    ollama_model = model.removeprefix("ollama/")
+    payload: Dict[str, Any] = {
+        "model": ollama_model,
+        "prompt": "",
+        "stream": False,
+        "keep_alive": -1 if loaded else 0,
+    }
+    if loaded:
+        payload["options"] = {"num_ctx": num_ctx}
+    _ollama_request("/api/generate", payload)
+
+
+def build_ollama_prompt(context: str, query: str) -> str:
+    """Serializa o prompt medido pelo MCKP e enviado ao Ollama."""
+    return (
+        "Baseado no contexto abaixo, responda a pergunta de forma direta e concisa.\n\n"
+        f"CONTEXTO:\n{context}\n\nPERGUNTA: {query}\n\nRESPOSTA:"
+    )
+
+
+def create_ollama_strategy(
+    model: str, *, truncate_context: bool = True
 ) -> Callable[[str, str], str]:
-    """
-    Estratégia genérica para APIs compatíveis com OpenAI (Gemini, Cerebras, etc.).
-
-    Args:
-        model:       nome lógico do modelo (usado em logs)
-        base_url:    endpoint OpenAI-compatible do provedor
-        api_key_env: nome da variável de ambiente com a API key
-        char_limit:  máximo de caracteres no contexto
-        model_id:    ID real do modelo para a API (padrão: igual a model)
-    """
-    import time
-    from openai import OpenAI
-
-    api_key = os.environ.get(api_key_env)
-    if not api_key:
-        raise ValueError(f"{api_key_env} não definida no ambiente")
-
-    client = OpenAI(api_key=api_key, base_url=base_url)
-    actual_model = model_id or model
+    """Estratégia para Ollama local via API nativa, com num_ctx explícito."""
+    ollama_model = model.removeprefix("ollama/")
+    num_ctx = int(os.environ.get("OLLAMA_NUM_CTX", "8192"))
+    max_output_tokens = int(os.environ.get("OLLAMA_MAX_OUTPUT_TOKENS", "500"))
+    # Aproximação conservadora para texto em inglês/português e espaço do template.
+    char_limit = max(1_000, (num_ctx - max_output_tokens - 256) * 3)
 
     def strategy_fn(context: str, query: str) -> str:
-        if len(context) > char_limit:
-            logger.warning(f"[{model}] Contexto truncado: {len(context)} → {char_limit} chars")
-            context = context[:char_limit]
-
-        prompt = (
-            "Baseado no contexto abaixo, responda a pergunta de forma direta e concisa.\n\n"
-            f"CONTEXTO:\n{context}\n\nPERGUNTA: {query}\n\nRESPOSTA:"
-        )
-
-        base_wait = 5.0
-        for attempt in range(5):
-            try:
-                response = client.chat.completions.create(
-                    messages=[{"role": "user", "content": prompt}],
-                    model=actual_model,
-                    temperature=0,
-                    max_tokens=500,
-                )
-                return response.choices[0].message.content.strip()
-            except Exception as e:
-                err_str = str(e)
-                is_rate_limit = "429" in err_str or "rate_limit" in err_str.lower() or "quota" in err_str.lower()
-                if is_rate_limit:
-                    wait = base_wait * (2 ** attempt)
-                    logger.warning(f"[{model}] Rate limit (tentativa {attempt+1}/5). Aguardando {wait:.0f}s…")
-                    time.sleep(wait)
-                else:
-                    logger.error(f"[{model}] Erro na API: {type(e).__name__}: {e}")
-                    return f"[Erro: {e}]"
-        logger.error(f"[{model}] Rate limit persistente após 5 tentativas.")
-        return "[Erro: rate limit]"
-
-    return strategy_fn
-
-
-def create_gemini_strategy(model: str) -> Callable[[str, str], str]:
-    """Estratégia para Google AI Studio (Gemini) — contexto até 1M tokens."""
-    return create_openai_compatible_strategy(
-        model=model,
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-        api_key_env="GEMINI_API_KEY",
-        char_limit=MODEL_CONTEXT_CHAR_LIMITS.get(model, DEFAULT_CONTEXT_CHAR_LIMIT),
-    )
-
-
-def create_cerebras_strategy(model: str) -> Callable[[str, str], str]:
-    """Estratégia para Cerebras Inference — free tier limitado a 8K tokens."""
-    # Remove prefixo "cerebras/" para o ID real na API
-    model_id = model.removeprefix("cerebras/")
-    return create_openai_compatible_strategy(
-        model=model,
-        base_url="https://api.cerebras.ai/v1",
-        api_key_env="CEREBRAS_API_KEY",
-        char_limit=MODEL_CONTEXT_CHAR_LIMITS.get(model, DEFAULT_CONTEXT_CHAR_LIMIT),
-        model_id=model_id,
-    )
-
-
-def _route_api_strategy(model: str) -> Callable[[str, str], str]:
-    """Seleciona a função de estratégia correta de acordo com o prefixo do modelo."""
-    if model.startswith("gemini-"):
-        return create_gemini_strategy(model)
-    if model.startswith("cerebras/"):
-        return create_cerebras_strategy(model)
-    return create_groq_strategy(model)
-
-
-def create_groq_strategy(model: str) -> Callable[[str, str], str]:
-    """Cria estratégia base Groq com retry, truncação e log de erros."""
-    import time
-    from groq import Groq
-
-    api_key = os.environ.get("GROQ_API_KEY")
-    if not api_key:
-        raise ValueError("GROQ_API_KEY não definida no ambiente")
-
-    client = Groq(api_key=api_key)
-    char_limit = MODEL_CONTEXT_CHAR_LIMITS.get(model, DEFAULT_CONTEXT_CHAR_LIMIT)
-
-    def _parse_retry_after(e: Exception) -> float:
-        """Extrai o tempo de espera sugerido pelo Groq no erro 429.
-        Formatos: '12.3s', '1m30s', '1h2m3.4s'
-        """
-        import re
-        err_str = str(e)
-        match = re.search(r'try again in ((?:\d+h)?(?:\d+m)?(?:[0-9.]+s)?)', err_str)
-        if not match:
-            return None
-        raw = match.group(1)
-        total = 0.0
-        for val, unit in re.findall(r'([0-9.]+)(h|m|s)', raw):
-            v = float(val)
-            if unit == 'h':
-                total += v * 3600
-            elif unit == 'm':
-                total += v * 60
-            else:
-                total += v
-        return total + 2.0 if total > 0 else None
-
-    def strategy_fn(context: str, query: str) -> str:
-        # Trunca contexto se exceder limite do modelo
-        if len(context) > char_limit:
+        if truncate_context and len(context) > char_limit:
             logger.warning(
-                f"[{model}] Contexto truncado: {len(context)} → {char_limit} chars"
+                f"[{model}] Contexto truncado: {len(context)} -> {char_limit} chars "
+                f"(num_ctx={num_ctx})"
             )
             context = context[:char_limit]
 
-        prompt = (
-            "Baseado no contexto abaixo, responda a pergunta de forma direta e concisa.\n\n"
-            f"CONTEXTO:\n{context}\n\nPERGUNTA: {query}\n\nRESPOSTA:"
-        )
+        prompt = build_ollama_prompt(context, query)
+        payload = {
+            "model": ollama_model,
+            "messages": [{"role": "user", "content": prompt}],
+            "stream": False,
+            "keep_alive": -1,
+            "options": {
+                "num_ctx": num_ctx,
+                "num_predict": max_output_tokens,
+                "temperature": 0,
+                "seed": 42,
+            },
+        }
+        try:
+            response = _ollama_request("/api/chat", payload)
+            strategy_fn.last_call = {
+                "sent_context": context,
+                "prompt_eval_count": response.get("prompt_eval_count"),
+                "eval_count": response.get("eval_count"),
+                "total_duration_ns": response.get("total_duration"),
+                "load_duration_ns": response.get("load_duration"),
+            }
+            return response.get("message", {}).get("content", "").strip()
+        except (urllib.error.URLError, TimeoutError, ValueError) as exc:
+            logger.error(f"[{model}] Erro na API Ollama: {type(exc).__name__}: {exc}")
+            strategy_fn.last_call = {"sent_context": context, "error": str(exc)}
+            return f"[Erro: {exc}]"
 
-        base_wait = 5.0
-        for attempt in range(5):
-            try:
-                response = client.chat.completions.create(
-                    messages=[{"role": "user", "content": prompt}],
-                    model=model,
-                    temperature=0,
-                    max_tokens=500,
-                )
-                return response.choices[0].message.content.strip()
-            except Exception as e:
-                err_str = str(e)
-                is_rate_limit = "429" in err_str or "rate_limit" in err_str.lower()
-                if is_rate_limit:
-                    wait = _parse_retry_after(e)
-                    if wait is None:
-                        wait = base_wait * (2 ** attempt)  # 5, 10, 20, 40, 80s
-                    logger.warning(
-                        f"[{model}] Rate limit (tentativa {attempt+1}/5). Aguardando {wait:.0f}s… | msg: {err_str[:200]}"
-                    )
-                    time.sleep(wait)
-                else:
-                    logger.error(f"[{model}] Erro na API: {type(e).__name__}: {e}")
-                    return f"[Erro: {e}]"
-        logger.error(f"[{model}] Rate limit persistente após 5 tentativas.")
-        return "[Erro: rate limit]"
-
+    strategy_fn.last_call = {}
     return strategy_fn
 
 
-def create_raw_strategy(model: str) -> Callable[[str, str], str]:
-    """Estratégia baseline: envia contexto bruto para o LLM."""
-    return _route_api_strategy(model)
+def _route_api_strategy(model: str) -> Callable[[str, str], str]:
+    """Valida o prefixo do modelo e retorna a estratégia Ollama correspondente."""
+    if not model.startswith("ollama/"):
+        raise ValueError(
+            f"Modelo '{model}' não suportado. Use o prefixo 'ollama/' "
+            f"(disponíveis: {', '.join(AVAILABLE_MODELS)})"
+        )
+    return create_ollama_strategy(model)
+
+
+def _output_from_ollama_call(
+    answer: str,
+    base_fn: Callable[[str, str], str],
+    fallback_context: str,
+) -> StrategyOutput:
+    """Registra o contexto efetivamente enviado, inclusive após truncamento."""
+    call = dict(base_fn.last_call)
+    sent_context = call.pop("sent_context", fallback_context)
+    return StrategyOutput(
+        answer=answer,
+        compressed_context=sent_context,
+        details={f"ollama_{key}": value for key, value in call.items()},
+    )
+
+
+def create_raw_strategy(model: str) -> Callable[[str, str], StrategyOutput]:
+    """Estratégia baseline: envia contexto bruto para o LLM (compressão identidade)."""
+    base_fn = _route_api_strategy(model)
+
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
+        answer = base_fn(context, query)
+        return _output_from_ollama_call(answer, base_fn, context)
+
+    return strategy_fn
 
 
 def create_sliding_window_strategy(
@@ -294,7 +214,7 @@ def create_sliding_window_strategy(
     slider = SlidingWindowStrategy(chunk_size=chunk_size, overlap=overlap)
     base_fn = _route_api_strategy(model)
 
-    def strategy_fn(context: str, query: str) -> str:
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
         chunks = slider.process(context, query)
         if len(chunks) <= max_chunks:
             selected = chunks
@@ -303,7 +223,8 @@ def create_sliding_window_strategy(
             indices = [int(i * (len(chunks) - 1) / (max_chunks - 1)) for i in range(max_chunks)]
             selected = [chunks[i] for i in indices]
         limited_context = "\n---\n".join(selected)
-        return base_fn(limited_context, query)
+        answer = base_fn(limited_context, query)
+        return StrategyOutput(answer=answer, compressed_context=limited_context)
 
     return strategy_fn
 
@@ -318,9 +239,9 @@ def create_parallel_window_strategy(
     Distribui chunks ao longo do documento para cobrir contextos longos.
     """
     slider = ParallelWindowStrategy(chunk_size=chunk_size)
-    base_fn = _route_api_strategy(model)
+    synthesis_fn = _route_api_strategy(model)
 
-    def strategy_fn(context: str, query: str) -> str:
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
         chunks = slider.process(context, query)
         if len(chunks) <= max_chunks:
             selected = chunks
@@ -328,7 +249,36 @@ def create_parallel_window_strategy(
             indices = [int(i * (len(chunks) - 1) / (max_chunks - 1)) for i in range(max_chunks)]
             selected = [chunks[i] for i in indices]
         limited_context = "\n---\n".join(selected)
-        return base_fn(limited_context, query)
+
+        def answer_chunk(chunk: str):
+            worker = _route_api_strategy(model)
+            answer = worker(chunk, query)
+            return answer, dict(worker.last_call)
+
+        with ThreadPoolExecutor(max_workers=len(selected)) as executor:
+            partials = list(executor.map(answer_chunk, selected))
+        candidates = "\n\n".join(
+            f"CANDIDATO {index + 1}:\n{answer}"
+            for index, (answer, _) in enumerate(partials)
+        )
+        synthesis_query = (
+            f"Pergunta original: {query}\n"
+            "Sintetize a resposta final usando somente os candidatos acima."
+        )
+        answer = synthesis_fn(candidates, synthesis_query)
+        calls = [metadata for _, metadata in partials] + [dict(synthesis_fn.last_call)]
+        details = {
+            "parallel_num_chunks": len(selected),
+            "parallel_prompt_eval_count": sum(
+                int(call.get("prompt_eval_count") or 0) for call in calls
+            ),
+            "parallel_eval_count": sum(int(call.get("eval_count") or 0) for call in calls),
+        }
+        return StrategyOutput(
+            answer=answer,
+            compressed_context=limited_context,
+            details=details,
+        )
 
     return strategy_fn
 
@@ -340,13 +290,92 @@ def create_semantic_compression_strategy(
     """
     Estratégia com compressão semântica via LLM.
     """
-    compressor = GroqSemanticCompressor(model_name=model)
+    compressor = OllamaSemanticCompressor(model_name=model)
     base_fn = _route_api_strategy(model)
-    
-    def strategy_fn(context: str, query: str) -> str:
+
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
         compressed = compressor.compress(context, compression_ratio)
-        return base_fn(compressed, query)
-    
+        answer = base_fn(compressed, query)
+        return _output_from_ollama_call(answer, base_fn, compressed)
+
+    return strategy_fn
+
+
+def create_llmlingua_strategy(
+    model: str,
+    compression_ratio: float = 0.5,
+) -> Callable[[str, str], StrategyOutput]:
+    """Baseline de compressão LLMLingua v1 (scorer GPT-2, device cpu)."""
+    from prompt_compression import LLMLinguaCompressor
+
+    compressor = LLMLinguaCompressor(model_name="gpt2", device_map="cpu")
+    base_fn = _route_api_strategy(model)
+
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
+        compressed = compressor.compress(context, compression_ratio)
+        answer = base_fn(compressed, query)
+        return _output_from_ollama_call(answer, base_fn, compressed)
+
+    return strategy_fn
+
+
+def create_llmlingua2_strategy(
+    model: str,
+    compression_ratio: float = 0.5,
+) -> Callable[[str, str], StrategyOutput]:
+    """Compressão LLMLingua-2 (encoder XLM-RoBERTa, device cpu)."""
+    from prompt_compression import LLMLingua2Compressor
+
+    compressor = LLMLingua2Compressor(device_map="cpu")
+    base_fn = _route_api_strategy(model)
+
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
+        compressed = compressor.compress(context, compression_ratio)
+        answer = base_fn(compressed, query)
+        return _output_from_ollama_call(answer, base_fn, compressed)
+
+    return strategy_fn
+
+
+def create_selective_context_strategy(
+    model: str,
+    compression_ratio: float = 0.5,
+) -> Callable[[str, str], StrategyOutput]:
+    """Compressão Selective Context (auto-informação via GPT-2)."""
+    from prompt_compression import SelectiveContextCompressor
+
+    compressor = SelectiveContextCompressor(model_type="gpt2", lang="en")
+    base_fn = _route_api_strategy(model)
+
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
+        compressed = compressor.compress(context, compression_ratio)
+        answer = base_fn(compressed, query)
+        return _output_from_ollama_call(answer, base_fn, compressed)
+
+    return strategy_fn
+
+
+def create_cpc_strategy(
+    model: str,
+    compression_ratio: float = 0.5,
+) -> Callable[[str, str], StrategyOutput]:
+    """Compressão CPC (aproximação por seleção de sentenças query-aware, MiniLM).
+
+    A implementação oficial oferece checkpoints baseados em Mistral-7B e
+    Llama-1B. Para evitar outro modelo concorrendo por memória com as LLMs
+    locais, usa-se seleção extrativa por similaridade com a consulta, da mesma
+    família sentence-level e declarada como aproximação.
+    """
+    from mckp.compressors import SentenceExtractiveCompressor
+
+    compressor = SentenceExtractiveCompressor(embedding_model="all-MiniLM-L6-v2")
+    base_fn = _route_api_strategy(model)
+
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
+        compressed = compressor.compress(context, compression_ratio, query)
+        answer = base_fn(compressed, query)
+        return _output_from_ollama_call(answer, base_fn, compressed)
+
     return strategy_fn
 
 
@@ -362,15 +391,16 @@ def create_rig_strategy(
     """
     rig = RIGStrategy(top_k=top_k, alpha=alpha, beta=beta, gamma=gamma)
     base_fn = _route_api_strategy(model)
-    
-    def strategy_fn(context: str, query: str) -> str:
+
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
         chunks = rig.process(context, query)
         if not chunks:
-            return base_fn(context, query)
-        
+            return StrategyOutput(answer=base_fn(context, query), compressed_context=context)
+
         combined_context = "\n---\n".join(chunks)
-        return base_fn(combined_context, query)
-    
+        answer = base_fn(combined_context, query)
+        return StrategyOutput(answer=answer, compressed_context=combined_context)
+
     return strategy_fn
 
 
@@ -400,11 +430,68 @@ def create_rsaw_strategy(model: str) -> Callable[[str, str], str]:
     )
     base_fn = _route_api_strategy(model)
 
-    def strategy_fn(context: str, query: str) -> str:
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
         chunks = rsaw.process(context, query)
         if not chunks:
-            return base_fn(context, query)
-        return base_fn(chunks[0], query)
+            return StrategyOutput(answer=base_fn(context, query), compressed_context=context)
+        compressed = chunks[0]
+        answer = base_fn(compressed, query)
+        return StrategyOutput(answer=answer, compressed_context=compressed)
+
+    return strategy_fn
+
+
+def create_mckp_strategy(
+    model: str,
+    *,
+    mu: float | None = None,
+    distance: str | None = None,
+    budget_bucket: int | None = None,
+) -> Callable[[str, str], str]:
+    """
+    Estratégia MCKP, compressão seletiva por partição resolvida como problema
+    da mochila de múltipla escolha. Lê a configuração de mckp/config.json e
+    ajusta o orçamento de contexto ao num_ctx da rodada.
+    """
+    config_path = Path(__file__).parent / "mckp" / "config.json"
+    config = MCKPConfig.from_json(config_path)
+    config.summarizer_model = model
+    if mu is not None:
+        config.mu = mu
+    if distance is not None:
+        config.distance = distance
+    if budget_bucket is not None:
+        config.budget_bucket = budget_bucket
+    # O orçamento efetivo é derivado da janela de contexto da rodada.
+    config.model_context_tokens = int(os.environ.get("OLLAMA_NUM_CTX", config.budget_tokens))
+    config.output_tokens = int(os.environ.get("OLLAMA_MAX_OUTPUT_TOKENS", "500"))
+    config.audit_log_path = os.environ.get("MCKP_AUDIT_LOG")
+    config.validate()
+
+    mckp = MCKPStrategy(config, prompt_builder=build_ollama_prompt)
+    # O MCKP já valida o prompt final no mesmo contador usado pela otimização.
+    base_fn = create_ollama_strategy(model, truncate_context=False)
+
+    def strategy_fn(context: str, query: str) -> StrategyOutput:
+        chunks = mckp.process(context, query)
+        if not chunks:
+            return StrategyOutput(answer=base_fn(context, query), compressed_context=context)
+        compressed = chunks[0]
+        answer = base_fn(compressed, query)
+        diagnostics = mckp.last_diagnostics
+        details = {
+            f"mckp_{key}": value
+            for key, value in diagnostics.items()
+        }
+        details["mckp_exact"] = int(config.budget_bucket == 1)
+        call = dict(base_fn.last_call)
+        call.pop("sent_context", None)
+        details.update({f"ollama_{key}": value for key, value in call.items()})
+        return StrategyOutput(
+            answer=answer,
+            compressed_context=compressed,
+            details=details,
+        )
 
     return strategy_fn
 
@@ -440,22 +527,19 @@ def create_mock_strategy() -> Callable[[str, str], str]:
 
 def get_model_short_name(model: str) -> str:
     """Retorna nome curto do modelo para usar em identificadores."""
-    # Remove prefixos comuns
-    short = model.replace("openai/", "").replace("meta-llama/", "")
-    
+    short = model.removeprefix("ollama/")
+
     # Simplifica nomes longos
     replacements = {
-        "llama-3.1-8b-instant":    "llama3.1-8b",
-        "llama-3.3-70b-versatile": "llama3.3-70b",
-        "llama3-70b-8192":         "llama3-70b",
-        "openai/gpt-oss-120b":     "gpt-oss-120b",
-        "openai/gpt-oss-20b":      "gpt-oss-20b",
-        "gemini-2.5-flash":        "gemini-2.5-flash",
-        "gemini-2.0-flash":        "gemini-2.0-flash",
-        "cerebras/llama-3.3-70b":  "cb-llama3.3-70b",
-        "cerebras/qwen3-32b":      "cb-qwen3-32b",
+        "ollama/hf.co/mradermacher/Llama-4-Scout-17B-6E-Instruct-GGUF:Q4_K_S": "scout-17b-6e-q4ks",
+        "ollama/gpt-oss:20b": "gpt-oss-20b-ollama",
+        "ollama/llama3.1:8b-instruct-q8_0": "llama3.1-8b-instruct-q8",
+        "ollama/gemma4:26b-mlx": "gemma4-26b-mlx",
+        "ollama/qwen3.6:35b-mlx": "qwen3.6-35b-mlx",
+        "ollama/llama3.1:8b-text-q4_K_M": "llama3.1-8b-text-q4km",
+        "ollama/deepseek-r1:32b": "deepseek-r1-32b",
     }
-    
+
     return replacements.get(model, short)
 
 
@@ -469,8 +553,8 @@ def parse_args() -> argparse.Namespace:
         type=str,
         default=",".join(DEFAULT_MODELS),
         help=(
-            f"Modelos a testar (comma-separated). Disponíveis: {', '.join(AVAILABLE_MODELS)}. "
-            "Prefixo 'gemini-*' usa GEMINI_API_KEY; 'cerebras/*' usa CEREBRAS_API_KEY; demais usam GROQ_API_KEY."
+            f"Modelos Ollama a testar (comma-separated, prefixo 'ollama/'). "
+            f"Disponíveis: {', '.join(AVAILABLE_MODELS)}."
         )
     )
     
@@ -478,20 +562,24 @@ def parse_args() -> argparse.Namespace:
         "--strategies",
         type=str,
         default="all",
-        help="Estratégias a testar (comma-separated). Opções: raw, sliding_window, parallel_window, semantic_compression, rig, rsaw, mock, all"
+        help="Estratégias a testar (comma-separated). Opções: raw, sliding_window, parallel_window, semantic_compression, llmlingua, llmlingua2, selective_context, cpc, rig, rsaw, mckp, mock, all"
     )
     
     parser.add_argument(
         "--benchmarks",
         type=str,
         default="all",
-        help="Benchmarks a executar (comma-separated). Opções: needle_in_haystack, ruler, longbench, babilong, narrativeqa, qasper, infinitebench, all"
+        help=(
+            "Benchmarks a executar (comma-separated). Opções: needle_in_haystack, ruler, "
+            "longbench, babilong, narrativeqa, qasper, infinitebench, zeroscrolls, "
+            "naturalquestions, triviaqa, hotpotqa, musique, meeting_summarization, all"
+        )
     )
     
     parser.add_argument(
         "--output-dir",
         type=str,
-        default="./benchmark_results",
+        default=str(Path(__file__).parent.parent / "tests" / "ollama-local" / "adhoc"),
         help="Diretório para salvar resultados"
     )
     
@@ -506,12 +594,41 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Usa apenas estratégia mock (não requer API key)"
     )
+
+    parser.add_argument(
+        "--ollama-num-ctx",
+        type=int,
+        default=8192,
+        help="Janela de contexto enviada ao Ollama via num_ctx (padrão: 8192)",
+    )
+    parser.add_argument(
+        "--mckp-mu",
+        type=float,
+        default=None,
+        help="Sobrescreve a penalização de transição mu do MCKP.",
+    )
+    parser.add_argument(
+        "--mckp-distance",
+        choices=["compressor_family", "param_diff", "none"],
+        default=None,
+        help="Sobrescreve a função de distância do MCKP.",
+    )
+    parser.add_argument(
+        "--mckp-budget-bucket",
+        type=int,
+        default=None,
+        help="Quantização do orçamento; use 1 para solução exata.",
+    )
     
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
+    if args.ollama_num_ctx <= 756:
+        raise ValueError("--ollama-num-ctx deve ser maior que 756 tokens")
+    os.environ["OLLAMA_NUM_CTX"] = str(args.ollama_num_ctx)
+    os.environ["MCKP_AUDIT_LOG"] = str(Path(args.output_dir) / "mckp_audit.jsonl")
     
     print("=" * 70)
     print("BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO")
@@ -532,7 +649,7 @@ def main():
     elif args.strategies == "all":
         strategy_types = [
             "raw", "sliding_window", "parallel_window",
-            "semantic_compression", "rig", "rsaw"
+            "semantic_compression", "rig", "rsaw", "mckp"
         ]
     else:
         strategy_types = [s.strip() for s in args.strategies.split(",")]
@@ -543,8 +660,18 @@ def main():
         "sliding_window": lambda m: create_sliding_window_strategy(m),
         "parallel_window": lambda m: create_parallel_window_strategy(m),
         "semantic_compression": lambda m: create_semantic_compression_strategy(m),
+        "llmlingua": lambda m: create_llmlingua_strategy(m),
+        "llmlingua2": lambda m: create_llmlingua2_strategy(m),
+        "selective_context": lambda m: create_selective_context_strategy(m),
+        "cpc": lambda m: create_cpc_strategy(m),
         "rig": lambda m: create_rig_strategy(m),
         "rsaw": lambda m: create_rsaw_strategy(m),
+        "mckp": lambda m: create_mckp_strategy(
+            m,
+            mu=args.mckp_mu,
+            distance=args.mckp_distance,
+            budget_bucket=args.mckp_budget_bucket,
+        ),
     }
     
     # Registra estratégias para cada modelo
@@ -577,7 +704,7 @@ def main():
                     traceback.print_exc()
     
     if not runner.strategies:
-        print("ERRO: Nenhuma estratégia registrada. Verifique GROQ_API_KEY / GEMINI_API_KEY / CEREBRAS_API_KEY ou use --mock-only")
+        print("ERRO: Nenhuma estratégia registrada. Verifique se o Ollama está rodando (http://localhost:11434) ou use --mock-only")
         sys.exit(1)
     
     # Configuração dos benchmarks
@@ -610,6 +737,12 @@ def main():
                 "task": "En.QA",
                 "num_examples": 5,
             },
+            "zeroscrolls": {"num_examples": 5},
+            "naturalquestions": {"num_examples": 5},
+            "triviaqa": {"num_examples": 5},
+            "hotpotqa": {"num_examples": 5},
+            "musique": {"num_examples": 5},
+            "meeting_summarization": {"num_examples": 5},
         }
     else:
         benchmark_configs = {
@@ -640,6 +773,12 @@ def main():
                 "task": "En.QA",
                 "num_examples": 10,
             },
+            "zeroscrolls": {"num_examples": 20},
+            "naturalquestions": {"num_examples": 20},
+            "triviaqa": {"num_examples": 20},
+            "hotpotqa": {"num_examples": 20},
+            "musique": {"num_examples": 20},
+            "meeting_summarization": {"num_examples": 20},
         }
     
     # Filtra benchmarks se especificado
@@ -650,14 +789,29 @@ def main():
             if k in selected
         }
     
+    ollama_models = [m for m in models_to_test if m.startswith("ollama/")]
+
     # Executa benchmarks
     print(f"\nModelos: {models_to_test if models_to_test else ['mock']}")
     print(f"Estratégias base: {strategy_types}")
     print(f"Estratégias registradas: {list(runner.strategies.keys())}")
     print(f"Benchmarks: {list(benchmark_configs.keys())}")
+    if ollama_models:
+        print(f"Ollama num_ctx: {args.ollama_num_ctx}")
     print("-" * 70)
-    
-    runner.run_all_benchmarks(benchmark_configs)
+
+    try:
+        for model in ollama_models:
+            print(f"Carregando {model.removeprefix('ollama/')} (num_ctx={args.ollama_num_ctx})...")
+            set_ollama_model_loaded(model, args.ollama_num_ctx, loaded=True)
+        runner.run_all_benchmarks(benchmark_configs)
+    finally:
+        for model in ollama_models:
+            try:
+                print(f"Descarregando {model.removeprefix('ollama/')}...")
+                set_ollama_model_loaded(model, args.ollama_num_ctx, loaded=False)
+            except Exception as exc:
+                logger.error(f"Não foi possível descarregar {model}: {exc}")
     
     # Salva resultados
     print("\nSalvando resultados...")

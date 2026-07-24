@@ -1,0 +1,125 @@
+\chapter{Metodologia}
+\label{cap:metodologia}
+
+Este capítulo descreve a arquitetura do \textit{framework} proposto, os procedimentos experimentais para sua avaliação e as métricas utilizadas para medir sua eficácia. A metodologia baseia-se em três principais etapas:
+\begin{itemize}
+    \item Validação empírica das técnicas não invasivas revisadas no Capítulo~\ref{cap:revisao}, com seleção da abordagem que apresentar melhor desempenho segundo \textit{benchmarks} especializados;
+
+    \item Implementação de um \textit{framework} socrático com memória externa persistente, focado em recuperar informações externas ao treinamento do modelo e armazenar o histórico conversacional para busca de contraexemplos;
+
+    \item Avaliação qualitativa e quantitativa da interação dialética produzida.
+\end{itemize}
+
+\section{Validação Empírica de Técnicas Não-Invasivas}
+\label{sec:validacao-tecnicas}
+
+Para selecionar a melhor estratégia de extensão de \textbf{janela de contexto} para o \textit{framework} proposto, conduzimos uma avaliação de desempenho das técnicas revisadas na Seção~\ref{sec:revisao-tecnicas}, utilizando três \textit{benchmarks} especializados em contexto longo: Needle-in-a-Haystack, RULER e LongBench, conforme justificado também na Seção~\ref{sec:validacao-tecnicas}. Os experimentos foram conduzidos utilizando imagens \textbf{Docker}, código em Python e a API Groq com quatro modelos: GPT-OSS~120B, GPT-OSS~20B, Llama~3.1~8B e Llama~3.3~70B.
+
+\subsection{Estratégias de Avaliação}
+
+As seguintes estratégias foram avaliadas:
+\begin{itemize}
+    \item \textbf{Raw (Baseline)}: processamento direto do contexto completo até o limite da janela, sem técnica de otimização;
+
+    \item \textbf{Parallel Window}: segmentação em janelas paralelas processadas simultaneamente, seguida de agregação dos resultados, conforme descrito em \cite{ratner2023parallelcontextwindowslarge};
+
+    \item \textbf{Sliding Window}: janela deslizante com sobreposição entre segmentos, conforme descrito em \cite{kamradt2023workaroundtokenlimit};
+
+    \item \textbf{RIG (Dartboard)}: recuperação de informação através de memória externa, priorizando ganho de informação relevante via ranking híbrido semântico-lexical \cite{pickett2024betterragusingrelevantinformationgain};
+
+    \item \textbf{Semantic Compression}: compressão de \textit{prompt} orientada por preservação semântica \cite{gilbert2023semanticcompressionlargelanguage}.
+\end{itemize}
+
+\subsection{Resultados: Acurácia e Latência}
+
+As Tabelas~\ref{tab:benchmark-results} e~\ref{tab:benchmark-latency} apresentam, respectivamente, as pontuações de acurácia (normalizadas entre 0 e 1) e a latência média (em segundos) obtidas por cada estratégia nos três \textit{benchmarks} selecionados. Os modelos Llama~3.1~8B e Llama~3.3~70B foram executados nos três \textit{benchmarks} completos. Os modelos GPT-OSS foram executados com Needle-in-a-Haystack e RULER em uma primeira rodada e com LongBench em rodada isolada, a fim de evitar esgotamento de cota da API (\textit{rate limit}); as células marcadas com ``---'' indicam ausência de dados nessa configuração. Em ambas as tabelas, valores em \textbf{negrito} destacam o melhor resultado por coluna dentro de cada modelo e valores \underline{sublinhados} o segundo melhor (na Tabela~\ref{tab:benchmark-latency}, menor latência é melhor).
+
+\begin{table}[htbp]
+    \centering
+    \caption{Acurácia por estratégia nos \textit{benchmarks} de contexto longo}
+    \label{tab:benchmark-results}
+    \begin{tabular}{lccc|c}
+    \toprule
+    & \multicolumn{3}{c}{\textbf{Benchmarks de Contexto Longo}} & \\
+    \cmidrule(lr){2-4}
+    \textbf{Estratégia} & \textbf{Needle} & \textbf{RULER} & \textbf{LongBench} & \textbf{Média} \\
+    \midrule
+    \multicolumn{5}{l}{\textit{Llama~3.1~8B}} \\
+    Parallel Window    & \textbf{1.00} & \textbf{1.00}     & \textbf{0.95} & \textbf{0.98} \\
+    Raw (Baseline)     & \textbf{1.00} & \underline{0.94}  & \textbf{0.95} & \underline{0.96} \\
+    RIG (Dartboard)    & \textbf{1.00} & \textbf{1.00}     & \textbf{0.95} & \textbf{0.98} \\
+    Sem. Compression   & \underline{0.33} & 0.56           & \underline{0.75} & 0.55 \\
+    Sliding Window     & \textbf{1.00} & \textbf{1.00}     & \textbf{0.95} & \textbf{0.98} \\
+    \midrule
+    \multicolumn{5}{l}{\textit{Llama~3.3~70B}} \\
+    Parallel Window    & \textbf{1.00} & \textbf{1.00} & \underline{0.95} & \underline{0.98} \\
+    Raw (Baseline)     & \textbf{1.00} & \textbf{1.00} & \textbf{1.00}    & \textbf{1.00} \\
+    RIG (Dartboard)    & \textbf{1.00} & \textbf{1.00} & \underline{0.95} & \underline{0.98} \\
+    Sem. Compression   & \underline{0.33} & \underline{0.69} & 0.70      & 0.57 \\
+    Sliding Window     & \textbf{1.00} & \textbf{1.00} & \underline{0.95} & \underline{0.98} \\
+    \midrule
+    \multicolumn{5}{l}{\textit{GPT-OSS~20B}} \\
+    Parallel Window    & \textbf{1.00} & \textbf{1.00}    & \underline{0.92} & \underline{0.97} \\
+    Raw (Baseline)     & \textbf{1.00} & \textbf{1.00}    & 0.83             & 0.94 \\
+    RIG (Dartboard)    & \textbf{1.00} & \underline{0.00} & \underline{0.92} & 0.64 \\
+    Sem. Compression   & \underline{0.80} & \underline{0.00} & 0.33          & 0.38 \\
+    Sliding Window     & \textbf{1.00} & \textbf{1.00}    & \textbf{1.00}    & \textbf{1.00} \\
+    \midrule
+    \multicolumn{5}{l}{\textit{GPT-OSS~120B}} \\
+    Parallel Window    & \textbf{1.00}    & \underline{0.72} & 0.67          & \underline{0.80} \\
+    Raw (Baseline)     & \textbf{1.00}    & 0.64             & 0.62          & 0.75 \\
+    RIG (Dartboard)    & \underline{0.99} & 0.00             & \textbf{0.88} & 0.62 \\
+    Sem. Compression   & \textbf{1.00}    & 0.13             & 0.62          & 0.58 \\
+    Sliding Window     & 0.87             & \textbf{0.81}    & \underline{0.79} & \textbf{0.82} \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Latência média por estratégia (segundos)}
+    \label{tab:benchmark-latency}
+    \begin{tabular}{lccc|c}
+    \toprule
+    & \multicolumn{3}{c}{\textbf{Benchmarks de Contexto Longo}} & \\
+    \cmidrule(lr){2-4}
+    \textbf{Estratégia} & \textbf{Needle} & \textbf{RULER} & \textbf{LongBench} & \textbf{Média} \\
+    \midrule
+    \multicolumn{5}{l}{\textit{Llama~3.1~8B}} \\
+    Parallel Window    & 6.2s          & \underline{3.7s} & 4.4s          & 4.8s \\
+    Raw (Baseline)     & \textbf{0.3s} & \textbf{1.0s}    & \textbf{0.7s} & \textbf{0.7s} \\
+    RIG (Dartboard)    & 6.3s          & 3.9s             & 6.6s          & 5.6s \\
+    Sem. Compression   & 11.7s         & 7.3s             & 13.9s         & 11.0s \\
+    Sliding Window     & \underline{2.3s} & 3.8s          & \underline{3.6s} & \underline{3.3s} \\
+    \midrule
+    \multicolumn{5}{l}{\textit{Llama~3.3~70B}} \\
+    Parallel Window    & \underline{0.3s} & 2.3s          & 1.5s          & 1.4s \\
+    Raw (Baseline)     & \textbf{0.2s} & \textbf{0.3s}    & \underline{0.4s} & \textbf{0.3s} \\
+    RIG (Dartboard)    & 3.2s          & 2.5s             & 2.6s          & 2.8s \\
+    Sem. Compression   & 3.6s          & 5.1s             & 3.9s          & 4.2s \\
+    Sliding Window     & \underline{0.3s} & \underline{0.5s} & \textbf{0.3s} & \underline{0.4s} \\
+    \midrule
+    \multicolumn{5}{l}{\textit{GPT-OSS~20B}} \\
+    Parallel Window    & 7.2s          & 4.0s             & 4.8s          & 5.3s \\
+    Raw (Baseline)     & \textbf{3.1s} & 2.7s             & \textbf{0.7s} & \textbf{2.2s} \\
+    RIG (Dartboard)    & \underline{7.1s} & \textbf{0.2s} & 4.4s          & \underline{3.9s} \\
+    Sem. Compression   & 14.5s         & \underline{0.3s} & 20.9s         & 11.9s \\
+    Sliding Window     & 7.6s          & 4.1s             & \underline{4.1s} & 5.3s \\
+    \midrule
+    \multicolumn{5}{l}{\textit{GPT-OSS~120B}} \\
+    Parallel Window    & \underline{7.2s} & 4.1s          & 4.4s          & 5.2s \\
+    Raw (Baseline)     & \textbf{3.3s} & 2.3s             & \textbf{0.6s} & \textbf{2.1s} \\
+    RIG (Dartboard)    & \underline{7.2s} & \textbf{0.2s} & 3.3s          & \underline{3.6s} \\
+    Sem. Compression   & 16.4s         & \underline{1.5s} & 22.9s         & 13.6s \\
+    Sliding Window     & 7.7s          & 3.9s             & \underline{2.9s} & 4.8s \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Discussão dos Resultados e Seleção da Estratégia}
+
+Os resultados revelam padrões distintos entre modelos e estratégias. Nos modelos Llama, \textbf{Parallel Window}, \textbf{RIG} e \textbf{Sliding Window} obtiveram acurácia equivalente (0.98), porém \textbf{Sliding Window} destacou-se pela menor latência média (3.3s no Llama~3.1~8B e apenas 0.4s no Llama~3.3~70B), tornando-a a escolha mais eficiente entre as estratégias competitivas. O \textbf{Raw (Baseline)} apresentou desempenho próximo (0.96--1.00), confirmando que, para contextos dentro do limite da janela, o processamento direto é competitivo. \textbf{Semantic Compression} apresentou o pior desempenho geral, com acurácia de apenas 0.55--0.57 nos modelos Llama e degradação severa no RULER para os modelos GPT-OSS.
+
+Nos modelos GPT-OSS, \textbf{Sliding Window} também se destacou, atingindo acurácia de 1.00 tanto no GPT-OSS~20B quanto no GPT-OSS~120B (0.82). O \textbf{RIG (Dartboard)} apresentou colapso no RULER (0.00) para ambos os modelos GPT-OSS, indicando incompatibilidade do mecanismo de recuperação com o formato de perguntas sintéticas desse \textit{benchmark}.
+
+Com base nesses resultados, \textbf{Sliding Window} foi selecionada como estratégia base para o \textit{framework} proposto, dada a combinação de alta acurácia, baixa latência e comportamento estável entre modelos e \textit{benchmarks}.

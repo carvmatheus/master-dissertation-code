@@ -1,0 +1,121 @@
+model,benchmark,task,context_length,context_chars,strategy,test_case,score,latency_ms,expected,response_preview
+gpt-oss-120b,babilong,qa1,4k,15873,raw,babilong_qa1_4k_0,1.0,529,bedroom,Sandra is in the bedroom.
+gpt-oss-120b,babilong,qa1,4k,15883,raw,babilong_qa1_4k_1,1.0,12886,bedroom,Mary is in the bedroom.
+gpt-oss-120b,babilong,qa1,4k,13901,raw,babilong_qa1_4k_2,0.0,13083,hallway,
+gpt-oss-120b,babilong,qa2,4k,14059,raw,babilong_qa2_4k_0,0.0,13164,garden,O futebol está com Daniel – ele o pegou “lá”.
+gpt-oss-120b,babilong,qa2,4k,14236,raw,babilong_qa2_4k_1,0.0,12958,bedroom,
+gpt-oss-120b,babilong,qa2,4k,13345,raw,babilong_qa2_4k_2,0.0,12833,bathroom,O leite foi deixado no **cânion/gulha** que desce do platô para a planície – Joh
+gpt-oss-120b,babilong,qa1,8k,27514,raw,babilong_qa1_8k_0,0.0,12957,bedroom,Sandra is in the hallway.
+gpt-oss-120b,babilong,qa1,8k,29491,raw,babilong_qa1_8k_1,0.0,13061,bedroom,
+gpt-oss-120b,babilong,qa1,8k,32580,raw,babilong_qa1_8k_2,0.0,13166,hallway,Sandra está no corredor.
+gpt-oss-120b,babilong,qa2,8k,23169,raw,babilong_qa2_8k_0,0.0,12919,garden,
+gpt-oss-120b,babilong,qa2,8k,31001,raw,babilong_qa2_8k_1,0.0,13083,bedroom,O leite está com Daniel – ele o pegou e o levou.
+gpt-oss-120b,babilong,qa2,8k,26220,raw,babilong_qa2_8k_2,0.0,12987,bathroom,
+gpt-oss-120b,babilong,qa1,16k,59904,raw,babilong_qa1_16k_0,0.0,13106,bedroom,
+gpt-oss-120b,babilong,qa1,16k,64122,raw,babilong_qa1_16k_1,1.0,73026,bedroom,Mary is in the bedroom.
+gpt-oss-120b,babilong,qa1,16k,58767,raw,babilong_qa1_16k_2,0.0,59858,hallway,
+gpt-oss-120b,babilong,qa2,16k,61922,raw,babilong_qa2_16k_0,0.0,60232,garden,
+gpt-oss-120b,babilong,qa2,16k,61506,raw,babilong_qa2_16k_1,0.0,60096,bedroom,
+gpt-oss-120b,babilong,qa2,16k,68495,raw,babilong_qa2_16k_2,0.0,60145,bathroom,
+gpt-oss-120b,babilong,qa1,32k,124999,raw,babilong_qa1_32k_0,0.0,1008889,bedroom,[Erro: rate limit]
+gpt-oss-120b,babilong,qa1,32k,123501,raw,babilong_qa1_32k_1,0.0,1009611,bedroom,[Erro: rate limit]
+gpt-oss-120b,babilong,qa1,32k,123262,raw,babilong_qa1_32k_2,0.0,1011241,hallway,[Erro: rate limit]
+gpt-oss-120b,babilong,qa2,32k,124191,raw,babilong_qa2_32k_0,0.0,1010623,garden,[Erro: rate limit]
+gpt-oss-120b,babilong,qa2,32k,129675,raw,babilong_qa2_32k_1,0.0,1009586,bedroom,[Erro: rate limit]
+gpt-oss-120b,babilong,qa2,32k,114186,raw,babilong_qa2_32k_2,0.0,1238,bathroom,
+gpt-oss-120b,babilong,qa1,4k,15873,sliding_window,babilong_qa1_4k_0,0.0,425,bedroom,Sandra está no quarto.
+gpt-oss-120b,babilong,qa1,4k,15883,sliding_window,babilong_qa1_4k_1,1.0,13088,bedroom,Mary is in the bedroom.
+gpt-oss-120b,babilong,qa1,4k,13901,sliding_window,babilong_qa1_4k_2,1.0,13335,hallway,Sandra is in the hallway.
+gpt-oss-120b,babilong,qa2,4k,14059,sliding_window,babilong_qa2_4k_0,0.0,12778,garden,
+gpt-oss-120b,babilong,qa2,4k,14236,sliding_window,babilong_qa2_4k_1,0.0,12824,bedroom,The milk is on the banquet table in the feast hall.
+gpt-oss-120b,babilong,qa2,4k,13345,sliding_window,babilong_qa2_4k_2,0.0,13061,bathroom,O leite foi deixado cair no desfiladeiro – na gully que desce da prateleira (she
+gpt-oss-120b,babilong,qa1,8k,27514,sliding_window,babilong_qa1_8k_0,0.0,13051,bedroom,Sandra está no corredor.
+gpt-oss-120b,babilong,qa1,8k,29491,sliding_window,babilong_qa1_8k_1,0.0,13025,bedroom,Mary está no quarto.
+gpt-oss-120b,babilong,qa1,8k,32580,sliding_window,babilong_qa1_8k_2,1.0,13017,hallway,Sandra está no corredor (hallway).
+gpt-oss-120b,babilong,qa2,8k,23169,sliding_window,babilong_qa2_8k_0,0.0,13039,garden,The football is at the Tally‑Ho scene – with the horses on the race‑track (the s
+gpt-oss-120b,babilong,qa2,8k,31001,sliding_window,babilong_qa2_8k_1,0.0,12800,bedroom,The milk is not mentioned anywhere in the given context.
+gpt-oss-120b,babilong,qa2,8k,26220,sliding_window,babilong_qa2_8k_2,0.0,13151,bathroom,The milk was where John picked it up – “John picked up the milk there.”
+gpt-oss-120b,babilong,qa1,16k,59904,sliding_window,babilong_qa1_16k_0,0.0,13332,bedroom,Sandra’s location isn’t specified in the passage – the text never tells where sh
+gpt-oss-120b,babilong,qa1,16k,64122,sliding_window,babilong_qa1_16k_1,0.0,12591,bedroom,"Mary não é mencionada no texto; portanto, não há informação sobre onde ela está."
+gpt-oss-120b,babilong,qa1,16k,58767,sliding_window,babilong_qa1_16k_2,0.0,13107,hallway,Sandra está de volta ao quarto.
+gpt-oss-120b,babilong,qa2,16k,61922,sliding_window,babilong_qa2_16k_0,0.0,13091,garden,"Não há nenhuma referência ao futebol no texto; portanto, a localização da bola n"
+gpt-oss-120b,babilong,qa2,16k,61506,sliding_window,babilong_qa2_16k_1,0.0,12876,bedroom,The milk is in the bathroom.
+gpt-oss-120b,babilong,qa2,16k,68495,sliding_window,babilong_qa2_16k_2,0.0,13035,bathroom,O leite foi deixado (caiu) por John.
+gpt-oss-120b,babilong,qa1,32k,124999,sliding_window,babilong_qa1_32k_0,0.0,12919,bedroom,Não é mencionado no texto; a localização de Sandra não consta da informação forn
+gpt-oss-120b,babilong,qa1,32k,123501,sliding_window,babilong_qa1_32k_1,0.0,12972,bedroom,The passage does not mention Mary at all; her location is not given.
+gpt-oss-120b,babilong,qa1,32k,123262,sliding_window,babilong_qa1_32k_2,0.0,13015,hallway,"Sandra não é mencionada no trecho apresentado; portanto, sua localização não foi"
+gpt-oss-120b,babilong,qa2,32k,124191,sliding_window,babilong_qa2_32k_0,0.0,13004,garden,"The passage never mentions a football, so its location is not given."
+gpt-oss-120b,babilong,qa2,32k,129675,sliding_window,babilong_qa2_32k_1,0.0,13480,bedroom,"The passage does not mention milk, so its location is not specified."
+gpt-oss-120b,babilong,qa2,32k,114186,sliding_window,babilong_qa2_32k_2,0.0,12563,bathroom,The passage does not mention the milk; its location is not specified.
+gpt-oss-120b,babilong,qa1,4k,15873,parallel_window,babilong_qa1_4k_0,0.0,394,bedroom,Sandra está no quarto.
+gpt-oss-120b,babilong,qa1,4k,15883,parallel_window,babilong_qa1_4k_1,1.0,13067,bedroom,Mary is in the bedroom.
+gpt-oss-120b,babilong,qa1,4k,13901,parallel_window,babilong_qa1_4k_2,0.0,13014,hallway,Sandra está no corredor.
+gpt-oss-120b,babilong,qa2,4k,14059,parallel_window,babilong_qa2_4k_0,0.0,13102,garden,
+gpt-oss-120b,babilong,qa2,4k,14236,parallel_window,babilong_qa2_4k_1,0.0,12939,bedroom,The milk is on the banquet table – it’s the solid‑mahogany “milk” that Daniel pi
+gpt-oss-120b,babilong,qa2,4k,13345,parallel_window,babilong_qa2_4k_2,0.0,13039,bathroom,O leite foi deixado cair no desfiladeiro – no antigo leito de corrente que desce
+gpt-oss-120b,babilong,qa1,8k,27514,parallel_window,babilong_qa1_8k_0,0.0,13015,bedroom,Sandra está na cozinha.
+gpt-oss-120b,babilong,qa1,8k,29491,parallel_window,babilong_qa1_8k_1,0.0,13106,bedroom,Mary está no quarto.
+gpt-oss-120b,babilong,qa1,8k,32580,parallel_window,babilong_qa1_8k_2,0.0,13809,hallway,Sandra está no jardim.
+gpt-oss-120b,babilong,qa2,8k,23169,parallel_window,babilong_qa2_8k_0,0.0,13304,garden,O futebol está no local da corrida – no pista de corrida à beira‑mar descrita.
+gpt-oss-120b,babilong,qa2,8k,31001,parallel_window,babilong_qa2_8k_1,0.0,11650,bedroom,The milk is not mentioned in the provided context.
+gpt-oss-120b,babilong,qa2,8k,26220,parallel_window,babilong_qa2_8k_2,0.0,13194,bathroom,
+gpt-oss-120b,babilong,qa1,16k,59904,parallel_window,babilong_qa1_16k_0,0.0,12902,bedroom,Sandra está no quarto.
+gpt-oss-120b,babilong,qa1,16k,64122,parallel_window,babilong_qa1_16k_1,0.0,13853,bedroom,Mary está no quarto.
+gpt-oss-120b,babilong,qa1,16k,58767,parallel_window,babilong_qa1_16k_2,0.0,25371,hallway,Sandra está no jardim.
+gpt-oss-120b,babilong,qa2,16k,61922,parallel_window,babilong_qa2_16k_0,0.0,13048,garden,"O texto não menciona nenhum futebol; portanto, a localização da bola não é indic"
+gpt-oss-120b,babilong,qa2,16k,61506,parallel_window,babilong_qa2_16k_1,0.0,13018,bedroom,O texto não indica onde está o leite.
+gpt-oss-120b,babilong,qa2,16k,68495,parallel_window,babilong_qa2_16k_2,0.0,13062,bathroom,The passage does not mention the location of the milk.
+gpt-oss-120b,babilong,qa1,32k,124999,parallel_window,babilong_qa1_32k_0,0.0,12877,bedroom,Sandra está no corredor.
+gpt-oss-120b,babilong,qa1,32k,123501,parallel_window,babilong_qa1_32k_1,0.0,13008,bedroom,"Mary não é mencionada no trecho apresentado; portanto, sua localização não pode "
+gpt-oss-120b,babilong,qa1,32k,123262,parallel_window,babilong_qa1_32k_2,0.0,12963,hallway,Sandra está no corredor.
+gpt-oss-120b,babilong,qa2,32k,124191,parallel_window,babilong_qa2_32k_0,0.0,13092,garden,O futebol não aparece no texto – não há menção a ele no contexto fornecido.
+gpt-oss-120b,babilong,qa2,32k,129675,parallel_window,babilong_qa2_32k_1,0.0,13124,bedroom,O leite está onde Daniel o levou – no local mencionado na nota de rodapé i1 (ou 
+gpt-oss-120b,babilong,qa2,32k,114186,parallel_window,babilong_qa2_32k_2,0.0,13113,bathroom,The milk is in the refrigerator.
+gpt-oss-120b,babilong,qa1,4k,15873,rig,babilong_qa1_4k_0,0.0,8610,bedroom,Sandra está no quarto.
+gpt-oss-120b,babilong,qa1,4k,15883,rig,babilong_qa1_4k_1,0.0,13326,bedroom,Mary está no quarto.
+gpt-oss-120b,babilong,qa1,4k,13901,rig,babilong_qa1_4k_2,0.0,22273,hallway,Sandra está no corredor.
+gpt-oss-120b,babilong,qa2,4k,14059,rig,babilong_qa2_4k_0,0.0,3624,garden,
+gpt-oss-120b,babilong,qa2,4k,14236,rig,babilong_qa2_4k_1,0.0,12879,bedroom,"O leite está no quarto, onde Daniel o levou."
+gpt-oss-120b,babilong,qa2,4k,13345,rig,babilong_qa2_4k_2,0.0,20882,bathroom,O leite foi deixado cair no desfiladeiro (gully) que desce da prateleira para a 
+gpt-oss-120b,babilong,qa1,8k,27514,rig,babilong_qa1_8k_0,0.0,18320,bedroom,Sandra está no quarto.
+gpt-oss-120b,babilong,qa1,8k,29491,rig,babilong_qa1_8k_1,1.0,12993,bedroom,Mary is traveling to the bedroom.
+gpt-oss-120b,babilong,qa1,8k,32580,rig,babilong_qa1_8k_2,0.0,13009,hallway,Sandra está no banheiro.
+gpt-oss-120b,babilong,qa2,8k,23169,rig,babilong_qa2_8k_0,0.0,12969,garden,The football is not mentioned in the passage; its location is unspecified.
+gpt-oss-120b,babilong,qa2,8k,31001,rig,babilong_qa2_8k_1,0.0,13114,bedroom,O leite está no quarto.
+gpt-oss-120b,babilong,qa2,8k,26220,rig,babilong_qa2_8k_2,0.0,12946,bathroom,The milk was dropped – it’s on the floor where John dropped it.
+gpt-oss-120b,babilong,qa1,16k,59904,rig,babilong_qa1_16k_0,0.0,13066,bedroom,"Sandra não é mencionada no trecho apresentado; portanto, não há informação sobre"
+gpt-oss-120b,babilong,qa1,16k,64122,rig,babilong_qa1_16k_1,0.0,12907,bedroom,"Mary não é mencionada no texto; portanto, sua localização não é especificada."
+gpt-oss-120b,babilong,qa1,16k,58767,rig,babilong_qa1_16k_2,0.0,13002,hallway,Sandra está no corredor.
+gpt-oss-120b,babilong,qa2,16k,61922,rig,babilong_qa2_16k_0,0.0,12985,garden,"Não há menção a nenhum futebol no trecho apresentado; portanto, o futebol não es"
+gpt-oss-120b,babilong,qa2,16k,61506,rig,babilong_qa2_16k_1,0.0,13107,bedroom,"O leite foi pegado por Daniel, no local mencionado como “lá”."
+gpt-oss-120b,babilong,qa2,16k,68495,rig,babilong_qa2_16k_2,0.0,13049,bathroom,O leite está onde João o pegou.
+gpt-oss-120b,babilong,qa1,32k,124999,rig,babilong_qa1_32k_0,0.0,12942,bedroom,Sandra’s location is not mentioned in the given context.
+gpt-oss-120b,babilong,qa1,32k,123501,rig,babilong_qa1_32k_1,0.0,13777,bedroom,"Mary não é mencionada no trecho apresentado; portanto, sua localização não pode "
+gpt-oss-120b,babilong,qa1,32k,123262,rig,babilong_qa1_32k_2,0.0,12139,hallway,Sandra está no corredor.
+gpt-oss-120b,babilong,qa2,32k,124191,rig,babilong_qa2_32k_0,0.0,13029,garden,The football is not mentioned in the provided text; its location is unknown.
+gpt-oss-120b,babilong,qa2,32k,129675,rig,babilong_qa2_32k_1,0.0,13011,bedroom,O leite está onde Daniel o pegou – “lá”.
+gpt-oss-120b,babilong,qa2,32k,114186,rig,babilong_qa2_32k_2,1.0,13060,bathroom,The milk was dropped on the floor – presumably in the bathroom where John had go
+gpt-oss-120b,babilong,qa1,4k,15873,rsaw,babilong_qa1_4k_0,0.0,6874,bedroom,Desconheço a localização de Sandra.
+gpt-oss-120b,babilong,qa1,4k,15883,rsaw,babilong_qa1_4k_1,0.0,13023,bedroom,I don't have enough information to determine where Mary is.
+gpt-oss-120b,babilong,qa1,4k,13901,rsaw,babilong_qa1_4k_2,0.0,13028,hallway,I don't have enough information to determine Sandra's location.
+gpt-oss-120b,babilong,qa2,4k,14059,rsaw,babilong_qa2_4k_0,0.0,12981,garden,On the field.
+gpt-oss-120b,babilong,qa2,4k,14236,rsaw,babilong_qa2_4k_1,0.0,12995,bedroom,The provided context does not contain any information about the location of the 
+gpt-oss-120b,babilong,qa2,4k,13345,rsaw,babilong_qa2_4k_2,0.0,13117,bathroom,The milk is in the refrigerator.
+gpt-oss-120b,babilong,qa1,8k,27514,rsaw,babilong_qa1_8k_0,0.0,12928,bedroom,Sandra’s location is not mentioned in the provided context.
+gpt-oss-120b,babilong,qa1,8k,29491,rsaw,babilong_qa1_8k_1,0.0,13024,bedroom,Não há informação no contexto; a localização de Mary não foi especificada.
+gpt-oss-120b,babilong,qa1,8k,32580,rsaw,babilong_qa1_8k_2,0.0,12933,hallway,The provided context does not contain any information about Sandra’s location.
+gpt-oss-120b,babilong,qa2,8k,23169,rsaw,babilong_qa2_8k_0,0.0,13043,garden,The context does not specify where the football is.
+gpt-oss-120b,babilong,qa2,8k,31001,rsaw,babilong_qa2_8k_1,0.0,12979,bedroom,The given context does not contain any information about the location of the mil
+gpt-oss-120b,babilong,qa2,8k,26220,rsaw,babilong_qa2_8k_2,0.0,13018,bathroom,The provided context does not contain any information about the milk’s location.
+gpt-oss-120b,babilong,qa1,16k,59904,rsaw,babilong_qa1_16k_0,0.0,13045,bedroom,The context does not provide any information about Sandra’s location.
+gpt-oss-120b,babilong,qa1,16k,64122,rsaw,babilong_qa1_16k_1,0.0,12984,bedroom,Não há informação sobre a localização de Mary no contexto fornecido.
+gpt-oss-120b,babilong,qa1,16k,58767,rsaw,babilong_qa1_16k_2,0.0,104681,hallway,Sandra não está mencionada no contexto fornecido.
+gpt-oss-120b,babilong,qa2,16k,61922,rsaw,babilong_qa2_16k_0,0.0,12984,garden,The provided context does not contain any information about the football’s locat
+gpt-oss-120b,babilong,qa2,16k,61506,rsaw,babilong_qa2_16k_1,0.0,13019,bedroom,I don’t have information about the location of the milk.
+gpt-oss-120b,babilong,qa2,16k,68495,rsaw,babilong_qa2_16k_2,0.0,13022,bathroom,The provided context does not contain any information about the location of the 
+gpt-oss-120b,babilong,qa1,32k,124999,rsaw,babilong_qa1_32k_0,0.0,13034,bedroom,Não há informação sobre a localização de Sandra.
+gpt-oss-120b,babilong,qa1,32k,123501,rsaw,babilong_qa1_32k_1,0.0,12958,bedroom,The provided context does not mention Mary’s location.
+gpt-oss-120b,babilong,qa1,32k,123262,rsaw,babilong_qa1_32k_2,0.0,13046,hallway,The provided context does not contain any information about Sandra’s location.
+gpt-oss-120b,babilong,qa2,32k,124191,rsaw,babilong_qa2_32k_0,0.0,13232,garden,The context does not contain any information about the football’s location.
+gpt-oss-120b,babilong,qa2,32k,129675,rsaw,babilong_qa2_32k_1,0.0,12743,bedroom,The provided context contains no information about the location of the milk.
+gpt-oss-120b,babilong,qa2,32k,114186,rsaw,babilong_qa2_32k_2,0.0,13030,bathroom,The provided context contains no information about the milk’s location.

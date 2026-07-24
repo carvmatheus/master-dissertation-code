@@ -1,0 +1,113 @@
+% =====================================================================
+% MASTER_THESIS_REVISADA
+% Compressão Seletiva de Contexto via Problema da Mochila:
+% um Framework Não Invasivo para Extensão da Janela de Contexto em LLMs
+%
+% Autor:  Matheus Cardoso
+% Programa: PESC / COPPE / UFRJ
+%
+% Projeto modular: cada capítulo é um arquivo em chapters/.
+% Compilar com: tectonic main.tex
+% =====================================================================
+\documentclass[12pt,a4paper,oneside]{report}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds}
+\usepackage[hidelinks]{hyperref}
+
+\onehalfspacing
+\setlength{\parindent}{1.25em}
+\setlength{\parskip}{0.3em}
+
+% Rótulos de capítulo em português (report class)
+\renewcommand{\bibname}{Referências Bibliográficas}
+
+% Marcador de conteúdo pendente. Renderiza um bloco visível no PDF.
+% Uso: \TODO{TESTES}{descrição do que ainda será preenchido}
+\newcommand{\TODO}[2]{%
+  \par\medskip\noindent
+  \fcolorbox{red!60!black}{yellow!20}{%
+    \parbox{0.94\linewidth}{{\ttfamily\bfseries <<TODO-#1>>}\normalfont\par\smallskip #2}%
+  }\par\medskip}
+
+\begin{document}
+
+% =====================================================================
+% CAPA / FOLHA DE ROSTO
+% =====================================================================
+\begin{titlepage}
+\begin{center}
+\textbf{\large COPPE/UFRJ}\\[0.3cm]
+{\small Instituto Alberto Luiz Coimbra de Pós-Graduação e Pesquisa de Engenharia}\\[2.5cm]
+
+{\Large\bfseries COMPRESSÃO SELETIVA DE CONTEXTO VIA PROBLEMA DA MOCHILA:\\[0.4cm]
+UM \textit{FRAMEWORK} NÃO INVASIVO PARA EXTENSÃO DA JANELA DE CONTEXTO EM LLMs}\\[3cm]
+
+{\large Matheus Cardoso}\\[3cm]
+
+\begin{flushright}
+\begin{minipage}{0.55\textwidth}
+Dissertação de Mestrado apresentada ao Programa de
+Pós-graduação em Engenharia de Sistemas e Computação,
+COPPE, da Universidade Federal do Rio de Janeiro, como
+parte dos requisitos necessários à obtenção do título de
+Mestre em Engenharia de Sistemas e Computação.
+\end{minipage}
+\end{flushright}
+
+\vspace{1.5cm}
+\begin{flushright}
+\begin{minipage}{0.55\textwidth}
+Orientadores: Geraldo Xexeo\\
+\phantom{Orientadores: }Claudia Susie
+\end{minipage}
+\end{flushright}
+
+\vfill
+Rio de Janeiro\\
+Julho de 2026
+\end{center}
+\end{titlepage}
+
+% =====================================================================
+% RESUMO
+% =====================================================================
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+
+Modelos de Linguagem de Grande Escala (\textit{Large Language Models}, LLMs) tornaram-se componentes centrais de aplicações modernas, mas ainda esbarram em uma limitação estrutural, a janela de contexto. O mecanismo de atenção apresenta complexidade quadrática no comprimento da sequência e, mesmo quando a janela é nominalmente ampla, o modelo tende a não utilizar toda a informação de forma eficaz, com fenômenos como \textit{lost in the middle}, \textit{context rot} e colapso de atenção. Este trabalho investiga estratégias \textbf{não invasivas} de extensão de contexto, aplicáveis a modelos acessados via API, sem retreinamento nem modificação arquitetural, e propõe um \textit{framework} que formula a compressão de \textit{prompt} como um problema de alocação de orçamento. A partir de uma revisão sistemática das técnicas existentes e de uma avaliação empírica de cinco estratégias em \textit{benchmarks} de contexto longo, o trabalho formaliza a seleção de compressores como um problema da mochila de múltipla escolha. Dado um \textit{prompt} particionado, um orçamento efetivo de contexto e uma família de compressores parametrizados, o modelo escolhe, para cada partição, a opção de compressão que maximiza a informação preservada sob a restrição de orçamento. Os resultados empíricos indicam que estratégias simples de segmentação com sobreposição oferecem bom equilíbrio entre acurácia e latência, e sustentam a hipótese de que a compressão deve ser tratada como alocação orientada à tarefa, e não como redução uniforme de \textit{tokens}. A avaliação completa do \textit{framework} proposto é apresentada como plano experimental reprodutível.
+
+% =====================================================================
+% SUMÁRIO E LISTAS
+% =====================================================================
+\tableofcontents
+\listoffigures
+\listoftables
+
+% =====================================================================
+% CAPÍTULOS
+% =====================================================================
+\include{chapters/cap1_introducao}
+\include{chapters/cap2_fundamentos}
+\include{chapters/cap3_metodologia}
+\include{chapters/cap4_resultados}
+\include{chapters/cap5_conclusao}
+
+% =====================================================================
+% REFERÊNCIAS
+% =====================================================================
+\input{chapters/referencias}
+
+\end{document}

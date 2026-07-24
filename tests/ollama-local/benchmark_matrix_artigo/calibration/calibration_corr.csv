@@ -1,0 +1,17 @@
+scope,metric,pearson_vs_score,n
+all,quality_content_recall,0.2935,1210
+all,quality_number_retention,0.2590,935
+all,quality_evidence_recall,0.2636,1210
+all,quality_answer_present,0.4024,1210
+all,quality_semantic_fidelity,0.2702,1207
+all,quality_info_density,-0.0878,1207
+all,cost_compression_ratio,0.3208,1210
+all,cost_tokens_saved,-0.2898,1210
+compressed_only,quality_content_recall,0.3133,844
+compressed_only,quality_number_retention,0.2829,624
+compressed_only,quality_evidence_recall,0.3247,844
+compressed_only,quality_answer_present,0.4335,844
+compressed_only,quality_semantic_fidelity,0.2847,844
+compressed_only,quality_info_density,-0.0898,844
+compressed_only,cost_compression_ratio,0.3519,844
+compressed_only,cost_tokens_saved,-0.3187,844

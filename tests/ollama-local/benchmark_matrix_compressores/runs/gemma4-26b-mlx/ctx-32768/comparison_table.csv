@@ -1,0 +1,5 @@
+Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+llmlingua_gemma4-26b-mlx,-,-,0.375,-,-,-,-,0.000,0.337,1.000,0.333,0.000,0.000,0.292
+llmlingua2_gemma4-26b-mlx,-,-,0.938,-,-,-,-,0.333,0.333,1.000,0.667,0.000,0.000,0.467
+selective_context_gemma4-26b-mlx,-,-,0.688,-,-,-,-,0.222,0.337,0.667,0.000,0.333,0.102,0.336
+cpc_gemma4-26b-mlx,-,-,0.688,-,-,-,-,0.583,0.671,1.000,0.667,0.333,0.068,0.573

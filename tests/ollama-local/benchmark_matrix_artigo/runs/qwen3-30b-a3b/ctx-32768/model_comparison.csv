@@ -1,0 +1,2 @@
+Model,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+qwen3:30b-a3b,-,-,0.725,-,-,-,-,0.326,0.733,1.000,0.067,0.267,0.056,0.453

@@ -1,0 +1,2 @@
+Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+mckp_llama3.1-8b-instruct-q8,-,-,1.000,-,-,-,-,0.363,0.362,1.000,0.667,0.417,0.260,0.581

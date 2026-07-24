@@ -1,0 +1,653 @@
+\chapter{Metodologia e \textit{Framework} Proposto}
+\label{cap:metodologia}
+
+Este capítulo é organizado em duas partes. A primeira, na Seção~\ref{sec:validacao-empirica}, apresenta a avaliação empírica e a evolução de seu protocolo. O estudo compreende uma fase preliminar, executada por meio de APIs externas, e uma fase local consolidada. A fase local, por sua vez, foi conduzida em duas etapas sequenciais: inicialmente, cinco estratégias não invasivas de tratamento de contexto foram comparadas em cinco modelos e dois orçamentos, formando a matriz local inicial e fornecendo a referência para a escolha da estratégia base; posteriormente, LLMLingua-GPT2, LLMLingua-2, Selective Context e CPC-MiniLM foram incorporados como quatro técnicas adicionais, ampliando o conjunto comparativo para nove técnicas nas dez combinações de modelo e orçamento. A segunda parte, na Seção~\ref{sec:framework}, formaliza a arquitetura do \textit{framework} proposto, que descreve a compressão seletiva de contexto como um problema da mochila de múltipla escolha.
+
+\section{Validação Empírica das Estratégias Não Invasivas}
+\label{sec:validacao-empirica}
+
+\subsection{Objetivo e Desenho Experimental}
+\label{subsec:desenho}
+
+A validação empírica tem por objetivo medir quanto de informação cada técnica de tratamento de contexto preserva, isto é, em que medida o modelo ainda recupera a resposta correta após a redução ou a segmentação da entrada, em comparação com o \textit{baseline} sem tratamento. A questão central não é qual modelo apresenta melhor desempenho absoluto, e sim como o compromisso entre qualidade e custo varia entre técnicas, famílias de modelos e orçamentos de contexto. Para responder a essa questão sem alterar retrospectivamente o protocolo já executado, a matriz local foi construída de forma incremental.
+
+Na etapa inicial da matriz local, foram comparadas cinco estratégias não invasivas de tratamento de contexto, descritas a seguir.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{\textit{Raw}}. Estratégia de referência (\textit{baseline}), em que o contexto completo é enviado ao modelo sem qualquer tratamento.
+
+\item \textbf{\textit{Parallel Window}}. Segmentação do contexto em janelas processadas em paralelo, com agregação posterior das respostas parciais \cite{ratner2023parallelwindows}.
+
+\item \textbf{\textit{Sliding Window}}. Segmentação com janelas deslizantes e sobreposição, preservando continuidade semântica entre segmentos sucessivos.
+
+\item \textbf{RIG}. Seleção de trechos por ganho de informação relevante, com ordenação do tipo \textit{Dartboard}, priorizando o conteúdo que mais reduz a incerteza sobre a resposta \cite{pickett2024rig}.
+
+\item \textbf{\textit{Semantic Compression}}. Compressão semântica orientada por instruções de \textit{prompt}, sem modelo de compressão adicional \cite{gilbert2023semanticcompression}.
+\end{itemize}
+
+Essa etapa inicial foi executada integralmente nos cinco modelos e nos dois orçamentos definidos a seguir. Após sua conclusão, quatro compressores foram acrescentados como técnicas adicionais: LLMLingua-GPT2, empregado como baseline externo de compressão, e LLMLingua-2, Selective Context e CPC-MiniLM, avaliados como candidatos ao conjunto de opções do MCKP. A ampliação preservou os mesmos modelos, orçamentos, \textit{benchmarks} e critérios de agregação, permitindo apresentar as nove técnicas nas mesmas tabelas. Os quatro compressores foram executados nas dez combinações de modelo e orçamento. Uma chamada do CPC-MiniLM ao DeepSeek-R1 32B, no orçamento de 8192 \textit{tokens}, terminou por \textit{timeout}; essa observação é excluída das agregações dependentes da resposta e identificada nas tabelas. As implementações e adaptações dos quatro compressores são detalhadas na Seção~\ref{subsec:implementacao}.
+
+Os modelos foram selecionados para cobrir eixos distintos de projeto, e não por serem os de maior porte. A Tabela~\ref{tab:modelos} apresenta os cinco modelos e seu papel na matriz de avaliação, contemplando arquitetura densa em escala pequena e grande, arquitetura de mistura de especialistas esparsa e modelos ajustados para raciocínio. A escolha por famílias distintas, que reúnem Meta, Google, Alibaba, DeepSeek e OpenAI, busca reduzir a dependência do resultado em relação a um único estilo de treino.
+
+\begin{table}[htbp]
+\centering
+\caption{Modelos avaliados e diversidade arquitetural da matriz de \textit{benchmarks}}
+\label{tab:modelos}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{p{3.3cm}p{2.6cm}p{2.6cm}p{3.9cm}}
+\toprule
+\textbf{Modelo} & \textbf{Família} & \textbf{Arquitetura} & \textbf{Papel na matriz} \\
+\midrule
+\texttt{llama3.1:8b} & Llama 3.1 (Meta) & Densa, 8B & \textit{Baseline} pequeno e rápido \\
+\addlinespace
+\texttt{gemma4:26b} & Gemma 4 (Google) & Densa, 26B & Densa de grande porte, família distinta de Llama \\
+\addlinespace
+\texttt{qwen3:30b-a3b} & Qwen 3 (Alibaba) & MoE esparsa, 30B com 3B ativos & Mistura de especialistas, ativa apenas parte dos pesos \\
+\addlinespace
+\texttt{deepseek-r1:32b} & DeepSeek-R1 & Raciocínio, 32B & Ajustado para cadeia de raciocínio \\
+\addlinespace
+\texttt{gpt-oss:20b} & GPT-OSS (OpenAI) & MoE, 20B & Família aberta da OpenAI, estilo de treino distinto \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A avaliação de cada modelo considera dois orçamentos de contexto, de 8192 e de 32768 \textit{tokens}, correspondentes aos extremos de pressão de compressão. O orçamento de 8192 \textit{tokens} impõe forte truncamento, exigindo que a estratégia selecione bem o conteúdo mantido, enquanto o orçamento de 32768 \textit{tokens} mede o teto de qualidade, uma vez que quase todo o conteúdo é acomodado. Uma calibração ampla prévia, conduzida com o modelo \textit{baseline}, indicou que os contextos de 16384 e de 32768 \textit{tokens} saturam em um mesmo patamar de acurácia, próximo de 0,954, de modo que o ponto intermediário não acrescenta informação relevante à curva de compromisso e foi omitido para os demais modelos. O modelo \textit{baseline} preserva os três contextos como curva completa de referência.
+
+A suíte de \textit{benchmarks} reúne sete tarefas de contexto longo restritas a texto, que são LongBench, ZeroSCROLLS, Natural Questions, TriviaQA, HotpotQA, MuSiQue e sumarização de reuniões. \textit{Benchmarks} puramente sintéticos, como o Needle-in-a-Haystack e o RULER, foram deixados fora da matriz principal por não integrarem a suíte de referência adotada. Para cada combinação de modelo, orçamento de contexto, estratégia e \textit{benchmark}, registram-se a acurácia, a latência e a taxa de compressão efetiva. Valores não disponíveis são indicados por \textit{n/d}.
+
+As decisões metodológicas relativas à seleção dos modelos, aos orçamentos de contexto e à composição da suíte estão registradas em \texttt{tests/README.md} e em \texttt{tests/ollama-local/README\_DECISAO\_TESTES.md}. Nos dois orçamentos comparáveis, a etapa inicial da matriz local produziu 1100 resultados individuais: 22 casos para cada uma das 50 combinações de modelo, orçamento e estratégia. Esses resultados correspondem a 350 células agregadas por \textit{benchmark}. Os artefatos de execução incluem os \textit{logs}, os resultados por caso nos formatos CSV e JSON e as tabelas agregadas disponíveis em \texttt{tests/ollama-local/benchmark\_matrix\_artigo}. A execução adicional do Llama 3.1 8B com 16384 \textit{tokens} foi preservada como ponto intermediário de calibração, mas não integra as tabelas comparativas dos dois orçamentos extremos.
+
+\subsection{Evolução do Protocolo Experimental}
+\label{subsec:evolucao-protocolo}
+
+O desenho experimental consolidado na Seção~\ref{subsec:desenho} resulta de uma evolução do protocolo de avaliação conduzida em duas fases. A fase preliminar utilizou modelos servidos por interfaces de programação externas, especificamente a Groq e a Cerebras, o que permitiu avaliar modelos de grande porte, como o Llama 3.3 70B e o GPT-OSS 120B, sobre um conjunto inicial de \textit{benchmarks} composto por Needle-in-a-Haystack, RULER e LongBench. Essa configuração aproveitou o acesso gratuito então oferecido por esses provedores.
+
+Ao longo do trabalho, contudo, as condições de acesso foram alteradas. Os planos gratuitos da Groq e da Cerebras foram revisados, diversos modelos foram descontinuados ou indisponibilizados, e os limites de requisição passaram a restringir a execução da matriz completa. Essa alteração faz parte do processo de pesquisa apoiado em infraestrutura de terceiros, cuja disponibilidade não é controlada pelo autor. Para preservar a reprodutibilidade e a autonomia da avaliação, a segunda fase migrou para modelos executados localmente por meio do Ollama, o que motivou a matriz de cinco modelos de arquiteturas distintas nos orçamentos de 8192 e de 32768 \textit{tokens} descrita na Seção~\ref{subsec:desenho}. Dentro dessa fase local, as cinco estratégias originais foram avaliadas primeiro; os quatro compressores adicionais foram incorporados posteriormente, sem alterar os modelos, os orçamentos, a suíte ou os critérios de agregação.
+
+\subsection{Fase Preliminar, Avaliação via APIs Externas}
+\label{subsec:fase-preliminar}
+
+Os resultados da fase preliminar são reportados a seguir e preservados por transparência do processo. Essa fase avaliou quatro modelos, que são o Llama 3.1 8B, o Llama 3.3 70B, o GPT-OSS 20B e o GPT-OSS 120B, sobre os \textit{benchmarks} Needle-in-a-Haystack, RULER e LongBench, com a acurácia e a latência média de resposta registradas por combinação de modelo, estratégia e \textit{benchmark}. A coluna \textbf{Média} corresponde à média das métricas nos \textit{benchmarks} avaliados. Valores não disponíveis, decorrentes sobretudo dos limites de requisição descritos, são indicados por \textit{n/d}.
+
+\subsection{Resultados de Acurácia da Fase Preliminar}
+\label{subsec:resultados-acuracia}
+
+A Tabela~\ref{tab:acuracia} apresenta a acurácia obtida por cada estratégia nos três \textit{benchmarks}, agrupada por modelo. Em todas as tabelas de resultados deste capítulo, valores em \textbf{negrito} destacam o melhor resultado por coluna dentro de cada modelo e valores \underline{sublinhados} o segundo melhor; nas tabelas de latência, menor é melhor. A marcação \textit{n/d} indica ausência de dados na configuração correspondente.
+
+\begin{table}[htbp]
+\centering
+\caption{Acurácia por estratégia, modelo e \textit{benchmark} de contexto longo}
+\label{tab:acuracia}
+\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lccc|c}
+\toprule
+& \multicolumn{3}{c|}{\textbf{Benchmarks de Contexto Longo}} & \\
+\cmidrule(lr){2-4}
+\textbf{Estratégia} & \textbf{Needle} & \textbf{RULER} & \textbf{LongBench} & \textbf{Média} \\
+\midrule
+\multicolumn{5}{l}{\textit{Llama 3.1 8B}} \\
+\textit{Parallel Window}      & \textbf{1.00}    & \textbf{1.00}    & 0.94         & \textbf{0.98} \\
+\textit{Raw}                  & \textbf{1.00}    & \underline{0.94} & 0.94         & \underline{0.96} \\
+RIG                           & \textbf{1.00}    & \textbf{1.00}    & 0.94         & \textbf{0.98} \\
+\textit{Semantic Compression} & \underline{0.33} & 0.56             & 0.94         & 0.61 \\
+\textit{Sliding Window}       & \textbf{1.00}    & \textbf{1.00}    & 0.94         & \textbf{0.98} \\
+\midrule
+\multicolumn{5}{l}{\textit{Llama 3.3 70B}} \\
+\textit{Parallel Window}      & \textbf{1.00}    & \textbf{1.00}    & \underline{0.94} & \underline{0.98} \\
+\textit{Raw}                  & \textbf{1.00}    & \textbf{1.00}    & \textbf{1.00}    & \textbf{1.00} \\
+RIG                           & \textbf{1.00}    & \textbf{1.00}    & \underline{0.94} & \underline{0.98} \\
+\textit{Semantic Compression} & \underline{0.33} & \underline{0.69} & 0.38             & 0.47 \\
+\textit{Sliding Window}       & \textbf{1.00}    & \textbf{1.00}    & \underline{0.94} & \underline{0.98} \\
+\midrule
+\multicolumn{5}{l}{\textit{GPT-OSS 20B}} \\
+\textit{Parallel Window}      & \textbf{1.00}    & 0.69             & \textit{n/d} & 0.85 \\
+\textit{Raw}                  & \textbf{1.00}    & \textbf{0.78}    & \textbf{0.50} & 0.76 \\
+RIG                           & \textbf{1.00}    & 0.50             & \textit{n/d} & 0.75 \\
+\textit{Semantic Compression} & \underline{0.73} & 0.00             & \textit{n/d} & 0.37 \\
+\textit{Sliding Window}       & \textbf{1.00}    & \underline{0.72} & \textit{n/d} & \textbf{0.86} \\
+\midrule
+\multicolumn{5}{l}{\textit{GPT-OSS 120B}} \\
+\textit{Parallel Window}      & \textbf{1.00}    & \underline{0.58} & \underline{0.00} & 0.53 \\
+\textit{Raw}                  & \textbf{1.00}    & 0.56             & \textbf{0.17}    & \underline{0.58} \\
+RIG                           & \underline{0.97} & 0.44             & \textit{n/d}     & \textbf{0.71} \\
+\textit{Semantic Compression} & \textbf{1.00}    & 0.06             & \textit{n/d}     & 0.53 \\
+\textit{Sliding Window}       & 0.87             & \textbf{0.64}    & \underline{0.00} & 0.50 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Os resultados de acurácia indicam que as estratégias de segmentação, tanto \textit{Parallel Window} quanto \textit{Sliding Window}, e a seleção por RIG mantêm desempenho elevado nos modelos Llama, com média próxima de 0.98. A estratégia \textit{Raw} apresenta o melhor resultado isolado no Llama 3.3 70B, com média de 1.00, o que sugere que modelos maiores conseguem aproveitar o contexto completo de forma mais eficaz quando não há restrição de orçamento. A \textit{Semantic Compression} apresenta o pior desempenho de acurácia entre as estratégias avaliadas, com quedas acentuadas no \textit{benchmark} RULER, o que é compatível com a perda de informação associada a uma compressão agressiva e uniforme. Nos modelos GPT-OSS, observa-se degradação geral de acurácia no RULER e no LongBench, com maior dispersão entre as estratégias.
+
+\subsection{Resultados de Latência da Fase Preliminar}
+\label{subsec:resultados-latencia}
+
+A Tabela~\ref{tab:latencia} apresenta a latência média de resposta, em milissegundos, por estratégia, modelo e \textit{benchmark}.
+
+\begin{table}[htbp]
+\centering
+\caption{Latência média de resposta (ms) por estratégia, modelo e \textit{benchmark}}
+\label{tab:latencia}
+\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lccc|c}
+\toprule
+& \multicolumn{3}{c|}{\textbf{Benchmarks de Contexto Longo}} & \\
+\cmidrule(lr){2-4}
+\textbf{Estratégia} & \textbf{Needle} & \textbf{RULER} & \textbf{LongBench} & \textbf{Média} \\
+\midrule
+\multicolumn{5}{l}{\textit{Llama 3.1 8B}} \\
+\textit{Parallel Window}      & 6200          & \underline{3700} & 2400          & 4100  \\
+\textit{Raw}                  & \textbf{318}  & \textbf{1000}    & \underline{344} & \textbf{554} \\
+RIG                           & 6300          & 3900             & 6300          & 5500  \\
+\textit{Semantic Compression} & 11700         & 7300             & 11700         & 10200 \\
+\textit{Sliding Window}       & \underline{2300} & 3800          & \textbf{286}  & \underline{2129} \\
+\midrule
+\multicolumn{5}{l}{\textit{Llama 3.3 70B}} \\
+\textit{Parallel Window}      & 271           & 2300          & 346          & 972  \\
+\textit{Raw}                  & \textbf{247}  & \textbf{280}  & \textbf{316} & \textbf{281} \\
+RIG                           & 3200          & 2500          & 1500         & 2400 \\
+\textit{Semantic Compression} & 3600          & 5100          & 965          & 3222 \\
+\textit{Sliding Window}       & \underline{262} & \underline{517} & \underline{336} & \underline{372} \\
+\midrule
+\multicolumn{5}{l}{\textit{GPT-OSS 20B}} \\
+\textit{Parallel Window}      & 7134          & 3489             & \textit{n/d}  & 5312 \\
+\textit{Raw}                  & \textbf{2775} & \underline{298}  & \textbf{2766} & \textbf{1946} \\
+RIG                           & \underline{7055} & 2766          & \textit{n/d}  & \underline{4911} \\
+\textit{Semantic Compression} & 14676         & \textbf{130}     & \textit{n/d}  & 7403 \\
+\textit{Sliding Window}       & 7527          & 3399             & \textit{n/d}  & 5463 \\
+\midrule
+\multicolumn{5}{l}{\textit{GPT-OSS 120B}} \\
+\textit{Parallel Window}      & \underline{7165} & 3372          & 159          & \underline{3565} \\
+\textit{Raw}                  & \textbf{3507} & \underline{2141} & 231          & \textbf{1960} \\
+RIG                           & 7272          & 3085             & \textit{n/d} & 5179 \\
+\textit{Semantic Compression} & 16670         & \textbf{2071}    & \textit{n/d} & 9371 \\
+\textit{Sliding Window}       & 7681          & 3638             & \textbf{71}  & 3797 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Os resultados de latência mostram que a estratégia \textit{Raw} é consistentemente a mais rápida, o que é esperado, pois não há custo adicional de segmentação, seleção ou compressão. Entre as estratégias que efetivamente tratam o contexto, a \textit{Sliding Window} apresenta a menor latência no Llama 3.1 8B, com média de aproximadamente 2,1 segundos, enquanto RIG e \textit{Semantic Compression} apresentam as maiores latências, associadas ao custo de seleção por ganho de informação e ao custo de compressão semântica. Nos modelos GPT-OSS, as latências são substancialmente maiores para todas as estratégias baseadas em segmentação e compressão, com a \textit{Semantic Compression} atingindo os maiores tempos observados.
+
+\subsection{Discussão da Fase Preliminar}
+\label{subsec:discussao-fase-preliminar}
+
+A análise conjunta das Tabelas~\ref{tab:acuracia} e \ref{tab:latencia} evidencia um compromisso entre acurácia e latência. A estratégia \textit{Raw} oferece a menor latência, porém sem qualquer mecanismo de tratamento de contexto, o que limita sua aplicabilidade em cenários que excedem a janela nominal do modelo. A \textit{Semantic Compression}, por outro lado, combina baixa acurácia com alta latência nos cenários avaliados, o que a torna pouco atrativa como estratégia isolada e uniforme. Entre as estratégias que tratam o contexto, a \textit{Sliding Window} apresenta o melhor equilíbrio na fase preliminar, mantendo acurácia média de 0.98 no Llama 3.1 8B, equivalente à das demais estratégias de segmentação e seleção, com a menor latência entre elas.
+
+Um ponto que atravessa os dois conjuntos de resultados é que nenhuma estratégia uniforme domina todas as demais em todos os modelos e \textit{benchmarks}. Esse comportamento é consistente com a hipótese central desta dissertação, segundo a qual o tratamento uniforme do \textit{prompt} desperdiça orçamento em regiões redundantes e compromete regiões de alto valor informacional. A fase preliminar também expôs uma limitação do conjunto de \textit{benchmarks} então utilizado, discutida a seguir, que motivou a revisão da suíte de avaliação adotada na fase local.
+
+\subsection{Revisão da Suíte de Benchmarks}
+\label{subsec:revisao-benchmarks}
+
+A fase preliminar apoiou-se em dois \textit{benchmarks} de natureza sintética, o Needle-in-a-Haystack e o RULER. O Needle-in-a-Haystack insere um fato isolado, a agulha, em um volume extenso de texto de preenchimento e verifica se o modelo consegue recuperá-lo, variando a posição da agulha e o comprimento do contexto \cite{kamradt2023needle}. O RULER estende essa ideia com múltiplas agulhas, rastreamento de variáveis e tarefas de agregação, mas mantém a construção sintética e controlada \cite{hsieh2024ruler}. Esses \textit{benchmarks} são úteis para medir a capacidade de recuperação posicional, porém avaliam uma forma superficial de compreensão de contexto longo, na qual a resposta depende de localizar um trecho específico, e não de integrar informação distribuída ao longo da entrada. Pontuações próximas do máximo no Needle-in-a-Haystack, portanto, não se traduzem necessariamente em bom desempenho em tarefas reais.
+
+Como o objetivo desta dissertação é medir quanto de informação uma estratégia de compressão efetivamente preserva, a fase local adota uma suíte de \textit{benchmarks} de tarefas realistas, mais discriminante para esse propósito. O LongBench \cite{bai2023longbench} e o ZeroSCROLLS \cite{shaham2023zeroscrolls} reúnem múltiplas tarefas de contexto longo em formato de avaliação sem ajuste específico, cobrindo compreensão, sumarização e resposta a perguntas. A resposta a perguntas de múltiplos saltos é avaliada pelo HotpotQA \cite{yang2018hotpotqa} e pelo MuSiQue \cite{trivedi2022musique}, que exigem combinar evidências dispersas em vários documentos e, por isso, penalizam compressões que descartam fatos de ligação. A resposta a perguntas de domínio aberto é avaliada pelo Natural Questions \cite{kwiatkowski2019natural} e pelo TriviaQA \cite{joshi2017triviaqa}, que utilizam consultas reais de usuários e questões sobre documentos. A sumarização orientada por consulta é avaliada pelo QMSum \cite{zhong2021qmsum}, que requer selecionar e resumir trechos relevantes ao longo de diálogos extensos.
+
+A vantagem dessa suíte é que as tarefas dependem de agregação, de raciocínio de múltiplos saltos e da preservação fiel de informação distribuída, que são exatamente as propriedades que a alocação de compressão por partição precisa proteger. Uma estratégia pode obter pontuação alta no Needle-in-a-Haystack ao manter um único trecho, mas falhar em resposta a perguntas de múltiplos saltos se descartar um fato de ligação. Por essa razão, a suíte adotada na fase local mede de forma mais fiel o compromisso entre redução de \textit{tokens} e informação preservada, que é o critério central para a avaliação do \textit{framework} proposto.
+
+\subsection{Resultados da Matriz Local Ampliada}
+\label{subsec:resultados}
+
+A matriz local abrange cinco modelos, o Llama 3.1 8B, o Gemma 4 26B, o Qwen 3 30B-A3B, o DeepSeek-R1 32B e o GPT-OSS 20B, e foi construída nas duas etapas descritas na Seção~\ref{subsec:desenho}. A etapa inicial avaliou \textit{Raw}, \textit{Sliding Window}, \textit{Parallel Window}, \textit{Semantic Compression} e RIG em todas as combinações de modelo e orçamento. Posteriormente, LLMLingua-GPT2, LLMLingua-2, Selective Context e CPC-MiniLM foram incorporados como técnicas adicionais, elevando para nove o número de linhas comparáveis em cada bloco da matriz. Essa ampliação foi executada nos cinco modelos e nos dois orçamentos.
+
+A Tabela~\ref{tab:acuracia-atual-8k} apresenta a acurácia por técnica e \textit{benchmark} para o orçamento de 8192 \textit{tokens}, e a Tabela~\ref{tab:acuracia-atual-32k} apresenta os mesmos resultados para o orçamento de 32768 \textit{tokens}. Em ambas, cada técnica ocupa uma linha dentro do respectivo bloco de modelo, e a coluna Média corresponde à média macro das pontuações nos sete \textit{benchmarks} da suíte revisada. Na combinação CPC-MiniLM, DeepSeek-R1 32B e 8192 \textit{tokens}, a pontuação do QMSum e a média macro são calculadas sobre as duas respostas válidas, em vez das três previstas, e identificadas por um asterisco.
+
+{
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{lcc|cc|cc|c|c}
+\caption{Acurácia por técnica e \textit{benchmark} nos cinco modelos, orçamento de 8192 \textit{tokens}. As colunas abreviam LongBench (LB), ZeroSCROLLS (ZS), Natural Questions (NQ), TriviaQA (TQA), HotpotQA (HQA), MuSiQue (MSQ) e QMSum (QMS). O asterisco identifica a combinação com uma resposta excluída por \textit{timeout}}
+\label{tab:acuracia-atual-8k} \\
+\toprule
+& \multicolumn{2}{c|}{\textbf{Suítes}} & \multicolumn{2}{c|}{\textbf{Open-domain QA}} & \multicolumn{2}{c|}{\textbf{Multi-hop QA}} & \multicolumn{1}{c|}{\textbf{Sum.}} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-8}
+\textbf{Técnica} & \textbf{LB} & \textbf{ZS} & \textbf{NQ} & \textbf{TQA} & \textbf{HQA} & \textbf{MSQ} & \textbf{QMS} & \textbf{Média} \\
+\midrule
+\endfirsthead
+\multicolumn{9}{c}{\tablename\ \thetable{} -- continuação} \\
+\toprule
+& \multicolumn{2}{c|}{\textbf{Suítes}} & \multicolumn{2}{c|}{\textbf{Open-domain QA}} & \multicolumn{2}{c|}{\textbf{Multi-hop QA}} & \multicolumn{1}{c|}{\textbf{Sum.}} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-8}
+\textbf{Técnica} & \textbf{LB} & \textbf{ZS} & \textbf{NQ} & \textbf{TQA} & \textbf{HQA} & \textbf{MSQ} & \textbf{QMS} & \textbf{Média} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{9}{r}{Continua na próxima página} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{9}{l}{\textit{Llama 3.1 8B}} \\*
+\textit{Raw}                   & \textbf{1.000} & 0.443 & \underline{0.362} & 1.000 & \textbf{0.667} & \textbf{0.417} & 0.273 & 0.594 \\*
+\textit{Sliding Window}        & \textbf{1.000} & \textbf{0.642} & \underline{0.362} & 1.000 & \textbf{0.667} & \underline{0.333} & \textbf{0.379} & \textbf{0.626} \\*
+\textit{Parallel Window}       & \textbf{1.000} & 0.329 & \underline{0.362} & 1.000 & \textbf{0.667} & \textbf{0.417} & 0.240 & 0.573 \\*
+\textit{Semantic Compression}  & \underline{0.938} & 0.377 & \textbf{0.691} & 1.000 & \textbf{0.667} & \underline{0.333} & 0.239 & \underline{0.606} \\*
+RIG                            & \textbf{1.000} & 0.404 & \underline{0.362} & 1.000 & \textbf{0.667} & \textbf{0.417} & 0.083 & 0.562 \\*
+LLMLingua-GPT2                 & 0.688 & 0.273 & 0.050 & 1.000 & \underline{0.333} & 0.083 & 0.222 & 0.379 \\*
+LLMLingua-2                    & 0.812 & \underline{0.619} & 0.080 & 1.000 & \underline{0.333} & \underline{0.333} & 0.262 & 0.492 \\*
+Selective Context              & 0.688 & 0.572 & \underline{0.362} & 1.000 & 0.000 & \textbf{0.417} & 0.321 & 0.480 \\*
+CPC-MiniLM                     & 0.688 & 0.583 & \underline{0.362} & 1.000 & \underline{0.333} & \textbf{0.417} & \underline{0.335} & 0.531 \\
+\midrule
+\multicolumn{9}{l}{\textit{Gemma 4 26B}} \\*
+\textit{Raw}                   & \textbf{0.938} & \underline{0.333} & \textbf{0.671} & 1.000 & \textbf{0.667} & \textbf{0.333} & 0.000 & \underline{0.563} \\*
+\textit{Sliding Window}        & \textbf{0.938} & \underline{0.333} & \textbf{0.671} & 1.000 & \textbf{0.667} & \textbf{0.333} & 0.068 & \textbf{0.573} \\*
+\textit{Parallel Window}       & 0.750 & \underline{0.333} & \textbf{0.671} & 1.000 & \textbf{0.667} & \textbf{0.333} & 0.014 & 0.538 \\*
+\textit{Semantic Compression}  & \underline{0.812} & \underline{0.333} & 0.000 & 1.000 & \underline{0.333} & \textbf{0.333} & 0.061 & 0.411 \\*
+RIG                            & 0.500 & \underline{0.333} & \textbf{0.671} & 1.000 & 0.000 & \textbf{0.333} & 0.088 & 0.418 \\*
+LLMLingua-GPT2                 & 0.250 & 0.000 & 0.337 & 1.000 & \underline{0.333} & 0.000 & 0.000 & 0.274 \\*
+LLMLingua-2                    & \textbf{0.938} & \textbf{0.583} & \underline{0.341} & 1.000 & \underline{0.333} & 0.000 & 0.007 & 0.457 \\*
+Selective Context              & 0.688 & \underline{0.333} & 0.337 & 0.667 & 0.000 & \textbf{0.333} & \underline{0.116} & 0.353 \\*
+CPC-MiniLM                     & 0.688 & \underline{0.333} & \textbf{0.671} & 1.000 & \textbf{0.667} & \textbf{0.333} & \textbf{0.138} & 0.547 \\
+\midrule
+\multicolumn{9}{l}{\textit{Qwen 3 30B-A3B}} \\*
+\textit{Raw}                   & \textbf{0.750} & 0.389 & \underline{0.667} & 1.000 & \textbf{0.333} & \textbf{0.333} & 0.141 & \underline{0.516} \\*
+\textit{Sliding Window}        & \textbf{0.750} & 0.222 & \underline{0.667} & 1.000 & \underline{0.000} & \textbf{0.333} & 0.000 & 0.425 \\*
+\textit{Parallel Window}       & \textbf{0.750} & 0.222 & \textbf{1.000} & 1.000 & \underline{0.000} & \textbf{0.333} & 0.010 & 0.474 \\*
+\textit{Semantic Compression}  & \underline{0.625} & 0.417 & 0.333 & 1.000 & \underline{0.000} & \underline{0.000} & \underline{0.153} & 0.361 \\*
+RIG                            & \textbf{0.750} & 0.409 & \textbf{1.000} & 1.000 & \underline{0.000} & \textbf{0.333} & \textbf{0.157} & \textbf{0.521} \\*
+LLMLingua-GPT2                 & 0.000 & 0.111 & \underline{0.667} & 0.333 & \textbf{0.333} & \underline{0.000} & 0.000 & 0.206 \\*
+LLMLingua-2                    & \textbf{0.750} & \textbf{0.592} & \underline{0.667} & 1.000 & \underline{0.000} & \underline{0.000} & 0.000 & 0.430 \\*
+Selective Context              & 0.500 & 0.222 & 0.333 & 0.333 & \underline{0.000} & \textbf{0.333} & 0.083 & 0.258 \\*
+CPC-MiniLM                     & 0.500 & \underline{0.583} & \underline{0.667} & 0.667 & \underline{0.000} & \textbf{0.333} & 0.005 & 0.394 \\
+\midrule
+\multicolumn{9}{l}{\textit{DeepSeek-R1 32B}} \\*
+\textit{Raw}                   & \textbf{0.750} & 0.620 & 0.164 & 1.000 & \textbf{1.000} & \textbf{0.833} & 0.344 & \textbf{0.673} \\*
+\textit{Sliding Window}        & \textbf{0.750} & 0.422 & 0.142 & 1.000 & \textbf{1.000} & 0.500 & 0.335 & 0.593 \\*
+\textit{Parallel Window}       & \underline{0.500} & 0.500 & 0.142 & 1.000 & \underline{0.667} & 0.583 & 0.230 & 0.517 \\*
+\textit{Semantic Compression}  & \textbf{0.750} & 0.629 & \underline{0.172} & 1.000 & \underline{0.667} & 0.333 & 0.213 & 0.538 \\*
+RIG                            & \textbf{0.750} & 0.520 & 0.142 & 1.000 & \underline{0.667} & \underline{0.667} & \underline{0.380} & 0.589 \\*
+LLMLingua-GPT2                 & \underline{0.500} & 0.306 & 0.142 & 0.667 & 0.333 & 0.000 & 0.302 & 0.321 \\*
+LLMLingua-2                    & \underline{0.500} & 0.650 & 0.150 & 1.000 & \textbf{1.000} & 0.333 & \textbf{0.432} & 0.581 \\*
+Selective Context              & \underline{0.500} & \underline{0.690} & \textbf{0.209} & 0.667 & \textbf{1.000} & \underline{0.667} & 0.302 & 0.576 \\*
+CPC-MiniLM\textsuperscript{*}  & \underline{0.500} & \textbf{0.743} & \underline{0.172} & 1.000 & \textbf{1.000} & 0.583 & 0.291 & \underline{0.613} \\
+\midrule
+\multicolumn{9}{l}{\textit{GPT-OSS 20B}} \\*
+\textit{Raw}                   & 0.688 & 0.333 & \underline{0.050} & 1.000 & 0.667 & \textbf{0.917} & 0.052 & 0.530 \\*
+\textit{Sliding Window}        & \textbf{0.938} & \underline{0.546} & \underline{0.050} & 1.000 & \textbf{1.000} & 0.417 & 0.250 & \textbf{0.600} \\*
+\textit{Parallel Window}       & 0.688 & 0.523 & \underline{0.050} & 1.000 & 0.667 & 0.333 & 0.135 & 0.485 \\*
+\textit{Semantic Compression}  & \underline{0.750} & 0.476 & 0.006 & 1.000 & 0.500 & 0.000 & \textbf{0.339} & 0.439 \\*
+RIG                            & \textbf{0.938} & 0.298 & \underline{0.050} & 1.000 & \underline{0.833} & \underline{0.667} & 0.313 & \underline{0.586} \\*
+LLMLingua-GPT2                 & 0.438 & 0.000 & \textbf{0.114} & 1.000 & 0.333 & 0.000 & 0.144 & 0.290 \\*
+LLMLingua-2                    & \textbf{0.938} & 0.467 & 0.025 & 1.000 & 0.333 & 0.333 & 0.313 & 0.487 \\*
+Selective Context              & 0.312 & 0.391 & 0.028 & 1.000 & 0.667 & 0.333 & 0.255 & 0.427 \\*
+CPC-MiniLM                     & 0.688 & \textbf{0.707} & \underline{0.050} & 1.000 & 0.667 & \underline{0.667} & \underline{0.315} & 0.585 \\
+\end{longtable}
+}
+
+{
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{lcc|cc|cc|c|c}
+\caption{Acurácia por técnica e \textit{benchmark} nos cinco modelos, orçamento de 32768 \textit{tokens}. As abreviações de coluna seguem a Tabela~\ref{tab:acuracia-atual-8k}}
+\label{tab:acuracia-atual-32k} \\
+\toprule
+& \multicolumn{2}{c|}{\textbf{Suítes}} & \multicolumn{2}{c|}{\textbf{Open-domain QA}} & \multicolumn{2}{c|}{\textbf{Multi-hop QA}} & \multicolumn{1}{c|}{\textbf{Sum.}} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-8}
+\textbf{Técnica} & \textbf{LB} & \textbf{ZS} & \textbf{NQ} & \textbf{TQA} & \textbf{HQA} & \textbf{MSQ} & \textbf{QMS} & \textbf{Média} \\
+\midrule
+\endfirsthead
+\multicolumn{9}{c}{\tablename\ \thetable{} -- continuação} \\
+\toprule
+& \multicolumn{2}{c|}{\textbf{Suítes}} & \multicolumn{2}{c|}{\textbf{Open-domain QA}} & \multicolumn{2}{c|}{\textbf{Multi-hop QA}} & \multicolumn{1}{c|}{\textbf{Sum.}} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-8}
+\textbf{Técnica} & \textbf{LB} & \textbf{ZS} & \textbf{NQ} & \textbf{TQA} & \textbf{HQA} & \textbf{MSQ} & \textbf{QMS} & \textbf{Média} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{9}{r}{Continua na próxima página} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{9}{l}{\textit{Llama 3.1 8B}} \\*
+\textit{Raw}                   & \textbf{1.000} & 0.619 & \underline{0.362} & 1.000 & \textbf{0.667} & \textbf{0.417} & 0.326 & \textbf{0.627} \\*
+\textit{Sliding Window}        & \textbf{1.000} & \underline{0.642} & \underline{0.362} & 1.000 & \textbf{0.667} & \underline{0.333} & \textbf{0.379} & \underline{0.626} \\*
+\textit{Parallel Window}       & \textbf{1.000} & 0.329 & \underline{0.362} & 1.000 & \textbf{0.667} & \textbf{0.417} & 0.247 & 0.574 \\*
+\textit{Semantic Compression}  & \underline{0.938} & 0.354 & \textbf{0.691} & 1.000 & \textbf{0.667} & \underline{0.333} & 0.158 & 0.592 \\*
+RIG                            & \textbf{1.000} & 0.404 & \underline{0.362} & 1.000 & \textbf{0.667} & \textbf{0.417} & 0.083 & 0.562 \\*
+LLMLingua-GPT2                 & 0.688 & 0.190 & 0.050 & 1.000 & \underline{0.333} & 0.083 & 0.222 & 0.367 \\*
+LLMLingua-2                    & 0.812 & 0.606 & 0.080 & 1.000 & \underline{0.333} & \underline{0.333} & \underline{0.356} & 0.503 \\*
+Selective Context              & 0.688 & \textbf{0.656} & \underline{0.362} & 1.000 & 0.000 & \textbf{0.417} & 0.290 & 0.487 \\*
+CPC-MiniLM                     & 0.688 & 0.583 & \underline{0.362} & 1.000 & \underline{0.333} & \textbf{0.417} & 0.335 & 0.531 \\
+\midrule
+\multicolumn{9}{l}{\textit{Gemma 4 26B}} \\*
+\textit{Raw}                   & \textbf{0.938} & \textbf{0.583} & \textbf{0.671} & 1.000 & \underline{0.667} & \underline{0.000} & \textbf{0.129} & \underline{0.570} \\*
+\textit{Sliding Window}        & \textbf{0.938} & \underline{0.373} & \textbf{0.671} & 1.000 & 0.333 & \textbf{0.333} & 0.000 & 0.521 \\*
+\textit{Parallel Window}       & 0.750 & 0.333 & \underline{0.339} & 1.000 & \textbf{1.000} & \textbf{0.333} & 0.014 & 0.538 \\*
+\textit{Semantic Compression}  & \underline{0.812} & \textbf{0.583} & 0.000 & 1.000 & 0.333 & \textbf{0.333} & \underline{0.109} & 0.453 \\*
+RIG                            & 0.750 & 0.333 & \textbf{0.671} & 1.000 & 0.333 & \textbf{0.333} & 0.054 & 0.496 \\*
+LLMLingua-GPT2                 & 0.375 & 0.000 & 0.337 & 1.000 & 0.333 & \underline{0.000} & 0.000 & 0.292 \\*
+LLMLingua-2                    & \textbf{0.938} & 0.333 & 0.333 & 1.000 & \underline{0.667} & \underline{0.000} & 0.000 & 0.467 \\*
+Selective Context              & 0.688 & 0.222 & 0.337 & 0.667 & 0.000 & \textbf{0.333} & 0.102 & 0.336 \\*
+CPC-MiniLM                     & 0.688 & \textbf{0.583} & \textbf{0.671} & 1.000 & \underline{0.667} & \textbf{0.333} & 0.068 & \textbf{0.573} \\
+\midrule
+\multicolumn{9}{l}{\textit{Qwen 3 30B-A3B}} \\*
+\textit{Raw}                   & \textbf{0.750} & \underline{0.472} & \underline{0.667} & 1.000 & \textbf{0.333} & \textbf{0.333} & 0.000 & \underline{0.508} \\*
+\textit{Sliding Window}        & \textbf{0.750} & 0.222 & \underline{0.667} & 1.000 & \underline{0.000} & \textbf{0.333} & 0.000 & 0.425 \\*
+\textit{Parallel Window}       & \textbf{0.750} & 0.222 & \textbf{1.000} & 1.000 & \underline{0.000} & \textbf{0.333} & 0.010 & 0.474 \\*
+\textit{Semantic Compression}  & \underline{0.625} & 0.306 & 0.333 & 1.000 & \underline{0.000} & \underline{0.000} & \underline{0.112} & 0.339 \\*
+RIG                            & \textbf{0.750} & 0.409 & \textbf{1.000} & 1.000 & \underline{0.000} & \textbf{0.333} & \textbf{0.157} & \textbf{0.521} \\*
+LLMLingua-GPT2                 & 0.000 & 0.000 & \underline{0.667} & 0.333 & \textbf{0.333} & \underline{0.000} & 0.000 & 0.190 \\*
+LLMLingua-2                    & \textbf{0.750} & \underline{0.472} & \underline{0.667} & 1.000 & \underline{0.000} & \underline{0.000} & 0.000 & 0.413 \\*
+Selective Context              & 0.500 & \underline{0.472} & 0.333 & 0.333 & \underline{0.000} & \textbf{0.333} & 0.000 & 0.282 \\*
+CPC-MiniLM                     & 0.500 & \textbf{0.583} & \underline{0.667} & 0.667 & \underline{0.000} & \textbf{0.333} & 0.005 & 0.394 \\
+\midrule
+\multicolumn{9}{l}{\textit{DeepSeek-R1 32B}} \\*
+\textit{Raw}                   & \textbf{0.750} & \underline{0.813} & 0.164 & 1.000 & \textbf{1.000} & \textbf{0.833} & \underline{0.395} & \textbf{0.708} \\*
+\textit{Sliding Window}        & \textbf{0.750} & 0.422 & 0.142 & 1.000 & \textbf{1.000} & 0.500 & 0.335 & 0.593 \\*
+\textit{Parallel Window}       & \underline{0.500} & 0.500 & 0.142 & 1.000 & \underline{0.667} & 0.583 & 0.269 & 0.523 \\*
+\textit{Semantic Compression}  & \textbf{0.750} & 0.624 & \underline{0.172} & 1.000 & \underline{0.667} & 0.333 & 0.307 & 0.550 \\*
+RIG                            & \textbf{0.750} & 0.520 & 0.142 & 1.000 & \underline{0.667} & \underline{0.667} & 0.380 & 0.589 \\*
+LLMLingua-GPT2                 & \underline{0.500} & 0.389 & 0.142 & 0.667 & 0.333 & 0.000 & 0.302 & 0.333 \\*
+LLMLingua-2                    & \underline{0.500} & 0.659 & 0.150 & 1.000 & \textbf{1.000} & 0.333 & \textbf{0.407} & 0.578 \\*
+Selective Context              & \underline{0.500} & 0.694 & \textbf{0.209} & 0.667 & \textbf{1.000} & \underline{0.667} & 0.355 & 0.585 \\*
+CPC-MiniLM                     & \underline{0.500} & \textbf{0.827} & \underline{0.172} & 1.000 & \textbf{1.000} & 0.583 & 0.354 & \underline{0.634} \\
+\midrule
+\multicolumn{9}{l}{\textit{GPT-OSS 20B}} \\*
+\textit{Raw}                   & 0.688 & \textbf{0.809} & \underline{0.050} & 1.000 & \underline{0.667} & \textbf{0.917} & \textbf{0.329} & \underline{0.637} \\*
+\textit{Sliding Window}        & \textbf{0.938} & 0.537 & \underline{0.050} & 1.000 & \textbf{1.000} & \underline{0.750} & 0.255 & \textbf{0.647} \\*
+\textit{Parallel Window}       & 0.688 & 0.510 & \underline{0.050} & 1.000 & \textbf{1.000} & 0.667 & 0.217 & 0.590 \\*
+\textit{Semantic Compression}  & \underline{0.750} & \underline{0.580} & 0.004 & 1.000 & \underline{0.667} & 0.333 & 0.141 & 0.496 \\*
+RIG                            & \textbf{0.938} & 0.298 & \underline{0.050} & 1.000 & \underline{0.667} & 0.667 & 0.204 & 0.546 \\*
+LLMLingua-GPT2                 & 0.438 & 0.000 & \textbf{0.114} & 1.000 & 0.333 & 0.000 & 0.144 & 0.290 \\*
+LLMLingua-2                    & \textbf{0.938} & 0.142 & 0.025 & 1.000 & 0.333 & 0.333 & 0.295 & 0.438 \\*
+Selective Context              & 0.312 & 0.333 & 0.028 & 1.000 & \underline{0.667} & 0.333 & 0.163 & 0.405 \\*
+CPC-MiniLM                     & 0.688 & 0.373 & \underline{0.050} & 1.000 & \underline{0.667} & 0.667 & \underline{0.315} & 0.537 \\
+\end{longtable}
+}
+
+A Tabela~\ref{tab:latencia-compressao-atual} resume a latência média de resposta e a taxa de compressão efetiva por estratégia, medida como a fração de \textit{tokens} retida após o tratamento do contexto, em que o valor 1.000 corresponde à ausência de compressão.
+
+{
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{lcc|c}
+\caption{Latência média (ms) e taxa de compressão efetiva por técnica nos cinco modelos. A taxa retida é a média das taxas nos dois orçamentos, em que 1.000 corresponde à ausência de compressão. O asterisco identifica a média de latência calculada após a exclusão de uma chamada encerrada por \textit{timeout}}
+\label{tab:latencia-compressao-atual} \\
+\toprule
+& \multicolumn{2}{c|}{\textbf{Latência (ms)}} & \\
+\cmidrule(lr){2-3}
+\textbf{Técnica} & \textbf{8k} & \textbf{32k} & \textbf{Taxa retida} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continuação} \\
+\toprule
+& \multicolumn{2}{c|}{\textbf{Latência (ms)}} & \\
+\cmidrule(lr){2-3}
+\textbf{Técnica} & \textbf{8k} & \textbf{32k} & \textbf{Taxa retida} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{Continua na próxima página} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{4}{l}{\textit{Llama 3.1 8B}} \\*
+\textit{Raw}                   & 8228             & 16588            & 1.000 \\*
+\textit{Sliding Window}        & 6764             & \underline{6994} & 0.857 \\*
+\textit{Parallel Window}       & 6922             & 7077             & 0.856 \\*
+\textit{Semantic Compression}  & 35572            & 87078            & 0.367 \\*
+RIG                            & \textbf{4366}    & \textbf{4608}    & 0.692 \\*
+LLMLingua-GPT2                 & 8451             & 10127            & 0.508 \\*
+LLMLingua-2                    & 9484             & 12385            & 0.470 \\*
+Selective Context              & 10344            & 14825            & 0.566 \\*
+CPC-MiniLM                     & \underline{6736} & 10345            & 0.524 \\
+\midrule
+\multicolumn{4}{l}{\textit{Gemma 4 26B}} \\*
+\textit{Raw}                   & 15818             & 19361             & 1.000 \\*
+\textit{Sliding Window}        & 14752             & \underline{13887} & 0.857 \\*
+\textit{Parallel Window}       & 14570             & 14204             & 0.856 \\*
+\textit{Semantic Compression}  & 306142            & 354957            & 0.328 \\*
+RIG                            & \textbf{13247}    & \textbf{12614}    & 0.692 \\*
+LLMLingua-GPT2                 & 18237             & 18864             & 0.508 \\*
+LLMLingua-2                    & 17477             & 20048             & 0.470 \\*
+Selective Context              & 19508             & 22037             & 0.566 \\*
+CPC-MiniLM                     & \underline{14307} & 15755             & 0.524 \\
+\midrule
+\multicolumn{4}{l}{\textit{Qwen 3 30B-A3B}} \\*
+\textit{Raw}                   & 13461             & 20345             & 1.000 \\*
+\textit{Sliding Window}        & 12327             & \underline{12340} & 0.857 \\*
+\textit{Parallel Window}       & 12371             & 12405             & 0.856 \\*
+\textit{Semantic Compression}  & 43051             & 51182             & 0.417 \\*
+RIG                            & \textbf{10363}    & \textbf{10381}    & 0.692 \\*
+LLMLingua-GPT2                 & 14144             & 17128             & 0.508 \\*
+LLMLingua-2                    & 14503             & 18423             & 0.470 \\*
+Selective Context              & 16140             & 21096             & 0.566 \\*
+CPC-MiniLM                     & \underline{11840} & 15836             & 0.524 \\
+\midrule
+\multicolumn{4}{l}{\textit{DeepSeek-R1 32B}} \\*
+\textit{Raw}                   & 81871             & 111013            & 1.000 \\*
+\textit{Sliding Window}        & 76534             & \underline{79862} & 0.857 \\*
+\textit{Parallel Window}       & 77592             & 82807             & 0.856 \\*
+\textit{Semantic Compression}  & 198572            & 265406            & 0.376 \\*
+RIG                            & \textbf{62385}    & \textbf{63864}    & 0.692 \\*
+LLMLingua-GPT2                 & \underline{72195} & 80249             & 0.507 \\*
+LLMLingua-2                    & 78809             & 90642             & 0.469 \\*
+Selective Context              & 108964            & 89828             & 0.566 \\*
+CPC-MiniLM                     & 75366\textsuperscript{*} & 83529      & 0.524 \\
+\midrule
+\multicolumn{4}{l}{\textit{GPT-OSS 20B}} \\*
+\textit{Raw}                   & 11233            & 14567             & 1.000 \\*
+\textit{Sliding Window}        & \underline{9551} & \textbf{10617}    & 0.857 \\*
+\textit{Parallel Window}       & 10150            & 10650             & 0.856 \\*
+\textit{Semantic Compression}  & 139627           & 231207            & 0.355 \\*
+RIG                            & \textbf{8615}    & \underline{10639} & 0.692 \\*
+LLMLingua-GPT2                 & 15449            & 16308             & 0.507 \\*
+LLMLingua-2                    & 14546            & 15648             & 0.469 \\*
+Selective Context              & 15940            & 17707             & 0.566 \\*
+CPC-MiniLM                     & \underline{9214} & 11079             & 0.524 \\
+\end{longtable}
+}
+
+A leitura conjunta das três tabelas mostra que nenhuma estratégia domina os cinco modelos. Sob o orçamento de 8192 \textit{tokens}, a maior acurácia média é obtida pela \textit{Sliding Window} no Llama 3.1 8B, no Gemma 4 26B e no GPT-OSS 20B, pela RIG no Qwen 3 30B-A3B e pela estratégia \textit{Raw} no DeepSeek-R1 32B. Sob o orçamento de 32768 \textit{tokens}, a estratégia \textit{Raw} lidera no Llama 3.1 8B e no DeepSeek-R1 32B, a RIG permanece à frente no Qwen 3 30B-A3B e a \textit{Sliding Window} lidera no GPT-OSS 20B. No Gemma 4 26B, CPC-MiniLM alcança 0.573 e supera, por pequena margem, a estratégia \textit{Raw}, com 0.570. Essa é a única combinação em que um dos quatro compressores acrescentados ocupa a primeira posição entre as nove técnicas. No DeepSeek-R1 32B, CPC-MiniLM ocupa a segunda posição nos dois orçamentos, com 0.613 e 0.634, mas permanece abaixo da estratégia \textit{Raw}, com 0.673 e 0.708. No GPT-OSS 20B, CPC-MiniLM obtém 0.585 e 0.537, abaixo da \textit{Sliding Window}, que alcança 0.600 e 0.647.
+
+Em latência, a RIG é a estratégia mais rápida entre as que tratam o contexto em todos os cinco modelos sob o orçamento de 8192 \textit{tokens} e em quatro dos cinco sob o orçamento de 32768 \textit{tokens}, com a única exceção do GPT-OSS 20B nesse orçamento, em que a RIG e a \textit{Sliding Window} praticamente empatam. Entre os quatro compressores adicionais, CPC-MiniLM apresenta a menor latência em sete das dez combinações; LLMLingua-GPT2 é mais rápido no Llama 3.1 8B sob 32768 \textit{tokens} e nos dois orçamentos do DeepSeek-R1 32B. A \textit{Semantic Compression} apresenta os maiores tempos em todos os modelos, com valores de uma ordem de grandeza acima das demais e chegando a 354957 ms no Gemma 4 26B sob o orçamento de 32768 \textit{tokens}, uma vez que a compressão semântica exige chamadas adicionais ao próprio modelo. Em taxa de compressão, a \textit{Semantic Compression} é a mais agressiva, retendo entre 0.328 e 0.417 dos \textit{tokens} conforme o modelo. Entre os quatro compressores adicionais, LLMLingua-2 retém a menor fração média, enquanto Selective Context retém a maior.
+
+
+\subsection{Seleção da Estratégia Base}
+\label{subsec:discussao-empirica}
+
+Na etapa inicial da matriz local, a \textit{Sliding Window} apresenta, na média dos dois orçamentos, a maior acurácia entre as estratégias que tratam o contexto no Llama 3.1 8B, no Gemma 4 26B, no DeepSeek-R1 32B e no GPT-OSS 20B. A RIG é superior apenas no Qwen 3 30B-A3B. Consideradas separadamente as dez combinações de modelo e orçamento, a \textit{Sliding Window} alcança a maior acurácia dessa classe em sete, a RIG em duas e a \textit{Parallel Window} em uma. A RIG oferece menor latência média, mas sua acurácia é inferior à da \textit{Sliding Window} em quatro dos cinco modelos. No GPT-OSS 20B, por exemplo, a \textit{Sliding Window} obtém 0.600 e 0.647 nos orçamentos de 8192 e 32768 \textit{tokens}, enquanto a RIG obtém 0.586 e 0.546. Esse resultado, obtido antes da ampliação com os quatro compressores, sustenta a \textit{Sliding Window} como estratégia base da formulação. A etapa posterior não substitui essa comparação; ela caracteriza compressores adicionais que podem compor as opções do MCKP.
+
+A seção seguinte formaliza uma alternativa que distribui a compressão de forma seletiva entre as partições do \textit{prompt}. Embora a \textit{Sliding Window} seja adotada como estratégia base, a formulação admite outras formas de segmentação como ponto de partida para o particionamento.
+
+\section{\textit{Framework} Proposto}
+\label{sec:framework}
+
+\subsection{Motivação e Visão Geral}
+\label{subsec:motivacao-framework}
+
+O \textit{framework} proposto trata a compressão de \textit{prompt} como um problema de alocação de orçamento. Em vez de aplicar um único compressor e uma única taxa a todo o \textit{prompt}, o \textit{framework} particiona a entrada, estima a importância de cada partição para a tarefa e escolhe, para cada partição, uma opção de compressão que maximiza a informação preservada sob uma restrição global de orçamento de \textit{tokens}. A formulação corresponde a um problema da mochila de múltipla escolha (\textit{Multiple-Choice Knapsack Problem}, MCKP), em que cada partição contribui com exatamente uma opção escolhida entre um conjunto de compressores candidatos.
+
+A Figura~\ref{fig:framework} apresenta a arquitetura conceitual do \textit{framework}, organizada em cinco etapas encadeadas. A figura distingue os artefatos produzidos em cada etapa, desde as partições do \textit{prompt} até a entrada comprimida enviada ao modelo.
+
+\input{Diagrams/architecture_diagram}
+
+\subsection{Particionamento e Orçamento}
+\label{subsec:particionamento}
+
+Seja $C$ o \textit{prompt} de entrada, com comprimento $|C|$ medido em \textit{tokens}. O \textit{framework} particiona $C$ em uma sequência de $n$ partições $T = (t_1, t_2, \ldots, t_n)$, de modo que cada partição corresponda a uma unidade semântica coerente, como uma instrução, uma pergunta, um documento recuperado ou um trecho de fundo. Define-se um orçamento efetivo de contexto $B \leq |C|$, que representa o número máximo de \textit{tokens} que o \textit{prompt} comprimido pode ocupar após a seleção das opções de compressão.
+
+\subsection{Função de Importância}
+\label{subsec:importancia}
+
+Para cada partição $t_j$, define-se uma função de importância $I(t_j; q)$ que quantifica a relevância da partição para a consulta $q$. A função combina múltiplos fatores por meio de uma soma ponderada, conforme a Equação~\ref{eq:importancia}.
+
+\begin{equation}
+\label{eq:importancia}
+I(t_j; q) = \sum_{i} w_i \, \varphi_i(t_j, q),
+\end{equation}
+
+onde cada $\varphi_i(t_j, q)$ é um componente de relevância e $w_i$ é o peso associado. Os componentes considerados incluem a relevância da partição para a tarefa, a densidade de informação da partição e a saliência posicional, esta última motivada pelo viés \textit{lost in the middle} discutido na Seção~\ref{subsec:problema-critico}. A função de importância orienta a alocação de orçamento, atribuindo maior prioridade às partições cuja perda de conteúdo teria maior impacto sobre a resposta.
+
+\subsection{Opções de Compressão e Modelo de Qualidade}
+\label{subsec:opcoes}
+
+Para cada partição $t_j$, o \textit{framework} considera um conjunto de opções de compressão $O_j = \{o_{j,0}, o_{j,1}, \ldots, o_{j,m}\}$. Cada opção $o = (A_k, p)$ corresponde à aplicação de um compressor $A_k$ com um parâmetro de operação $p$, como uma taxa de compressão alvo. A opção $o_{j,0}$ corresponde ao compressor identidade $A_0$, que preserva a partição integralmente e serve de referência para o custo e a qualidade máximos daquela partição.
+
+Cada opção possui um custo $c_{j,o}$, medido pelo número de \textit{tokens} da partição após a compressão, e uma qualidade $Q_{j,o}$, que estima a informação preservada pela opção. A qualidade combina a importância da partição com a fidelidade da opção de compressão, conforme a Equação~\ref{eq:qualidade}.
+
+\begin{equation}
+\label{eq:qualidade}
+Q_{j,o} = I(t_j; q) \cdot f_{j,o},
+\end{equation}
+
+onde $f_{j,o} \in [0,1]$ representa a fração de informação da partição preservada pela opção $o$. O compressor identidade satisfaz $f_{j,0} = 1$, e opções mais agressivas apresentam valores menores de $f_{j,o}$, capturando o compromisso entre redução de \textit{tokens} e perda de conteúdo.
+
+\subsection{Restrições de Compatibilidade}
+\label{subsec:compatibilidade}
+
+Nem toda combinação de opções entre partições adjacentes é adequada, pois transições abruptas de estilo ou de nível de compressão entre trechos vizinhos podem prejudicar a coerência do \textit{prompt} reconstruído. Define-se uma função de compatibilidade $M(o, o')$ entre opções de partições adjacentes, que penaliza combinações incompatíveis. A compatibilidade é incorporada como uma penalização de transição na função objetivo, por meio de um termo $\mu \sum_{j} d(o_j, o_{j+1})$, onde $d(\cdot, \cdot)$ mede a distância entre opções adjacentes e $\mu$ controla a intensidade da penalização.
+
+\subsection{Formulação como Extensão do Problema da Mochila de Múltipla Escolha}
+\label{subsec:mckp}
+
+A seleção das opções de compressão é formulada como uma extensão do MCKP com penalização entre escolhas adjacentes. Para cada partição $t_j$ e cada opção $o \in O_j$, define-se uma variável binária $x_{j,o} \in \{0,1\}$, que assume o valor 1 quando a opção $o$ é escolhida para a partição $t_j$. Denota-se por $o_j$ a única opção cuja variável assume valor 1 na partição $j$. O problema consiste em maximizar a qualidade total preservada sujeita ao orçamento e à escolha de exatamente uma opção por partição, conforme as Equações~\ref{eq:mckp-obj} a \ref{eq:mckp-bin}. Quando $\mu=0$, a formulação se reduz ao MCKP clássico; quando $\mu>0$, o termo de transição incorpora a coerência entre partições vizinhas.
+
+\begin{align}
+\max_{x} \quad & \sum_{j=1}^{n} \sum_{o \in O_j} x_{j,o} \, Q_{j,o}
+    - \mu \sum_{j=1}^{n-1} d(o_j, o_{j+1}) \label{eq:mckp-obj} \\
+\text{s.a.} \quad & \sum_{j=1}^{n} \sum_{o \in O_j} x_{j,o} \, c_{j,o} \leq B \label{eq:mckp-orc} \\
+& \sum_{o \in O_j} x_{j,o} = 1, \quad j = 1, \ldots, n \label{eq:mckp-um} \\
+& x_{j,o} \in \{0,1\}. \label{eq:mckp-bin}
+\end{align}
+
+A Equação~\ref{eq:mckp-obj} maximiza a qualidade total preservada, descontada da penalização de transição entre partições adjacentes. A Equação~\ref{eq:mckp-orc} impõe o orçamento efetivo de contexto. A Equação~\ref{eq:mckp-um} garante que exatamente uma opção seja escolhida por partição, característica que distingue o núcleo MCKP do problema da mochila clássico.
+
+\subsection{Solução por Programação Dinâmica}
+\label{subsec:dp}
+
+O MCKP com orçamento inteiro admite solução por programação dinâmica. Como a função objetivo inclui uma penalização entre opções adjacentes, o estado também deve registrar a opção escolhida para a última partição. Define-se $D[j,b,o]$ como a qualidade máxima preservada considerando as $j$ primeiras partições sob um orçamento parcial $b$, quando a opção $o\in O_j$ é escolhida para a partição $t_j$. A recorrência é apresentada na Equação~\ref{eq:dp}.
+
+\begin{equation}
+\label{eq:dp}
+D[j,b,o] = Q_{j,o} + \max_{o' \in O_{j-1}}
+\Big\{D[j-1,b-c_{j,o},o'] - \mu\,d(o',o)\Big\},
+\end{equation}
+
+Para a primeira partição, define-se $D[1,b,o]=Q_{1,o}$ quando $c_{1,o}\leq b$, e $D[1,b,o]=-\infty$ caso contrário. A solução ótima corresponde a $\max_{o\in O_n}D[n,B,o]$, e as opções escolhidas são recuperadas por retrocesso (\textit{backtracking}) sobre a tabela de decisão. Para no máximo $m$ opções por partição, a complexidade temporal é $O(nBm^2)$ e a tabela completa ocupa $O(nBm)$ posições; a memória pode ser reduzida quando apenas o valor ótimo, sem o retrocesso, é necessário.
+
+Na implementação de referência, o eixo de orçamento utiliza unidades inteiras de \textit{tokens} (\texttt{budget\_bucket=1}), preservando a solução exata para o modelo de custos declarado. Uma quantização opcional por blocos permanece disponível como aproximação conservadora para instâncias maiores, mas não é utilizada nos experimentos principais. Os custos das opções incluem a serialização necessária à reconstrução, e o contexto final é recontado antes da chamada ao modelo para verificar a restrição de orçamento.
+
+A Figura~\ref{fig:mckp-dp-flow} detalha o fluxo proposto para o preenchimento da tabela de programação dinâmica e para a recuperação das opções selecionadas.
+
+\input{Diagrams/dialog_flow_diagram}
+
+\subsection{Algoritmo do \textit{Framework}}
+\label{subsec:algoritmo}
+
+O funcionamento do \textit{framework} pode ser resumido em cinco etapas encadeadas.
+
+\begin{enumerate}[leftmargin=1.8em]
+\item \textbf{Particionamento}. O \textit{prompt} $C$ é dividido em partições $T = (t_1, \ldots, t_n)$ segundo unidades semânticas coerentes.
+
+\item \textbf{Estimativa de importância}. Para cada partição, calcula-se a importância $I(t_j; q)$ segundo a Equação~\ref{eq:importancia}.
+
+\item \textbf{Geração de opções}. Para cada partição, aplica-se o conjunto de compressores candidatos, produzindo opções com seus custos $c_{j,o}$ e qualidades $Q_{j,o}$.
+
+\item \textbf{Otimização}. Resolve-se a extensão do MCKP das Equações~\ref{eq:mckp-obj} a \ref{eq:mckp-bin} por programação dinâmica, respeitando o orçamento $B$ e as restrições de compatibilidade.
+
+\item \textbf{Reconstrução}. As opções escolhidas são concatenadas na ordem original das partições, produzindo o \textit{prompt} comprimido enviado ao modelo.
+\end{enumerate}
+
+A Figura~\ref{fig:framework-sequence} apresenta a sequência de interação implementada entre os componentes necessários para executar essas etapas.
+
+\input{Diagrams/sequence_diagram}
+
+\subsection{Conjunto de Compressores Compatíveis}
+\label{subsec:pool}
+
+O \textit{framework} atua como uma camada de decisão acima de compressores existentes, e não como um novo compressor. Por essa razão, o conjunto de opções por partição é composto por compressores do tipo \textit{text-in}/\textit{text-out}, isto é, que recebem texto e produzem texto comprimido, o que garante compatibilidade com modelos acessados via API. LLMLingua é empregado como baseline externo, pois constitui o ponto de comparação comum aos três trabalhos posteriores revisados na Seção~\ref{subsec:compressao-prompt}. LLMLingua-2, Selective Context e CPC são avaliados como candidatos às opções do MCKP. A Tabela~\ref{tab:compressores} resume os respectivos papéis experimentais.
+
+\begin{table}[htbp]
+\centering
+\caption{Baseline e compressores candidatos considerados para o MCKP}
+\label{tab:compressores}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{6.0cm}}
+\toprule
+\textbf{Compressor} & \textbf{Papel} & \textbf{Característica relevante} \\
+\midrule
+Identidade ($A_0$) & Referência interna & Preserva a partição integralmente, com fidelidade máxima. \\
+\addlinespace
+LLMLingua-GPT2 \cite{jiang2023llmlingua} & Baseline com \textit{scorer} adaptado & Implementação do pacote \texttt{llmlingua}, com GPT-2 em CPU para reduzir o custo local. \\
+\addlinespace
+LLMLingua-2 \cite{pan2024llmlingua2} & Candidato MCKP & Classificação de palavras treinada por destilação, agnóstica à pergunta e com baixa latência. \\
+\addlinespace
+Selective Context \cite{li2023selective} & Candidato MCKP & Remoção de unidades lexicais por auto-informação, sem treinamento específico. \\
+\addlinespace
+CPC-MiniLM \cite{li2024cpc} & Aproximação candidata & Seleção de sentenças condicionada à pergunta com \textit{embeddings} do all-MiniLM-L6-v2. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A recomendação dos três candidatos se baseia em sua complementaridade. LLMLingua-2 opera em nível de palavra e amortiza o custo de compressão entre consultas, Selective Context introduz uma alternativa sem treinamento específico e CPC-MiniLM preserva sentenças completas com seleção condicionada à pergunta. A escolha por compressores \textit{text-in}/\textit{text-out} mantém a propriedade não invasiva do \textit{framework}, pois nenhuma etapa exige acesso aos parâmetros internos, retreinamento ou modificação arquitetural do modelo base. O conjunto candidato pode ser estendido com outros compressores compatíveis sem alteração da formulação, uma vez que cada compressor é incorporado apenas como uma nova opção por partição. Nas dez combinações de modelo e orçamento, CPC-MiniLM apresenta a maior média entre os quatro compressores em oito, enquanto LLMLingua-2 lidera nas duas combinações do Qwen 3 30B-A3B. Selective Context preserva a maior fidelidade semântica segundo a métrica adotada. Esses resultados sustentam LLMLingua-2, Selective Context e CPC-MiniLM como conjunto inicial de opções do MCKP; LLMLingua-GPT2 permanece como baseline externo. Os resultados são apresentados na Seção~\ref{subsec:resultados-triagem-compressores}.
+
+\subsection{Implementação de Referência}
+\label{subsec:implementacao}
+
+O repositório contém uma implementação integrada no subdiretório \texttt{mckp}. O módulo \path{partitioner.py} produz partições disjuntas; \path{importance.py} calcula $I(t_j;q)$; \path{options.py} materializa e avalia as opções; \path{solver.py} executa a programação dinâmica e o retrocesso; e \path{reconstructor.py} preserva a ordem das opções selecionadas sem introduzir marcadores não contabilizados. A classe \texttt{MCKPStrategy}, em \path{strategy.py}, coordena essas etapas e expõe a estratégia ao executor de \textit{benchmarks}.
+
+\paragraph{Separação em relação à etapa inicial da matriz local.}
+A estratégia denominada \textit{Semantic Compression} na etapa inicial da matriz local não implementava LLMLingua: ela solicitava que a própria LLM reescrevesse o contexto por meio de uma instrução de compressão, conforme a abordagem de Gilbert et al. \cite{gilbert2023semanticcompression}. O repositório também continha um \texttt{PerplexityCompressor} experimental, que selecionava \textit{tokens} pela perda calculada com GPT-2 e podia ser descrito apenas como inspirado no critério do LLMLingua. Esse protótipo não estava registrado entre as estratégias avaliadas. Para a ampliação da matriz foram criadas entradas explícitas e independentes para LLMLingua, LLMLingua-2, Selective Context e CPC-MiniLM. Assim, resultados da \textit{Semantic Compression} ou do protótipo de perplexidade não são apresentados como resultados de LLMLingua.
+
+\paragraph{Adaptações para execução local.}
+Os experimentos utilizam uma LLM alvo executada localmente, de modo que o compressor e o modelo gerador compartilham os recursos computacionais da mesma máquina. O baseline invoca a classe \texttt{PromptCompressor} do pacote \texttt{llmlingua} 0.2.2, com \texttt{use\_llmlingua2=False}, taxa de retenção de 0,5 e execução em CPU. Para reduzir a concorrência de memória com os modelos servidos pelo Ollama, o modelo causal auxiliar é o \texttt{gpt2} \cite{radford2019gpt2}, que já se encontrava no \textit{cache} local e é substancialmente menor que um auxiliar de 7 bilhões de parâmetros. A escolha é compatível com a arquitetura do LLMLingua e com a análise de diferentes modelos auxiliares apresentada por Jiang et al. \cite{jiang2023llmlingua}; entretanto, difere das configurações alinhadas Alpaca-7B e GPT2-Alpaca avaliadas no artigo. Por isso, a configuração é reportada como \textbf{LLMLingua-GPT2}: o algoritmo provém da implementação do LLMLingua, enquanto o \textit{scorer} não ajustado e o dispositivo são escolhas locais que devem acompanhar a interpretação dos resultados.
+
+LLMLingua-2 também é executado pelo pacote \texttt{llmlingua} 0.2.2, com o \textit{checkpoint} \path{microsoft/llmlingua-2-xlm-roberta-large-meetingbank} e \texttt{device\_map=cpu}. A fixação explícita do dispositivo foi necessária porque a inicialização padrão do pacote pressupunha CUDA, indisponível nessa configuração. A biblioteca Transformers foi fixada na versão 4.46.3, pois o LLMLingua 0.2.2 manipula o formato legado do \textit{cache} de chaves e valores; a versão 5.12.1 instalada inicialmente passou a retornar \texttt{DynamicCache} e provocava falhas durante a compressão iterativa. Selective Context é executado pelo pacote \texttt{selective-context} 0.1.4 com GPT-2, idioma inglês e \texttt{reduce\_ratio=1-rate}, pois sua API recebe a fração removida, ao passo que o executor comum recebe a fração retida. Essa integração utiliza spaCy 3.8.14 e o modelo \texttt{en\_core\_web\_sm} 3.8.0 para o processamento linguístico.
+
+Uma adaptação análoga foi necessária para o CPC. O trabalho original ajusta um Mistral-7B-Instruct com o conjunto CQR para produzir representações de sentenças condicionadas ao contexto \cite{li2024cpc}. O repositório oficial disponibiliza o código, o conjunto CQR e compressores pré-treinados baseados em Mistral-7B e Llama-1B \cite{workday2025cpc}; ainda assim, acrescentar outro modelo desse porte à mesma máquina ampliaria a disputa de memória com as LLMs locais avaliadas. Na triagem experimental, o codificador é, portanto, substituído pelo all-MiniLM-L6-v2, da coleção Sentence Transformers no Hugging Face \cite{huggingface2022allminilm}. O compressor divide a partição em sentenças, calcula separadamente os \textit{embeddings} das sentenças e da pergunta, ordena as sentenças pela similaridade de cosseno e preserva as mais relevantes dentro da taxa de retenção, mantendo a ordem textual original. Essa variante é denominada CPC-MiniLM. Ela preserva a seleção extrativa em nível de sentença e o condicionamento à pergunta, mas não incorpora o treinamento contrastivo nem a representação contextual do CPC original. Consequentemente, trata-se de uma aproximação operacional, e diferenças de qualidade e latência entre CPC-MiniLM e os demais compressores não devem ser atribuídas diretamente ao método publicado por Liskavets et al. \cite{li2024cpc}.
+
+\paragraph{Rastreabilidade da triagem.}
+As quatro estratégias adicionadas são executadas somente quando nomeadas explicitamente e não foram incluídas no grupo \texttt{all}; essa decisão preserva a reprodutibilidade da etapa inicial da matriz local. A triagem usa o ambiente \texttt{.venv}, que contém as dependências dos quatro compressores, e grava seus artefatos em \path{tests/ollama-local/benchmark_matrix_compressores}, separado de \path{benchmark_matrix_artigo}. O protocolo completo prevê os cinco modelos, os orçamentos de 8192 e 32768 \textit{tokens}, os sete \textit{benchmarks} e a taxa de retenção de 0,5. O modo \texttt{quick} materializa três casos de resposta a perguntas e um caso de sumarização no LongBench, enquanto cada um dos outros seis arquivos locais contém três exemplos, totalizando 22 casos por estratégia e 88 resultados por combinação de modelo e orçamento.
+
+Os artefatos consolidados reúnem as dez combinações de modelo e orçamento, correspondentes aos cinco modelos avaliados com 8192 e 32768 \textit{tokens}. Cada combinação registra 88 execuções, resultantes da aplicação dos quatro compressores aos mesmos 22 casos, totalizando 880 observações. Uma geração de resposta do CPC-MiniLM com o DeepSeek-R1 32B em 8192 \textit{tokens}, no caso \texttt{meeting\_summarization\_0}, terminou por \textit{timeout}. A saída de erro não foi tratada como resposta e foi excluída das médias de pontuação e latência, de modo que essas duas métricas reúnem 879 respostas válidas; a taxa retida e a fidelidade dessa execução permanecem válidas, pois a compressão foi concluída antes da chamada ao modelo alvo. A execução utiliza um processo por combinação de modelo e orçamento, no qual as quatro estratégias são registradas conjuntamente; assim, GPT-2, XLM-RoBERTa, o segundo GPT-2 e MiniLM podem coexistir durante a rodada. O processo é encerrado antes da combinação seguinte, liberando o modelo alvo e os auxiliares. Essa organização preserva a comparabilidade de qualidade dentro de cada combinação, mas as latências devem ser interpretadas como custo descritivo de ponta a ponta no ambiente local, e não como medição isolada do custo de cada compressor.
+
+O orçamento é derivado independentemente para as janelas de 8192 e 32768 \textit{tokens}. Em cada rodada são descontados o \textit{template} completo, a pergunta, a reserva de saída e uma margem de segurança para diferenças entre o contador \textit{tiktoken} usado nas métricas e o tokenizador do modelo alvo. A implementação registra o custo previsto pelo resolvedor, o custo recontado do contexto final, o orçamento não utilizado e eventuais compressores indisponíveis, permitindo auditar cada execução.
+
+\subsection{Aplicação da Solução de Ponta a Ponta}
+\label{subsec:aplicacao}
+
+\TODO{SOLUCAO}{Esta subseção apresentará a aplicação da solução sobre um caso concreto, ilustrando o \textit{prompt} de entrada, o particionamento resultante, as opções de compressão avaliadas por partição, a alocação de orçamento escolhida pelo MCKP e o \textit{prompt} comprimido final enviado ao modelo, de forma a tornar explícito o funcionamento completo do \textit{framework}.}
+
+\section{Perguntas de Pesquisa e Hipóteses}
+\label{sec:perguntas-hipoteses}
+
+A avaliação do \textit{framework} é orientada pelas seguintes perguntas de pesquisa.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{PP1}. A alocação seletiva de compressão por partição preserva mais informação útil do que a compressão uniforme sob o mesmo orçamento de \textit{tokens}?
+
+\item \textbf{PP2}. A função de importância, ao combinar relevância à tarefa, densidade de informação e saliência posicional, melhora a qualidade das respostas em comparação com uma alocação de orçamento independente da posição?
+
+\item \textbf{PP3}. A penalização de transição entre partições adjacentes melhora a coerência do \textit{prompt} reconstruído sem prejudicar a acurácia final?
+
+\item \textbf{PP4}. Como o \textit{framework} se comporta em diferentes escalas de modelo e orçamentos de contexto?
+\end{itemize}
+
+A partir dessas perguntas, formulam-se três hipóteses de trabalho.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{H1}. Sob um orçamento fixo, a alocação seletiva por partição preserva mais informação relevante para a tarefa do que a compressão uniforme, resultando em acurácia igual ou superior nos \textit{benchmarks} de contexto longo.
+
+\item \textbf{H2}. A inclusão da saliência posicional na função de importância reduz o efeito do viés \textit{lost in the middle}, ao proteger regiões centrais de alto valor da compressão excessiva.
+
+\item \textbf{H3}. A penalização de transição reduz artefatos de incoerência entre trechos adjacentes sem perda significativa de acurácia.
+\end{itemize}
+
+As hipóteses definem critérios de avaliação e não são tratadas como resultados já obtidos.
+
+\section{Plano Experimental para Avaliação do \textit{Framework}}
+\label{sec:plano-experimental}
+
+A avaliação do \textit{framework} é organizada em quatro componentes.
+
+\begin{enumerate}[leftmargin=1.8em]
+\item \textbf{\textit{Benchmarks}}. Utilização da mesma suíte de contexto longo empregada na validação empírica, descrita na Seção~\ref{subsec:desenho}, para manter a comparabilidade com a matriz de técnicas uniformes.
+
+\item \textbf{\textit{Baselines}}. Comparação com a estratégia \textit{Raw}, com a \textit{Sliding Window} uniforme e com a aplicação uniforme de cada compressor candidato, isolando o efeito da alocação seletiva.
+
+\item \textbf{Métricas}. Registro de acurácia, latência e taxa de compressão efetiva, complementadas por medidas de preservação de informação e fidelidade semântica.
+
+\item \textbf{Estudos de ablação}. Remoção sucessiva de componentes, incluindo a saliência posicional da função de importância e a penalização de transição, para estimar a contribuição individual de cada componente.
+\end{enumerate}
+
+O plano prioriza a preservação de informação porque o objetivo do \textit{framework} é alocar o orçamento segundo a relevância das partições, e não apenas reduzir o número total de \textit{tokens}. Sua execução completa permanece como trabalho futuro no Capítulo~\ref{cap:conclusao}.

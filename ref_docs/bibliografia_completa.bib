@@ -1,0 +1,372 @@
+% ============================================================
+%  BIBLIOGRAFIA COMPLETA — Compactação de Prompts para LLMs
+%  Scoping Review — Jerry Xexeo (UFRJ/COPPE) — 2026-05-31
+%  21 artigos: 20 centrais + 1 trabalho relacionado
+% ============================================================
+
+% ---------------------
+%  SURVEYS / REVISÕES
+% ---------------------
+
+@inproceedings{li2025survey,
+  author       = {Zongqian Li and Yinhong Liu and Yixuan Su and Nigel Collier},
+  title        = {Prompt Compression for Large Language Models: A Survey},
+  booktitle    = {Proceedings of the 2025 Annual Conference of the North American
+                  Chapter of the Association for Computational Linguistics ({NAACL} 2025)},
+  year         = {2025},
+  publisher    = {Association for Computational Linguistics},
+  eprint       = {2410.12388},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2410.12388},
+  note         = {Survey oral no NAACL 2025. Categoriza métodos em hard prompt
+                  (remoção de tokens) e soft prompt (representações contínuas).
+                  Examina perspectivas de otimização de atenção, PEFT, fusão modal
+                  e linguagem sintética.}
+}
+
+@article{xu2024characterizing,
+  author       = {Jerry Xu and others},
+  title        = {Characterizing Prompt Compression Methods for Long Context Inference},
+  journal      = {arXiv preprint arXiv:2407.08892},
+  year         = {2024},
+  eprint       = {2407.08892},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2407.08892},
+  note         = {Estudo comparativo de métodos de compressão (extrativos,
+                  abstrativos, token-level) para inferência em contexto longo.
+                  Extrativos geralmente superam abstrativos; +7,89 F1 no
+                  2WikiMultihopQA a 4,5× compressão.}
+}
+
+@article{empiricalstudy2025,
+  author       = {Anonymous},
+  title        = {An Empirical Study on Prompt Compression for Large Language Models},
+  journal      = {arXiv preprint arXiv:2505.00019},
+  year         = {2025},
+  eprint       = {2505.00019},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2505.00019},
+  note         = {Avaliação sistemática de múltiplos métodos de compressão em
+                  diferentes tarefas; analisa efeitos em tamanho da resposta,
+                  alucinações e generalização multimodal.}
+}
+
+% -----------------------------------------
+%  MÉTODOS HARD PROMPT (token/frase/sentença)
+% -----------------------------------------
+
+@article{li2023selective_short,
+  author       = {Yucheng Li},
+  title        = {Unlocking Context Constraints of {LLMs}: Enhancing Context
+                  Efficiency of {LLMs} with Self-Information-Based Content Filtering},
+  journal      = {arXiv preprint arXiv:2304.12102},
+  year         = {2023},
+  eprint       = {2304.12102},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2304.12102},
+  note         = {\emph{Selective Context} — filtra unidades lexicais com menor
+                  auto-informação. Reduz custo do contexto com queda mínima em
+                  sumarização e QA em arXiv, BBC News, ShareGPT.}
+}
+
+@inproceedings{li2023selective,
+  author       = {Yucheng Li and Bo Dong and Chenghua Lin and Frank Guerin},
+  title        = {Compressing Context to Enhance Inference Efficiency of Large
+                  Language Models},
+  booktitle    = {Proceedings of the 2023 Conference on Empirical Methods in Natural
+                  Language Processing ({EMNLP} 2023)},
+  year         = {2023},
+  publisher    = {Association for Computational Linguistics},
+  eprint       = {2310.06201},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2310.06201},
+  note         = {\emph{Selective Context} (versão estendida). Com 50\% de
+                  compressão: −36\% memória GPU, −32\% latência, queda de apenas
+                  0,023 em BERTScore e 0,038 em faithfulness.}
+}
+
+@inproceedings{jiang2023llmlingua,
+  author       = {Huiqiang Jiang and Qianhui Wu and Chin-Yew Lin and Yuqing Yang
+                  and Lili Qiu},
+  title        = {{LLMLingua}: Compressing Prompts for Accelerated Inference of
+                  Large Language Models},
+  booktitle    = {Proceedings of the 2023 Conference on Empirical Methods in Natural
+                  Language Processing ({EMNLP} 2023)},
+  year         = {2023},
+  publisher    = {Association for Computational Linguistics},
+  eprint       = {2310.05736},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2310.05736},
+  note         = {Método coarse-to-fine (Budget Controller + ITPC + Alignment).
+                  Até 20× compressão com queda ≤1,5 ponto em GSM8K, BBH,
+                  ShareGPT, Arxiv-March23. EMNLP 2023.}
+}
+
+@inproceedings{pan2024llmlingua2,
+  author       = {Zhuoshi Pan and Qianhui Wu and Huiqiang Jiang and Menglin Xia
+                  and Xufang Luo and Jue Zhang and Qingwei Lin and Victor R{\"u}hle
+                  and Yuqing Yang and Chin-Yew Lin and H.~Vicky Zhao and Lili Qiu
+                  and Dongmei Zhang},
+  title        = {{LLMLingua-2}: Data Distillation for Efficient and Faithful
+                  Task-Agnostic Prompt Compression},
+  booktitle    = {Findings of the Association for Computational Linguistics:
+                  {ACL} 2024},
+  year         = {2024},
+  publisher    = {Association for Computational Linguistics},
+  eprint       = {2403.12968},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2403.12968},
+  note         = {Formula compressão como classificação de tokens via Transformer
+                  encoder. Treinado por destilação de GPT-4 para aprender o objetivo
+                  de compressão diretamente. 3–6× mais rápido que LLMLingua.}
+}
+
+@inproceedings{jiang2024longllmlingua,
+  author       = {Huiqiang Jiang and Qianhui Wu and Xufang Luo and Dongsheng Li
+                  and Chin-Yew Lin and Yuqing Yang and Lili Qiu},
+  title        = {{LongLLMLingua}: Accelerating and Enhancing {LLMs} in Long Context
+                  Scenarios via Prompt Compression},
+  booktitle    = {Proceedings of the 62nd Annual Meeting of the Association for
+                  Computational Linguistics ({ACL} 2024)},
+  year         = {2024},
+  publisher    = {Association for Computational Linguistics},
+  eprint       = {2310.06839},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2310.06839},
+  note         = {Estende LLMLingua para cenários de contexto muito longo com
+                  reordenação de documentos e recuperação de subsequências.
+                  +17,1\% em NaturalQuestions com ~4× menos tokens.}
+}
+
+@article{tang2024perception,
+  author       = {Jiwei Tang and Jin Xu and Tingwei Lu and Zhicheng Zhang and
+                  Yiming Zhao and Lin Hai and Hai-Tao Zheng},
+  title        = {Perception Compressor: A Training-Free Prompt Compression
+                  Framework in Long Context Scenarios},
+  journal      = {arXiv preprint arXiv:2409.19272},
+  year         = {2024},
+  eprint       = {2409.19272},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2409.19272},
+  note         = {Training-free: perception retriever + dual-slope ratio allocator +
+                  semi-guided iterative compression. SOTA em NaturalQuestions,
+                  LongBench, MuSiQue. NAACL 2025 Findings.}
+}
+
+@article{li2024cpc,
+  author       = {Yucheng Li and Frank Guerin and Chenghua Lin},
+  title        = {Prompt Compression with Context-Aware Sentence Encoding for
+                  Fast and Improved {LLM} Inference},
+  journal      = {arXiv preprint arXiv:2409.01227},
+  year         = {2024},
+  eprint       = {2409.01227},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2409.01227},
+  note         = {\emph{CPC}: compressão em nível de sentença via encoder
+                  contextual que atribui relevância a cada sentença para
+                  uma dada pergunta. Aborda problemas de coerência do
+                  token-dropping.}
+}
+
+% -------------------------------------------
+%  MÉTODOS SOFT PROMPT (representações latentes)
+% -------------------------------------------
+
+@inproceedings{mu2023gist,
+  author       = {Jesse Mu and Xiang Lisa Li and Noah Goodman},
+  title        = {Learning to Compress Prompts with Gist Tokens},
+  booktitle    = {Advances in Neural Information Processing Systems
+                  ({NeurIPS} 2023)},
+  year         = {2023},
+  eprint       = {2304.08467},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2304.08467},
+  note         = {\emph{Gisting}: treina LM para comprimir prompts em conjunto de
+                  gist tokens reutilizáveis. Até 26× compressão, −40\% FLOPs,
+                  em LLaMA-7B e FLAN-T5-XXL. NeurIPS 2023.}
+}
+
+@article{chevalier2023autocompressor,
+  author       = {Alexis Chevalier and Alexander Wettig and Anirudh Ajith and
+                  Danqi Chen},
+  title        = {Adapting Language Models to Compress Contexts},
+  journal      = {arXiv preprint arXiv:2305.14788},
+  year         = {2023},
+  eprint       = {2305.14788},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2305.14788},
+  note         = {\emph{AutoCompressor}: fine-tuning para gerar summary vectors
+                  que condensam contextos longos como soft prompts.
+                  Testado em OPT e Llama-2, até 30k tokens.}
+}
+
+@article{ge2023icae,
+  author       = {Tao Ge and Jing Hu and Xun Wang and Si-Qing Chen and Furu Wei},
+  title        = {In-context Autoencoder for Context Compression in a Large
+                  Language Model},
+  journal      = {arXiv preprint arXiv:2307.06945},
+  year         = {2023},
+  eprint       = {2307.06945},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2307.06945},
+  note         = {\emph{ICAE}: autoencoder de contexto treinável que comprime
+                  em representações compactas compreensíveis pelo LLM alvo.
+                  4× compressão baseado em Llama; melhora latência e memória.}
+}
+
+@article{wang2024softpromptcomp,
+  author       = {Cangqing Wang and Yutian Yang and Ruisi Li and Dan Sun and
+                  Ruicong Cai and Yuzhu Zhang and Chengqian Fu and Lillian Floyd},
+  title        = {Adapting {LLMs} for Efficient Context Processing through Soft
+                  Prompt Compression},
+  journal      = {arXiv preprint arXiv:2404.04997},
+  year         = {2024},
+  eprint       = {2404.04997},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.LG},
+  url          = {https://arxiv.org/abs/2404.04997},
+  note         = {\emph{SoftPromptComp}: combina sumarização NL com soft prompts
+                  treináveis. Reduz tempo de processamento em até 80,1\% no SQuAD 2.0
+                  sem perda significativa de qualidade.}
+}
+
+@article{tang2024llocoo,
+  author       = {Sijun Tang and Xiangyu Luo and Zhiying Xu and Zhenzhong Chen},
+  title        = {{LLoCO}: Learning Long Contexts Offline},
+  journal      = {arXiv preprint arXiv:2404.07979},
+  year         = {2024},
+  eprint       = {2404.07979},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2404.07979},
+  note         = {\emph{LLoCO}: compressão offline de contexto + LoRA in-domain.
+                  Estende LLaMA2-7B (4k) para 128k tokens; 30× menos tokens
+                  na inferência, 7,62× speedup.}
+}
+
+% ----------------------------------------
+%  COMPRESSÃO PARA RAG
+% ----------------------------------------
+
+@inproceedings{xu2023recomp,
+  author       = {Fangyuan Xu and Weijia Shi and Eunsol Choi},
+  title        = {{RECOMP}: Improving Retrieval-Augmented {LMs} with Compression
+                  and Selective Augmentation},
+  booktitle    = {The Twelfth International Conference on Learning Representations
+                  ({ICLR} 2024)},
+  year         = {2024},
+  eprint       = {2310.04408},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2310.04408},
+  note         = {Dois compressores para RAG: extratativo (seleciona sentenças)
+                  e abstrativo (síntese de múltiplos documentos). Reduz custo
+                  computacional e melhora QA em NQ, TriviaQA, MS-MARCO.}
+}
+
+@article{rau2024cocom,
+  author       = {David Rau and others},
+  title        = {Context Embeddings for Efficient Answer Generation in {RAG}
+                  ({COCOM})},
+  journal      = {arXiv preprint arXiv:2407.09252},
+  year         = {2024},
+  eprint       = {2407.09252},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2407.09252},
+  note         = {\emph{COCOM}: comprime múltiplos documentos recuperados em
+                  grupos de embeddings de contexto para o decoder. Encoder-decoder
+                  fine-tuned para RAG.}
+}
+
+@article{pisco2025,
+  author       = {Anonymous},
+  title        = {{PISCO}: Pretty Simple Compression for Retrieval-Augmented
+                  Generation},
+  journal      = {arXiv preprint arXiv:2501.16075},
+  year         = {2025},
+  eprint       = {2501.16075},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2501.16075},
+  note         = {\emph{PISCO}: distilação em nível de sentença a partir de LLM
+                  professor. +8\% accuracy vs COCOM; 16× compressão com pouca
+                  degradação; supera xRAG em +20\%.}
+}
+
+% -------------------------------------------
+%  COMPRESSÃO EM LINGUAGEM NATURAL (NL-based)
+% -------------------------------------------
+
+@article{chuang2024nanocapsulator,
+  author       = {Yu-Neng Chuang and Tianwei Xing and Chia-Yuan Chang and
+                  Zirui Liu and Xun Chen and Xia Hu},
+  title        = {Learning to Compress Prompt in Natural Language Formats},
+  journal      = {arXiv preprint arXiv:2402.18700},
+  year         = {2024},
+  eprint       = {2402.18700},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2402.18700},
+  note         = {\emph{Nano-Capsulator}: comprime prompts em formato NL
+                  (Capsule Prompt). Reduz 81,4\% do comprimento original,
+                  latência até 4,5×, 80,1\% de economia de custo.
+                  Transferível entre LLMs.}
+}
+
+% -----------------------------------
+%  ANÁLISE E AVALIAÇÃO
+% -----------------------------------
+
+@article{understanding2025,
+  author       = {Anonymous},
+  title        = {Understanding and Improving Information Preservation in Prompt
+                  Compression for {LLMs}},
+  journal      = {arXiv preprint arXiv:2503.19114},
+  year         = {2025},
+  eprint       = {2503.19114},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2503.19114},
+  note         = {Analisa preservação de informação em compressão de prompts.
+                  Avalia soft prompting (xRAG, PISCO) em QA de forma longa,
+                  sumarização de documentos e RAG multi-fonte.}
+}
+
+% -----------------------------------
+%  TRABALHO RELACIONADO (extensão de janela)
+% -----------------------------------
+
+@inproceedings{jin2024selfextend,
+  author       = {Hongye Jin and Xiaotian Han and Jingfeng Yang and Zhimeng Jiang
+                  and Zirui Liu and Chia-Yuan Chang and Huiyuan Chen and Xia Hu},
+  title        = {{LLM} Maybe {LongLM}: {SelfExtend} {LLM} Context Window Without
+                  Tuning},
+  booktitle    = {Proceedings of the 41st International Conference on Machine
+                  Learning ({ICML} 2024)},
+  series       = {Proceedings of Machine Learning Research},
+  volume       = {235},
+  year         = {2024},
+  publisher    = {PMLR},
+  eprint       = {2401.01325},
+  eprinttype   = {arxiv},
+  eprintclass  = {cs.CL},
+  url          = {https://arxiv.org/abs/2401.01325},
+  note         = {[TRABALHO RELACIONADO — não é compressão de prompt stricto sensu]
+                  Extensão da janela de contexto via atenção bi-nível (grouped +
+                  neighbor attention) sem fine-tuning. Complementar à compressão
+                  de prompt. ICML 2024.}
+}

@@ -1,13 +1,10 @@
+import json
+import logging
 import os
-import sys
-from typing import List, Tuple
+import urllib.error
+import urllib.request
 
-# Tenta importar Groq
-try:
-    from groq import Groq
-    GROQ_AVAILABLE = True
-except ImportError:
-    GROQ_AVAILABLE = False
+logger = logging.getLogger(__name__)
 
 try:
     import torch
@@ -17,6 +14,7 @@ try:
 except ImportError:
     TORCH_AVAILABLE = False
 
+
 class PromptCompressor:
     """
     Classe Base para estratégias de compressão.
@@ -24,36 +22,27 @@ class PromptCompressor:
     def compress(self, text: str, compression_ratio: float = 0.5) -> str:
         raise NotImplementedError
 
-class GroqSemanticCompressor(PromptCompressor):
+
+class OllamaSemanticCompressor(PromptCompressor):
     """
-    Implementa Compressão Semântica usando a API da Groq (Llama 3, Mixtral, etc).
+    Implementa Compressão Semântica usando um modelo local via Ollama.
     O LLM reescreve o texto mantendo as entidades e relações.
     """
-    def __init__(self, model_name: str = "llama3-70b-8192", api_key: str = None):
-        if not GROQ_AVAILABLE:
-            raise ImportError("Biblioteca 'groq' necessária. Rode: pip install groq")
-        
-        # Tenta carregar do .env se não estiver no ambiente
-        if not os.environ.get("GROQ_API_KEY"):
-            from dotenv import load_dotenv
-            load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
-            
-        self.api_key = api_key or os.environ.get("GROQ_API_KEY")
-        if not self.api_key:
-            raise ValueError("API Key da Groq não encontrada. Defina GROQ_API_KEY no arquivo .env ou no sistema.")
-            
-        self.client = Groq(api_key=self.api_key)
-        self.model_name = model_name
+    def __init__(self, model_name: str = "llama3.1:8b-instruct-q8_0", base_url: str = None):
+        self.model_name = model_name.removeprefix("ollama/")
+        base = base_url or os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
+        self.base_url = base.removesuffix("/v1").rstrip("/")
 
     def compress(self, text: str, compression_ratio: float = 0.5) -> str:
         if not text:
             return ""
 
         target_words = int(len(text.split()) * compression_ratio)
-        if target_words < 10: target_words = 10 
-        
+        if target_words < 10:
+            target_words = 10
+
         system_prompt = "You are an expert editor designed to compress texts for LLM context windows."
-        
+
         user_message = (
             f"Compress the following text to approximately {target_words} words ({int(compression_ratio*100)}% of original). "
             "Maintain ALL key entities, relationships, technical terms, and the core logic. "
@@ -62,18 +51,35 @@ class GroqSemanticCompressor(PromptCompressor):
             f"TEXT TO COMPRESS:\n{text}"
         )
 
+        payload = {
+            "model": self.model_name,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message},
+            ],
+            "stream": False,
+            "keep_alive": -1,
+            "options": {
+                "num_ctx": int(os.environ.get("OLLAMA_NUM_CTX", "8192")),
+                "temperature": 0.2,
+                "seed": 42,
+            },
+        }
+
+        request = urllib.request.Request(
+            f"{self.base_url}/api/chat",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
         try:
-            chat_completion = self.client.chat.completions.create(
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_message}
-                ],
-                model=self.model_name,
-                temperature=0.2,
-            )
-            return chat_completion.choices[0].message.content.strip()
-        except Exception as e:
-            return f"[Erro na API Groq: {str(e)}]"
+            with urllib.request.urlopen(request, timeout=900) as response:
+                body = json.loads(response.read().decode("utf-8"))
+            return body.get("message", {}).get("content", "").strip()
+        except (urllib.error.URLError, TimeoutError, ValueError) as e:
+            logger.error(f"[{self.model_name}] Erro na API Ollama: {type(e).__name__}: {e}")
+            return f"[Erro na API Ollama: {e}]"
+
 
 class PerplexityCompressor(PromptCompressor):
     """
@@ -84,7 +90,7 @@ class PerplexityCompressor(PromptCompressor):
         if not TORCH_AVAILABLE:
             print("Aviso: Torch/Transformers não instalados. PerplexityCompressor não funcionará.")
             return
-            
+
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -99,14 +105,14 @@ class PerplexityCompressor(PromptCompressor):
 
         inputs = self.tokenizer(text, return_tensors="pt").to(self.device)
         input_ids = inputs.input_ids[0]
-        
+
         with torch.no_grad():
             outputs = self.model(inputs.input_ids)
             logits = outputs.logits[0]
 
         shift_logits = logits[:-1, :]
         shift_labels = input_ids[1:]
-        
+
         loss_fct = torch.nn.CrossEntropyLoss(reduction='none')
         token_losses = loss_fct(shift_logits, shift_labels)
         token_losses = torch.cat([torch.tensor([token_losses.mean()]).to(self.device), token_losses])
@@ -114,6 +120,94 @@ class PerplexityCompressor(PromptCompressor):
         num_keep = int(len(input_ids) * compression_ratio)
         top_k_indices = torch.topk(token_losses, k=num_keep).indices
         keep_indices = torch.sort(top_k_indices).values
-        
+
         compressed_ids = input_ids[keep_indices]
         return self.tokenizer.decode(compressed_ids, skip_special_tokens=True)
+
+
+class LLMLinguaCompressor(PromptCompressor):
+    """LLMLingua v1 (Jiang et al., 2023).
+
+    Remove tokens de baixa perplexidade usando um LM causal como scorer, num
+    esquema coarse-to-fine. Usado como baseline de compressão da literatura.
+    O scorer padrão é o GPT-2, escolhido por ser leve e rápido em CPU.
+    """
+
+    def __init__(self, model_name: str = "gpt2", device_map: str = "cpu"):
+        from llmlingua import PromptCompressor as _LLMLingua
+
+        self._impl = _LLMLingua(
+            model_name=model_name,
+            use_llmlingua2=False,
+            device_map=device_map,
+        )
+
+    def compress(self, text: str, compression_ratio: float = 0.5) -> str:
+        if not text:
+            return ""
+        try:
+            out = self._impl.compress_prompt(text, rate=float(compression_ratio))
+            return out.get("compressed_prompt", text) if isinstance(out, dict) else out
+        except Exception as e:
+            raise RuntimeError(
+                f"[llmlingua] erro na compressão: {type(e).__name__}: {e}"
+            ) from e
+
+
+class LLMLingua2Compressor(PromptCompressor):
+    """LLMLingua-2 (Pan et al., 2024).
+
+    Compressão por classificação de tokens com um encoder bidirecional
+    (XLM-RoBERTa) destilado do GPT-4. Rápido e agnóstico à tarefa.
+    """
+
+    def __init__(
+        self,
+        model_name: str = "microsoft/llmlingua-2-xlm-roberta-large-meetingbank",
+        device_map: str = "cpu",
+    ):
+        from llmlingua import PromptCompressor as _LLMLingua
+
+        self._impl = _LLMLingua(
+            model_name=model_name,
+            use_llmlingua2=True,
+            device_map=device_map,
+        )
+
+    def compress(self, text: str, compression_ratio: float = 0.5) -> str:
+        if not text:
+            return ""
+        try:
+            out = self._impl.compress_prompt(text, rate=float(compression_ratio))
+            return out.get("compressed_prompt", text) if isinstance(out, dict) else out
+        except Exception as e:
+            raise RuntimeError(
+                f"[llmlingua2] erro na compressão: {type(e).__name__}: {e}"
+            ) from e
+
+
+class SelectiveContextCompressor(PromptCompressor):
+    """Selective Context (Li et al., 2023).
+
+    Remove unidades lexicais de baixa auto-informação, medida por um LM causal
+    (GPT-2). O parâmetro reduce_ratio do pacote é a fração removida, então é
+    derivado da taxa de retenção alvo.
+    """
+
+    def __init__(self, model_type: str = "gpt2", lang: str = "en"):
+        from selective_context import SelectiveContext
+
+        self._impl = SelectiveContext(model_type=model_type, lang=lang)
+
+    def compress(self, text: str, compression_ratio: float = 0.5) -> str:
+        if not text:
+            return ""
+        try:
+            reduce_ratio = max(0.0, min(1.0, 1.0 - float(compression_ratio)))
+            res = self._impl(text, reduce_ratio=reduce_ratio)
+            ctx = res[0] if isinstance(res, tuple) else res
+            return ctx or text
+        except Exception as e:
+            raise RuntimeError(
+                f"[selective_context] erro na compressão: {type(e).__name__}: {e}"
+            ) from e

@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-05-27T05:39:56.707108",
+  "strategies": {
+    "raw": {
+      "avg_score": 0.125,
+      "min_score": 0.0,
+      "max_score": 1.0,
+      "avg_latency_ms": 230053.3,
+      "n_tests": 24
+    },
+    "sliding_window": {
+      "avg_score": 0.125,
+      "min_score": 0.0,
+      "max_score": 1.0,
+      "avg_latency_ms": 12482.5,
+      "n_tests": 24
+    },
+    "parallel_window": {
+      "avg_score": 0.0417,
+      "min_score": 0.0,
+      "max_score": 1.0,
+      "avg_latency_ms": 13044.4,
+      "n_tests": 24
+    },
+    "rig": {
+      "avg_score": 0.0833,
+      "min_score": 0.0,
+      "max_score": 1.0,
+      "avg_latency_ms": 13375.8,
+      "n_tests": 24
+    },
+    "rsaw": {
+      "avg_score": 0.0,
+      "min_score": 0.0,
+      "max_score": 0.0,
+      "avg_latency_ms": 16571.6,
+      "n_tests": 24
+    }
+  }
+}

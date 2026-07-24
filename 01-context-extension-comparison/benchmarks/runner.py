@@ -15,11 +15,23 @@ from collections import defaultdict
 from .base import BaseBenchmark, BenchmarkResult
 from .needle_haystack import NeedleInHaystackBenchmark
 from .ruler import RulerBenchmark
-from .longbench import LongBenchTasks
 from .babilong import BABILongBenchmark
 from .narrativeqa import NarrativeQABenchmark
 from .qasper import QASPERBenchmark
 from .infinitebench import InfiniteBenchBenchmark
+from .real_world import (
+    ZeroScrollsBenchmark,
+    NaturalQuestionsBenchmark,
+    TriviaQABenchmark,
+    HotpotQABenchmark,
+    MuSiQueBenchmark,
+    MeetingSummarizationBenchmark,
+)
+# LongBench sintético (LongBenchTasks), usado na matriz original benchmark_matrix_artigo.
+# Mantido para que os novos compressores rodem sobre exatamente os mesmos casos
+# (longbench_multidoc_qa_1..3, longbench_summarization_1) das cinco estratégias já
+# avaliadas, preservando a comparabilidade da matriz agregada.
+from .longbench import LongBenchTasks
 
 
 @dataclass
@@ -64,6 +76,12 @@ class BenchmarkRunner:
             "narrativeqa": NarrativeQABenchmark(),
             "qasper": QASPERBenchmark(),
             "infinitebench": InfiniteBenchBenchmark(),
+            "zeroscrolls": ZeroScrollsBenchmark(),
+            "naturalquestions": NaturalQuestionsBenchmark(),
+            "triviaqa": TriviaQABenchmark(),
+            "hotpotqa": HotpotQABenchmark(),
+            "musique": MuSiQueBenchmark(),
+            "meeting_summarization": MeetingSummarizationBenchmark(),
         }
         
         # Estratégias registradas
@@ -163,11 +181,18 @@ class BenchmarkRunner:
             }
         
         all_results = []
-        
+
         for benchmark_name, kwargs in benchmark_configs.items():
-            results = self.run_benchmark(benchmark_name, **kwargs)
+            try:
+                results = self.run_benchmark(benchmark_name, **kwargs)
+            except Exception as e:
+                # Um benchmark indisponível (ex.: falha de download de dataset)
+                # não pode derrubar a rodada inteira.
+                print(f"AVISO: benchmark '{benchmark_name}' falhou e será pulado: "
+                      f"{type(e).__name__}: {e}")
+                continue
             all_results.extend(results)
-        
+
         return all_results
     
     def compute_summary(self) -> Dict[str, Any]:
@@ -267,7 +292,8 @@ class BenchmarkRunner:
         
         # Colunas principais
         fieldnames = [
-            "benchmark", "strategy", "test_case", "score", "latency_ms"
+            "benchmark", "strategy", "test_case", "score", "latency_ms",
+            "executed_at"
         ]
         
         # Adiciona colunas de metadados comuns
@@ -280,11 +306,11 @@ class BenchmarkRunner:
         detail_keys = sorted(all_detail_keys - excluded_keys)
         fieldnames.extend(detail_keys)
         
-        file_exists = filepath.exists()
-        with open(filepath, "a", newline="", encoding="utf-8") as f:
+        # Sobrescreve o CSV a cada execução. O modo append anterior acumulava
+        # linhas de execuções distintas na mesma pasta, gerando duplicatas.
+        with open(filepath, "w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
-            if not file_exists:
-                writer.writeheader()
+            writer.writeheader()
 
             for r in self.results:
                 row = r.to_dict()

@@ -1,0 +1,24 @@
+{
+  "captured_at": "2026-07-17T06:07:25.612866+00:00",
+  "model": "qwen3:30b-a3b",
+  "details": {
+    "parent_model": "",
+    "format": "gguf",
+    "family": "qwen3moe",
+    "families": [
+      "qwen3moe"
+    ],
+    "parameter_size": "30.5B",
+    "quantization_level": "Q4_K_M"
+  },
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ],
+  "parameters": "repeat_penalty                 1\nstop                           \"<|im_start|>\"\nstop                           \"<|im_end|>\"\ntemperature                    0.6\ntop_k                          20\ntop_p                          0.95",
+  "declared_context_length": 262144,
+  "context_length_fields": {
+    "qwen3moe.context_length": 262144
+  }
+}

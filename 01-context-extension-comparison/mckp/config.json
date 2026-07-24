@@ -1,0 +1,28 @@
+{
+  "partitioner": "structural",
+  "max_partition_tokens": 400,
+  "weights": {"w_r": 0.6, "w_d": 0.2, "w_p": 0.2},
+  "positional_shape": "central",
+  "mu": 0.1,
+  "distance": "compressor_family",
+  "option_set": [
+    {"compressor": "identity", "param": 1.0},
+    {"compressor": "sentence_extractive", "param": 0.5},
+    {"compressor": "sentence_extractive", "param": 0.3},
+    {"compressor": "llmlingua2", "param": 0.5},
+    {"compressor": "llmlingua2", "param": 0.3},
+    {"compressor": "omission", "param": 0.0}
+  ],
+  "required_compressors": ["llmlingua2"],
+  "number_retention_threshold": 0.9,
+  "budget_tokens": 4000,
+  "output_tokens": 500,
+  "instruction_tokens": 64,
+  "token_safety_margin": 256,
+  "budget_bucket": 1,
+  "embedding_model": "all-MiniLM-L6-v2",
+  "summarizer_model": "llama3.1:8b",
+  "semantic_fidelity": true,
+  "llmlingua2_model": "microsoft/llmlingua-2-xlm-roberta-large-meetingbank",
+  "audit_include_text": true
+}

@@ -1,0 +1,4 @@
+benchmark,strategy,test_case,score,latency_ms,all_answers,context_chars,dataset_id,expected,level,source,type
+hotpotqa,raw_gpt-oss-20b-ollama,hotpotqa_0,1.0,22469.924457996967,['yes'],4716,5a8b57f25542995d1e6f1371,yes,hard,hotpotqa/hotpot_qa,comparison
+hotpotqa,raw_gpt-oss-20b-ollama,hotpotqa_1,0.0,13267.141167001682,['Chief of Protocol'],5071,5a8c7595554299585d9e36b6,Chief of Protocol,hard,hotpotqa/hotpot_qa,bridge
+hotpotqa,raw_gpt-oss-20b-ollama,hotpotqa_2,1.0,9860.85720799747,['Animorphs'],6704,5a85ea095542994775f606a8,Animorphs,hard,hotpotqa/hotpot_qa,bridge

@@ -1,0 +1,54 @@
+% Sequencia conceitual entre os componentes do framework proposto.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[
+    actor/.style={rectangle, rounded corners=2pt, minimum width=2.15cm,
+        minimum height=0.7cm, draw=dark, thick, fill=blue!10,
+        font=\scriptsize\bfseries, align=center},
+    lifeline/.style={dashed, draw=dark!55},
+    message/.style={-{Stealth[length=2mm]}, thick, draw=dark},
+    return/.style={-{Stealth[length=2mm]}, dashed, draw=dark!75},
+    note/.style={rectangle, draw=dark!45, fill=orange!10,
+        font=\tiny, align=left, inner sep=3pt}
+]
+
+\node[actor] (app) at (0,0) {Aplicacao};
+\node[actor] (partitioner) at (3.1,0) {Particionador};
+\node[actor] (estimator) at (6.2,0) {Estimador de\\importancia};
+\node[actor] (pool) at (9.3,0) {Gerador de\\opcoes};
+\node[actor] (solver) at (12.4,0) {Otimizador\\MCKP};
+\node[actor] (assembler) at (15.5,0) {Reconstrutor};
+\node[actor] (llm) at (18.6,0) {LLM via API};
+
+\foreach \x in {app,partitioner,estimator,pool,solver,assembler,llm} {
+    \draw[lifeline] (\x.south) -- ++(0,-11.6);
+}
+
+\draw[message] ([yshift=-0.65cm]app.south) -- node[above, font=\tiny] {1: comprimir$(C,q,B)$} ([yshift=-0.65cm]partitioner.south);
+\draw[return] ([yshift=-1.3cm]partitioner.south) -- node[above, font=\tiny] {$T=(t_1,\ldots,t_n)$} ([yshift=-1.3cm]app.south);
+
+\node[note] at (4.65,-2.1) {Para cada particao $t_j$};
+\draw[message] ([yshift=-2.8cm]app.south) -- node[above, font=\tiny] {2: estimar$(t_j,q)$} ([yshift=-2.8cm]estimator.south);
+\draw[return] ([yshift=-3.5cm]estimator.south) -- node[above, font=\tiny] {$I(t_j;q)$} ([yshift=-3.5cm]app.south);
+
+\draw[message] ([yshift=-4.25cm]app.south) -- node[above, font=\tiny] {3: gerar$(t_j,I_j)$} ([yshift=-4.25cm]pool.south);
+\node[note, right=0.2cm of pool, yshift=-4.9cm] {Aplicar identidade e\\compressores candidatos;\\medir $c_{j,o}$ e $Q_{j,o}$};
+\draw[return] ([yshift=-5.7cm]pool.south) -- node[above, font=\tiny] {$O_j$} ([yshift=-5.7cm]app.south);
+
+\draw[message] ([yshift=-6.55cm]app.south) -- node[above, font=\tiny] {4: resolver$(\{O_j\},B,\mu)$} ([yshift=-6.55cm]solver.south);
+\node[note, right=0.2cm of solver, yshift=-7.25cm] {Preencher tabela $D$\\e executar retrocesso};
+\draw[return] ([yshift=-8cm]solver.south) -- node[above, font=\tiny] {$o_1^*,\ldots,o_n^*$} ([yshift=-8cm]app.south);
+
+\draw[message] ([yshift=-8.75cm]app.south) -- node[above, font=\tiny] {5: reconstruir$(T,O^*)$} ([yshift=-8.75cm]assembler.south);
+\draw[return] ([yshift=-9.45cm]assembler.south) -- node[above, font=\tiny] {$C'$ com $|C'|\leq B$} ([yshift=-9.45cm]app.south);
+
+\draw[message] ([yshift=-10.2cm]app.south) -- node[above, font=\tiny] {6: gerar$(C',q)$} ([yshift=-10.2cm]llm.south);
+\draw[return] ([yshift=-11cm]llm.south) -- node[above, font=\tiny] {resposta} ([yshift=-11cm]app.south);
+
+\end{tikzpicture}%
+}
+\caption{Sequencia conceitual da aplicacao do \textit{framework}. Para cada particao, sao calculadas a importancia e as alternativas de compressao; o otimizador seleciona as alternativas globalmente antes da reconstrucao e da chamada ao modelo.}
+\label{fig:framework-sequence}
+\end{figure}

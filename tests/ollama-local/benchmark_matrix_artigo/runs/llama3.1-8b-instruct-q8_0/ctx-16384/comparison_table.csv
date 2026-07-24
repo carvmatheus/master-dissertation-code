@@ -1,0 +1,6 @@
+Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+raw_llama3.1-8b-instruct-q8,-,-,1.000,-,-,-,-,0.619,0.362,1.000,0.667,0.417,0.326,0.627
+sliding_window_llama3.1-8b-instruct-q8,-,-,1.000,-,-,-,-,0.642,0.362,1.000,0.667,0.333,0.379,0.626
+parallel_window_llama3.1-8b-instruct-q8,-,-,1.000,-,-,-,-,0.329,0.362,1.000,0.667,0.417,0.247,0.574
+semantic_compression_llama3.1-8b-instruct-q8,-,-,0.938,-,-,-,-,0.354,0.691,1.000,0.667,0.333,0.158,0.592
+rig_llama3.1-8b-instruct-q8,-,-,1.000,-,-,-,-,0.404,0.362,1.000,0.667,0.417,0.083,0.562

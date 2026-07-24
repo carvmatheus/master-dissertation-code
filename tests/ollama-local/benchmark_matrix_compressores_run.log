@@ -1,0 +1,2633 @@
+
+RUN llama3.1:8b-instruct-q8_0 com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_llama3.1-8b-instruct-q8
+Estratégia registrada: llmlingua2_llama3.1-8b-instruct-q8
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_llama3.1-8b-instruct-q8
+Estratégia registrada: cpc_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_llama3.1-8b-instruct-q8', 'llmlingua2_llama3.1-8b-instruct-q8', 'selective_context_llama3.1-8b-instruct-q8', 'cpc_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=8192)...
+
+>> Executando longbench com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 2387ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 1996ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 1183ms
+     [4/4] longbench_summarization_1: score 0.75 | 5434ms
+   Score médio: 0.688 | Latência média: 2750.0ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 3720ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 880ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 918ms
+     [4/4] longbench_summarization_1: score 0.25 | 7504ms
+   Score médio: 0.812 | Latência média: 3255.4ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 2446ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 1174ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 1087ms
+     [4/4] longbench_summarization_1: score 0.75 | 6378ms
+   Score médio: 0.688 | Latência média: 2771.0ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 4429ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 1638ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 2849ms
+     [4/4] longbench_summarization_1: score 0.75 | 4847ms
+   Score médio: 0.688 | Latência média: 3440.6ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_llama3.1-8b-instruct-q8
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.32 | 22357ms
+     [2/3] zeroscrolls_1: score 0.00 | 5474ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 50319 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.50 | 46281ms
+   Score médio: 0.273 | Latência média: 24704.0ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.44 | 27260ms
+     [2/3] zeroscrolls_1: score 0.67 | 7437ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 85551 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 42920ms
+   Score médio: 0.619 | Latência média: 25872.3ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.47 | 34313ms
+     [2/3] zeroscrolls_1: score 1.00 | 8158ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 95576 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.25 | 46535ms
+   Score médio: 0.572 | Latência média: 29668.7ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] zeroscrolls_0: score 0.33 | 21733ms
+     [2/3] zeroscrolls_1: score 0.67 | 5487ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 74756 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 21462ms
+   Score médio: 0.583 | Latência média: 16227.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] naturalquestions_0: score 0.07 | 2242ms
+     [2/3] naturalquestions_1: score 0.07 | 1252ms
+     [3/3] naturalquestions_2: score 0.01 | 955ms
+   Score médio: 0.050 | Latência média: 1483.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] naturalquestions_0: score 0.02 | 1652ms
+     [2/3] naturalquestions_1: score 0.20 | 2452ms
+     [3/3] naturalquestions_2: score 0.01 | 1063ms
+   Score médio: 0.080 | Latência média: 1722.2ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] naturalquestions_0: score 1.00 | 1456ms
+     [2/3] naturalquestions_1: score 0.07 | 912ms
+     [3/3] naturalquestions_2: score 0.01 | 906ms
+   Score médio: 0.362 | Latência média: 1091.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] naturalquestions_0: score 1.00 | 1339ms
+     [2/3] naturalquestions_1: score 0.07 | 1198ms
+     [3/3] naturalquestions_2: score 0.01 | 796ms
+   Score médio: 0.362 | Latência média: 1110.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] triviaqa_0: score 1.00 | 1012ms
+     [2/3] triviaqa_1: score 1.00 | 2453ms
+     [3/3] triviaqa_2: score 1.00 | 3122ms
+   Score médio: 1.000 | Latência média: 2195.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] triviaqa_0: score 1.00 | 1325ms
+     [2/3] triviaqa_1: score 1.00 | 2538ms
+     [3/3] triviaqa_2: score 1.00 | 3223ms
+   Score médio: 1.000 | Latência média: 2362.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] triviaqa_0: score 1.00 | 1299ms
+     [2/3] triviaqa_1: score 1.00 | 2885ms
+     [3/3] triviaqa_2: score 1.00 | 3522ms
+   Score médio: 1.000 | Latência média: 2568.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] triviaqa_0: score 1.00 | 966ms
+     [2/3] triviaqa_1: score 1.00 | 1966ms
+     [3/3] triviaqa_2: score 1.00 | 2354ms
+   Score médio: 1.000 | Latência média: 1762.1ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] hotpotqa_0: score 0.00 | 3250ms
+     [2/3] hotpotqa_1: score 0.00 | 3206ms
+     [3/3] hotpotqa_2: score 1.00 | 3475ms
+   Score médio: 0.333 | Latência média: 3310.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] hotpotqa_0: score 0.00 | 3722ms
+     [2/3] hotpotqa_1: score 0.00 | 6836ms
+     [3/3] hotpotqa_2: score 1.00 | 4785ms
+   Score médio: 0.333 | Latência média: 5114.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] hotpotqa_0: score 0.00 | 4313ms
+     [2/3] hotpotqa_1: score 0.00 | 7772ms
+     [3/3] hotpotqa_2: score 0.00 | 5547ms
+   Score médio: 0.000 | Latência média: 5877.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] hotpotqa_0: score 0.00 | 2622ms
+     [2/3] hotpotqa_1: score 0.00 | 5353ms
+     [3/3] hotpotqa_2: score 1.00 | 3468ms
+   Score médio: 0.333 | Latência média: 3814.4ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] musique_0: score 0.00 | 6375ms
+     [2/3] musique_1: score 0.25 | 6009ms
+     [3/3] musique_2: score 0.00 | 7802ms
+   Score médio: 0.083 | Latência média: 6728.8ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] musique_0: score 1.00 | 8745ms
+     [2/3] musique_1: score 0.00 | 9087ms
+     [3/3] musique_2: score 0.00 | 5049ms
+   Score médio: 0.333 | Latência média: 7626.6ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] musique_0: score 1.00 | 9744ms
+     [2/3] musique_1: score 0.25 | 10360ms
+     [3/3] musique_2: score 0.00 | 5972ms
+   Score médio: 0.417 | Latência média: 8692.1ms | 3 casos
+
+>> Executando musique com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] musique_0: score 1.00 | 6493ms
+     [2/3] musique_1: score 0.25 | 6917ms
+     [3/3] musique_2: score 0.00 | 3619ms
+   Score médio: 0.417 | Latência média: 5676.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] meeting_summarization_0: score 0.32 | 22469ms
+     [2/3] meeting_summarization_1: score 0.00 | 25801ms
+     [3/3] meeting_summarization_2: score 0.35 | 11386ms
+   Score médio: 0.222 | Latência média: 19885.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.44 | 27110ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.00 | 28441ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.35 | 11988ms
+   Score médio: 0.262 | Latência média: 22512.7ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.47 | 17251ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.05 | 37770ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.45 | 17760ms
+   Score médio: 0.321 | Latência média: 24260.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] meeting_summarization_0: score 0.33 | 3371ms
+     [2/3] meeting_summarization_1: score 0.41 | 25066ms
+     [3/3] meeting_summarization_2: score 0.27 | 20224ms
+   Score médio: 0.335 | Latência média: 16220.5ms | 3 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/llama3.1-8b-instruct-q8_0/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_llama3.1-8b-instruct-q8:
+  Score médio: 0.393
+  Score min/max: 0.000 / 1.000
+  Latência média: 8450.9ms
+
+llmlingua2_llama3.1-8b-instruct-q8:
+  Score médio: 0.506
+  Score min/max: 0.000 / 1.000
+  Latência média: 9484.2ms
+
+selective_context_llama3.1-8b-instruct-q8:
+  Score médio: 0.489
+  Score min/max: 0.000 / 1.000
+  Latência média: 10343.7ms
+
+cpc_llama3.1-8b-instruct-q8:
+  Score médio: 0.538
+  Score min/max: 0.000 / 1.000
+  Latência média: 6736.2ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_llama3.1-8b-instruct-q80.688               0.273               0.050               1.000               0.333               0.083               0.222               
+llmlingua2_llama3.1-8b-instruct-q80.812               0.619               0.080               1.000               0.333               0.333               0.262               
+selective_context_llama3.1-8b-instruct-q80.688               0.572               0.362               1.000               0.000               0.417               0.321               
+cpc_llama3.1-8b-instruct-q80.688               0.583               0.362               1.000               0.333               0.417               0.335               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/llama3.1-8b-instruct-q8_0/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+
+RUN llama3.1:8b-instruct-q8_0 com num_ctx=32768
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_llama3.1-8b-instruct-q8
+Estratégia registrada: llmlingua2_llama3.1-8b-instruct-q8
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_llama3.1-8b-instruct-q8
+Estratégia registrada: cpc_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_llama3.1-8b-instruct-q8', 'llmlingua2_llama3.1-8b-instruct-q8', 'selective_context_llama3.1-8b-instruct-q8', 'cpc_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=32768)...
+
+>> Executando longbench com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 2459ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 2054ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 1175ms
+     [4/4] longbench_summarization_1: score 0.75 | 5573ms
+   Score médio: 0.688 | Latência média: 2815.5ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 2128ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 882ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 909ms
+     [4/4] longbench_summarization_1: score 0.25 | 7478ms
+   Score médio: 0.812 | Latência média: 2849.3ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 2431ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 1215ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 1107ms
+     [4/4] longbench_summarization_1: score 0.75 | 6369ms
+   Score médio: 0.688 | Latência média: 2780.5ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 4462ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 1650ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 2887ms
+     [4/4] longbench_summarization_1: score 0.75 | 4903ms
+   Score médio: 0.688 | Latência média: 3475.5ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_llama3.1-8b-instruct-q8
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.32 | 22340ms
+     [2/3] zeroscrolls_1: score 0.00 | 5626ms
+     [3/3] zeroscrolls_2: score 0.25 | 83946ms
+   Score médio: 0.190 | Latência média: 37304.1ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.40 | 29833ms
+     [2/3] zeroscrolls_1: score 0.67 | 7804ms
+     [3/3] zeroscrolls_2: score 0.75 | 98009ms
+   Score médio: 0.606 | Latência média: 45215.6ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] zeroscrolls_0: score 0.47 | 39432ms
+     [2/3] zeroscrolls_1: score 1.00 | 8451ms
+     [3/3] zeroscrolls_2: score 0.50 | 120789ms
+   Score médio: 0.656 | Latência média: 56223.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] zeroscrolls_0: score 0.33 | 22161ms
+     [2/3] zeroscrolls_1: score 0.67 | 5383ms
+     [3/3] zeroscrolls_2: score 0.75 | 83299ms
+   Score médio: 0.583 | Latência média: 36948.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] naturalquestions_0: score 0.07 | 3960ms
+     [2/3] naturalquestions_1: score 0.07 | 1370ms
+     [3/3] naturalquestions_2: score 0.01 | 1053ms
+   Score médio: 0.050 | Latência média: 2127.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] naturalquestions_0: score 0.02 | 3555ms
+     [2/3] naturalquestions_1: score 0.20 | 2528ms
+     [3/3] naturalquestions_2: score 0.01 | 1120ms
+   Score médio: 0.080 | Latência média: 2401.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] naturalquestions_0: score 1.00 | 1520ms
+     [2/3] naturalquestions_1: score 0.07 | 957ms
+     [3/3] naturalquestions_2: score 0.01 | 927ms
+   Score médio: 0.362 | Latência média: 1134.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] naturalquestions_0: score 1.00 | 1339ms
+     [2/3] naturalquestions_1: score 0.07 | 1170ms
+     [3/3] naturalquestions_2: score 0.01 | 794ms
+   Score médio: 0.362 | Latência média: 1101.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] triviaqa_0: score 1.00 | 1036ms
+     [2/3] triviaqa_1: score 1.00 | 2409ms
+     [3/3] triviaqa_2: score 1.00 | 3012ms
+   Score médio: 1.000 | Latência média: 2152.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] triviaqa_0: score 1.00 | 1402ms
+     [2/3] triviaqa_1: score 1.00 | 2487ms
+     [3/3] triviaqa_2: score 1.00 | 3103ms
+   Score médio: 1.000 | Latência média: 2330.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] triviaqa_0: score 1.00 | 1278ms
+     [2/3] triviaqa_1: score 1.00 | 2831ms
+     [3/3] triviaqa_2: score 1.00 | 3460ms
+   Score médio: 1.000 | Latência média: 2522.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] triviaqa_0: score 1.00 | 1000ms
+     [2/3] triviaqa_1: score 1.00 | 1965ms
+     [3/3] triviaqa_2: score 1.00 | 2325ms
+   Score médio: 1.000 | Latência média: 1763.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] hotpotqa_0: score 0.00 | 3060ms
+     [2/3] hotpotqa_1: score 0.00 | 2946ms
+     [3/3] hotpotqa_2: score 1.00 | 3353ms
+   Score médio: 0.333 | Latência média: 3119.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] hotpotqa_0: score 0.00 | 3353ms
+     [2/3] hotpotqa_1: score 0.00 | 6593ms
+     [3/3] hotpotqa_2: score 1.00 | 4646ms
+   Score médio: 0.333 | Latência média: 4863.9ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] hotpotqa_0: score 0.00 | 4278ms
+     [2/3] hotpotqa_1: score 0.00 | 7596ms
+     [3/3] hotpotqa_2: score 0.00 | 5448ms
+   Score médio: 0.000 | Latência média: 5774.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] hotpotqa_0: score 0.00 | 2602ms
+     [2/3] hotpotqa_1: score 0.00 | 5280ms
+     [3/3] hotpotqa_2: score 1.00 | 3421ms
+   Score médio: 0.333 | Latência média: 3767.7ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] musique_0: score 0.00 | 6209ms
+     [2/3] musique_1: score 0.25 | 5547ms
+     [3/3] musique_2: score 0.00 | 7636ms
+   Score médio: 0.083 | Latência média: 6464.0ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] musique_0: score 1.00 | 8484ms
+     [2/3] musique_1: score 0.00 | 8951ms
+     [3/3] musique_2: score 0.00 | 4913ms
+   Score médio: 0.333 | Latência média: 7449.2ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] musique_0: score 1.00 | 9668ms
+     [2/3] musique_1: score 0.25 | 10240ms
+     [3/3] musique_2: score 0.00 | 5905ms
+   Score médio: 0.417 | Latência média: 8604.0ms | 3 casos
+
+>> Executando musique com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] musique_0: score 1.00 | 6371ms
+     [2/3] musique_1: score 0.25 | 6743ms
+     [3/3] musique_2: score 0.00 | 3597ms
+   Score médio: 0.417 | Latência média: 5570.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_llama3.1-8b-instruct-q8
+     [1/3] meeting_summarization_0: score 0.32 | 21859ms
+     [2/3] meeting_summarization_1: score 0.00 | 25247ms
+     [3/3] meeting_summarization_2: score 0.35 | 10928ms
+   Score médio: 0.222 | Latência média: 19344.8ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/3] meeting_summarization_0: score 0.40 | 28709ms
+     [2/3] meeting_summarization_1: score 0.42 | 36036ms
+     [3/3] meeting_summarization_2: score 0.24 | 9557ms
+   Score médio: 0.356 | Latência média: 24767.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_llama3.1-8b-instruct-q8
+     [1/3] meeting_summarization_0: score 0.47 | 37894ms
+     [2/3] meeting_summarization_1: score 0.08 | 38484ms
+     [3/3] meeting_summarization_2: score 0.33 | 15880ms
+   Score médio: 0.290 | Latência média: 30752.8ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/3] meeting_summarization_0: score 0.33 | 21150ms
+     [2/3] meeting_summarization_1: score 0.41 | 25015ms
+     [3/3] meeting_summarization_2: score 0.27 | 20077ms
+   Score médio: 0.335 | Latência média: 22080.8ms | 3 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/llama3.1-8b-instruct-q8_0/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/llama3.1-8b-instruct-q8_0/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/llama3.1-8b-instruct-q8_0/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_llama3.1-8b-instruct-q8:
+  Score médio: 0.381
+  Score min/max: 0.000 / 1.000
+  Latência média: 10127.2ms
+
+llmlingua2_llama3.1-8b-instruct-q8:
+  Score médio: 0.517
+  Score min/max: 0.000 / 1.000
+  Latência média: 12385.4ms
+
+selective_context_llama3.1-8b-instruct-q8:
+  Score médio: 0.496
+  Score min/max: 0.000 / 1.000
+  Latência média: 14825.3ms
+
+cpc_llama3.1-8b-instruct-q8:
+  Score médio: 0.538
+  Score min/max: 0.000 / 1.000
+  Latência média: 10345.2ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_llama3.1-8b-instruct-q80.688               0.190               0.050               1.000               0.333               0.083               0.222               
+llmlingua2_llama3.1-8b-instruct-q80.812               0.606               0.080               1.000               0.333               0.333               0.356               
+selective_context_llama3.1-8b-instruct-q80.688               0.656               0.362               1.000               0.000               0.417               0.290               
+cpc_llama3.1-8b-instruct-q80.688               0.583               0.362               1.000               0.333               0.417               0.335               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/llama3.1-8b-instruct-q8_0/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25h
+RUN gemma4:26b-mlx com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_gemma4-26b-mlx
+Estratégia registrada: llmlingua2_gemma4-26b-mlx
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_gemma4-26b-mlx
+Estratégia registrada: cpc_gemma4-26b-mlx
+
+Modelos: ['ollama/gemma4:26b-mlx']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_gemma4-26b-mlx', 'llmlingua2_gemma4-26b-mlx', 'selective_context_gemma4-26b-mlx', 'cpc_gemma4-26b-mlx']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando gemma4:26b-mlx (num_ctx=8192)...
+
+>> Executando longbench com estratégia: llmlingua_gemma4-26b-mlx
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 15825ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 13595ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 13507ms
+     [4/4] longbench_summarization_1: score 0.00 | 13292ms
+   Score médio: 0.250 | Latência média: 14054.6ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 10093ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 6164ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 5375ms
+     [4/4] longbench_summarization_1: score 0.75 | 13328ms
+   Score médio: 0.938 | Latência média: 8740.1ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_gemma4-26b-mlx
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 8056ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 7330ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 13619ms
+     [4/4] longbench_summarization_1: score 0.75 | 13429ms
+   Score médio: 0.688 | Latência média: 10608.5ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_gemma4-26b-mlx
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 9189ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 5190ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 13600ms
+     [4/4] longbench_summarization_1: score 0.75 | 11400ms
+   Score médio: 0.688 | Latência média: 9844.6ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_gemma4-26b-mlx
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 30776ms
+     [2/3] zeroscrolls_1: score 0.00 | 16989ms
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 50319 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 50747ms
+   Score médio: 0.000 | Latência média: 32837.4ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_gemma4-26b-mlx
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.00 | 33354ms
+     [2/3] zeroscrolls_1: score 1.00 | 15078ms
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 85551 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 45313ms
+   Score médio: 0.583 | Latência média: 31248.3ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_gemma4-26b-mlx
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.00 | 37558ms
+     [2/3] zeroscrolls_1: score 1.00 | 13115ms
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 95576 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 54493ms
+   Score médio: 0.333 | Latência média: 35055.4ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_gemma4-26b-mlx
+     [1/3] zeroscrolls_0: score 0.00 | 26494ms
+     [2/3] zeroscrolls_1: score 1.00 | 9791ms
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 74756 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 29081ms
+   Score médio: 0.333 | Latência média: 21788.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] naturalquestions_0: score 0.00 | 14048ms
+     [2/3] naturalquestions_1: score 1.00 | 9828ms
+     [3/3] naturalquestions_2: score 0.01 | 4680ms
+   Score médio: 0.337 | Latência média: 9518.6ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] naturalquestions_0: score 0.02 | 8155ms
+     [2/3] naturalquestions_1: score 0.00 | 13365ms
+     [3/3] naturalquestions_2: score 1.00 | 4971ms
+   Score médio: 0.341 | Latência média: 8830.3ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] naturalquestions_0: score 0.00 | 14159ms
+     [2/3] naturalquestions_1: score 1.00 | 4954ms
+     [3/3] naturalquestions_2: score 0.01 | 12852ms
+   Score médio: 0.337 | Latência média: 10654.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_gemma4-26b-mlx
+     [1/3] naturalquestions_0: score 1.00 | 10076ms
+     [2/3] naturalquestions_1: score 1.00 | 6806ms
+     [3/3] naturalquestions_2: score 0.01 | 5633ms
+   Score médio: 0.671 | Latência média: 7505.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] triviaqa_0: score 1.00 | 8415ms
+     [2/3] triviaqa_1: score 1.00 | 9153ms
+     [3/3] triviaqa_2: score 1.00 | 10381ms
+   Score médio: 1.000 | Latência média: 9316.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] triviaqa_0: score 1.00 | 6457ms
+     [2/3] triviaqa_1: score 1.00 | 9415ms
+     [3/3] triviaqa_2: score 1.00 | 7947ms
+   Score médio: 1.000 | Latência média: 7939.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] triviaqa_0: score 1.00 | 6348ms
+     [2/3] triviaqa_1: score 1.00 | 6457ms
+     [3/3] triviaqa_2: score 0.00 | 15892ms
+   Score médio: 0.667 | Latência média: 9565.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_gemma4-26b-mlx
+     [1/3] triviaqa_0: score 1.00 | 5765ms
+     [2/3] triviaqa_1: score 1.00 | 12687ms
+     [3/3] triviaqa_2: score 1.00 | 6233ms
+   Score médio: 1.000 | Latência média: 8228.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] hotpotqa_0: score 1.00 | 15063ms
+     [2/3] hotpotqa_1: score 0.00 | 15977ms
+     [3/3] hotpotqa_2: score 0.00 | 18350ms
+   Score médio: 0.333 | Latência média: 16463.5ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] hotpotqa_0: score 0.00 | 16098ms
+     [2/3] hotpotqa_1: score 1.00 | 16326ms
+     [3/3] hotpotqa_2: score 0.00 | 16800ms
+   Score médio: 0.333 | Latência média: 16407.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] hotpotqa_0: score 0.00 | 16782ms
+     [2/3] hotpotqa_1: score 0.00 | 18712ms
+     [3/3] hotpotqa_2: score 0.00 | 16997ms
+   Score médio: 0.000 | Latência média: 17497.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_gemma4-26b-mlx
+     [1/3] hotpotqa_0: score 0.00 | 15203ms
+     [2/3] hotpotqa_1: score 1.00 | 12424ms
+     [3/3] hotpotqa_2: score 1.00 | 12264ms
+   Score médio: 0.667 | Latência média: 13296.9ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] musique_0: score 0.00 | 19318ms
+     [2/3] musique_1: score 0.00 | 16495ms
+     [3/3] musique_2: score 0.00 | 15708ms
+   Score médio: 0.000 | Latência média: 17173.5ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] musique_0: score 0.00 | 21539ms
+     [2/3] musique_1: score 0.00 | 17966ms
+     [3/3] musique_2: score 0.00 | 16660ms
+   Score médio: 0.000 | Latência média: 18721.7ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] musique_0: score 1.00 | 19141ms
+     [2/3] musique_1: score 0.00 | 21183ms
+     [3/3] musique_2: score 0.00 | 17086ms
+   Score médio: 0.333 | Latência média: 19136.3ms | 3 casos
+
+>> Executando musique com estratégia: cpc_gemma4-26b-mlx
+     [1/3] musique_0: score 1.00 | 12640ms
+     [2/3] musique_1: score 0.00 | 16678ms
+     [3/3] musique_2: score 0.00 | 15283ms
+   Score médio: 0.333 | Latência média: 14867.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] meeting_summarization_0: score 0.00 | 30739ms
+     [2/3] meeting_summarization_1: score 0.00 | 29247ms
+     [3/3] meeting_summarization_2: score 0.00 | 29076ms
+   Score médio: 0.000 | Latência média: 29687.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_gemma4-26b-mlx
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.00 | 35137ms
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.00 | 31938ms
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.02 | 33015ms
+   Score médio: 0.007 | Latência média: 33363.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_gemma4-26b-mlx
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.00 | 37457ms
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.00 | 37917ms
+WARNING __main__: [ollama/gemma4:26b-mlx] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.35 | 35649ms
+   Score médio: 0.116 | Latência média: 37007.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_gemma4-26b-mlx
+     [1/3] meeting_summarization_0: score 0.00 | 26373ms
+     [2/3] meeting_summarization_1: score 0.11 | 25103ms
+     [3/3] meeting_summarization_2: score 0.31 | 26844ms
+   Score médio: 0.138 | Latência média: 26106.5ms | 3 casos
+Descarregando gemma4:26b-mlx...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/gemma4-26b-mlx/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/gemma4-26b-mlx/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/gemma4-26b-mlx/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_gemma4-26b-mlx:
+  Score médio: 0.273
+  Score min/max: 0.000 / 1.000
+  Latência média: 18236.7ms
+
+llmlingua2_gemma4-26b-mlx:
+  Score médio: 0.479
+  Score min/max: 0.000 / 1.000
+  Latência média: 17476.9ms
+
+selective_context_gemma4-26b-mlx:
+  Score médio: 0.369
+  Score min/max: 0.000 / 1.000
+  Latência média: 19508.4ms
+
+cpc_gemma4-26b-mlx:
+  Score médio: 0.554
+  Score min/max: 0.000 / 1.000
+  Latência média: 14307.2ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_gemma4-26b-mlx0.250               0.000               0.337               1.000               0.333               0.000               0.000               
+llmlingua2_gemma4-26b-mlx0.938               0.583               0.341               1.000               0.333               0.000               0.007               
+selective_context_gemma4-26b-mlx0.688               0.333               0.337               0.667               0.000               0.333               0.116               
+cpc_gemma4-26b-mlx  0.688               0.333               0.671               1.000               0.667               0.333               0.138               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/gemma4-26b-mlx/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+
+RUN gemma4:26b-mlx com num_ctx=32768
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_gemma4-26b-mlx
+Estratégia registrada: llmlingua2_gemma4-26b-mlx
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_gemma4-26b-mlx
+Estratégia registrada: cpc_gemma4-26b-mlx
+
+Modelos: ['ollama/gemma4:26b-mlx']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_gemma4-26b-mlx', 'llmlingua2_gemma4-26b-mlx', 'selective_context_gemma4-26b-mlx', 'cpc_gemma4-26b-mlx']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando gemma4:26b-mlx (num_ctx=32768)...
+
+>> Executando longbench com estratégia: llmlingua_gemma4-26b-mlx
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 10499ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 13795ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 13473ms
+     [4/4] longbench_summarization_1: score 0.50 | 13232ms
+   Score médio: 0.375 | Latência média: 12749.8ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 9817ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 6122ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 5763ms
+     [4/4] longbench_summarization_1: score 0.75 | 13146ms
+   Score médio: 0.938 | Latência média: 8711.7ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_gemma4-26b-mlx
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 8067ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 7604ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 14317ms
+     [4/4] longbench_summarization_1: score 0.75 | 13500ms
+   Score médio: 0.688 | Latência média: 10872.0ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_gemma4-26b-mlx
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 9417ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 5556ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 13849ms
+     [4/4] longbench_summarization_1: score 0.75 | 11469ms
+   Score médio: 0.688 | Latência média: 10072.8ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_gemma4-26b-mlx
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 28287ms
+     [2/3] zeroscrolls_1: score 0.00 | 17120ms
+     [3/3] zeroscrolls_2: score 0.00 | 74701ms
+   Score médio: 0.000 | Latência média: 40036.1ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_gemma4-26b-mlx
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 36145ms
+     [2/3] zeroscrolls_1: score 1.00 | 14906ms
+     [3/3] zeroscrolls_2: score 0.00 | 82174ms
+   Score médio: 0.333 | Latência média: 44408.4ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] zeroscrolls_0: score 0.00 | 37881ms
+     [2/3] zeroscrolls_1: score 0.67 | 12884ms
+     [3/3] zeroscrolls_2: score 0.00 | 94291ms
+   Score médio: 0.222 | Latência média: 48351.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_gemma4-26b-mlx
+     [1/3] zeroscrolls_0: score 0.00 | 25384ms
+     [2/3] zeroscrolls_1: score 1.00 | 9959ms
+     [3/3] zeroscrolls_2: score 0.75 | 61256ms
+   Score médio: 0.583 | Latência média: 32199.6ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] naturalquestions_0: score 0.00 | 14258ms
+     [2/3] naturalquestions_1: score 1.00 | 9611ms
+     [3/3] naturalquestions_2: score 0.01 | 4754ms
+   Score médio: 0.337 | Latência média: 9541.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] naturalquestions_0: score 0.00 | 13746ms
+     [2/3] naturalquestions_1: score 0.00 | 13284ms
+     [3/3] naturalquestions_2: score 1.00 | 4933ms
+   Score médio: 0.333 | Latência média: 10654.3ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] naturalquestions_0: score 0.00 | 13774ms
+     [2/3] naturalquestions_1: score 1.00 | 4983ms
+     [3/3] naturalquestions_2: score 0.01 | 9553ms
+   Score médio: 0.337 | Latência média: 9436.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_gemma4-26b-mlx
+     [1/3] naturalquestions_0: score 1.00 | 10180ms
+     [2/3] naturalquestions_1: score 1.00 | 6793ms
+     [3/3] naturalquestions_2: score 0.01 | 6151ms
+   Score médio: 0.671 | Latência média: 7708.2ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] triviaqa_0: score 1.00 | 8491ms
+     [2/3] triviaqa_1: score 1.00 | 9318ms
+     [3/3] triviaqa_2: score 1.00 | 8744ms
+   Score médio: 1.000 | Latência média: 8850.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] triviaqa_0: score 1.00 | 6218ms
+     [2/3] triviaqa_1: score 1.00 | 6585ms
+     [3/3] triviaqa_2: score 1.00 | 13392ms
+   Score médio: 1.000 | Latência média: 8731.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] triviaqa_0: score 1.00 | 6655ms
+     [2/3] triviaqa_1: score 1.00 | 6754ms
+     [3/3] triviaqa_2: score 0.00 | 17247ms
+   Score médio: 0.667 | Latência média: 10218.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_gemma4-26b-mlx
+     [1/3] triviaqa_0: score 1.00 | 6363ms
+     [2/3] triviaqa_1: score 1.00 | 10554ms
+     [3/3] triviaqa_2: score 1.00 | 6281ms
+   Score médio: 1.000 | Latência média: 7732.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] hotpotqa_0: score 1.00 | 12310ms
+     [2/3] hotpotqa_1: score 0.00 | 17496ms
+     [3/3] hotpotqa_2: score 0.00 | 17487ms
+   Score médio: 0.333 | Latência média: 15764.5ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] hotpotqa_0: score 0.00 | 19261ms
+     [2/3] hotpotqa_1: score 1.00 | 15913ms
+     [3/3] hotpotqa_2: score 1.00 | 14097ms
+   Score médio: 0.667 | Latência média: 16423.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] hotpotqa_0: score 0.00 | 18919ms
+     [2/3] hotpotqa_1: score 0.00 | 17608ms
+     [3/3] hotpotqa_2: score 0.00 | 19155ms
+   Score médio: 0.000 | Latência média: 18560.7ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_gemma4-26b-mlx
+     [1/3] hotpotqa_0: score 0.00 | 14482ms
+     [2/3] hotpotqa_1: score 1.00 | 11331ms
+     [3/3] hotpotqa_2: score 1.00 | 10404ms
+   Score médio: 0.667 | Latência média: 12072.1ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] musique_0: score 0.00 | 20044ms
+     [2/3] musique_1: score 0.00 | 16455ms
+     [3/3] musique_2: score 0.00 | 15851ms
+   Score médio: 0.000 | Latência média: 17450.1ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] musique_0: score 0.00 | 21164ms
+     [2/3] musique_1: score 0.00 | 19119ms
+     [3/3] musique_2: score 0.00 | 19168ms
+   Score médio: 0.000 | Latência média: 19816.9ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] musique_0: score 1.00 | 17972ms
+     [2/3] musique_1: score 0.00 | 21406ms
+     [3/3] musique_2: score 0.00 | 18813ms
+   Score médio: 0.333 | Latência média: 19396.9ms | 3 casos
+
+>> Executando musique com estratégia: cpc_gemma4-26b-mlx
+     [1/3] musique_0: score 1.00 | 12978ms
+     [2/3] musique_1: score 0.00 | 17571ms
+     [3/3] musique_2: score 0.00 | 15291ms
+   Score médio: 0.333 | Latência média: 15280.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_gemma4-26b-mlx
+     [1/3] meeting_summarization_0: score 0.00 | 31389ms
+     [2/3] meeting_summarization_1: score 0.00 | 28522ms
+     [3/3] meeting_summarization_2: score 0.00 | 29172ms
+   Score médio: 0.000 | Latência média: 29694.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_gemma4-26b-mlx
+     [1/3] meeting_summarization_0: score 0.00 | 37136ms
+     [2/3] meeting_summarization_1: score 0.00 | 34265ms
+     [3/3] meeting_summarization_2: score 0.00 | 34702ms
+   Score médio: 0.000 | Latência média: 35368.0ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_gemma4-26b-mlx
+     [1/3] meeting_summarization_0: score 0.00 | 40039ms
+     [2/3] meeting_summarization_1: score 0.00 | 41945ms
+     [3/3] meeting_summarization_2: score 0.31 | 41444ms
+   Score médio: 0.102 | Latência média: 41142.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_gemma4-26b-mlx
+     [1/3] meeting_summarization_0: score 0.00 | 29912ms
+     [2/3] meeting_summarization_1: score 0.00 | 26643ms
+     [3/3] meeting_summarization_2: score 0.20 | 24786ms
+   Score médio: 0.068 | Latência média: 27113.7ms | 3 casos
+Descarregando gemma4:26b-mlx...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/gemma4-26b-mlx/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/gemma4-26b-mlx/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/gemma4-26b-mlx/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_gemma4-26b-mlx:
+  Score médio: 0.296
+  Score min/max: 0.000 / 1.000
+  Latência média: 18864.0ms
+
+llmlingua2_gemma4-26b-mlx:
+  Score médio: 0.489
+  Score min/max: 0.000 / 1.000
+  Latência média: 20048.0ms
+
+selective_context_gemma4-26b-mlx:
+  Score médio: 0.352
+  Score min/max: 0.000 / 1.000
+  Latência média: 22036.8ms
+
+cpc_gemma4-26b-mlx:
+  Score médio: 0.578
+  Score min/max: 0.000 / 1.000
+  Latência média: 15755.0ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_gemma4-26b-mlx0.375               0.000               0.337               1.000               0.333               0.000               0.000               
+llmlingua2_gemma4-26b-mlx0.938               0.333               0.333               1.000               0.667               0.000               0.000               
+selective_context_gemma4-26b-mlx0.688               0.222               0.337               0.667               0.000               0.333               0.102               
+cpc_gemma4-26b-mlx  0.688               0.583               0.671               1.000               0.667               0.333               0.068               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/gemma4-26b-mlx/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25h
+RUN qwen3:30b-a3b com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_qwen3:30b-a3b
+Estratégia registrada: llmlingua2_qwen3:30b-a3b
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_qwen3:30b-a3b
+Estratégia registrada: cpc_qwen3:30b-a3b
+
+Modelos: ['ollama/qwen3:30b-a3b']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_qwen3:30b-a3b', 'llmlingua2_qwen3:30b-a3b', 'selective_context_qwen3:30b-a3b', 'cpc_qwen3:30b-a3b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando qwen3:30b-a3b (num_ctx=8192)...
+
+>> Executando longbench com estratégia: llmlingua_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 11912ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 6680ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 11278ms
+     [4/4] longbench_summarization_1: score 0.00 | 11196ms
+   Score médio: 0.000 | Latência média: 10266.7ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 7265ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 4669ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 5421ms
+     [4/4] longbench_summarization_1: score 0.00 | 11197ms
+   Score médio: 0.750 | Latência média: 7138.0ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 5916ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 4257ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 11363ms
+     [4/4] longbench_summarization_1: score 0.00 | 11344ms
+   Score médio: 0.500 | Latência média: 8220.1ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 7996ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 8196ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 11091ms
+     [4/4] longbench_summarization_1: score 0.00 | 10940ms
+   Score médio: 0.500 | Latência média: 9555.8ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_qwen3:30b-a3b
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 26434ms
+     [2/3] zeroscrolls_1: score 0.00 | 14129ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 50319 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 47008ms
+   Score médio: 0.000 | Latência média: 29190.5ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_qwen3:30b-a3b
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.00 | 29952ms
+     [2/3] zeroscrolls_1: score 0.67 | 10636ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 85551 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 44053ms
+   Score médio: 0.472 | Latência média: 28213.5ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_qwen3:30b-a3b
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.00 | 35024ms
+     [2/3] zeroscrolls_1: score 0.67 | 11461ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 95576 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 49194ms
+   Score médio: 0.222 | Latência média: 31893.1ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_qwen3:30b-a3b
+     [1/3] zeroscrolls_0: score 0.00 | 24443ms
+     [2/3] zeroscrolls_1: score 1.00 | 10019ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 74756 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 24860ms
+   Score médio: 0.583 | Latência média: 19774.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 12252ms
+     [2/3] naturalquestions_1: score 1.00 | 7060ms
+     [3/3] naturalquestions_2: score 1.00 | 5412ms
+   Score médio: 0.667 | Latência média: 8241.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 13263ms
+     [2/3] naturalquestions_1: score 1.00 | 9980ms
+     [3/3] naturalquestions_2: score 1.00 | 6893ms
+   Score médio: 0.667 | Latência média: 10045.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 11538ms
+     [2/3] naturalquestions_1: score 1.00 | 10413ms
+/Users/mathcardoso/.pyenv/versions/3.12.3/lib/python3.12/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+nohup: setsid: No such file or directory
+
+RUN qwen3:30b-a3b com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_qwen3:30b-a3b
+Estratégia registrada: llmlingua2_qwen3:30b-a3b
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_qwen3:30b-a3b
+Estratégia registrada: cpc_qwen3:30b-a3b
+
+Modelos: ['ollama/qwen3:30b-a3b']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_qwen3:30b-a3b', 'llmlingua2_qwen3:30b-a3b', 'selective_context_qwen3:30b-a3b', 'cpc_qwen3:30b-a3b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando qwen3:30b-a3b (num_ctx=8192)...
+
+>> Executando longbench com estratégia: llmlingua_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 11306ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 6836ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 11401ms
+     [4/4] longbench_summarization_1: score 0.00 | 10619ms
+   Score médio: 0.000 | Latência média: 10040.4ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 7870ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 4674ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 5508ms
+     [4/4] longbench_summarization_1: score 0.00 | 10821ms
+   Score médio: 0.750 | Latência média: 7218.1ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 5451ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 4312ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 11385ms
+     [4/4] longbench_summarization_1: score 0.00 | 10791ms
+   Score médio: 0.500 | Latência média: 7985.0ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 7381ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 7240ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 10631ms
+     [4/4] longbench_summarization_1: score 0.00 | 10579ms
+   Score médio: 0.500 | Latência média: 8957.7ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_qwen3:30b-a3b
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 18789ms
+     [2/3] zeroscrolls_1: score 0.33 | 8704ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 50319 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 33340ms
+   Score médio: 0.111 | Latência média: 20277.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_qwen3:30b-a3b
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.36 | 21073ms
+     [2/3] zeroscrolls_1: score 0.67 | 7917ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 85551 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 36245ms
+   Score médio: 0.592 | Latência média: 21745.1ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_qwen3:30b-a3b
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.00 | 23923ms
+     [2/3] zeroscrolls_1: score 0.67 | 7791ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 95576 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 39293ms
+   Score médio: 0.222 | Latência média: 23668.9ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_qwen3:30b-a3b
+     [1/3] zeroscrolls_0: score 0.00 | 13202ms
+     [2/3] zeroscrolls_1: score 1.00 | 7412ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 74756 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 9306ms
+   Score médio: 0.583 | Latência média: 9973.2ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 11432ms
+     [2/3] naturalquestions_1: score 1.00 | 7505ms
+     [3/3] naturalquestions_2: score 1.00 | 4983ms
+   Score médio: 0.667 | Latência média: 7973.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 12406ms
+     [2/3] naturalquestions_1: score 1.00 | 10079ms
+     [3/3] naturalquestions_2: score 1.00 | 5724ms
+   Score médio: 0.667 | Latência média: 9403.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 10989ms
+     [2/3] naturalquestions_1: score 1.00 | 10546ms
+     [3/3] naturalquestions_2: score 0.00 | 10613ms
+   Score médio: 0.333 | Latência média: 10715.8ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 11294ms
+     [2/3] naturalquestions_1: score 1.00 | 6542ms
+     [3/3] naturalquestions_2: score 1.00 | 5920ms
+   Score médio: 0.667 | Latência média: 7918.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] triviaqa_0: score 0.00 | 11399ms
+     [2/3] triviaqa_1: score 1.00 | 9664ms
+     [3/3] triviaqa_2: score 0.00 | 12410ms
+   Score médio: 0.333 | Latência média: 11157.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] triviaqa_0: score 1.00 | 7586ms
+     [2/3] triviaqa_1: score 1.00 | 12044ms
+     [3/3] triviaqa_2: score 1.00 | 9867ms
+   Score médio: 1.000 | Latência média: 9832.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] triviaqa_0: score 1.00 | 10545ms
+     [2/3] triviaqa_1: score 0.00 | 12190ms
+     [3/3] triviaqa_2: score 0.00 | 12997ms
+   Score médio: 0.333 | Latência média: 11910.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_qwen3:30b-a3b
+     [1/3] triviaqa_0: score 1.00 | 5618ms
+     [2/3] triviaqa_1: score 0.00 | 11367ms
+     [3/3] triviaqa_2: score 1.00 | 8564ms
+   Score médio: 0.667 | Latência média: 8516.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] hotpotqa_0: score 0.00 | 13013ms
+     [2/3] hotpotqa_1: score 0.00 | 12528ms
+     [3/3] hotpotqa_2: score 1.00 | 13025ms
+   Score médio: 0.333 | Latência média: 12855.4ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] hotpotqa_0: score 0.00 | 9236ms
+     [2/3] hotpotqa_1: score 0.00 | 13240ms
+     [3/3] hotpotqa_2: score 0.00 | 13647ms
+   Score médio: 0.000 | Latência média: 12041.4ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] hotpotqa_0: score 0.00 | 12354ms
+     [2/3] hotpotqa_1: score 0.00 | 13515ms
+     [3/3] hotpotqa_2: score 0.00 | 14149ms
+   Score médio: 0.000 | Latência média: 13339.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_qwen3:30b-a3b
+     [1/3] hotpotqa_0: score 0.00 | 12045ms
+     [2/3] hotpotqa_1: score 0.00 | 12221ms
+     [3/3] hotpotqa_2: score 0.00 | 12457ms
+   Score médio: 0.000 | Latência média: 12241.1ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] musique_0: score 0.00 | 15545ms
+     [2/3] musique_1: score 0.00 | 13954ms
+     [3/3] musique_2: score 0.00 | 13206ms
+   Score médio: 0.000 | Latência média: 14235.1ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] musique_0: score 0.00 | 18890ms
+     [2/3] musique_1: score 0.00 | 15923ms
+     [3/3] musique_2: score 0.00 | 14733ms
+   Score médio: 0.000 | Latência média: 16515.3ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] musique_0: score 1.00 | 16780ms
+     [2/3] musique_1: score 0.00 | 16425ms
+     [3/3] musique_2: score 0.00 | 15132ms
+   Score médio: 0.333 | Latência média: 16112.3ms | 3 casos
+
+>> Executando musique com estratégia: cpc_qwen3:30b-a3b
+     [1/3] musique_0: score 1.00 | 9636ms
+     [2/3] musique_1: score 0.00 | 14042ms
+     [3/3] musique_2: score 0.00 | 12683ms
+   Score médio: 0.333 | Latência média: 12120.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] meeting_summarization_0: score 0.00 | 27311ms
+     [2/3] meeting_summarization_1: score 0.00 | 26367ms
+     [3/3] meeting_summarization_2: score 0.00 | 17840ms
+   Score médio: 0.000 | Latência média: 23839.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_qwen3:30b-a3b
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.00 | 31548ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.00 | 30031ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.00 | 20007ms
+   Score médio: 0.000 | Latência média: 27195.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_qwen3:30b-a3b
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.00 | 35618ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.25 | 35941ms
+WARNING __main__: [ollama/qwen3:30b-a3b] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.00 | 24337ms
+   Score médio: 0.083 | Latência média: 31965.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_qwen3:30b-a3b
+     [1/3] meeting_summarization_0: score 0.00 | 24353ms
+     [2/3] meeting_summarization_1: score 0.02 | 24258ms
+     [3/3] meeting_summarization_2: score 0.00 | 23728ms
+   Score médio: 0.005 | Latência média: 24113.0ms | 3 casos
+Descarregando qwen3:30b-a3b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/qwen3-30b-a3b/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/qwen3-30b-a3b/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/qwen3-30b-a3b/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_qwen3:30b-a3b:
+  Score médio: 0.197
+  Score min/max: 0.000 / 1.000
+  Latência média: 14144.4ms
+
+llmlingua2_qwen3:30b-a3b:
+  Score médio: 0.444
+  Score min/max: 0.000 / 1.000
+  Latência média: 14503.2ms
+
+selective_context_qwen3:30b-a3b:
+  Score médio: 0.269
+  Score min/max: 0.000 / 1.000
+  Latência média: 16139.8ms
+
+cpc_qwen3:30b-a3b:
+  Score médio: 0.398
+  Score min/max: 0.000 / 1.000
+  Latência média: 11839.9ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_qwen3:30b-a3b0.000               0.111               0.667               0.333               0.333               0.000               0.000               
+llmlingua2_qwen3:30b-a3b0.750               0.592               0.667               1.000               0.000               0.000               0.000               
+selective_context_qwen3:30b-a3b0.500               0.222               0.333               0.333               0.000               0.333               0.083               
+cpc_qwen3:30b-a3b   0.500               0.583               0.667               0.667               0.000               0.333               0.005               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/qwen3-30b-a3b/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+
+RUN qwen3:30b-a3b com num_ctx=32768
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_qwen3:30b-a3b
+Estratégia registrada: llmlingua2_qwen3:30b-a3b
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_qwen3:30b-a3b
+Estratégia registrada: cpc_qwen3:30b-a3b
+
+Modelos: ['ollama/qwen3:30b-a3b']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_qwen3:30b-a3b', 'llmlingua2_qwen3:30b-a3b', 'selective_context_qwen3:30b-a3b', 'cpc_qwen3:30b-a3b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando qwen3:30b-a3b (num_ctx=32768)...
+
+>> Executando longbench com estratégia: llmlingua_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 11918ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 6722ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 11165ms
+     [4/4] longbench_summarization_1: score 0.00 | 11258ms
+   Score médio: 0.000 | Latência média: 10265.9ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 8478ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 4687ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 5466ms
+     [4/4] longbench_summarization_1: score 0.00 | 11321ms
+   Score médio: 0.750 | Latência média: 7488.1ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 6004ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 4278ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 11279ms
+     [4/4] longbench_summarization_1: score 0.00 | 11398ms
+   Score médio: 0.500 | Latência média: 8239.5ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_qwen3:30b-a3b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 7863ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 8183ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 11301ms
+     [4/4] longbench_summarization_1: score 0.00 | 10934ms
+   Score médio: 0.500 | Latência média: 9570.4ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_qwen3:30b-a3b
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 27819ms
+     [2/3] zeroscrolls_1: score 0.00 | 14257ms
+     [3/3] zeroscrolls_2: score 0.00 | 80873ms
+   Score médio: 0.000 | Latência média: 40983.3ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_qwen3:30b-a3b
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 34284ms
+     [2/3] zeroscrolls_1: score 0.67 | 10657ms
+     [3/3] zeroscrolls_2: score 0.75 | 94732ms
+   Score médio: 0.472 | Latência média: 46557.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] zeroscrolls_0: score 0.00 | 39295ms
+     [2/3] zeroscrolls_1: score 0.67 | 11721ms
+     [3/3] zeroscrolls_2: score 0.75 | 118972ms
+   Score médio: 0.472 | Latência média: 56662.9ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_qwen3:30b-a3b
+     [1/3] zeroscrolls_0: score 0.00 | 24988ms
+     [2/3] zeroscrolls_1: score 1.00 | 10018ms
+     [3/3] zeroscrolls_2: score 0.75 | 80015ms
+   Score médio: 0.583 | Latência média: 38340.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 12732ms
+     [2/3] naturalquestions_1: score 1.00 | 7456ms
+     [3/3] naturalquestions_2: score 1.00 | 5424ms
+   Score médio: 0.667 | Latência média: 8537.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 13492ms
+     [2/3] naturalquestions_1: score 1.00 | 10086ms
+     [3/3] naturalquestions_2: score 1.00 | 7178ms
+   Score médio: 0.667 | Latência média: 10252.1ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 11745ms
+     [2/3] naturalquestions_1: score 1.00 | 10518ms
+     [3/3] naturalquestions_2: score 0.00 | 10986ms
+   Score médio: 0.333 | Latência média: 11083.0ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_qwen3:30b-a3b
+     [1/3] naturalquestions_0: score 0.00 | 11218ms
+     [2/3] naturalquestions_1: score 1.00 | 6611ms
+     [3/3] naturalquestions_2: score 1.00 | 5844ms
+   Score médio: 0.667 | Latência média: 7891.0ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] triviaqa_0: score 0.00 | 11792ms
+     [2/3] triviaqa_1: score 1.00 | 9582ms
+     [3/3] triviaqa_2: score 0.00 | 12537ms
+   Score médio: 0.333 | Latência média: 11303.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] triviaqa_0: score 1.00 | 8008ms
+     [2/3] triviaqa_1: score 1.00 | 12078ms
+     [3/3] triviaqa_2: score 1.00 | 9931ms
+   Score médio: 1.000 | Latência média: 10005.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] triviaqa_0: score 1.00 | 10814ms
+     [2/3] triviaqa_1: score 0.00 | 12318ms
+     [3/3] triviaqa_2: score 0.00 | 13119ms
+   Score médio: 0.333 | Latência média: 12083.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_qwen3:30b-a3b
+     [1/3] triviaqa_0: score 1.00 | 5846ms
+     [2/3] triviaqa_1: score 0.00 | 11502ms
+     [3/3] triviaqa_2: score 1.00 | 8555ms
+   Score médio: 0.667 | Latência média: 8634.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] hotpotqa_0: score 0.00 | 13542ms
+     [2/3] hotpotqa_1: score 0.00 | 12710ms
+     [3/3] hotpotqa_2: score 1.00 | 12971ms
+   Score médio: 0.333 | Latência média: 13074.4ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] hotpotqa_0: score 0.00 | 10320ms
+     [2/3] hotpotqa_1: score 0.00 | 13469ms
+     [3/3] hotpotqa_2: score 0.00 | 13688ms
+   Score médio: 0.000 | Latência média: 12492.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] hotpotqa_0: score 0.00 | 12494ms
+     [2/3] hotpotqa_1: score 0.00 | 13513ms
+     [3/3] hotpotqa_2: score 0.00 | 14111ms
+   Score médio: 0.000 | Latência média: 13372.7ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_qwen3:30b-a3b
+     [1/3] hotpotqa_0: score 0.00 | 12112ms
+     [2/3] hotpotqa_1: score 0.00 | 12325ms
+     [3/3] hotpotqa_2: score 0.00 | 12392ms
+   Score médio: 0.000 | Latência média: 12276.3ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] musique_0: score 0.00 | 15947ms
+     [2/3] musique_1: score 0.00 | 13894ms
+     [3/3] musique_2: score 0.00 | 13257ms
+   Score médio: 0.000 | Latência média: 14365.9ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] musique_0: score 0.00 | 19088ms
+     [2/3] musique_1: score 0.00 | 15906ms
+     [3/3] musique_2: score 0.00 | 14951ms
+   Score médio: 0.000 | Latência média: 16648.4ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] musique_0: score 1.00 | 16976ms
+     [2/3] musique_1: score 0.00 | 16412ms
+     [3/3] musique_2: score 0.00 | 15046ms
+   Score médio: 0.333 | Latência média: 16144.6ms | 3 casos
+
+>> Executando musique com estratégia: cpc_qwen3:30b-a3b
+     [1/3] musique_0: score 1.00 | 9621ms
+     [2/3] musique_1: score 0.00 | 13946ms
+     [3/3] musique_2: score 0.00 | 12494ms
+   Score médio: 0.333 | Latência média: 12020.5ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_qwen3:30b-a3b
+     [1/3] meeting_summarization_0: score 0.00 | 27506ms
+     [2/3] meeting_summarization_1: score 0.00 | 25494ms
+     [3/3] meeting_summarization_2: score 0.00 | 17966ms
+   Score médio: 0.000 | Latência média: 23655.3ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_qwen3:30b-a3b
+     [1/3] meeting_summarization_0: score 0.00 | 33941ms
+     [2/3] meeting_summarization_1: score 0.00 | 33197ms
+     [3/3] meeting_summarization_2: score 0.00 | 20338ms
+   Score médio: 0.000 | Latência média: 29158.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_qwen3:30b-a3b
+     [1/3] meeting_summarization_0: score 0.00 | 39228ms
+     [2/3] meeting_summarization_1: score 0.00 | 39036ms
+     [3/3] meeting_summarization_2: score 0.00 | 24856ms
+   Score médio: 0.000 | Latência média: 34373.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_qwen3:30b-a3b
+     [1/3] meeting_summarization_0: score 0.00 | 24561ms
+     [2/3] meeting_summarization_1: score 0.02 | 24325ms
+     [3/3] meeting_summarization_2: score 0.00 | 23727ms
+   Score médio: 0.005 | Latência média: 24204.4ms | 3 casos
+Descarregando qwen3:30b-a3b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/qwen3-30b-a3b/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/qwen3-30b-a3b/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/qwen3-30b-a3b/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_qwen3:30b-a3b:
+  Score médio: 0.182
+  Score min/max: 0.000 / 1.000
+  Latência média: 17128.3ms
+
+llmlingua2_qwen3:30b-a3b:
+  Score médio: 0.428
+  Score min/max: 0.000 / 1.000
+  Latência média: 18422.6ms
+
+selective_context_qwen3:30b-a3b:
+  Score médio: 0.292
+  Score min/max: 0.000 / 1.000
+  Latência média: 21096.2ms
+
+cpc_qwen3:30b-a3b:
+  Score médio: 0.398
+  Score min/max: 0.000 / 1.000
+  Latência média: 15835.6ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_qwen3:30b-a3b0.000               0.000               0.667               0.333               0.333               0.000               0.000               
+llmlingua2_qwen3:30b-a3b0.750               0.472               0.667               1.000               0.000               0.000               0.000               
+selective_context_qwen3:30b-a3b0.500               0.472               0.333               0.333               0.000               0.333               0.000               
+cpc_qwen3:30b-a3b   0.500               0.583               0.667               0.667               0.000               0.333               0.005               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/qwen3-30b-a3b/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25h
+RUN deepseek-r1:32b com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_deepseek-r1-32b
+Estratégia registrada: llmlingua2_deepseek-r1-32b
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_deepseek-r1-32b
+Estratégia registrada: cpc_deepseek-r1-32b
+
+Modelos: ['ollama/deepseek-r1:32b']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_deepseek-r1-32b', 'llmlingua2_deepseek-r1-32b', 'selective_context_deepseek-r1-32b', 'cpc_deepseek-r1-32b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando deepseek-r1:32b (num_ctx=8192)...
+
+>> Executando longbench com estratégia: llmlingua_deepseek-r1-32b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 53833ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 53010ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 46419ms
+     [4/4] longbench_summarization_1: score 0.00 | 70201ms
+   Score médio: 0.500 | Latência média: 55865.9ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_deepseek-r1-32b
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 47938ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 36010ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 34268ms
+     [4/4] longbench_summarization_1: score 0.00 | 72017ms
+   Score médio: 0.500 | Latência média: 47558.1ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_deepseek-r1-32b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 35236ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 28105ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 39885ms
+     [4/4] longbench_summarization_1: score 0.00 | 55531ms
+   Score médio: 0.500 | Latência média: 39689.2ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_deepseek-r1-32b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 35189ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 40803ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 34963ms
+     [4/4] longbench_summarization_1: score 0.00 | 61955ms
+   Score médio: 0.500 | Latência média: 43227.7ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_deepseek-r1-32b
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.33 | 143333ms
+     [2/3] zeroscrolls_1: score 0.33 | 48403ms
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 50319 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.25 | 154560ms
+   Score médio: 0.306 | Latência média: 115431.7ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_deepseek-r1-32b
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.53 | 161085ms
+     [2/3] zeroscrolls_1: score 0.67 | 81821ms
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 85551 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 123494ms
+   Score médio: 0.650 | Latência média: 122133.3ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_deepseek-r1-32b
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.32 | 140755ms
+     [2/3] zeroscrolls_1: score 1.00 | 65631ms
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 95576 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 133316ms
+   Score médio: 0.690 | Latência média: 113234.0ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_deepseek-r1-32b
+     [1/3] zeroscrolls_0: score 0.48 | 151019ms
+     [2/3] zeroscrolls_1: score 1.00 | 48478ms
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 74756 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.75 | 122867ms
+   Score médio: 0.743 | Latência média: 107454.6ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] naturalquestions_0: score 0.00 | 81105ms
+     [2/3] naturalquestions_1: score 0.27 | 37733ms
+     [3/3] naturalquestions_2: score 0.16 | 28735ms
+   Score médio: 0.142 | Latência média: 49190.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] naturalquestions_0: score 0.00 | 79516ms
+     [2/3] naturalquestions_1: score 0.27 | 48033ms
+     [3/3] naturalquestions_2: score 0.19 | 57342ms
+   Score médio: 0.150 | Latência média: 61630.3ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_deepseek-r1-32b
+     [1/3] naturalquestions_0: score 0.07 | 45556ms
+     [2/3] naturalquestions_1: score 0.27 | 35070ms
+     [3/3] naturalquestions_2: score 0.30 | 40488ms
+   Score médio: 0.209 | Latência média: 40371.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_deepseek-r1-32b
+     [1/3] naturalquestions_0: score 0.07 | 40245ms
+     [2/3] naturalquestions_1: score 0.27 | 32255ms
+     [3/3] naturalquestions_2: score 0.19 | 32361ms
+   Score médio: 0.172 | Latência média: 34953.5ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] triviaqa_0: score 1.00 | 47210ms
+     [2/3] triviaqa_1: score 1.00 | 46135ms
+     [3/3] triviaqa_2: score 0.00 | 84286ms
+   Score médio: 0.667 | Latência média: 59210.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] triviaqa_0: score 1.00 | 53155ms
+     [2/3] triviaqa_1: score 1.00 | 45473ms
+     [3/3] triviaqa_2: score 1.00 | 54352ms
+   Score médio: 1.000 | Latência média: 50993.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_deepseek-r1-32b
+     [1/3] triviaqa_0: score 1.00 | 30948ms
+     [2/3] triviaqa_1: score 1.00 | 50433ms
+     [3/3] triviaqa_2: score 0.00 | 86730ms
+   Score médio: 0.667 | Latência média: 56037.2ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_deepseek-r1-32b
+     [1/3] triviaqa_0: score 1.00 | 38042ms
+     [2/3] triviaqa_1: score 1.00 | 60586ms
+     [3/3] triviaqa_2: score 1.00 | 48094ms
+   Score médio: 1.000 | Latência média: 48907.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] hotpotqa_0: score 1.00 | 42401ms
+     [2/3] hotpotqa_1: score 0.00 | 68428ms
+     [3/3] hotpotqa_2: score 0.00 | 85994ms
+   Score médio: 0.333 | Latência média: 65607.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] hotpotqa_0: score 1.00 | 57876ms
+     [2/3] hotpotqa_1: score 1.00 | 58682ms
+     [3/3] hotpotqa_2: score 1.00 | 84601ms
+   Score médio: 1.000 | Latência média: 67053.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_deepseek-r1-32b
+     [1/3] hotpotqa_0: score 1.00 | 50093ms
+     [2/3] hotpotqa_1: score 1.00 | 68956ms
+     [3/3] hotpotqa_2: score 1.00 | 90862ms
+   Score médio: 1.000 | Latência média: 69970.4ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_deepseek-r1-32b
+     [1/3] hotpotqa_0: score 1.00 | 54172ms
+     [2/3] hotpotqa_1: score 1.00 | 79867ms
+     [3/3] hotpotqa_2: score 1.00 | 81790ms
+   Score médio: 1.000 | Latência média: 71943.1ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] musique_0: score 0.00 | 61387ms
+     [2/3] musique_1: score 0.00 | 89637ms
+     [3/3] musique_2: score 0.00 | 57463ms
+   Score médio: 0.000 | Latência média: 69495.8ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] musique_0: score 1.00 | 68824ms
+     [2/3] musique_1: score 0.00 | 100424ms
+     [3/3] musique_2: score 0.00 | 91958ms
+   Score médio: 0.333 | Latência média: 87068.5ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_deepseek-r1-32b
+     [1/3] musique_0: score 1.00 | 61446ms
+     [2/3] musique_1: score 1.00 | 76751ms
+     [3/3] musique_2: score 0.00 | 94743ms
+   Score médio: 0.667 | Latência média: 77646.6ms | 3 casos
+
+>> Executando musique com estratégia: cpc_deepseek-r1-32b
+     [1/3] musique_0: score 1.00 | 53183ms
+     [2/3] musique_1: score 0.75 | 50982ms
+     [3/3] musique_2: score 0.00 | 88094ms
+   Score médio: 0.583 | Latência média: 64086.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] meeting_summarization_0: score 0.33 | 139930ms
+     [2/3] meeting_summarization_1: score 0.33 | 106429ms
+     [3/3] meeting_summarization_2: score 0.24 | 41661ms
+   Score médio: 0.302 | Latência média: 96006.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_deepseek-r1-32b
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.53 | 157037ms
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.44 | 160685ms
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.33 | 59204ms
+   Score médio: 0.432 | Latência média: 125642.0ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_deepseek-r1-32b
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.32 | 139957ms
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.28 | 733253ms
+WARNING __main__: [ollama/deepseek-r1:32b] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.31 | 293467ms
+   Score médio: 0.302 | Latência média: 388892.0ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_deepseek-r1-32b
+ERROR __main__: [ollama/deepseek-r1:32b] Erro na API Ollama: TimeoutError: timed out
+     [1/3] meeting_summarization_0: score 0.01 | 902353ms
+     [2/3] meeting_summarization_1: score 0.30 | 278753ms
+     [3/3] meeting_summarization_2: score 0.29 | 148985ms
+   Score médio: 0.199 | Latência média: 443363.6ms | 3 casos
+Descarregando deepseek-r1:32b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/deepseek-r1-32b/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/deepseek-r1-32b/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/deepseek-r1-32b/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_deepseek-r1-32b:
+  Score médio: 0.329
+  Score min/max: 0.000 / 1.000
+  Latência média: 72195.1ms
+
+llmlingua2_deepseek-r1-32b:
+  Score médio: 0.577
+  Score min/max: 0.000 / 1.000
+  Latência média: 78808.8ms
+
+selective_context_deepseek-r1-32b:
+  Score médio: 0.573
+  Score min/max: 0.000 / 1.000
+  Latência média: 108964.2ms
+
+cpc_deepseek-r1-32b:
+  Score médio: 0.595
+  Score min/max: 0.000 / 1.000
+  Latência média: 112956.1ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_deepseek-r1-32b0.500               0.306               0.142               0.667               0.333               0.000               0.302               
+llmlingua2_deepseek-r1-32b0.500               0.650               0.150               1.000               1.000               0.333               0.432               
+selective_context_deepseek-r1-32b0.500               0.690               0.209               0.667               1.000               0.667               0.302               
+cpc_deepseek-r1-32b 0.500               0.743               0.172               1.000               1.000               0.583               0.199               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/deepseek-r1-32b/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+
+RUN deepseek-r1:32b com num_ctx=32768
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_deepseek-r1-32b
+Estratégia registrada: llmlingua2_deepseek-r1-32b
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_deepseek-r1-32b
+Estratégia registrada: cpc_deepseek-r1-32b
+
+Modelos: ['ollama/deepseek-r1:32b']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_deepseek-r1-32b', 'llmlingua2_deepseek-r1-32b', 'selective_context_deepseek-r1-32b', 'cpc_deepseek-r1-32b']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando deepseek-r1:32b (num_ctx=32768)...
+
+>> Executando longbench com estratégia: llmlingua_deepseek-r1-32b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 56045ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 54527ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 47824ms
+     [4/4] longbench_summarization_1: score 0.00 | 71343ms
+   Score médio: 0.500 | Latência média: 57434.7ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_deepseek-r1-32b
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 49150ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 37577ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 36618ms
+     [4/4] longbench_summarization_1: score 0.00 | 74791ms
+   Score médio: 0.500 | Latência média: 49533.9ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_deepseek-r1-32b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 37287ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 28589ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 39510ms
+     [4/4] longbench_summarization_1: score 0.00 | 57219ms
+   Score médio: 0.500 | Latência média: 40651.3ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_deepseek-r1-32b
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 35563ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 40272ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 34290ms
+     [4/4] longbench_summarization_1: score 0.00 | 60714ms
+   Score médio: 0.500 | Latência média: 42709.6ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_deepseek-r1-32b
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.33 | 141569ms
+     [2/3] zeroscrolls_1: score 0.33 | 46277ms
+     [3/3] zeroscrolls_2: score 0.50 | 325693ms
+   Score médio: 0.389 | Latência média: 171179.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_deepseek-r1-32b
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.56 | 152312ms
+     [2/3] zeroscrolls_1: score 0.67 | 80244ms
+     [3/3] zeroscrolls_2: score 0.75 | 360512ms
+   Score médio: 0.659 | Latência média: 197689.4ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_deepseek-r1-32b
+     [1/3] zeroscrolls_0: score 0.33 | 165886ms
+     [2/3] zeroscrolls_1: score 1.00 | 68318ms
+     [3/3] zeroscrolls_2: score 0.75 | 427713ms
+   Score médio: 0.694 | Latência média: 220638.9ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_deepseek-r1-32b
+     [1/3] zeroscrolls_0: score 0.48 | 151537ms
+     [2/3] zeroscrolls_1: score 1.00 | 47999ms
+     [3/3] zeroscrolls_2: score 1.00 | 369624ms
+   Score médio: 0.827 | Latência média: 189720.2ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] naturalquestions_0: score 0.00 | 81140ms
+     [2/3] naturalquestions_1: score 0.27 | 37835ms
+     [3/3] naturalquestions_2: score 0.16 | 29856ms
+   Score médio: 0.142 | Latência média: 49610.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] naturalquestions_0: score 0.00 | 79834ms
+     [2/3] naturalquestions_1: score 0.27 | 48938ms
+     [3/3] naturalquestions_2: score 0.19 | 59288ms
+   Score médio: 0.150 | Latência média: 62686.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_deepseek-r1-32b
+     [1/3] naturalquestions_0: score 0.07 | 46197ms
+     [2/3] naturalquestions_1: score 0.27 | 35268ms
+     [3/3] naturalquestions_2: score 0.30 | 40733ms
+   Score médio: 0.209 | Latência média: 40732.8ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_deepseek-r1-32b
+     [1/3] naturalquestions_0: score 0.07 | 41573ms
+     [2/3] naturalquestions_1: score 0.27 | 32241ms
+     [3/3] naturalquestions_2: score 0.19 | 31529ms
+   Score médio: 0.172 | Latência média: 35114.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] triviaqa_0: score 1.00 | 46415ms
+     [2/3] triviaqa_1: score 1.00 | 46664ms
+     [3/3] triviaqa_2: score 0.00 | 84948ms
+   Score médio: 0.667 | Latência média: 59342.4ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] triviaqa_0: score 1.00 | 53562ms
+     [2/3] triviaqa_1: score 1.00 | 47492ms
+     [3/3] triviaqa_2: score 1.00 | 55285ms
+   Score médio: 1.000 | Latência média: 52113.2ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_deepseek-r1-32b
+     [1/3] triviaqa_0: score 1.00 | 32221ms
+     [2/3] triviaqa_1: score 1.00 | 49262ms
+     [3/3] triviaqa_2: score 0.00 | 84762ms
+   Score médio: 0.667 | Latência média: 55415.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_deepseek-r1-32b
+     [1/3] triviaqa_0: score 1.00 | 37247ms
+     [2/3] triviaqa_1: score 1.00 | 59218ms
+     [3/3] triviaqa_2: score 1.00 | 47454ms
+   Score médio: 1.000 | Latência média: 47972.8ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] hotpotqa_0: score 1.00 | 41247ms
+     [2/3] hotpotqa_1: score 0.00 | 67723ms
+     [3/3] hotpotqa_2: score 0.00 | 85522ms
+   Score médio: 0.333 | Latência média: 64830.5ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] hotpotqa_0: score 1.00 | 57594ms
+     [2/3] hotpotqa_1: score 1.00 | 59327ms
+     [3/3] hotpotqa_2: score 1.00 | 87053ms
+   Score médio: 1.000 | Latência média: 67991.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_deepseek-r1-32b
+     [1/3] hotpotqa_0: score 1.00 | 51661ms
+     [2/3] hotpotqa_1: score 1.00 | 69054ms
+     [3/3] hotpotqa_2: score 1.00 | 91237ms
+   Score médio: 1.000 | Latência média: 70650.6ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_deepseek-r1-32b
+     [1/3] hotpotqa_0: score 1.00 | 54280ms
+     [2/3] hotpotqa_1: score 1.00 | 79687ms
+     [3/3] hotpotqa_2: score 1.00 | 81937ms
+   Score médio: 1.000 | Latência média: 71968.0ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] musique_0: score 0.00 | 60876ms
+     [2/3] musique_1: score 0.00 | 90238ms
+     [3/3] musique_2: score 0.00 | 58090ms
+   Score médio: 0.000 | Latência média: 69734.4ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] musique_0: score 1.00 | 68559ms
+     [2/3] musique_1: score 0.00 | 99865ms
+     [3/3] musique_2: score 0.00 | 93155ms
+   Score médio: 0.333 | Latência média: 87193.3ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_deepseek-r1-32b
+     [1/3] musique_0: score 1.00 | 63509ms
+     [2/3] musique_1: score 1.00 | 77236ms
+     [3/3] musique_2: score 0.00 | 95340ms
+   Score médio: 0.667 | Latência média: 78695.3ms | 3 casos
+
+>> Executando musique com estratégia: cpc_deepseek-r1-32b
+     [1/3] musique_0: score 1.00 | 53421ms
+     [2/3] musique_1: score 0.75 | 51826ms
+     [3/3] musique_2: score 0.00 | 91394ms
+   Score médio: 0.583 | Latência média: 65547.0ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_deepseek-r1-32b
+     [1/3] meeting_summarization_0: score 0.33 | 141146ms
+     [2/3] meeting_summarization_1: score 0.33 | 107503ms
+     [3/3] meeting_summarization_2: score 0.24 | 43002ms
+   Score médio: 0.302 | Latência média: 97217.1ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_deepseek-r1-32b
+     [1/3] meeting_summarization_0: score 0.56 | 150914ms
+     [2/3] meeting_summarization_1: score 0.38 | 170984ms
+     [3/3] meeting_summarization_2: score 0.29 | 71069ms
+   Score médio: 0.407 | Latência média: 130988.8ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_deepseek-r1-32b
+     [1/3] meeting_summarization_0: score 0.33 | 168418ms
+     [2/3] meeting_summarization_1: score 0.41 | 180453ms
+     [3/3] meeting_summarization_2: score 0.33 | 66336ms
+   Score médio: 0.355 | Latência média: 138402.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_deepseek-r1-32b
+     [1/3] meeting_summarization_0: score 0.48 | 150019ms
+     [2/3] meeting_summarization_1: score 0.30 | 137447ms
+     [3/3] meeting_summarization_2: score 0.29 | 148358ms
+   Score médio: 0.354 | Latência média: 145274.8ms | 3 casos
+Descarregando deepseek-r1:32b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/deepseek-r1-32b/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/deepseek-r1-32b/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/deepseek-r1-32b/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_deepseek-r1-32b:
+  Score médio: 0.341
+  Score min/max: 0.000 / 1.000
+  Latência média: 80249.2ms
+
+llmlingua2_deepseek-r1-32b:
+  Score médio: 0.575
+  Score min/max: 0.000 / 1.000
+  Latência média: 90642.0ms
+
+selective_context_deepseek-r1-32b:
+  Score médio: 0.581
+  Score min/max: 0.000 / 1.000
+  Latência média: 89827.8ms
+
+cpc_deepseek-r1-32b:
+  Score médio: 0.628
+  Score min/max: 0.000 / 1.000
+  Latência média: 83528.6ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_deepseek-r1-32b0.500               0.389               0.142               0.667               0.333               0.000               0.302               
+llmlingua2_deepseek-r1-32b0.500               0.659               0.150               1.000               1.000               0.333               0.407               
+selective_context_deepseek-r1-32b0.500               0.694               0.209               0.667               1.000               0.667               0.355               
+cpc_deepseek-r1-32b 0.500               0.827               0.172               1.000               1.000               0.583               0.354               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/deepseek-r1-32b/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25h
+RUN gpt-oss:20b com num_ctx=8192
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_gpt-oss-20b-ollama
+Estratégia registrada: llmlingua2_gpt-oss-20b-ollama
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_gpt-oss-20b-ollama
+Estratégia registrada: cpc_gpt-oss-20b-ollama
+
+Modelos: ['ollama/gpt-oss:20b']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_gpt-oss-20b-ollama', 'llmlingua2_gpt-oss-20b-ollama', 'selective_context_gpt-oss-20b-ollama', 'cpc_gpt-oss-20b-ollama']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando gpt-oss:20b (num_ctx=8192)...
+
+>> Executando longbench com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 7545ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 16470ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 10791ms
+     [4/4] longbench_summarization_1: score 0.75 | 6916ms
+   Score médio: 0.438 | Latência média: 10430.5ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 4795ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 2362ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 2582ms
+     [4/4] longbench_summarization_1: score 0.75 | 10514ms
+   Score médio: 0.938 | Latência média: 5063.3ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 3363ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 2566ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 7142ms
+     [4/4] longbench_summarization_1: score 0.25 | 9192ms
+   Score médio: 0.312 | Latência média: 5565.8ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_gpt-oss-20b-ollama
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 5964ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 3587ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 9217ms
+     [4/4] longbench_summarization_1: score 0.75 | 3965ms
+   Score médio: 0.688 | Latência média: 5683.3ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_gpt-oss-20b-ollama
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 29117ms
+     [2/3] zeroscrolls_1: score 0.00 | 19049ms
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 50319 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 47262ms
+   Score médio: 0.000 | Latência média: 31809.5ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_gpt-oss-20b-ollama
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.40 | 21814ms
+     [2/3] zeroscrolls_1: score 0.00 | 20419ms
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 85551 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 1.00 | 47693ms
+   Score médio: 0.467 | Latência média: 29975.4ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_gpt-oss-20b-ollama
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] zeroscrolls_0: score 0.17 | 36133ms
+     [2/3] zeroscrolls_1: score 1.00 | 13060ms
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 95576 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 0.00 | 51451ms
+   Score médio: 0.391 | Latência média: 33548.0ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] zeroscrolls_0: score 0.45 | 18593ms
+     [2/3] zeroscrolls_1: score 0.67 | 7547ms
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 74756 -> 22308 chars (num_ctx=8192)
+     [3/3] zeroscrolls_2: score 1.00 | 15257ms
+   Score médio: 0.707 | Latência média: 13799.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] naturalquestions_0: score 0.26 | 11122ms
+     [2/3] naturalquestions_1: score 0.07 | 2872ms
+     [3/3] naturalquestions_2: score 0.01 | 2392ms
+   Score médio: 0.114 | Latência média: 5462.1ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] naturalquestions_0: score 0.06 | 16314ms
+     [2/3] naturalquestions_1: score 0.00 | 16476ms
+     [3/3] naturalquestions_2: score 0.01 | 4761ms
+   Score médio: 0.025 | Latência média: 12516.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] naturalquestions_0: score 0.00 | 16714ms
+     [2/3] naturalquestions_1: score 0.07 | 2968ms
+     [3/3] naturalquestions_2: score 0.01 | 2634ms
+   Score médio: 0.028 | Latência média: 7438.7ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] naturalquestions_0: score 0.07 | 3718ms
+     [2/3] naturalquestions_1: score 0.07 | 2949ms
+     [3/3] naturalquestions_2: score 0.01 | 2312ms
+   Score médio: 0.050 | Latência média: 2992.6ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] triviaqa_0: score 1.00 | 8449ms
+     [2/3] triviaqa_1: score 1.00 | 3235ms
+     [3/3] triviaqa_2: score 1.00 | 11415ms
+   Score médio: 1.000 | Latência média: 7699.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] triviaqa_0: score 1.00 | 3003ms
+     [2/3] triviaqa_1: score 1.00 | 3845ms
+     [3/3] triviaqa_2: score 1.00 | 5046ms
+   Score médio: 1.000 | Latência média: 3964.7ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] triviaqa_0: score 1.00 | 2752ms
+     [2/3] triviaqa_1: score 1.00 | 4549ms
+     [3/3] triviaqa_2: score 1.00 | 13115ms
+   Score médio: 1.000 | Latência média: 6805.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] triviaqa_0: score 1.00 | 2629ms
+     [2/3] triviaqa_1: score 1.00 | 3983ms
+     [3/3] triviaqa_2: score 1.00 | 3585ms
+   Score médio: 1.000 | Latência média: 3399.0ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] hotpotqa_0: score 1.00 | 7099ms
+     [2/3] hotpotqa_1: score 0.00 | 17736ms
+     [3/3] hotpotqa_2: score 0.00 | 17892ms
+   Score médio: 0.333 | Latência média: 14242.5ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] hotpotqa_0: score 1.00 | 5810ms
+     [2/3] hotpotqa_1: score 0.00 | 18062ms
+     [3/3] hotpotqa_2: score 0.00 | 18517ms
+   Score médio: 0.333 | Latência média: 14130.1ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] hotpotqa_0: score 1.00 | 6197ms
+     [2/3] hotpotqa_1: score 0.00 | 18373ms
+     [3/3] hotpotqa_2: score 1.00 | 17304ms
+   Score médio: 0.667 | Latência média: 13958.1ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] hotpotqa_0: score 1.00 | 4953ms
+     [2/3] hotpotqa_1: score 0.00 | 9749ms
+     [3/3] hotpotqa_2: score 1.00 | 5602ms
+   Score médio: 0.667 | Latência média: 6768.1ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] musique_0: score 0.00 | 18280ms
+     [2/3] musique_1: score 0.00 | 18740ms
+     [3/3] musique_2: score 0.00 | 18106ms
+   Score médio: 0.000 | Latência média: 18375.4ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] musique_0: score 1.00 | 13564ms
+     [2/3] musique_1: score 0.00 | 20127ms
+     [3/3] musique_2: score 0.00 | 18723ms
+   Score médio: 0.333 | Latência média: 17471.4ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] musique_0: score 1.00 | 14877ms
+     [2/3] musique_1: score 0.00 | 21011ms
+     [3/3] musique_2: score 0.00 | 19447ms
+   Score médio: 0.333 | Latência média: 18444.9ms | 3 casos
+
+>> Executando musique com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] musique_0: score 1.00 | 11943ms
+     [2/3] musique_1: score 1.00 | 17899ms
+     [3/3] musique_2: score 0.00 | 17461ms
+   Score médio: 0.667 | Latência média: 15767.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] meeting_summarization_0: score 0.31 | 15143ms
+     [2/3] meeting_summarization_1: score 0.12 | 28269ms
+     [3/3] meeting_summarization_2: score 0.00 | 21981ms
+   Score médio: 0.144 | Latência média: 21797.5ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_gpt-oss-20b-ollama
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.43 | 18324ms
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.12 | 31531ms
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.39 | 15717ms
+   Score médio: 0.313 | Latência média: 21857.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_gpt-oss-20b-ollama
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 27664 -> 22308 chars (num_ctx=8192)
+     [1/3] meeting_summarization_0: score 0.37 | 27770ms
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [2/3] meeting_summarization_1: score 0.12 | 37125ms
+WARNING __main__: [ollama/gpt-oss:20b] Contexto truncado: 26308 -> 22308 chars (num_ctx=8192)
+     [3/3] meeting_summarization_2: score 0.27 | 22936ms
+   Score médio: 0.255 | Latência média: 29277.2ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] meeting_summarization_0: score 0.43 | 11922ms
+     [2/3] meeting_summarization_1: score 0.17 | 24341ms
+     [3/3] meeting_summarization_2: score 0.35 | 15541ms
+   Score médio: 0.315 | Latência média: 17268.1ms | 3 casos
+Descarregando gpt-oss:20b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/gpt-oss-20b/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/gpt-oss-20b/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/gpt-oss-20b/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_gpt-oss-20b-ollama:
+  Score médio: 0.296
+  Score min/max: 0.000 / 1.000
+  Latência média: 15449.2ms
+
+llmlingua2_gpt-oss-20b-ollama:
+  Score médio: 0.507
+  Score min/max: 0.000 / 1.000
+  Latência média: 14545.5ms
+
+selective_context_gpt-oss-20b-ollama:
+  Score médio: 0.421
+  Score min/max: 0.000 / 1.000
+  Latência média: 15940.0ms
+
+cpc_gpt-oss-20b-ollama:
+  Score médio: 0.589
+  Score min/max: 0.000 / 1.000
+  Latência média: 9214.4ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_gpt-oss-20b-ollama0.438               0.000               0.114               1.000               0.333               0.000               0.144               
+llmlingua2_gpt-oss-20b-ollama0.938               0.467               0.025               1.000               0.333               0.333               0.313               
+selective_context_gpt-oss-20b-ollama0.312               0.391               0.028               1.000               0.667               0.333               0.255               
+cpc_gpt-oss-20b-ollama0.688               0.707               0.050               1.000               0.667               0.667               0.315               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/gpt-oss-20b/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+
+RUN gpt-oss:20b com num_ctx=32768
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: llmlingua_gpt-oss-20b-ollama
+Estratégia registrada: llmlingua2_gpt-oss-20b-ollama
+Loading dependencies...
+Using device: cpu
+model loaded
+Estratégia registrada: selective_context_gpt-oss-20b-ollama
+Estratégia registrada: cpc_gpt-oss-20b-ollama
+
+Modelos: ['ollama/gpt-oss:20b']
+Estratégias base: ['llmlingua', 'llmlingua2', 'selective_context', 'cpc']
+Estratégias registradas: ['llmlingua_gpt-oss-20b-ollama', 'llmlingua2_gpt-oss-20b-ollama', 'selective_context_gpt-oss-20b-ollama', 'cpc_gpt-oss-20b-ollama']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 32768
+----------------------------------------------------------------------
+Carregando gpt-oss:20b (num_ctx=32768)...
+
+>> Executando longbench com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 7485ms
+     [2/4] longbench_multidoc_qa_2: score 0.00 | 16334ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 10783ms
+     [4/4] longbench_summarization_1: score 0.75 | 6895ms
+   Score médio: 0.438 | Latência média: 10374.3ms | 4 casos
+
+>> Executando longbench com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 3450ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 2373ms
+     [3/4] longbench_multidoc_qa_3: score 1.00 | 2628ms
+     [4/4] longbench_summarization_1: score 0.75 | 10518ms
+   Score médio: 0.938 | Latência média: 4742.2ms | 4 casos
+
+>> Executando longbench com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/4] longbench_multidoc_qa_1: score 0.00 | 3369ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 2588ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 7058ms
+     [4/4] longbench_summarization_1: score 0.25 | 9224ms
+   Score médio: 0.312 | Latência média: 5559.8ms | 4 casos
+
+>> Executando longbench com estratégia: cpc_gpt-oss-20b-ollama
+     [1/4] longbench_multidoc_qa_1: score 1.00 | 5952ms
+     [2/4] longbench_multidoc_qa_2: score 1.00 | 3596ms
+     [3/4] longbench_multidoc_qa_3: score 0.00 | 9213ms
+     [4/4] longbench_summarization_1: score 0.75 | 3964ms
+   Score médio: 0.688 | Latência média: 5681.1ms | 4 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua_gpt-oss-20b-ollama
+Token indices sequence length is longer than the specified maximum sequence length for this model (10867 > 1024). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.00 | 29380ms
+     [2/3] zeroscrolls_1: score 0.00 | 19049ms
+     [3/3] zeroscrolls_2: score 0.00 | 64810ms
+   Score médio: 0.000 | Latência média: 37746.2ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_gpt-oss-20b-ollama
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+     [1/3] zeroscrolls_0: score 0.43 | 22030ms
+     [2/3] zeroscrolls_1: score 0.00 | 20387ms
+     [3/3] zeroscrolls_2: score 0.00 | 75584ms
+   Score médio: 0.142 | Latência média: 39333.8ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] zeroscrolls_0: score 0.00 | 38495ms
+     [2/3] zeroscrolls_1: score 1.00 | 13047ms
+     [3/3] zeroscrolls_2: score 0.00 | 87363ms
+   Score médio: 0.333 | Latência média: 46301.6ms | 3 casos
+
+>> Executando zeroscrolls com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] zeroscrolls_0: score 0.45 | 18654ms
+     [2/3] zeroscrolls_1: score 0.67 | 7581ms
+     [3/3] zeroscrolls_2: score 0.00 | 56373ms
+   Score médio: 0.373 | Latência média: 27535.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] naturalquestions_0: score 0.26 | 11282ms
+     [2/3] naturalquestions_1: score 0.07 | 2915ms
+     [3/3] naturalquestions_2: score 0.01 | 2384ms
+   Score médio: 0.114 | Latência média: 5526.9ms | 3 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] naturalquestions_0: score 0.06 | 16626ms
+     [2/3] naturalquestions_1: score 0.00 | 16910ms
+     [3/3] naturalquestions_2: score 0.01 | 4754ms
+   Score médio: 0.025 | Latência média: 12763.4ms | 3 casos
+
+>> Executando naturalquestions com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] naturalquestions_0: score 0.00 | 16710ms
+     [2/3] naturalquestions_1: score 0.07 | 2983ms
+     [3/3] naturalquestions_2: score 0.01 | 2656ms
+   Score médio: 0.028 | Latência média: 7449.5ms | 3 casos
+
+>> Executando naturalquestions com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] naturalquestions_0: score 0.07 | 3696ms
+     [2/3] naturalquestions_1: score 0.07 | 2929ms
+     [3/3] naturalquestions_2: score 0.01 | 2303ms
+   Score médio: 0.050 | Latência média: 2975.9ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] triviaqa_0: score 1.00 | 8458ms
+     [2/3] triviaqa_1: score 1.00 | 3202ms
+     [3/3] triviaqa_2: score 1.00 | 11114ms
+   Score médio: 1.000 | Latência média: 7591.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] triviaqa_0: score 1.00 | 2899ms
+     [2/3] triviaqa_1: score 1.00 | 3707ms
+     [3/3] triviaqa_2: score 1.00 | 4939ms
+   Score médio: 1.000 | Latência média: 3848.3ms | 3 casos
+
+>> Executando triviaqa com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] triviaqa_0: score 1.00 | 2684ms
+     [2/3] triviaqa_1: score 1.00 | 4425ms
+     [3/3] triviaqa_2: score 1.00 | 12807ms
+   Score médio: 1.000 | Latência média: 6638.8ms | 3 casos
+
+>> Executando triviaqa com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] triviaqa_0: score 1.00 | 2592ms
+     [2/3] triviaqa_1: score 1.00 | 3976ms
+     [3/3] triviaqa_2: score 1.00 | 3576ms
+   Score médio: 1.000 | Latência média: 3381.3ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] hotpotqa_0: score 1.00 | 7015ms
+     [2/3] hotpotqa_1: score 0.00 | 17712ms
+     [3/3] hotpotqa_2: score 0.00 | 18327ms
+   Score médio: 0.333 | Latência média: 14351.2ms | 3 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] hotpotqa_0: score 1.00 | 5847ms
+     [2/3] hotpotqa_1: score 0.00 | 18042ms
+     [3/3] hotpotqa_2: score 0.00 | 18563ms
+   Score médio: 0.333 | Latência média: 14150.9ms | 3 casos
+
+>> Executando hotpotqa com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] hotpotqa_0: score 1.00 | 6203ms
+     [2/3] hotpotqa_1: score 0.00 | 18386ms
+     [3/3] hotpotqa_2: score 1.00 | 17348ms
+   Score médio: 0.667 | Latência média: 13979.4ms | 3 casos
+
+>> Executando hotpotqa com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] hotpotqa_0: score 1.00 | 4976ms
+     [2/3] hotpotqa_1: score 0.00 | 9771ms
+     [3/3] hotpotqa_2: score 1.00 | 5627ms
+   Score médio: 0.667 | Latência média: 6791.1ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] musique_0: score 0.00 | 18383ms
+     [2/3] musique_1: score 0.00 | 18806ms
+     [3/3] musique_2: score 0.00 | 18133ms
+   Score médio: 0.000 | Latência média: 18440.6ms | 3 casos
+
+>> Executando musique com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] musique_0: score 1.00 | 13609ms
+     [2/3] musique_1: score 0.00 | 20161ms
+     [3/3] musique_2: score 0.00 | 18724ms
+   Score médio: 0.333 | Latência média: 17497.9ms | 3 casos
+
+>> Executando musique com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] musique_0: score 1.00 | 14929ms
+     [2/3] musique_1: score 0.00 | 20784ms
+     [3/3] musique_2: score 0.00 | 19444ms
+   Score médio: 0.333 | Latência média: 18385.8ms | 3 casos
+
+>> Executando musique com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] musique_0: score 1.00 | 11936ms
+     [2/3] musique_1: score 1.00 | 17869ms
+     [3/3] musique_2: score 0.00 | 17455ms
+   Score médio: 0.667 | Latência média: 15753.6ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua_gpt-oss-20b-ollama
+     [1/3] meeting_summarization_0: score 0.31 | 15207ms
+     [2/3] meeting_summarization_1: score 0.12 | 28822ms
+     [3/3] meeting_summarization_2: score 0.00 | 22291ms
+   Score médio: 0.144 | Latência média: 22106.7ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_gpt-oss-20b-ollama
+     [1/3] meeting_summarization_0: score 0.41 | 15332ms
+     [2/3] meeting_summarization_1: score 0.12 | 32411ms
+     [3/3] meeting_summarization_2: score 0.35 | 14766ms
+   Score médio: 0.295 | Latência média: 20836.4ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: selective_context_gpt-oss-20b-ollama
+     [1/3] meeting_summarization_0: score 0.00 | 29893ms
+     [2/3] meeting_summarization_1: score 0.14 | 38886ms
+     [3/3] meeting_summarization_2: score 0.35 | 20260ms
+   Score médio: 0.163 | Latência média: 29680.0ms | 3 casos
+
+>> Executando meeting_summarization com estratégia: cpc_gpt-oss-20b-ollama
+     [1/3] meeting_summarization_0: score 0.43 | 11888ms
+     [2/3] meeting_summarization_1: score 0.17 | 24321ms
+     [3/3] meeting_summarization_2: score 0.35 | 15493ms
+   Score médio: 0.315 | Latência média: 17233.8ms | 3 casos
+Descarregando gpt-oss:20b...
+
+Salvando resultados...
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/gpt-oss-20b/ctx-32768/benchmark_results.csv
+Relatório JSON salvo em: tests/ollama-local/benchmark_matrix_compressores/runs/gpt-oss-20b/ctx-32768/benchmark_results.json
+Tabela de comparação salva em: tests/ollama-local/benchmark_matrix_compressores/runs/gpt-oss-20b/ctx-32768/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 88
+
+--- Métricas por Estratégia ---
+
+llmlingua_gpt-oss-20b-ollama:
+  Score médio: 0.296
+  Score min/max: 0.000 / 1.000
+  Latência média: 16308.5ms
+
+llmlingua2_gpt-oss-20b-ollama:
+  Score médio: 0.461
+  Score min/max: 0.000 / 1.000
+  Latência média: 15648.2ms
+
+selective_context_gpt-oss-20b-ollama:
+  Score médio: 0.401
+  Score min/max: 0.000 / 1.000
+  Latência média: 17706.6ms
+
+cpc_gpt-oss-20b-ollama:
+  Score médio: 0.544
+  Score min/max: 0.000 / 1.000
+  Latência média: 11079.1ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+llmlingua_gpt-oss-20b-ollama0.438               0.000               0.114               1.000               0.333               0.000               0.144               
+llmlingua2_gpt-oss-20b-ollama0.938               0.142               0.025               1.000               0.333               0.333               0.295               
+selective_context_gpt-oss-20b-ollama0.312               0.333               0.028               1.000               0.667               0.333               0.163               
+cpc_gpt-oss-20b-ollama0.688               0.373               0.050               1.000               0.667               0.667               0.315               
+
+============================================================
+
+Resultados salvos em: tests/ollama-local/benchmark_matrix_compressores/runs/gpt-oss-20b/ctx-32768/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)
+[?25l[?2026h[?25l[1G[K[?25h[?2026l[2K[1G[?25hComparação salva em: tests/ollama-local/benchmark_matrix_compressores/context_comparison.csv

@@ -22,6 +22,14 @@ from .babilong import BABILongBenchmark
 from .narrativeqa import NarrativeQABenchmark
 from .qasper import QASPERBenchmark
 from .infinitebench import InfiniteBenchBenchmark
+from .real_world import (
+    ZeroScrollsBenchmark,
+    NaturalQuestionsBenchmark,
+    TriviaQABenchmark,
+    HotpotQABenchmark,
+    MuSiQueBenchmark,
+    MeetingSummarizationBenchmark,
+)
 from .runner import BenchmarkRunner, BenchmarkResult
 
 __all__ = [
@@ -32,6 +40,12 @@ __all__ = [
     "NarrativeQABenchmark",
     "QASPERBenchmark",
     "InfiniteBenchBenchmark",
+    "ZeroScrollsBenchmark",
+    "NaturalQuestionsBenchmark",
+    "TriviaQABenchmark",
+    "HotpotQABenchmark",
+    "MuSiQueBenchmark",
+    "MeetingSummarizationBenchmark",
     "BenchmarkRunner",
     "BenchmarkResult",
 ]

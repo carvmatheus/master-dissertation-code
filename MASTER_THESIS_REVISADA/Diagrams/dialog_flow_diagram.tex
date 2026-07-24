@@ -1,0 +1,53 @@
+% Fluxo conceitual da solucao do MCKP por programacao dinamica.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{!}{0.70\textheight}{%
+\begin{tikzpicture}[
+    node distance=0.7cm,
+    startstop/.style={rectangle, rounded corners=3pt, draw=dark, thick,
+        minimum width=4.8cm, minimum height=0.85cm, align=center,
+        font=\small\bfseries, fill=blue!10},
+    process/.style={rectangle, draw=dark, thick, minimum width=5.8cm,
+        minimum height=0.9cm, align=center, font=\small, fill=white},
+    decision/.style={diamond, aspect=2.4, draw=dark, thick,
+        minimum width=3.4cm, minimum height=0.85cm, align=center,
+        font=\small, fill=orange!15},
+    arrow/.style={-{Stealth[length=2.4mm]}, thick, draw=dark},
+    loop/.style={-{Stealth[length=2.2mm]}, thick, dashed, draw=dark!70}
+]
+
+\node[startstop] (start) {Entrada: conjuntos $O_1,\ldots,O_n$, orcamento $B$ e penalizacao $\mu$};
+\node[process, below=of start] (init) {Inicializar os estados da primeira particao e a tabela de predecessores};
+\node[process, below=of init] (part) {Selecionar a proxima particao $j$};
+\node[process, below=of part] (budget) {Selecionar o proximo estado $(b,o)$, com $o\in O_j$ e $c_{j,o}\leq b$};
+\node[process, below=of budget] (evaluate) {Avaliar cada opcao anterior $o'\in O_{j-1}$};
+\node[process, below=of evaluate, fill=orange!10] (update)
+    {$D[j,b,o]\leftarrow Q_{j,o}+\max_{o'}\{D[j-1,b-c_{j,o},o']-\mu d(o',o)\}$};
+\node[decision, below=0.9cm of update] (moreb) {Restam estados $(b,o)$?};
+\node[decision, below=1cm of moreb] (morej) {Restam particoes?};
+\node[process, below=1cm of morej, fill=green!10] (backtrack)
+    {Retroceder a partir de $\max_o D[n,B,o]$ e recuperar uma opcao por particao};
+\node[process, below=of backtrack] (rebuild)
+    {Concatenar as representacoes escolhidas na ordem original};
+\node[startstop, below=of rebuild, fill=green!15] (end)
+    {Saida: \textit{prompt} comprimido sob o orcamento $B$};
+
+\draw[arrow] (start) -- (init);
+\draw[arrow] (init) -- (part);
+\draw[arrow] (part) -- (budget);
+\draw[arrow] (budget) -- (evaluate);
+\draw[arrow] (evaluate) -- (update);
+\draw[arrow] (update) -- (moreb);
+\draw[loop] (moreb.east) -- ++(2.2,0) node[above, font=\scriptsize] {sim} |- (budget.east);
+\draw[arrow] (moreb) -- node[right, font=\scriptsize] {nao} (morej);
+\draw[loop] (morej.west) -- ++(-2.2,0) node[above, font=\scriptsize] {sim} |- (part.west);
+\draw[arrow] (morej) -- node[right, font=\scriptsize] {nao} (backtrack);
+\draw[arrow] (backtrack) -- (rebuild);
+\draw[arrow] (rebuild) -- (end);
+
+\end{tikzpicture}%
+}
+\caption{Fluxo proposto para resolver a selecao de compressores por programacao dinamica. A tabela registra a melhor qualidade acumulada para cada particao, orcamento parcial e ultima opcao; o retrocesso recupera as opcoes usadas na reconstrucao.}
+\label{fig:mckp-dp-flow}
+\end{figure}

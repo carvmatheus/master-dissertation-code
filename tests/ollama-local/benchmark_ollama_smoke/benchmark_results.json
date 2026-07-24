@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-07-14T01:09:38.647825",
+  "strategies": [
+    "raw_gpt-oss-20b-ollama"
+  ],
+  "benchmarks": [
+    "needle_in_haystack",
+    "ruler",
+    "longbench",
+    "babilong",
+    "narrativeqa",
+    "qasper",
+    "infinitebench",
+    "zeroscrolls",
+    "naturalquestions",
+    "triviaqa",
+    "hotpotqa",
+    "musique",
+    "meeting_summarization"
+  ],
+  "results": [
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "raw_gpt-oss-20b-ollama",
+      "test_case": "hotpotqa_0",
+      "score": 1.0,
+      "latency_ms": 22469.924457996967,
+      "response": "Yes – both Scott Derrickson and Ed Wood were American.",
+      "expected": "yes",
+      "dataset_id": "5a8b57f25542995d1e6f1371",
+      "context_chars": 4716,
+      "all_answers": [
+        "yes"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "comparison",
+      "level": "hard"
+    },
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "raw_gpt-oss-20b-ollama",
+      "test_case": "hotpotqa_1",
+      "score": 0.0,
+      "latency_ms": 13267.141167001682,
+      "response": "Ela era a **Embaixadora dos Estados Unidos na Gana**.",
+      "expected": "Chief of Protocol",
+      "dataset_id": "5a8c7595554299585d9e36b6",
+      "context_chars": 5071,
+      "all_answers": [
+        "Chief of Protocol"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "bridge",
+      "level": "hard"
+    },
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "raw_gpt-oss-20b-ollama",
+      "test_case": "hotpotqa_2",
+      "score": 1.0,
+      "latency_ms": 9860.85720799747,
+      "response": "Animorphs.",
+      "expected": "Animorphs",
+      "dataset_id": "5a85ea095542994775f606a8",
+      "context_chars": 6704,
+      "all_answers": [
+        "Animorphs"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "bridge",
+      "level": "hard"
+    }
+  ],
+  "summary": {
+    "total_tests": 3,
+    "strategies": {
+      "raw_gpt-oss-20b-ollama": {
+        "avg_score": 0.6666666666666666,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 15199.307610998707,
+        "num_tests": 3
+      }
+    },
+    "benchmarks": {
+      "hotpotqa": {
+        "avg_score": 0.6666666666666666,
+        "num_tests": 3
+      }
+    },
+    "strategy_x_benchmark_matrix": {
+      "raw_gpt-oss-20b-ollama": {
+        "hotpotqa": 0.6666666666666666
+      }
+    }
+  }
+}

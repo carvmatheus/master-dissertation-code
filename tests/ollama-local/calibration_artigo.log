@@ -1,0 +1,24 @@
+
+Linhas agregadas: 330 testes -> 105 grupos (estrategia x benchmark x ctx)
+
+== L/Q por estrategia (media sobre benchmarks e contextos) ==
+strategy              ratio(L)  sem_fid  evid_rec  density   score
+------------------------------------------------------------------
+parallel_window          0.852    0.917     0.858    1.284   0.574
+raw                      1.000    1.000     0.894    1.000   0.616
+rig                      0.680    0.803     0.846    2.340   0.562
+semantic_compression     0.352    0.598     0.674    3.590   0.596
+sliding_window           0.853    0.882     0.841    1.381   0.626
+
+== Poder preditivo: corr(metrica, score) — apenas casos comprimidos ==
+  quality_content_recall       r=  0.375 (n=231)
+  quality_number_retention     r=  0.192 (n=171)
+  quality_evidence_recall      r=  0.266 (n=231)
+  quality_answer_present       r=  0.393 (n=231)
+  quality_semantic_fidelity    r=  0.390 (n=231)
+  quality_info_density         r= -0.193 (n=231)
+  cost_compression_ratio       r=  0.401 (n=231)
+  cost_tokens_saved            r= -0.377 (n=231)
+
+CSVs: tests/ollama-local/benchmark_matrix_artigo/calibration/calibration_LQ.csv, tests/ollama-local/benchmark_matrix_artigo/calibration/calibration_corr.csv
+=== Calibração concluída — CSVs em tests/ollama-local/benchmark_matrix_artigo/calibration/ ===

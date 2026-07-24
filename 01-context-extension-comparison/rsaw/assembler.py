@@ -10,7 +10,7 @@ class TierAssembler:
 
     Tier 1 (score >= theta_alto): incluído inteiro.
     Tier 2 (theta_baixo <= score < theta_alto): comprimido com PerplexityCompressor.
-    Tier 3 (score < theta_baixo): resumido com GroqSemanticCompressor.
+    Tier 3 (score < theta_baixo): resumido com OllamaSemanticCompressor.
     """
 
     def __init__(
@@ -29,7 +29,7 @@ class TierAssembler:
         self.summarizer_model = summarizer_model
         self.segmenter = segmenter
         self._perplexity = None
-        self._groq = None
+        self._semantic = None
 
     def _perplexity_compressor(self):
         if self._perplexity is None:
@@ -40,14 +40,14 @@ class TierAssembler:
             self._perplexity = PerplexityCompressor()
         return self._perplexity
 
-    def _groq_compressor(self):
-        if self._groq is None:
+    def _semantic_compressor(self):
+        if self._semantic is None:
             try:
-                from prompt_compression import GroqSemanticCompressor
+                from prompt_compression import OllamaSemanticCompressor
             except ImportError:
-                from ..prompt_compression import GroqSemanticCompressor
-            self._groq = GroqSemanticCompressor(model_name=self.summarizer_model)
-        return self._groq
+                from ..prompt_compression import OllamaSemanticCompressor
+            self._semantic = OllamaSemanticCompressor(model_name=self.summarizer_model)
+        return self._semantic
 
     def _process_tier(self, chunk: str, tier: int) -> Optional[str]:
         if tier == 1:
@@ -62,9 +62,9 @@ class TierAssembler:
 
         # tier == 3
         try:
-            return self._groq_compressor().compress(chunk, 0.3)
+            return self._semantic_compressor().compress(chunk, 0.3)
         except Exception as e:
-            logger.warning(f"GroqSemanticCompressor falhou (Tier 3): {e}. Omitindo chunk.")
+            logger.warning(f"OllamaSemanticCompressor falhou (Tier 3): {e}. Omitindo chunk.")
             return None
 
     def assemble(self, scored_chunks: List[dict]) -> str:

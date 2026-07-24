@@ -1,0 +1,359 @@
+{
+  "timestamp": "2026-07-14T01:08:34.307585",
+  "strategies": [
+    "mock"
+  ],
+  "benchmarks": [
+    "needle_in_haystack",
+    "ruler",
+    "longbench",
+    "babilong",
+    "narrativeqa",
+    "qasper",
+    "infinitebench",
+    "zeroscrolls",
+    "naturalquestions",
+    "triviaqa",
+    "hotpotqa",
+    "musique",
+    "meeting_summarization"
+  ],
+  "results": [
+    {
+      "benchmark": "zeroscrolls",
+      "strategy": "mock",
+      "test_case": "zeroscrolls_0",
+      "score": 0.30666666666666664,
+      "latency_ms": 1.1355829919921234,
+      "response": "{vocalsound} Marketing: a different shape Industrial Designer: {vocalsound} User Interface: {vocalsound} Marketing: or {vocalsound} okay , not the example I would choose , but you know what I mean to t sort of {disfmarker} and th apparently the feel of the next couple of years is spongy , Project Manager: {vocalsound} Industrial Designer: Mm",
+      "expected": "The User Interface proposed to give up the idea of a hand-held model and give its way to the voice recognition system, while the Industrial Design thought it would be necessary for remote control to be able to be held in hand. Industrial Design believed that not all the people would always use the voice recognition system and most of the time they have to take it by hand. For most, voice recognition is only a kind of addition. If the remote control was not in a suitable shape, like something round, it would bring some troubles.",
+      "dataset_id": "qmsum:va-sq-11",
+      "context_chars": 43538,
+      "all_answers": [
+        "The User Interface proposed to give up the idea of a hand-held model and give its way to the voice recognition system, while the Industrial Design thought it would be necessary for remote control to be able to be held in hand. Industrial Design believed that not all the people would always use the voice recognition system and most of the time they have to take it by hand. For most, voice recognition is only a kind of addition. If the remote control was not in a suitable shape, like something round, it would bring some troubles."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qmsum"
+    },
+    {
+      "benchmark": "zeroscrolls",
+      "strategy": "mock",
+      "test_case": "zeroscrolls_1",
+      "score": 1.0,
+      "latency_ms": 0.1430830016033724,
+      "response": "We quantify the efficiency-accuracy tradeoff compared to two rule-based baselines: Unif and Stopword",
+      "expected": "Unif and Stopword",
+      "dataset_id": "qasper:3fad42be0fb2052bb404b989cc7d58b440cd23a0",
+      "context_chars": 12299,
+      "all_answers": [
+        "Unif and Stopword"
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qasper"
+    },
+    {
+      "benchmark": "zeroscrolls",
+      "strategy": "mock",
+      "test_case": "zeroscrolls_2",
+      "score": 0.5,
+      "latency_ms": 2.3407910048263147,
+      "response": "My conscience does not smite me, and that Being who is greater than the internal monitor, may approve of what the world condemns; sensible that in Him I live, could I brave His presence, or hope in solitude to find peace, if I acted contrary to conviction, that the world might approve of my conduct--what could the world give to compensate for my own esteem? it is ever hostile and armed against the feeling heart!  \"Riches and honours await me, and the cold moralist might desire me to sit down and",
+      "expected": "He leaves for the Continent.",
+      "dataset_id": "narrative_qa:3858",
+      "context_chars": 153411,
+      "all_answers": [
+        "He leaves for the Continent."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "narrative_qa"
+    },
+    {
+      "benchmark": "naturalquestions",
+      "strategy": "mock",
+      "test_case": "naturalquestions_0",
+      "score": 1.0,
+      "latency_ms": 0.023249987862072885,
+      "response": "Having advanced to the first preliminary finals for the first time since 2001, Richmond defeated Greater Western Sydney by 36 points in front of a crowd of 94,258 to progress to the Grand Final against Adelaide, their first Grand Final appearance since 1982",
+      "expected": "Richmond Football Club Richmond began 2017 with 5 straight wins, a feat it had not achieved since 1995. A series of close losses hampered the Tigers throughout the middle of the season, including a 5-point loss to the Western Bulldogs, 2-point loss to Fremantle, and a 3-point loss to the Giants. Richmond ended the season strongly with convincing victories over Fremantle and St Kilda in the final two rounds, elevating the club to 3rd on the ladder. Richmond's first final of the season against the Cats at the MCG attracted a record qualifying final crowd of 95,028; the Tigers won by 51 points. Having advanced to the first preliminary finals for the first time since 2001, Richmond defeated Greater Western Sydney by 36 points in front of a crowd of 94,258 to progress to the Grand Final against Adelaide, their first Grand Final appearance since 1982. The attendance was 100,021, the largest crowd to a grand final since 1986. The Crows led at quarter time and led by as many as 13, but the Tigers took over the game as it progressed and scored seven straight goals at one point. They eventually would win by 48 points – 16.12 (108) to Adelaide's 8.12 (60) – to end their 37-year flag drought.[22] Dustin Martin also became the first player to win a Premiership medal, the Brownlow Medal and the Norm Smith Medal in the same season, while Damien Hardwick was named AFL Coaches Association Coach of the Year. Richmond's jump from 13th to premiers also marked the biggest jump from one AFL season to the next.",
+      "dataset_id": "0",
+      "context_chars": 1539,
+      "all_answers": [
+        "Richmond Football Club Richmond began 2017 with 5 straight wins, a feat it had not achieved since 1995. A series of close losses hampered the Tigers throughout the middle of the season, including a 5-point loss to the Western Bulldogs, 2-point loss to Fremantle, and a 3-point loss to the Giants. Richmond ended the season strongly with convincing victories over Fremantle and St Kilda in the final two rounds, elevating the club to 3rd on the ladder. Richmond's first final of the season against the Cats at the MCG attracted a record qualifying final crowd of 95,028; the Tigers won by 51 points. Having advanced to the first preliminary finals for the first time since 2001, Richmond defeated Greater Western Sydney by 36 points in front of a crowd of 94,258 to progress to the Grand Final against Adelaide, their first Grand Final appearance since 1982. The attendance was 100,021, the largest crowd to a grand final since 1986. The Crows led at quarter time and led by as many as 13, but the Tigers took over the game as it progressed and scored seven straight goals at one point. They eventually would win by 48 points – 16.12 (108) to Adelaide's 8.12 (60) – to end their 37-year flag drought.[22] Dustin Martin also became the first player to win a Premiership medal, the Brownlow Medal and the Norm Smith Medal in the same season, while Damien Hardwick was named AFL Coaches Association Coach of the Year. Richmond's jump from 13th to premiers also marked the biggest jump from one AFL season to the next."
+      ],
+      "source": "sentence-transformers/natural-questions",
+      "note": "qa_pair"
+    },
+    {
+      "benchmark": "naturalquestions",
+      "strategy": "mock",
+      "test_case": "naturalquestions_1",
+      "score": 1.0,
+      "latency_ms": 0.011374999303370714,
+      "response": "[1] He then recorded four Billboard Hot 100 hits – \"What in the World's Come Over You\" (#5), \"Burning Bridges\" (#3) b/w \"Oh Little One\" (#34), and \"It Only Happened Yesterday\" (#38)",
+      "expected": "Jack Scott (singer) At the beginning of 1960, Scott again changed record labels, this time to Top Rank Records.[1] He then recorded four Billboard Hot 100 hits – \"What in the World's Come Over You\" (#5), \"Burning Bridges\" (#3) b/w \"Oh Little One\" (#34), and \"It Only Happened Yesterday\" (#38).[1] \"What in the World's Come Over You\" was Scott's second gold disc winner.[6] Scott continued to record and perform during the 1960s and 1970s.[1] His song \"You're Just Gettin' Better\" reached the country charts in 1974.[1] In May 1977, Scott recorded a Peel session for BBC Radio 1 disc jockey, John Peel.",
+      "dataset_id": "1",
+      "context_chars": 627,
+      "all_answers": [
+        "Jack Scott (singer) At the beginning of 1960, Scott again changed record labels, this time to Top Rank Records.[1] He then recorded four Billboard Hot 100 hits – \"What in the World's Come Over You\" (#5), \"Burning Bridges\" (#3) b/w \"Oh Little One\" (#34), and \"It Only Happened Yesterday\" (#38).[1] \"What in the World's Come Over You\" was Scott's second gold disc winner.[6] Scott continued to record and perform during the 1960s and 1970s.[1] His song \"You're Just Gettin' Better\" reached the country charts in 1974.[1] In May 1977, Scott recorded a Peel session for BBC Radio 1 disc jockey, John Peel."
+      ],
+      "source": "sentence-transformers/natural-questions",
+      "note": "qa_pair"
+    },
+    {
+      "benchmark": "naturalquestions",
+      "strategy": "mock",
+      "test_case": "naturalquestions_2",
+      "score": 1.0,
+      "latency_ms": 0.009082999895326793,
+      "response": "Wool comprises ca 3% of the global textile market, but its value is higher owing to dying and other modifications of the material",
+      "expected": "Wool Global wool production is about 2 million tonnes per year, of which 60% goes into apparel. Wool comprises ca 3% of the global textile market, but its value is higher owing to dying and other modifications of the material.[1] Australia is a leading producer of wool which is mostly from Merino sheep but has been eclipsed by China in terms of total weight.[30] New Zealand (2016) is the third-largest producer of wool, and the largest producer of crossbred wool. Breeds such as Lincoln, Romney, Drysdale, and Elliotdale produce coarser fibers, and wool from these sheep is usually used for making carpets.",
+      "dataset_id": "2",
+      "context_chars": 635,
+      "all_answers": [
+        "Wool Global wool production is about 2 million tonnes per year, of which 60% goes into apparel. Wool comprises ca 3% of the global textile market, but its value is higher owing to dying and other modifications of the material.[1] Australia is a leading producer of wool which is mostly from Merino sheep but has been eclipsed by China in terms of total weight.[30] New Zealand (2016) is the third-largest producer of wool, and the largest producer of crossbred wool. Breeds such as Lincoln, Romney, Drysdale, and Elliotdale produce coarser fibers, and wool from these sheep is usually used for making carpets."
+      ],
+      "source": "sentence-transformers/natural-questions",
+      "note": "qa_pair"
+    },
+    {
+      "benchmark": "triviaqa",
+      "strategy": "mock",
+      "test_case": "triviaqa_0",
+      "score": 0.5,
+      "latency_ms": 0.019166996935382485,
+      "response": "\"Hold On to the Nights\" has been re-released numerous albums  and is included on Marx's live performance DVD A Night Out with Friends (2012)",
+      "expected": "richard marx",
+      "dataset_id": "feabd1ae0c0246699a00e4e4b84cae69",
+      "context_chars": 866,
+      "all_answers": [
+        "richard marx"
+      ],
+      "source": "lucadiliello/triviaqa"
+    },
+    {
+      "benchmark": "triviaqa",
+      "strategy": "mock",
+      "test_case": "triviaqa_1",
+      "score": 1.0,
+      "latency_ms": 0.03366700548212975,
+      "response": "[DOC] [TLE] Nikkei Definition | InvestopediaNikkei Definition | Investopedia [PAR] Nikkei [PAR] What is the 'Nikkei' [PAR] Nikkei is short for Japan's Nikkei 225 Stock Average, the leading and most-respected index of Japanese stocks",
+      "expected": "nikkei",
+      "dataset_id": "7220f2933b0c4c8d803fe2cd007d8bad",
+      "context_chars": 2977,
+      "all_answers": [
+        "nikkei"
+      ],
+      "source": "lucadiliello/triviaqa"
+    },
+    {
+      "benchmark": "triviaqa",
+      "strategy": "mock",
+      "test_case": "triviaqa_2",
+      "score": 0.0,
+      "latency_ms": 0.07104100950527936,
+      "response": "The band moved into country music following the synth-pop success of \"Kiss You All Over\" and the 1979 follow-on hit \"You Thrill Me\" (reaching #40 (UK no",
+      "expected": "exile",
+      "dataset_id": "3afcef827e4443e680f8b72ab35015e0",
+      "context_chars": 3710,
+      "all_answers": [
+        "exile"
+      ],
+      "source": "lucadiliello/triviaqa"
+    },
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "mock",
+      "test_case": "hotpotqa_0",
+      "score": 0.0,
+      "latency_ms": 0.07687500328756869,
+      "response": "Title: Doctor Strange (2016 film) Doctor Strange is a 2016 American superhero film based on the Marvel Comics character of the same name, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures",
+      "expected": "yes",
+      "dataset_id": "5a8b57f25542995d1e6f1371",
+      "context_chars": 4716,
+      "all_answers": [
+        "yes"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "comparison",
+      "level": "hard"
+    },
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "mock",
+      "test_case": "hotpotqa_1",
+      "score": 0.0,
+      "latency_ms": 0.11400000948924571,
+      "response": "Title: Kiss and Tell (1945 film) Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer",
+      "expected": "Chief of Protocol",
+      "dataset_id": "5a8c7595554299585d9e36b6",
+      "context_chars": 5071,
+      "all_answers": [
+        "Chief of Protocol"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "bridge",
+      "level": "hard"
+    },
+    {
+      "benchmark": "hotpotqa",
+      "strategy": "mock",
+      "test_case": "hotpotqa_2",
+      "score": 1.0,
+      "latency_ms": 0.1747920032357797,
+      "response": "Title: Animorphs Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K",
+      "expected": "Animorphs",
+      "dataset_id": "5a85ea095542994775f606a8",
+      "context_chars": 6704,
+      "all_answers": [
+        "Animorphs"
+      ],
+      "source": "hotpotqa/hotpot_qa",
+      "type": "bridge",
+      "level": "hard"
+    },
+    {
+      "benchmark": "musique",
+      "strategy": "mock",
+      "test_case": "musique_0",
+      "score": 0.0,
+      "latency_ms": 0.5305829981807619,
+      "response": "The remaining episodes of that first season featured an animated sequence that was redone and expanded in season two, when the show switched from black and white to color",
+      "expected": "PowerShare",
+      "dataset_id": "2hop__25797_25855",
+      "context_chars": 14548,
+      "all_answers": [
+        "PowerShare"
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "musique"
+    },
+    {
+      "benchmark": "musique",
+      "strategy": "mock",
+      "test_case": "musique_1",
+      "score": 0.25,
+      "latency_ms": 0.19470900588203222,
+      "response": "Title: Al gran sole carico d'amore Al gran sole carico d'amore (\"In the Bright Sunshine Heavy with Love\") is an opera (designated as an 'azione scenica') with music by Luigi Nono, based mainly on plays by Bertolt Brecht, but also incorporating texts of Fidel Castro, Che Guevara, Karl Marx, and Vladimir Lenin",
+      "expected": "for the conclave in Rome",
+      "dataset_id": "3hop1__222497_309482_27537",
+      "context_chars": 9589,
+      "all_answers": [
+        "for the conclave in Rome"
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "musique"
+    },
+    {
+      "benchmark": "musique",
+      "strategy": "mock",
+      "test_case": "musique_2",
+      "score": 0.0,
+      "latency_ms": 0.16295899695251137,
+      "response": "Title: Mount Franklin (Australian Capital Territory) Mount Franklin is a mountain with an elevation of in the Brindabella Ranges that is located on the border between the Australian Capital Territory and New South Wales, Australia",
+      "expected": "Green Bay",
+      "dataset_id": "4hop1__638706_378185_282674_759393",
+      "context_chars": 6935,
+      "all_answers": [
+        "Green Bay"
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "musique"
+    },
+    {
+      "benchmark": "meeting_summarization",
+      "strategy": "mock",
+      "test_case": "meeting_summarization_0",
+      "score": 0.30666666666666664,
+      "latency_ms": 1.582917000632733,
+      "response": "{vocalsound} Marketing: a different shape Industrial Designer: {vocalsound} User Interface: {vocalsound} Marketing: or {vocalsound} okay , not the example I would choose , but you know what I mean to t sort of {disfmarker} and th apparently the feel of the next couple of years is spongy , Project Manager: {vocalsound} Industrial Designer: Mm",
+      "expected": "The User Interface proposed to give up the idea of a hand-held model and give its way to the voice recognition system, while the Industrial Design thought it would be necessary for remote control to be able to be held in hand. Industrial Design believed that not all the people would always use the voice recognition system and most of the time they have to take it by hand. For most, voice recognition is only a kind of addition. If the remote control was not in a suitable shape, like something round, it would bring some troubles.",
+      "dataset_id": "va-sq-11",
+      "context_chars": 43538,
+      "all_answers": [
+        "The User Interface proposed to give up the idea of a hand-held model and give its way to the voice recognition system, while the Industrial Design thought it would be necessary for remote control to be able to be held in hand. Industrial Design believed that not all the people would always use the voice recognition system and most of the time they have to take it by hand. For most, voice recognition is only a kind of addition. If the remote control was not in a suitable shape, like something round, it would bring some troubles."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qmsum"
+    },
+    {
+      "benchmark": "meeting_summarization",
+      "strategy": "mock",
+      "test_case": "meeting_summarization_1",
+      "score": 0.203125,
+      "latency_ms": 0.9785000002011657,
+      "response": "Well Project Manager: {vocalsound} Industrial Designer: Yeah Marketing: this {vocalsound} so so I think uh uh i Industrial Designer: {vocalsound} kind of um maybe {disfmarker} {gap} Marketing: When we were talking about rubber , Industrial Designer: Yeah it {disfmarker} Marketing: I think uh the rubber aspect might be important because it's what is probably more feasible in terms of sponginess",
+      "expected": "The industrial designer provided several options respectively for energy, material and interface. Among these options, the industrial designer preferred traditional battery, titanium and simple push buttons so that they would have enough money for speech recognition. After that, the user interface designer proposed an LCD display only for output, which might be taken into account. The group also talked about how to enable the users to find their controllers.",
+      "dataset_id": "va-sq-50",
+      "context_chars": 40498,
+      "all_answers": [
+        "The industrial designer provided several options respectively for energy, material and interface. Among these options, the industrial designer preferred traditional battery, titanium and simple push buttons so that they would have enough money for speech recognition. After that, the user interface designer proposed an LCD display only for output, which might be taken into account. The group also talked about how to enable the users to find their controllers."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qmsum"
+    },
+    {
+      "benchmark": "meeting_summarization",
+      "strategy": "mock",
+      "test_case": "meeting_summarization_2",
+      "score": 0.12244897959183673,
+      "latency_ms": 1.0220420081168413,
+      "response": "Well Project Manager: {vocalsound} Industrial Designer: Yeah Marketing: this {vocalsound} so so I think uh uh i Industrial Designer: {vocalsound} kind of um maybe {disfmarker} {gap} Marketing: When we were talking about rubber , Industrial Designer: Yeah it {disfmarker} Marketing: I think uh the rubber aspect might be important because it's what is probably more feasible in terms of sponginess",
+      "expected": "The marketing found that trends were quite the same in many areas. Take this year's fruit and vegetable as an example, it applies to everything from clothing to furniture, which meant it was quite general. It might be surprising that people liked products that looked natural and round rather than some futuristic remote control with angles and titanium.",
+      "dataset_id": "va-sq-57",
+      "context_chars": 40498,
+      "all_answers": [
+        "The marketing found that trends were quite the same in many areas. Take this year's fruit and vegetable as an example, it applies to everything from clothing to furniture, which meant it was quite general. It might be surprising that people liked products that looked natural and round rather than some futuristic remote control with angles and titanium."
+      ],
+      "source": "tau/zero_scrolls",
+      "task": "qmsum"
+    }
+  ],
+  "summary": {
+    "total_tests": 18,
+    "strategies": {
+      "mock": {
+        "avg_score": 0.45493929516250947,
+        "min_score": 0.0,
+        "max_score": 1.0,
+        "avg_latency_ms": 0.47913427907688955,
+        "num_tests": 18
+      }
+    },
+    "benchmarks": {
+      "zeroscrolls": {
+        "avg_score": 0.6022222222222222,
+        "num_tests": 3
+      },
+      "naturalquestions": {
+        "avg_score": 1.0,
+        "num_tests": 3
+      },
+      "triviaqa": {
+        "avg_score": 0.5,
+        "num_tests": 3
+      },
+      "hotpotqa": {
+        "avg_score": 0.3333333333333333,
+        "num_tests": 3
+      },
+      "musique": {
+        "avg_score": 0.08333333333333333,
+        "num_tests": 3
+      },
+      "meeting_summarization": {
+        "avg_score": 0.2107468820861678,
+        "num_tests": 3
+      }
+    },
+    "strategy_x_benchmark_matrix": {
+      "mock": {
+        "zeroscrolls": 0.6022222222222222,
+        "naturalquestions": 1.0,
+        "triviaqa": 0.5,
+        "hotpotqa": 0.3333333333333333,
+        "musique": 0.08333333333333333,
+        "meeting_summarization": 0.2107468820861678
+      }
+    }
+  }
+}

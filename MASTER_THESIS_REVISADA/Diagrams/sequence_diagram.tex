@@ -1,54 +1,80 @@
-% Sequencia conceitual entre os componentes do framework proposto.
-
 \begin{figure}[htbp]
 \centering
-\resizebox{0.98\textwidth}{!}{%
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
-    actor/.style={rectangle, rounded corners=2pt, minimum width=2.15cm,
-        minimum height=0.7cm, draw=dark, thick, fill=blue!10,
-        font=\scriptsize\bfseries, align=center},
-    lifeline/.style={dashed, draw=dark!55},
-    message/.style={-{Stealth[length=2mm]}, thick, draw=dark},
-    return/.style={-{Stealth[length=2mm]}, dashed, draw=dark!75},
-    note/.style={rectangle, draw=dark!45, fill=orange!10,
-        font=\tiny, align=left, inner sep=3pt}
+    node distance=1.2cm and 0.9cm,
+    stage/.style={
+        rectangle, rounded corners=4pt, draw=primary, fill=primary!10, thick,
+        minimum width=3.6cm, minimum height=1.3cm, align=center,
+        font=\small\bfseries, drop shadow={opacity=0.2, shadow xshift=2pt, shadow yshift=-2pt}
+    },
+    artifact/.style={
+        rectangle, rounded corners=2pt, draw=dark, fill=light, thick,
+        minimum width=3.2cm, minimum height=1.1cm, align=center,
+        font=\small, drop shadow={opacity=0.1, shadow xshift=2pt, shadow yshift=-2pt}
+    },
+    detail/.style={
+        rectangle, draw=neutral, fill=white, thick,
+        minimum width=2.4cm, minimum height=0.75cm, align=center,
+        font=\footnotesize, densely dotted, rounded corners=2pt
+    },
+    arrow/.style={
+        -{Stealth[length=3mm, width=2mm]}, thick, draw=dark
+    },
+    dataarrow/.style={
+        -{Stealth[length=2.5mm, width=1.5mm]}, thick, dashed, draw=neutral!80!dark
+    }
 ]
 
-\node[actor] (app) at (0,0) {Aplicacao};
-\node[actor] (partitioner) at (3.1,0) {Particionador};
-\node[actor] (estimator) at (6.2,0) {Estimador de\\importancia};
-\node[actor] (pool) at (9.3,0) {Gerador de\\opcoes};
-\node[actor] (solver) at (12.4,0) {Otimizador\\MCKP};
-\node[actor] (assembler) at (15.5,0) {Reconstrutor};
-\node[actor] (llm) at (18.6,0) {LLM via API};
+% ================= ROW 1 (Esquerda -> Direita) =================
+\node[artifact] (input) {\textit{Prompt} $C$, consulta $q$\\e orçamento $B$};
+\node[stage, right=of input] (s1) {1. Particionamento\\semântico};
+\node[artifact, right=of s1] (t) {$T=(t_1,\ldots,t_n)$\\partições ordenadas};
+\node[stage, right=of t] (s2) {2. Estimativa de\\importância $I(t_j;q)$};
 
-\foreach \x in {app,partitioner,estimator,pool,solver,assembler,llm} {
-    \draw[lifeline] (\x.south) -- ++(0,-11.6);
-}
+% Cartões auxiliares (S2)
+\node[detail, above=0.8cm of s2] (dens) {Densidade de\\informação};
+\node[detail, left=0.2cm of dens] (rel) {Relevância para\\a tarefa};
+\node[detail, right=0.2cm of dens] (pos) {Saliência\\posicional};
 
-\draw[message] ([yshift=-0.65cm]app.south) -- node[above, font=\tiny] {1: comprimir$(C,q,B)$} ([yshift=-0.65cm]partitioner.south);
-\draw[return] ([yshift=-1.3cm]partitioner.south) -- node[above, font=\tiny] {$T=(t_1,\ldots,t_n)$} ([yshift=-1.3cm]app.south);
+\draw[dataarrow] (rel.south) -- ++(0,-0.3) -| ($(s2.north) + (-1.2,0)$);
+\draw[dataarrow] (dens.south) -- (s2.north);
+\draw[dataarrow] (pos.south) -- ++(0,-0.3) -| ($(s2.north) + (1.2,0)$);
 
-\node[note] at (4.65,-2.1) {Para cada particao $t_j$};
-\draw[message] ([yshift=-2.8cm]app.south) -- node[above, font=\tiny] {2: estimar$(t_j,q)$} ([yshift=-2.8cm]estimator.south);
-\draw[return] ([yshift=-3.5cm]estimator.south) -- node[above, font=\tiny] {$I(t_j;q)$} ([yshift=-3.5cm]app.south);
+% ================= ROW 2 (Direita -> Esquerda) =================
+\node[stage, fill=secondary!10, draw=secondary, below=1.8cm of s2] (s3) {3. Geração de opções\\por partição};
+\node[artifact, left=of s3] (oj) {$O_j=\{o_{j,0},\ldots,o_{j,m}\}$\\custo $c_{j,o}$, qualidade $Q_{j,o}$};
+\node[stage, fill=accent!10, draw=accent, left=of oj, minimum width=4.6cm] (s4) {4. Otimização MCKP\\por programação dinâmica};
+\node[stage, fill=secondary!10, draw=secondary, left=of s4] (s5) {5. Reconstrução na\\ordem original};
 
-\draw[message] ([yshift=-4.25cm]app.south) -- node[above, font=\tiny] {3: gerar$(t_j,I_j)$} ([yshift=-4.25cm]pool.south);
-\node[note, right=0.2cm of pool, yshift=-4.9cm] {Aplicar identidade e\\compressores candidatos;\\medir $c_{j,o}$ e $Q_{j,o}$};
-\draw[return] ([yshift=-5.7cm]pool.south) -- node[above, font=\tiny] {$O_j$} ([yshift=-5.7cm]app.south);
+% Cartão auxiliar (S3) lateral direito
+\node[detail, right=0.7cm of s3] (pool) {Compressores \textit{text-in/text-out}\\identidade e candidatos};
+\draw[dataarrow] (pool.west) -- (s3.east);
 
-\draw[message] ([yshift=-6.55cm]app.south) -- node[above, font=\tiny] {4: resolver$(\{O_j\},B,\mu)$} ([yshift=-6.55cm]solver.south);
-\node[note, right=0.2cm of solver, yshift=-7.25cm] {Preencher tabela $D$\\e executar retrocesso};
-\draw[return] ([yshift=-8cm]solver.south) -- node[above, font=\tiny] {$o_1^*,\ldots,o_n^*$} ([yshift=-8cm]app.south);
+% Cartões auxiliares (S4) em baixo
+\node[detail, below=0.9cm of s4, xshift=-2.25cm] (c1) {Uma opção por partição\\$\sum c_{j,o}\leq B$};
+\node[detail, below=0.9cm of s4, xshift=2.25cm] (c2) {Qualidade preservada\\e penalização de transição};
 
-\draw[message] ([yshift=-8.75cm]app.south) -- node[above, font=\tiny] {5: reconstruir$(T,O^*)$} ([yshift=-8.75cm]assembler.south);
-\draw[return] ([yshift=-9.45cm]assembler.south) -- node[above, font=\tiny] {$C'$ com $|C'|\leq B$} ([yshift=-9.45cm]app.south);
+\draw[dataarrow] (c1.north) -- ++(0,0.3) -| ($(s4.south) + (-1.5,0)$);
+\draw[dataarrow] (c2.north) -- ++(0,0.3) -| ($(s4.south) + (1.5,0)$);
 
-\draw[message] ([yshift=-10.2cm]app.south) -- node[above, font=\tiny] {6: gerar$(C',q)$} ([yshift=-10.2cm]llm.south);
-\draw[return] ([yshift=-11cm]llm.south) -- node[above, font=\tiny] {resposta} ([yshift=-11cm]app.south);
+% ================= ROW 3 (Esquerda -> Direita) =================
+\node[artifact, below=2.4cm of s5] (compressed) {\textit{Prompt} comprimido\\com no máximo $B$ tokens};
+\node[artifact, right=of compressed, fill=api!10, draw=api] (llm) {Modelo de linguagem\\acessado via API};
+
+% ================= SETAS PRINCIPAIS =================
+\draw[arrow] (input) -- (s1);
+\draw[arrow] (s1) -- (t);
+\draw[arrow] (t) -- (s2);
+\draw[arrow] (s2) -- (s3);
+\draw[arrow] (s3) -- (oj);
+\draw[arrow] (oj) -- (s4);
+\draw[arrow] (s4) -- (s5);
+\draw[arrow] (s5) -- (compressed);
+\draw[arrow] (compressed) -- (llm);
 
 \end{tikzpicture}%
 }
-\caption{Sequencia conceitual da aplicacao do \textit{framework}. Para cada particao, sao calculadas a importancia e as alternativas de compressao; o otimizador seleciona as alternativas globalmente antes da reconstrucao e da chamada ao modelo.}
-\label{fig:framework-sequence}
+\caption{Arquitetura conceitual do \textit{framework} proposto. O sistema transforma cada partição em alternativas com custo e qualidade, seleciona uma alternativa por partição sob o orçamento global e reconstrói o \textit{prompt} antes da chamada ao modelo.}
+\label{fig:framework}
 \end{figure}

@@ -1,7 +1,7 @@
 \chapter{Metodologia e \textit{Framework} Proposto}
 \label{cap:metodologia}
 
-Este capítulo está organizado em duas partes. A primeira, apresentada na Seção~\ref{sec:validacao-empirica}, descreve a avaliação empírica e a evolução do protocolo experimental. O estudo compreende uma fase preliminar, executada por meio de APIs externas, e uma fase local consolidada. A fase local, por sua vez, foi conduzida em duas etapas sequenciais. Na etapa inicial, cinco estratégias não invasivas de tratamento de contexto foram comparadas em cinco modelos e dois orçamentos, formando a matriz local inicial e fornecendo a referência para a escolha da estratégia base. Na etapa de ampliação, LLMLingua-GPT2, LLMLingua-2, Selective Context e CPC-MiniLM foram incorporados como quatro técnicas adicionais, ampliando o conjunto comparativo para nove técnicas nas dez combinações de modelo e orçamento. A segunda parte do capítulo, apresentada na Seção~\ref{sec:framework}, formaliza a arquitetura do \textit{framework} proposto, que descreve a compressão seletiva de contexto como um problema da mochila de múltipla escolha.
+Este capítulo está organizado em duas partes. A primeira, apresentada na Seção~\ref{sec:validacao-empirica}, descreve a avaliação empírica e a evolução do protocolo experimental. O estudo compreende uma fase preliminar, executada por meio de APIs externas, e uma fase local consolidada. A fase local foi conduzida em duas etapas sequenciais. Na etapa inicial, cinco estratégias não invasivas de tratamento de contexto foram comparadas em cinco modelos e dois tamanhos de contexto, formando a matriz de referência para a escolha da estratégia base. Esses resultados foram concebidos para complementar a avaliação via API, cuja execução foi limitada por restrições na implementação e na customização da janela de contexto descritas na Seção~\ref{subsec:evolucao-protocolo}. A etapa de ampliação foi motivada pela hipótese de que a seleção de trechos de contexto pode ser formulada como um problema de otimização, formalizado na Seção~\ref{sec:framework}. Nessa etapa, LLMLingua-GPT2, LLMLingua-2, Selective Context e CPC-MiniLM foram incorporados como quatro técnicas adicionais, ampliando o conjunto comparativo para nove técnicas nas dez combinações de modelo e orçamento. A segunda parte do capítulo, apresentada na Seção~\ref{sec:framework}, formaliza a arquitetura do \textit{framework} proposto, que descreve a compressão seletiva de contexto como um problema da mochila de múltipla escolha.
 
 \section{Validação Empírica das Estratégias Não Invasivas}
 \label{sec:validacao-empirica}
@@ -9,7 +9,7 @@ Este capítulo está organizado em duas partes. A primeira, apresentada na Seç�
 \subsection{Objetivo e Desenho Experimental}
 \label{subsec:desenho}
 
-A validação empírica tem por objetivo medir quanto de informação cada técnica de tratamento de contexto preserva, isto é, em que medida o modelo ainda recupera a resposta correta após a redução ou a segmentação da entrada, em comparação com o \textit{baseline} sem tratamento. A questão central não é qual modelo apresenta melhor desempenho absoluto, e sim como o compromisso entre qualidade e custo varia entre técnicas, famílias de modelos e orçamentos de contexto. Para responder a essa questão sem alterar retrospectivamente o protocolo já executado, a matriz local foi construída em duas etapas sequenciais, descritas a seguir.
+A validação empírica tem por objetivo medir quanto de informação cada técnica de tratamento de contexto preserva, isto é, em que medida o modelo ainda recupera a resposta correta após a redução ou a segmentação da entrada, em comparação com o \textit{baseline} sem tratamento. A questão central não é qual modelo apresenta melhor desempenho absoluto e sim como o compromisso entre qualidade e tempo de execução varia entre técnicas, famílias de modelos e tamanhos de contexto. Para responder a essa questão sem alterar retrospectivamente o protocolo já executado, a matriz local foi construída em duas etapas sequenciais, descritas a seguir.
 
 \paragraph{Etapa inicial.}
 Na etapa inicial, cinco estratégias não invasivas de tratamento de contexto foram comparadas, formando a matriz local inicial e fornecendo a referência para a escolha da estratégia base. As cinco estratégias são descritas a seguir.
@@ -29,7 +29,20 @@ Na etapa inicial, cinco estratégias não invasivas de tratamento de contexto fo
 Essa etapa foi executada integralmente nos cinco modelos e nos dois orçamentos apresentados a seguir.
 
 \paragraph{Etapa de ampliação.}
-Após a conclusão da etapa inicial, quatro compressores foram acrescentados como técnicas adicionais. LLMLingua-GPT2 foi empregado como baseline externo de compressão, enquanto LLMLingua-2, Selective Context e CPC-MiniLM foram avaliados como candidatos ao conjunto de opções do MCKP. A ampliação preservou os mesmos modelos, orçamentos, \textit{benchmarks} e critérios de agregação, permitindo apresentar as nove técnicas nas mesmas tabelas. Os quatro compressores foram executados nas dez combinações de modelo e orçamento. Uma chamada do CPC-MiniLM ao DeepSeek-R1 32B, no orçamento de 8192 \textit{tokens}, terminou por \textit{timeout}; essa observação é excluída das agregações dependentes da resposta e identificada nas tabelas. As implementações e adaptações dos quatro compressores são detalhadas na Seção~\ref{subsec:implementacao}.
+Após a conclusão da etapa inicial, quatro compressores foram acrescentados como técnicas adicionais, preservando os mesmos modelos, orçamentos, \textit{benchmarks} e critérios de agregação e permitindo apresentar as nove técnicas nas mesmas tabelas.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{LLMLingua-GPT2}. \textit{Baseline} externo de compressão, utilizado como referência para avaliar o ganho obtido pelos compressores mais recentes.
+
+\item \textbf{LLMLingua-2}. Candidato ao conjunto de opções do MCKP, avaliado como técnica de compressão baseada em modelo.
+
+\item \textbf{\textit{Selective Context}}. Candidato ao conjunto de opções do MCKP, avaliado como técnica de seleção de trechos por relevância.
+
+\item \textbf{CPC-MiniLM}. Candidato ao conjunto de opções do MCKP, avaliado como técnica de compressão orientada por similaridade semântica.
+\end{itemize}
+
+Os quatro compressores foram executados nas dez combinações de modelo e orçamento. Uma chamada do CPC-MiniLM ao DeepSeek-R1 32B, no orçamento de 8192 \textit{tokens}, terminou por \textit{timeout}; essa observação é excluída das agregações dependentes da resposta e identificada nas tabelas. As implementações e adaptações dos quatro compressores são detalhadas na Seção~\ref{subsec:implementacao}.
+
 
 \paragraph{Modelos avaliados.}
 Os modelos foram selecionados para cobrir eixos distintos de projeto, e não por serem os de maior porte. A Tabela~\ref{tab:modelos} apresenta os cinco modelos e seu papel na matriz de avaliação, contemplando arquitetura densa em escala pequena e grande, arquitetura de mistura de especialistas esparsa e modelos ajustados para raciocínio. A escolha por famílias distintas, que reúnem Meta, Google, Alibaba, DeepSeek e OpenAI, busca reduzir a dependência do resultado em relação a um único estilo de treinamento.
@@ -61,7 +74,7 @@ Os modelos foram selecionados para cobrir eixos distintos de projeto, e não por
 A avaliação de cada modelo considera dois orçamentos de contexto, de 8192 e de 32768 \textit{tokens}, correspondentes aos extremos de pressão de compressão. O orçamento de 8192 \textit{tokens} impõe forte truncamento, exigindo que a estratégia selecione bem o conteúdo mantido, enquanto o orçamento de 32768 \textit{tokens} mede o teto de qualidade, uma vez que quase todo o conteúdo é acomodado. Uma calibração preliminar mais ampla, conduzida com o modelo \textit{baseline}, indicou que os contextos de 16384 e de 32768 \textit{tokens} saturam em um mesmo patamar de acurácia, próximo de 0.954, de modo que o ponto intermediário não acrescenta informação relevante à curva de compromisso e foi omitido para os demais modelos. O modelo \textit{baseline} preserva os três contextos como curva completa de referência.
 
 \paragraph{Suíte de \textit{benchmarks}.}
-A suíte de \textit{benchmarks} reúne sete tarefas de contexto longo restritas a texto, agrupadas em quatro categorias. O LongBench \cite{bai2023longbench} reúne múltiplas tarefas de contexto longo em inglês e chinês, distribuídas em categorias como resposta a perguntas sobre um ou vários documentos, sumarização, aprendizado por poucos exemplos e completude de código, permitindo comparar o desempenho do modelo em diferentes tipos de tarefa dentro da mesma suíte. O ZeroSCROLLS \cite{shaham2023zeroscrolls} avalia compreensão de texto longo em regime \textit{zero-shot}, sem exemplos de treinamento específicos para cada tarefa, reunindo problemas de resposta a perguntas, sumarização e agregação de informação ao longo do documento. A resposta a perguntas de múltiplos saltos é avaliada pelo HotpotQA \cite{yang2018hotpotqa} e pelo MuSiQue \cite{trivedi2022musique}, que exigem combinar evidências dispersas em vários documentos e, por isso, penalizam compressões que descartam fatos de ligação. A resposta a perguntas de domínio aberto é avaliada pelo Natural Questions \cite{kwiatkowski2019natural} e pelo TriviaQA \cite{joshi2017triviaqa}, que utilizam consultas reais de usuários e questões sobre documentos. A sumarização orientada por consulta é avaliada pelo QMSum \cite{zhong2021qmsum}, que requer selecionar e resumir trechos relevantes ao longo de diálogos extensos. \textit{Benchmarks} puramente sintéticos, como o Needle-in-a-Haystack e o RULER, foram excluídos da matriz principal pelas razões discutidas na Seção~\ref{subsec:revisao-benchmarks}. Para cada combinação de modelo, orçamento de contexto, estratégia e \textit{benchmark}, registram-se a acurácia, a latência e a taxa de compressão efetiva. Valores não disponíveis são indicados por \textit{n/d}.
+A suíte de \textit{benchmarks} reúne sete tarefas de contexto longo restritas a texto, agrupadas em quatro categorias. O LongBench \cite{bai2023longbench} e o ZeroSCROLLS \cite{shaham2023zeroscrolls} reúnem múltiplas tarefas de contexto longo em formato de avaliação sem ajuste específico, cobrindo compreensão, sumarização e resposta a perguntas. A resposta a perguntas de múltiplos saltos é avaliada pelo HotpotQA \cite{yang2018hotpotqa} e pelo MuSiQue \cite{trivedi2022musique}, que exigem combinar evidências dispersas em vários documentos e, por isso, penalizam compressões que descartam fatos de ligação. A resposta a perguntas de domínio aberto é avaliada pelo Natural Questions \cite{kwiatkowski2019natural} e pelo TriviaQA \cite{joshi2017triviaqa}, que utilizam consultas reais de usuários e questões sobre documentos. A sumarização orientada por consulta é avaliada pelo QMSum \cite{zhong2021qmsum}, que requer selecionar e resumir trechos relevantes ao longo de diálogos extensos. \textit{Benchmarks} puramente sintéticos, como o Needle-in-a-Haystack e o RULER, foram excluídos da matriz principal pelas razões discutidas na Seção~\ref{subsec:revisao-benchmarks}. Para cada combinação de modelo, orçamento de contexto, estratégia e \textit{benchmark}, registram-se a acurácia, a latência e a taxa de compressão efetiva. Valores não disponíveis são indicados por \textit{n/d}.
 
 \paragraph{Artefatos e reprodutibilidade.}
 As decisões metodológicas relativas à seleção dos modelos, aos orçamentos de contexto e à composição da suíte estão registradas em \texttt{tests/README.md} e em \texttt{tests/ollama-local/README\_DECISAO\_TESTES.md}. Nos dois orçamentos comparáveis, a etapa inicial da matriz local produziu 1100 resultados individuais, correspondentes a 22 casos para cada uma das 50 combinações de modelo, orçamento e estratégia. Esses resultados correspondem a 350 células agregadas por \textit{benchmark}. Os artefatos de execução incluem os \textit{logs}, os resultados por caso nos formatos CSV e JSON e as tabelas agregadas disponíveis em \texttt{tests/ollama-local/benchmark\_matrix\_artigo}. A execução adicional do Llama 3.1 8B com 16384 \textit{tokens} foi preservada como ponto intermediário de calibração, mas não integra as tabelas comparativas dos dois orçamentos extremos.
@@ -69,14 +82,14 @@ As decisões metodológicas relativas à seleção dos modelos, aos orçamentos 
 \subsection{Evolução do Protocolo Experimental}
 \label{subsec:evolucao-protocolo}
 
-O desenho experimental consolidado na Seção~\ref{subsec:desenho} resulta de uma evolução do protocolo de avaliação conduzida em duas fases. A fase preliminar utilizou modelos servidos por interfaces de programação externas, especificamente a Groq e a Cerebras, o que permitiu avaliar modelos de grande porte, como o Llama 3.3 70B e o GPT-OSS 120B, em um conjunto inicial de \textit{benchmarks} composto por Needle-in-a-Haystack, RULER e LongBench. Essa configuração aproveitou o acesso gratuito então oferecido por esses provedores.
+O desenho experimental consolidado na Seção~\ref{subsec:desenho} resulta de uma evolução do protocolo de avaliação conduzida em duas fases. A fase preliminar utilizou modelos servidos por provedores de servidores externos, especificamente a Groq e a Cerebras, o que permitiu avaliar modelos de grande porte, como o Llama 3.3 70B e o GPT-OSS 120B, em um conjunto inicial de \textit{benchmarks} composto por Needle-in-a-Haystack, RULER e LongBench. Essa configuração aproveitou o acesso gratuito então oferecido por esses provedores.
 
 Ao longo do trabalho, contudo, as condições de acesso foram alteradas. Os planos gratuitos da Groq e da Cerebras foram revisados, diversos modelos foram descontinuados ou indisponibilizados, e os limites de requisição passaram a restringir a execução da matriz completa. Essa alteração faz parte do processo de pesquisa apoiado em infraestrutura de terceiros, cuja disponibilidade não é controlada pelo autor. Para preservar a reprodutibilidade e a autonomia da avaliação, a segunda fase migrou para modelos executados localmente por meio do Ollama, o que motivou a matriz de cinco modelos de arquiteturas distintas nos orçamentos de 8192 e de 32768 \textit{tokens} descrita na Seção~\ref{subsec:desenho}. Dentro dessa fase local, as cinco estratégias originais foram avaliadas primeiro; os quatro compressores adicionais foram incorporados posteriormente, sem alterar os modelos, os orçamentos, a suíte ou os critérios de agregação.
 
 \subsection{Fase Preliminar, Avaliação via APIs Externas}
 \label{subsec:fase-preliminar}
 
-Os resultados da fase preliminar são reportados a seguir e preservados no texto por transparência do processo de pesquisa. Essa fase avaliou quatro modelos, o Llama 3.1 8B, o Llama 3.3 70B, o GPT-OSS 20B e o GPT-OSS 120B, nos \textit{benchmarks} Needle-in-a-Haystack, RULER e LongBench, registrando a acurácia e a latência média de resposta por combinação de modelo, estratégia e \textit{benchmark}. O LongBench é descrito na Seção~\ref{subsec:desenho}, junto com os demais \textit{benchmarks} da suíte revisada adotada na fase local. O Needle-in-a-Haystack insere um fato isolado, a agulha, em um volume extenso de texto de preenchimento e verifica se o modelo consegue recuperá-lo, variando a posição da agulha e o comprimento do contexto \cite{kamradt2023needle}. O RULER estende essa ideia com múltiplas agulhas, rastreamento de variáveis e tarefas de agregação, mantendo, porém, a construção sintética e controlada \cite{hsieh2024ruler}. A coluna \textbf{Média} corresponde à média das métricas nos \textit{benchmarks} avaliados. Valores não disponíveis, decorrentes sobretudo dos limites de requisição descritos, são indicados por \textit{n/d}.
+Os resultados da fase preliminar são reportados a seguir e preservados no texto por transparência do processo de pesquisa. Essa fase avaliou quatro modelos, o Llama 3.1 8B, o Llama 3.3 70B, o GPT-OSS 20B e o GPT-OSS 120B, nos \textit{benchmarks} Needle-in-a-Haystack, RULER e LongBench, registrando a acurácia e a latência média de resposta por combinação de modelo, estratégia e \textit{benchmark}. A coluna \textbf{Média} corresponde à média das métricas nos \textit{benchmarks} avaliados. Valores não disponíveis, decorrentes sobretudo dos limites de requisição descritos, são indicados por \textit{n/d}.
 
 \subsection{Resultados de Acurácia da Fase Preliminar}
 \label{subsec:resultados-acuracia}
@@ -188,7 +201,7 @@ Um ponto que atravessa os dois conjuntos de resultados é que nenhuma estratégi
 \subsection{Revisão da Suíte de Benchmarks}
 \label{subsec:revisao-benchmarks}
 
-A fase preliminar apoiou-se nos dois \textit{benchmarks} sintéticos descritos na Seção~\ref{subsec:fase-preliminar}, o Needle-in-a-Haystack e o RULER. Em ambos, a tarefa se reduz a localizar e copiar um trecho específico do contexto, sem exigir que o modelo combine ou sintetize informação proveniente de partes distintas da entrada.
+A fase preliminar apoiou-se em dois \textit{benchmarks} de natureza sintética, o Needle-in-a-Haystack e o RULER. O Needle-in-a-Haystack insere um fato isolado, a agulha, em um volume extenso de texto de preenchimento e verifica se o modelo consegue recuperá-lo, variando a posição da agulha e o comprimento do contexto \cite{kamradt2023needle}. O RULER estende essa ideia com múltiplas agulhas, rastreamento de variáveis e tarefas de agregação, mas mantém a construção sintética e controlada \cite{hsieh2024ruler}. Em ambos, a tarefa se reduz a localizar e copiar um trecho específico do contexto, sem exigir que o modelo combine ou sintetize informação proveniente de partes distintas da entrada.
 
 Essa limitação aparece nos próprios resultados da fase preliminar. No GPT-OSS 120B (Tabela~\ref{tab:acuracia}), todas as cinco estratégias alcançam entre 0.87 e 1.00 no Needle-in-a-Haystack, um patamar próximo do teto, enquanto a acurácia no LongBench cai para a faixa de 0.00 a 0.17 e a acurácia no RULER varia de 0.06 a 0.64 conforme a estratégia. A \textit{Semantic Compression}, por exemplo, mantém 1.00 no Needle-in-a-Haystack nesse modelo, mas obtém apenas 0.06 no RULER. Esse contraste indica que o Needle-in-a-Haystack mede sobretudo a capacidade de recuperação posicional, e não a compreensão de contexto longo como um todo. Pontuações próximas do máximo nesse \textit{benchmark}, portanto, não se traduzem necessariamente em bom desempenho em tarefas que exigem integrar ou agregar informação distribuída ao longo do contexto, como as reunidas na suíte revisada.
 
@@ -477,6 +490,8 @@ A Figura~\ref{fig:framework} apresenta a arquitetura conceitual do \textit{frame
 
 Seja $C$ o \textit{prompt} de entrada, com comprimento $|C|$ medido em \textit{tokens}. O \textit{framework} particiona $C$ em uma sequência de $n$ partições $T = (t_1, t_2, \ldots, t_n)$, de modo que cada partição corresponda a uma unidade semântica coerente, como uma instrução, uma pergunta, um documento recuperado ou um trecho de fundo. Define-se um orçamento efetivo de contexto $B \leq |C|$, que representa o número máximo de \textit{tokens} que o \textit{prompt} comprimido pode ocupar após a seleção das opções de compressão.
 
+O particionador utilizado na execução principal é estrutural e produz unidades disjuntas, sem sobreposição entre trechos vizinhos. Parágrafos consecutivos são agrupados até o limite de 400 \textit{tokens}. Quando um parágrafo excede esse limite, ele é dividido por fronteiras de sentença; sentenças ainda maiores são separadas por palavras como último recurso. Esse procedimento preserva a cobertura do texto original e impede a duplicação de \textit{tokens}, condição necessária para que os custos das opções sejam aditivos. Uma variante de particionamento semântico permanece implementada, mas não integra a configuração principal. Para o controle uniforme, o contexto completo é representado como uma única partição.
+
 \subsection{Função de Importância}
 \label{subsec:importancia}
 
@@ -488,6 +503,31 @@ I(t_j; q) = \sum_{i} w_i \, \varphi_i(t_j, q),
 \end{equation}
 
 onde cada $\varphi_i(t_j, q)$ é um componente de relevância e $w_i$ é o peso associado. Os componentes considerados incluem a relevância da partição para a tarefa, a densidade de informação da partição e a saliência posicional, esta última motivada pelo viés \textit{lost in the middle} discutido na Seção~\ref{subsec:problema-critico}. A função de importância orienta a alocação de orçamento, atribuindo maior prioridade às partições cuja perda de conteúdo teria maior impacto sobre a resposta.
+
+Na implementação atual, a relevância $R(t_j,q)$ combina similaridade semântica e sobreposição lexical. A similaridade semântica corresponde ao cosseno entre os \textit{embeddings} normalizados da partição e da consulta, produzidos pelo all-MiniLM-L6-v2. O componente lexical é calculado por TF-IDF. Os dois sinais são combinados segundo
+
+\begin{equation}
+\label{eq:relevancia-implementada}
+R(t_j,q)=0.7\,R_{\mathrm{sem}}(t_j,q)+0.3\,R_{\mathrm{lex}}(t_j,q).
+\end{equation}
+
+A densidade factual $D(t_j)$ é aproximada pela proporção de ocorrências numéricas, datas e palavras iniciadas por letra maiúscula em relação ao número de palavras da partição. Esse componente constitui um indicador lexical de concentração factual, e não um reconhecedor de entidades. A saliência posicional $P(t_j)$ utiliza uma curva central, com valor maior para partições próximas ao centro da sequência:
+
+\begin{equation}
+\label{eq:saliencia-central}
+P(t_j)=1-\left|2\frac{j-1}{n-1}-1\right|,
+\end{equation}
+
+para $n>1$. Antes da combinação, $R$, $D$ e $P$ são normalizados por \textit{min--max} entre as partições da mesma entrada. Quando todos os valores de um componente são iguais, o componente normalizado recebe valor 1 em todas as partições. Com os pesos da configuração experimental, a função efetivamente utilizada é
+
+\begin{equation}
+\label{eq:importancia-implementada}
+I(t_j;q)=0.6\,\widehat{R}(t_j,q)
+        +0.2\,\widehat{D}(t_j)
+        +0.2\,\widehat{P}(t_j),
+\end{equation}
+
+onde o acento circunflexo indica o valor normalizado. Os pesos são mantidos fixos na execução principal e tratados como componentes sujeitos a ablação, uma vez que sua combinação representa uma hipótese operacional sobre relevância, densidade e posição.
 
 \subsection{Opções de Compressão e Modelo de Qualidade}
 \label{subsec:opcoes}
@@ -503,10 +543,58 @@ Q_{j,o} = I(t_j; q) \cdot f_{j,o},
 
 onde $f_{j,o} \in [0,1]$ representa a fração de informação da partição preservada pela opção $o$. O compressor identidade satisfaz $f_{j,0} = 1$, e opções mais agressivas apresentam valores menores de $f_{j,o}$, capturando o compromisso entre redução de \textit{tokens} e perda de conteúdo.
 
+Na implementação atual, a fidelidade semântica é calculada por cobertura entre \textit{embeddings}. A partição original e sua representação comprimida são divididas em trechos de 600 caracteres. Para limitar o custo, no máximo 48 trechos de cada texto são mantidos por amostragem uniforme. Seja $S_j$ o conjunto de trechos da partição original e $S'_{j,o}$ o conjunto correspondente à opção comprimida. A fidelidade semântica é
+
+\begin{equation}
+\label{eq:fidelidade-semantica-implementada}
+f^{\mathrm{sem}}_{j,o}
+=
+\frac{1}{|S_j|}
+\sum_{s\in S_j}
+\max_{u\in S'_{j,o}}
+\cos\bigl(E(s),E(u)\bigr),
+\end{equation}
+
+onde $E(\cdot)$ é o codificador all-MiniLM-L6-v2. A medida estima quanto do conteúdo semântico de cada trecho original encontra uma representação próxima no texto comprimido. Ela não utiliza a resposta esperada do \textit{benchmark}, evitando que informação do conjunto de avaliação seja incorporada à decisão do MCKP.
+
+Como proteção factual adicional, calcula-se a retenção numérica $r^{\mathrm{num}}_{j,o}$, definida como a fração de números, datas, percentuais, valores e horários da partição original que permanecem na opção comprimida. Quando essa retenção é aplicável e fica abaixo do limiar de 0.9, a fidelidade da opção é ajustada por
+
+\begin{equation}
+\label{eq:fidelidade-ajustada}
+f_{j,o}
+=
+\min\left(f^{\mathrm{sem}}_{j,o},r^{\mathrm{num}}_{j,o}\right).
+\end{equation}
+
+Nos demais casos, $f_{j,o}=f^{\mathrm{sem}}_{j,o}$. A identidade recebe fidelidade 1 e a omissão recebe fidelidade 0. O conjunto principal de opções contém identidade, omissão, CPC-MiniLM, LLMLingua-2 e Selective Context. Os três compressores são materializados com taxas nominais de retenção de 0.5 e 0.3. Se o custo serializado das identidades exceder o orçamento, acrescenta-se a cada compressor uma taxa adaptativa
+
+\begin{equation}
+\label{eq:taxa-adaptativa}
+\rho_{\mathrm{adapt}}
+=
+\max\left(0.05,
+\min\left(1,\;0.9\frac{B}{C_{\mathrm{id}}}\right)\right),
+\end{equation}
+
+onde $C_{\mathrm{id}}$ é o custo total das partições sem compressão. A taxa mínima de 0.05 também é avaliada quando difere da taxa adaptativa. O custo $c_{j,o}$ é medido após a materialização da opção e inclui, de forma conservadora, o separador empregado na reconstrução. Assim, a taxa solicitada ao compressor não substitui a medição do custo efetivamente produzido.
+
 \subsection{Restrições de Compatibilidade}
 \label{subsec:compatibilidade}
 
 Nem toda combinação de opções entre partições adjacentes é adequada, pois transições abruptas de estilo ou de nível de compressão entre trechos vizinhos podem prejudicar a coerência do \textit{prompt} reconstruído. Define-se uma função de compatibilidade $M(o, o')$ entre opções de partições adjacentes, que penaliza combinações incompatíveis. A compatibilidade é incorporada como uma penalização de transição na função objetivo, por meio de um termo $\mu \sum_{j} d(o_j, o_{j+1})$, onde $d(\cdot, \cdot)$ mede a distância entre opções adjacentes e $\mu$ controla a intensidade da penalização.
+
+Na configuração principal, a distância depende da família do compressor:
+
+\begin{equation}
+\label{eq:distancia-familia}
+d(o,o')=
+\begin{cases}
+0, & \text{se } A(o)=A(o'),\\
+1, & \text{caso contrário},
+\end{cases}
+\end{equation}
+
+onde $A(o)$ identifica o compressor associado à opção. O valor principal é $\mu=0.1$, interpretado como uma regularização equivalente a 10\% da escala unitária de valor para cada troca de família entre partições adjacentes. Esse valor constitui uma escolha inicial do protocolo, e não um parâmetro derivado da formulação. As execuções com $\mu=0$ e $\mu=0.5$ são mantidas como ablações para distinguir o MCKP clássico de uma penalização mais intensa.
 
 \subsection{Formulação como Extensão do Problema da Mochila de Múltipla Escolha}
 \label{subsec:mckp}
@@ -559,7 +647,7 @@ O funcionamento do \textit{framework} pode ser resumido em cinco etapas encadead
 \item \textbf{Reconstrução}. As opções escolhidas são concatenadas na ordem original das partições, produzindo o \textit{prompt} comprimido enviado ao modelo.
 \end{enumerate}
 
-A Figura~\ref{fig:framework-sequence} apresenta a sequência de interação implementada entre os componentes necessários para executar essas etapas.
+A Figura~\ref{fig:sequence-diagram} apresenta a sequência de interação implementada entre os componentes necessários para executar essas etapas.
 
 \input{Diagrams/sequence_diagram}
 
@@ -591,6 +679,8 @@ CPC-MiniLM \cite{li2024cpc} & Aproximação candidata & Seleção de sentenças 
 
 A recomendação dos três candidatos se baseia em sua complementaridade. LLMLingua-2 opera em nível de palavra e amortiza o custo de compressão entre consultas, Selective Context introduz uma alternativa sem treinamento específico e CPC-MiniLM preserva sentenças completas com seleção condicionada à pergunta. A escolha por compressores \textit{text-in}/\textit{text-out} mantém a propriedade não invasiva do \textit{framework}, pois nenhuma etapa exige acesso aos parâmetros internos, retreinamento ou modificação arquitetural do modelo base. O conjunto candidato pode ser estendido com outros compressores compatíveis sem alteração da formulação, uma vez que cada compressor é incorporado apenas como uma nova opção por partição. Nas dez combinações de modelo e orçamento, CPC-MiniLM apresenta a maior média entre os quatro compressores em oito, enquanto LLMLingua-2 lidera nas duas combinações do Qwen 3 30B-A3B. Selective Context preserva a maior fidelidade semântica segundo a métrica adotada. Esses resultados sustentam LLMLingua-2, Selective Context e CPC-MiniLM como conjunto inicial de opções do MCKP; LLMLingua-GPT2 permanece como baseline externo. Os resultados são apresentados na Seção~\ref{subsec:resultados-triagem-compressores}.
 
+Na configuração primária definida na Seção~\ref{subsec:selecao-modelo-mckp}, com Llama~3.1 8B e janela de 8.192 tokens, CPC-MiniLM também foi o compressor individual com melhor resultado downstream. Nos 22 casos da matriz exploratória, obteve médias macro e micro de 0,531 e 0,538, respectivamente, com latência média de 6,74~s e retenção de 0,517. LLMLingua-2 atingiu média macro de 0,492 e a menor retenção (0,457), enquanto Selective Context alcançou média macro de 0,480 e a maior fidelidade semântica (0,733). LLMLingua-GPT2 obteve média macro de 0,379. Portanto, CPC-MiniLM é adotado como referência primária quando se exige um único compressor, sem excluir os demais do espaço de decisão do MCKP, pois suas características complementares podem ser úteis para segmentos específicos. Esses valores são tratados como evidência exploratória, uma vez que a matriz contém uma execução por caso e utiliza instâncias sintéticas nos conjuntos derivados do LongBench.
+
 \subsection{Implementação de Referência}
 \label{subsec:implementacao}
 
@@ -600,7 +690,9 @@ O repositório contém uma implementação integrada no subdiretório \texttt{mc
 A estratégia denominada \textit{Semantic Compression} na etapa inicial da matriz local não implementava LLMLingua. Em vez disso, ela solicitava que a própria LLM reescrevesse o contexto por meio de uma instrução de compressão, conforme a abordagem de Gilbert et al. \cite{gilbert2023semanticcompression}. O repositório também continha um \texttt{PerplexityCompressor} experimental, que selecionava \textit{tokens} pela perda calculada com GPT-2 e podia ser descrito apenas como inspirado no critério do LLMLingua. Esse protótipo não estava registrado entre as estratégias avaliadas. Para a ampliação da matriz foram criadas entradas explícitas e independentes para LLMLingua, LLMLingua-2, Selective Context e CPC-MiniLM. Assim, resultados da \textit{Semantic Compression} ou do protótipo de perplexidade não são apresentados como resultados de LLMLingua.
 
 \paragraph{Adaptações para execução local.}
-Os experimentos utilizam uma LLM alvo executada localmente, de modo que o compressor e o modelo gerador compartilham os recursos computacionais da mesma máquina. O baseline invoca a classe \texttt{PromptCompressor} do pacote \texttt{llmlingua} 0.2.2, com \texttt{use\_llmlingua2=False}, taxa de retenção de 0,5 e execução em CPU. Para reduzir a concorrência de memória com os modelos servidos pelo Ollama, o modelo causal auxiliar é o \texttt{gpt2} \cite{radford2019gpt2}, que já se encontrava no \textit{cache} local e é substancialmente menor que um auxiliar de 7 bilhões de parâmetros. A escolha é compatível com a arquitetura do LLMLingua e com a análise de diferentes modelos auxiliares apresentada por Jiang et al. \cite{jiang2023llmlingua}; entretanto, difere das configurações alinhadas, Alpaca-7B e GPT2-Alpaca, avaliadas no artigo. Por isso, a configuração é reportada como \textbf{LLMLingua-GPT2}, uma vez que o algoritmo provém da implementação do LLMLingua, enquanto o \textit{scorer} não ajustado e o dispositivo são escolhas locais que devem acompanhar a interpretação dos resultados.
+Os experimentos utilizam uma LLM alvo executada localmente pelo servidor Ollama 0.32.3, de modo que o compressor e o modelo gerador compartilham os recursos computacionais da mesma máquina. Cada chamada informa explicitamente \texttt{num\_ctx}, reserva até 500 \textit{tokens} para a saída, utiliza temperatura 0 e fixa a semente em 42. O orçamento do MCKP desconta da janela o \textit{template} completo sem contexto, a consulta, a reserva de saída e uma margem de segurança de 256 \textit{tokens}. O contexto reconstruído e o \textit{prompt} final são recontados antes da chamada, enquanto a contagem real reportada pelo Ollama é registrada para avaliar a diferença entre o contador da otimização e o tokenizador do modelo alvo.
+
+O baseline invoca a classe \texttt{PromptCompressor} do pacote \texttt{llmlingua} 0.2.2, com \texttt{use\_llmlingua2=False}, taxa de retenção de 0,5 e execução em CPU. Para reduzir a concorrência de memória com os modelos servidos pelo Ollama, o modelo causal auxiliar é o \texttt{gpt2} \cite{radford2019gpt2}, que já se encontrava no \textit{cache} local e é substancialmente menor que um auxiliar de 7 bilhões de parâmetros. A escolha é compatível com a arquitetura do LLMLingua e com a análise de diferentes modelos auxiliares apresentada por Jiang et al. \cite{jiang2023llmlingua}; entretanto, difere das configurações alinhadas, Alpaca-7B e GPT2-Alpaca, avaliadas no artigo. Por isso, a configuração é reportada como \textbf{LLMLingua-GPT2}, uma vez que o algoritmo provém da implementação do LLMLingua, enquanto o \textit{scorer} não ajustado e o dispositivo são escolhas locais que devem acompanhar a interpretação dos resultados.
 
 LLMLingua-2 também é executado pelo pacote \texttt{llmlingua} 0.2.2, com o \textit{checkpoint} \path{microsoft/llmlingua-2-xlm-roberta-large-meetingbank} e \texttt{device\_map=cpu}. A fixação explícita do dispositivo foi necessária porque a inicialização padrão do pacote pressupunha CUDA, indisponível nessa configuração. A biblioteca Transformers foi fixada na versão 4.46.3, pois o LLMLingua 0.2.2 manipula o formato legado do \textit{cache} de chaves e valores; a versão 5.12.1 instalada inicialmente passou a retornar \texttt{DynamicCache} e provocava falhas durante a compressão iterativa. Selective Context é executado pelo pacote \texttt{selective-context} 0.1.4 com GPT-2, idioma inglês e \texttt{reduce\_ratio=1-rate}, pois sua API recebe a fração removida, ao passo que o executor comum recebe a fração retida. Essa integração utiliza spaCy 3.8.14 e o modelo \texttt{en\_core\_web\_sm} 3.8.0 para o processamento linguístico.
 
@@ -616,7 +708,80 @@ O orçamento é derivado independentemente para as janelas de 8192 e 32768 \text
 \subsection{Aplicação da Solução de Ponta a Ponta}
 \label{subsec:aplicacao}
 
-\TODO{SOLUCAO}{Esta subseção apresentará a aplicação da solução sobre um caso concreto, ilustrando o \textit{prompt} de entrada, o particionamento resultante, as opções de compressão avaliadas por partição, a alocação de orçamento escolhida pelo MCKP e o \textit{prompt} comprimido final enviado ao modelo, de forma a tornar explícito o funcionamento completo do \textit{framework}.}
+Esta subseção rastreia um caso concreto por todos os estágios do \textit{framework}, de modo a tornar explícito o funcionamento descrito nas subseções anteriores. O caso provém do HotpotQA e foi processado sob a configuração principal, com o Llama 3.1 8B e orçamento de 8192 \textit{tokens}. A pergunta é ``Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?'', e o contexto reúne passagens sobre entidades otomanas, das quais apenas uma contém a informação necessária para a resposta.
+
+O particionamento estrutural produz três partições disjuntas do tipo \textit{paragraph\_group}. A função de importância pontua cada partição pela combinação de relevância à pergunta, densidade de informação e saliência posicional, com os pesos 0,6, 0,2 e 0,2 definidos na Seção~\ref{subsec:importancia}. A Tabela~\ref{tab:exemplo-particoes} apresenta a decomposição da importância. A partição 2 reúne os verbetes da Laleli Mosque e da Esma Sultan Mansion e recebe relevância e densidade máximas, o que a torna a partição de maior importância. A partição 1 obtém saliência posicional máxima por ocupar a região central da entrada, enquanto a partição 0 apresenta relevância intermediária.
+
+\begin{table}[htbp]
+\centering
+\caption{Particionamento e decomposição da importância no caso analisado}
+\label{tab:exemplo-particoes}
+\begin{tabular}{cccccc}
+\toprule
+\textbf{Partição} & \textbf{Caracteres} & \textbf{Relevância} & \textbf{Densidade} & \textbf{Saliência} & \textbf{Importância} \\
+\midrule
+0 & 1201 & 0,384 & 0,000 & 0,000 & 0,231 \\
+1 & 1394 & 0,000 & 0,313 & 1,000 & 0,263 \\
+2 & 1013 & 1,000 & 1,000 & 0,000 & \textbf{0,800} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Para cada partição, o gerador materializa as opções de compressão e calcula, por opção, o custo em \textit{tokens}, a fidelidade e o valor $Q = I(t_j;q)\,f_{j,o}$. O conjunto reúne a cópia integral, a omissão e os compressores CPC-MiniLM e LLMLingua-2 nas taxas de 0,7, 0,5 e 0,3. A Tabela~\ref{tab:exemplo-opcoes} lista essas opções e destaca a escolhida pelo resolvedor em cada partição. Como a fidelidade multiplica a importância, a cópia integral concentra o maior valor nas três partições. As opções comprimidas ilustram, contudo, a heterogeneidade dos compressores descrita na Seção~\ref{subsec:pool}. Na partição 2, o LLMLingua-2 com taxa 0,7 alcança fidelidade de 0,843 e valor de 0,674, enquanto o CPC-MiniLM na mesma taxa obtém fidelidade de 0,500 e valor de 0,400. Sob pressão de orçamento, essa diferença de valor por \textit{token} leva o resolvedor a preferir o LLMLingua-2 nessa partição.
+
+{
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{lrrrr}
+\caption{Opções de compressão avaliadas por partição, com a escolha do resolvedor em destaque}
+\label{tab:exemplo-opcoes} \\
+\toprule
+\textbf{Compressor} & \textbf{Taxa} & \textbf{Custo} & \textbf{Fidelidade} & \textbf{Valor} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Compressor} & \textbf{Taxa} & \textbf{Custo} & \textbf{Fidelidade} & \textbf{Valor} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{5}{l}{\textit{Partição 0 (importância 0,231)}} \\*
+Cópia integral & 1,00 & 333 & 1,000 & \textbf{0,231} \\*
+CPC-MiniLM     & 0,70 & 234 & 0,569 & 0,131 \\*
+CPC-MiniLM     & 0,50 & 179 & 0,500 & 0,115 \\*
+CPC-MiniLM     & 0,30 & 153 & 0,500 & 0,115 \\*
+LLMLingua-2    & 0,70 & 233 & 0,610 & 0,141 \\*
+LLMLingua-2    & 0,50 & 163 & 0,592 & 0,137 \\*
+LLMLingua-2    & 0,30 & 104 & 0,479 & 0,111 \\*
+Omissão        & 0,00 & 0   & 0,000 & 0,000 \\
+\midrule
+\multicolumn{5}{l}{\textit{Partição 1 (importância 0,263)}} \\*
+Cópia integral & 1,00 & 369 & 1,000 & \textbf{0,263} \\*
+CPC-MiniLM     & 0,70 & 249 & 0,308 & 0,081 \\*
+CPC-MiniLM     & 0,50 & 176 & 0,308 & 0,081 \\*
+CPC-MiniLM     & 0,30 & 121 & 0,308 & 0,081 \\*
+LLMLingua-2    & 0,70 & 252 & 0,780 & 0,205 \\*
+LLMLingua-2    & 0,50 & 179 & 0,698 & 0,183 \\*
+LLMLingua-2    & 0,30 & 110 & 0,500 & 0,131 \\*
+Omissão        & 0,00 & 0   & 0,000 & 0,000 \\
+\midrule
+\multicolumn{5}{l}{\textit{Partição 2 (importância 0,800)}} \\*
+Cópia integral & 1,00 & 279 & 1,000 & \textbf{0,800} \\*
+CPC-MiniLM     & 0,70 & 191 & 0,500 & 0,400 \\*
+CPC-MiniLM     & 0,50 & 137 & 0,100 & 0,080 \\*
+CPC-MiniLM     & 0,30 & 116 & 0,100 & 0,080 \\*
+LLMLingua-2    & 0,70 & 188 & 0,843 & 0,674 \\*
+LLMLingua-2    & 0,50 & 136 & 0,795 & 0,636 \\*
+LLMLingua-2    & 0,30 & 86  & 0,700 & 0,560 \\*
+Omissão        & 0,00 & 0   & 0,000 & 0,000 \\
+\end{longtable}
+}
+
+A alocação resulta da resolução da mochila de múltipla escolha sobre essas opções. Neste caso, o custo da cópia integral das três partições soma 981 \textit{tokens}, valor inferior ao orçamento de 7390 \textit{tokens} disponível para o contexto. O resolvedor mantém, portanto, as três partições na cópia integral, e a penalização de transição não altera a escolha, pois todas as partições permanecem na mesma família. O contexto reconstruído concatena as três partições na ordem original e preserva a passagem que sustenta a resposta, na qual a Laleli Mosque é situada em Laleli, no distrito de Fatih, e a Esma Sultan Mansion no bairro de Ortaköy. O \textit{prompt} final combina esse contexto de 979 \textit{tokens} com a pergunta e a instrução de resposta.
+
+O comportamento compressivo do \textit{framework} torna-se visível quando o orçamento é restritivo. Em um caso de contexto longo processado na mesma configuração, a cópia integral das 28 partições exigiria 9832 \textit{tokens}, acima do orçamento de 7396 \textit{tokens}. Nessa situação, o resolvedor manteve 16 partições na cópia integral, comprimiu 8 com o LLMLingua-2 e 4 com o CPC-MiniLM, e utilizou 7355 \textit{tokens}. A alocação preserva as partições de maior importância e transfere a redução para as demais, o que caracteriza a política seletiva por partição implementada pelo \textit{framework}.
 
 \section{Perguntas de Pesquisa e Hipóteses}
 \label{sec:perguntas-hipoteses}
@@ -660,4 +825,4 @@ A avaliação do \textit{framework} é organizada em quatro componentes.
 \item \textbf{Estudos de ablação}. Remoção sucessiva de componentes, incluindo a saliência posicional da função de importância e a penalização de transição, para estimar a contribuição individual de cada componente.
 \end{enumerate}
 
-O plano prioriza a preservação de informação porque o objetivo do \textit{framework} é alocar o orçamento segundo a relevância das partições, e não apenas reduzir o número total de \textit{tokens}. Sua execução completa permanece como trabalho futuro no Capítulo~\ref{cap:conclusao}.
+O plano prioriza a preservação de informação porque o objetivo do \textit{framework} é alocar o orçamento segundo a relevância das partições, e não apenas reduzir o número total de \textit{tokens}. Uma primeira execução desse plano é apresentada no Capítulo~\ref{cap:resultados}, restrita ao Llama 3.1 8B e a duas janelas de contexto, 8192 e 2048 \textit{tokens}, com as estratégias \textit{Raw}, MCKP e controle uniforme sobre os sete \textit{benchmarks}. A execução sobre os demais modelos e os estudos de ablação da função de importância e da penalização de transição permanecem como trabalho futuro no Capítulo~\ref{cap:conclusao}.

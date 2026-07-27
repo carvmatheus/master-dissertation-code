@@ -1,7 +1,7 @@
 \chapter{Resultados e Discussão}
 \label{cap:resultados}
 
-Este capítulo interpreta os resultados da avaliação empírica descrita no Capítulo~\ref{cap:metodologia}. A matriz compara nove técnicas de tratamento de contexto em cinco modelos e dois orçamentos. As cinco técnicas da etapa inicial e os quatro compressores incorporados posteriormente foram executados nas dez combinações de modelo e orçamento. A triagem dos compressores registrou 880 execuções; uma chamada ao DeepSeek-R1 32B terminou por \textit{timeout}, de modo que as agregações dependentes da resposta consideram 879 observações válidas.
+Este capítulo interpreta os resultados da avaliação empírica descrita no Capítulo~\ref{cap:metodologia}. A matriz compara nove técnicas de tratamento de contexto em cinco modelos e dois orçamentos. As cinco técnicas da etapa inicial e os quatro compressores incorporados posteriormente foram executados nas dez combinações de modelo e orçamento. A triagem dos compressores registrou 880 execuções; uma chamada ao DeepSeek-R1 32B terminou por \textit{timeout}, de modo que as agregações dependentes da resposta consideram 879 observações válidas. A Seção~\ref{sec:avaliacao-mckp} complementa a triagem com a avaliação do resolvedor MCKP na configuração principal, em duas janelas de contexto, comparando a alocação seletiva com a estratégia \textit{Raw} e com um controle de compressão uniforme.
 
 \section{Escopo da Evidência Experimental}
 \label{sec:analise-empirica}
@@ -34,12 +34,12 @@ A Tabela~\ref{tab:latencia-compressao-atual} evidencia que redução de contexto
 
 A \textit{Semantic Compression} retém entre 0.328 e 0.417 do contexto e constitui a redução mais agressiva entre as técnicas da etapa inicial. Como exige chamadas adicionais ao modelo alvo, também apresenta as maiores latências nos cinco modelos. No Gemma 4 26B, a média alcança 306142 ms em 8192 \textit{tokens} e 354957 ms em 32768 \textit{tokens}. A técnica ainda exibe forte variação entre tarefas, de modo que a maior redução de \textit{tokens} não se traduz em melhor desempenho final.
 
-A \textit{Sliding Window} retém aproximadamente 0.857 do contexto e ocupa uma posição intermediária de custo. Sua escolha como estratégia base decorre da regularidade observada na etapa inicial: em sete das dez combinações de modelo e orçamento, ela apresenta a maior média entre as técnicas que tratam o contexto. Esse resultado não estabelece uma solução universal, pois RIG lidera nas duas combinações do Qwen 3 30B-A3B e CPC-MiniLM supera toda a matriz no Gemma 4 26B sob 32768 \textit{tokens}.
+A \textit{Sliding Window} retém aproximadamente 0.857 do contexto e ocupa uma posição intermediária de custo. Sua escolha como estratégia base decorre da regularidade observada na etapa inicial, em que ela apresenta a maior média entre as técnicas que tratam o contexto em sete das dez combinações de modelo e orçamento. Esse resultado não estabelece uma solução universal, pois RIG lidera nas duas combinações do Qwen 3 30B-A3B e CPC-MiniLM supera toda a matriz no Gemma 4 26B sob 32768 \textit{tokens}.
 
 \section{Análise dos Novos Compressores}
 \label{subsec:resultados-triagem-compressores}
 
-LLMLingua-GPT2, LLMLingua-2, Selective Context e CPC-MiniLM foram avaliados com taxa nominal de retenção de 0,5. Para cada combinação de modelo e orçamento, as quatro técnicas processaram os mesmos 22 casos: quatro do LongBench e três de cada um dos outros seis \textit{benchmarks}. Os dez artefatos consolidados registram 88 execuções cada, totalizando 880 observações. Uma delas não produziu resposta válida, conforme descrito na Seção~\ref{sec:analise-empirica}; as comparações de pontuação e latência utilizam as 879 respostas restantes.
+LLMLingua-GPT2, LLMLingua-2, Selective Context e CPC-MiniLM foram avaliados com taxa nominal de retenção de 0.5. Para cada combinação de modelo e orçamento, as quatro técnicas processaram os mesmos 22 casos, sendo quatro do LongBench e três de cada um dos outros seis \textit{benchmarks}. Os dez artefatos consolidados registram 88 execuções cada, totalizando 880 observações. Uma delas não produziu resposta válida, conforme descrito na Seção~\ref{sec:analise-empirica}; as comparações de pontuação e latência utilizam as 879 respostas restantes.
 
 No Llama 3.1 8B, CPC-MiniLM apresenta a maior média entre os quatro compressores nos dois orçamentos, com 0.531 em ambos. Em 8192 \textit{tokens}, LLMLingua-2, Selective Context e LLMLingua-GPT2 obtêm 0.492, 0.480 e 0.379; em 32768 \textit{tokens}, as médias correspondentes são 0.503, 0.487 e 0.367. Embora CPC-MiniLM lidere o grupo, permanece abaixo da \textit{Sliding Window}, com 0.626 em 8192 \textit{tokens}, e da estratégia \textit{Raw}, com 0.627 em 32768 \textit{tokens}.
 
@@ -134,11 +134,160 @@ As latências devem ser interpretadas com cautela. Cada combinação de modelo e
 \section{Seleção das Opções do MCKP}
 \label{sec:posicionamento}
 
-Os resultados sustentam uma seleção inicial, e não definitiva, de LLMLingua-2, Selective Context e CPC-MiniLM como opções de compressão do MCKP. CPC-MiniLM apresenta a maior média do grupo no Llama 3.1 8B, no Gemma 4 26B, no DeepSeek-R1 32B e no GPT-OSS 20B, enquanto LLMLingua-2 lidera no Qwen 3 30B-A3B. Além da qualidade por tarefa, os três métodos preservam propriedades complementares: LLMLingua-2 realiza a compressão mais agressiva, Selective Context mantém a maior fidelidade semântica segundo a métrica utilizada e CPC-MiniLM associa seleção condicionada à pergunta a resultados mais altos em oito das dez combinações. LLMLingua-GPT2 permanece como baseline externo, pois apresenta a menor média do grupo em todas as combinações.
+Os resultados sustentam uma seleção inicial, e não definitiva, de LLMLingua-2, Selective Context e CPC-MiniLM como opções de compressão do MCKP. CPC-MiniLM apresenta a maior média do grupo no Llama 3.1 8B, no Gemma 4 26B, no DeepSeek-R1 32B e no GPT-OSS 20B, enquanto LLMLingua-2 lidera no Qwen 3 30B-A3B. Além da qualidade por tarefa, os três métodos preservam propriedades complementares. LLMLingua-2 realiza a compressão mais agressiva, Selective Context mantém a maior fidelidade semântica segundo a métrica utilizada e CPC-MiniLM associa seleção condicionada à pergunta a resultados mais altos em oito das dez combinações. LLMLingua-GPT2 permanece como baseline externo, pois apresenta a menor média do grupo em todas as combinações.
 
 Essa seleção deve ser interpretada à luz das adaptações descritas na Seção~\ref{subsec:implementacao}. LLMLingua-GPT2 utiliza GPT-2 como modelo auxiliar para viabilizar sua execução ao lado de uma LLM local. CPC-MiniLM substitui o codificador do método publicado pelo all-MiniLM-L6-v2 disponível no Hugging Face. Os resultados caracterizam, portanto, essas configurações experimentais e não constituem uma reprodução direta do desempenho das configurações canônicas descritas nos artigos originais.
 
 A heterogeneidade entre modelos e tarefas fornece a motivação empírica para manter múltiplas opções no MCKP, mas não demonstra, por si só, que a alocação seletiva por partição supera a aplicação uniforme dos compressores. Essa hipótese depende da execução específica do \textit{framework}, de comparações sob o mesmo orçamento e de estudos de ablação da função de importância e da penalização de transição. A triagem seleciona e caracteriza as opções candidatas; ela não equivale à validação do resolvedor MCKP.
+
+\section{Avaliação do Resolvedor MCKP}
+\label{sec:avaliacao-mckp}
+
+A triagem da Seção~\ref{subsec:resultados-triagem-compressores} caracteriza as opções de compressão, mas não avalia a política seletiva. Esta seção apresenta a avaliação do resolvedor MCKP na configuração principal definida na Seção~\ref{subsec:implementacao}, com o Llama 3.1 8B em duas janelas de contexto, 8192 e 2048 \textit{tokens}. A avaliação compara três tratamentos de contexto sob o mesmo orçamento. A estratégia \textit{Raw} envia o contexto truncado na janela do modelo. O MCKP particiona o contexto, pontua a importância de cada partição e resolve a mochila de múltipla escolha sobre as opções de compressão. O controle uniforme compartilha as mesmas partições estruturais do MCKP, mas restringe todas elas a uma única família de compressor e a uma única taxa de retenção, de modo a isolar o efeito da alocação seletiva em relação ao efeito do particionamento.
+
+O conjunto de opções de cada partição reúne a cópia integral, a omissão e os compressores CPC-MiniLM e LLMLingua-2 nas taxas nominais de 0.7, 0.5 e 0.3. Em relação aos três candidatos indicados pela triagem, o conjunto avaliado restringe-se aos dois que, no Llama 3.1 8B, combinam a maior pontuação de tarefa, no caso do CPC-MiniLM, e a compressão mais agressiva, no caso do LLMLingua-2. O Selective Context, cuja distinção principal na triagem era a fidelidade semântica, não integrou este conjunto. Sob pressão de orçamento, o \textit{framework} acrescenta taxas de retenção adaptativas. A penalização de transição foi fixada em $\mu = 0.1$ e o orçamento não foi quantizado. Cada uma das sete tarefas contribuiu com dez casos, o que resulta em setenta execuções por estratégia em cada janela. Cada caso foi executado uma única vez, sem repetições independentes. A amostra inicial de dez casos por \textit{benchmark} é tratada de forma descritiva, e uma ampliação para vinte casos com testes de significância é apresentada adiante.
+
+A interpretação exige separar os casos em que a compressão é necessária daqueles em que ela não é. Quando o contexto original cabe no orçamento, a estratégia \textit{Raw} envia a entrada completa e qualquer compressão apenas remove informação sem necessidade. Por esse motivo, cada caso é classificado como \textit{binding}, quando o contexto excede o orçamento disponível, ou não \textit{binding}, quando ele já cabe. A Tabela~\ref{tab:mckp-binding} mostra que essa distinção é determinante. Sob 8192 \textit{tokens}, apenas 21 dos 70 casos são \textit{binding}, pois a mediana do contexto fica bem abaixo do orçamento. Sob 2048 \textit{tokens}, 58 dos 70 casos passam a exceder a janela. A janela menor é, portanto, a que efetivamente exerce pressão sobre a compressão, e é nela que a política seletiva pode ser avaliada de forma informativa.
+
+\begin{table}[htbp]
+\centering
+\caption{Fração de casos em que o contexto excede o orçamento em cada janela}
+\label{tab:mckp-binding}
+\begin{tabular}{ccc}
+\toprule
+\textbf{Janela (\textit{tokens})} & \textbf{Casos \textit{binding}} & \textbf{Fração} \\
+\midrule
+8192 & 21 de 70 & 30\% \\
+2048 & 58 de 70 & 83\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A Tabela~\ref{tab:mckp-solver-desempenho} apresenta a média das três estratégias em cada janela, separando o conjunto completo, os casos \textit{binding} e os casos que já cabem. Para o conjunto completo, com sete tarefas de dez casos, essa média coincide com a média macro por \textit{benchmark}. O agregado de 8192 \textit{tokens} favorece a estratégia \textit{Raw}, com 0.515 contra 0.494 do MCKP, mas esse valor é dominado pelos 49 casos que já cabem, nos quais a compressão não tem função. Restrito aos 21 casos \textit{binding}, o quadro se inverte, e tanto o MCKP, com 0.295, quanto o controle uniforme, com 0.319, superam a estratégia \textit{Raw}, com 0.239. Sob 2048 \textit{tokens}, onde a maioria dos casos é \textit{binding}, o MCKP alcança a maior média nesse estrato, com 0.416, acima do controle uniforme, com 0.347, e da estratégia \textit{Raw}, com 0.307.
+
+{
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{llccc}
+\caption{Média por estratégia no Llama 3.1 8B, separada por janela e por estrato de \textit{binding}}
+\label{tab:mckp-solver-desempenho} \\
+\toprule
+\textbf{Janela} & \textbf{Estratégia} & \textbf{Todos} & \textbf{\textit{Binding}} & \textbf{Cabem} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Janela} & \textbf{Estratégia} & \textbf{Todos} & \textbf{\textit{Binding}} & \textbf{Cabem} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{5}{l}{\textit{8192 tokens (21 casos binding, 49 cabem)}} \\*
+8192 & \textit{Raw}          & \textbf{0.515} & 0.239 & \textbf{0.634} \\*
+8192 & Controle uniforme    & 0.501 & \textbf{0.319} & 0.579 \\*
+8192 & MCKP                 & 0.494 & 0.295 & 0.579 \\
+\midrule
+\multicolumn{5}{l}{\textit{2048 tokens (58 casos binding, 12 cabem)}} \\*
+2048 & \textit{Raw}          & 0.411 & 0.307 & \textbf{0.917} \\*
+2048 & Controle uniforme    & 0.430 & 0.347 & 0.833 \\*
+2048 & MCKP                 & \textbf{0.487} & \textbf{0.416} & 0.833 \\
+\end{longtable}
+}
+
+O ganho do MCKP sob pressão distribui-se pela maioria das tarefas. A Tabela~\ref{tab:mckp-solver-tarefas} apresenta a pontuação por \textit{benchmark} sob 2048 \textit{tokens}. O MCKP obtém a maior pontuação em cinco das sete tarefas, com destaque para o Natural Questions, com 0.672 contra 0.492 da estratégia \textit{Raw}, e o ZeroSCROLLS, com 0.569 contra 0.397. As duas exceções são o LongBench, em que a estratégia \textit{Raw} mantém pequena vantagem, e o TriviaQA, cujos contextos cabem na janela mesmo sob 2048 \textit{tokens}, de modo que o envio integral permanece a melhor escolha.
+
+{
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{lccc}
+\caption{Pontuação por \textit{benchmark} das três estratégias no Llama 3.1 8B sob 2048 \textit{tokens}}
+\label{tab:mckp-solver-tarefas} \\
+\toprule
+\textbf{Benchmark} & \textbf{\textit{Raw}} & \textbf{MCKP} & \textbf{Controle uniforme} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Benchmark} & \textbf{\textit{Raw}} & \textbf{MCKP} & \textbf{Controle uniforme} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\bottomrule
+\endlastfoot
+HotpotQA               & 0.540          & \textbf{0.640} & 0.540 \\
+LongBench              & \textbf{0.187} & 0.162          & 0.181 \\
+Meeting Summarization  & 0.112          & \textbf{0.193} & 0.136 \\
+MuSiQue                & 0.150          & \textbf{0.275} & 0.242 \\
+Natural Questions      & 0.492          & \textbf{0.672} & 0.494 \\
+TriviaQA               & \textbf{1.000} & 0.900          & 0.900 \\
+ZeroSCROLLS            & 0.397          & \textbf{0.569} & 0.518 \\
+\end{longtable}
+}
+
+A comparação entre as duas janelas caracteriza o comportamento previsto na pergunta PP4. Sob 8192 \textit{tokens}, o controle uniforme iguala ou supera o MCKP mesmo nos casos \textit{binding}, ao passo que sob 2048 \textit{tokens} o MCKP supera o controle uniforme por 0.069. A vantagem da alocação seletiva sobre a aplicação uniforme, ausente na janela maior, manifesta-se na janela menor. Esse comportamento nas duas janelas avaliadas é coerente com a hipótese H1, uma vez que a pressão sobre o orçamento amplia o espaço de decisão em que a alocação por importância pode diferenciar partições relevantes de partições dispensáveis.
+
+A comparação com a estratégia \textit{Raw} deve considerar um fator adicional. Nos casos que já cabem, a estratégia \textit{Raw} supera o MCKP mesmo quando ambos enviam o contexto completo, pois o pipeline do MCKP reconstrói o contexto com separadores e instrução própria e altera o \textit{prompt} final. Por esse motivo, a comparação mais limpa da política seletiva é a que se dá contra o controle uniforme, que compartilha o mesmo pipeline e difere apenas na alocação.
+
+Para avaliar a robustez dessas diferenças, a rodada de 2048 \textit{tokens} foi ampliada de dez para vinte casos por \textit{benchmark}, o que totaliza 140 execuções por estratégia, das quais 115 são \textit{binding}. A ordenação observada com dez casos se mantém. No estrato \textit{binding}, o MCKP alcança média de 0.376, acima do controle uniforme, com 0.325, e da estratégia \textit{Raw}, com 0.294, e obtém a maior pontuação em quatro das sete tarefas. Como a geração utiliza temperatura zero e semente fixa, as saídas são determinísticas, de modo que a variabilidade relevante provém dos casos distintos, e não de repetições. Por esse motivo, a significância foi avaliada por testes pareados por caso entre o MCKP e cada \textit{baseline} no estrato \textit{binding}, resumidos na Tabela~\ref{tab:mckp-significancia}.
+
+{
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{lccc}
+\caption{Testes pareados por caso no estrato \textit{binding} sob 2048 \textit{tokens} com vinte casos por \textit{benchmark} (115 pares)}
+\label{tab:mckp-significancia} \\
+\toprule
+\textbf{Comparação} & \textbf{$\Delta$ médio} & \textbf{Wilcoxon $p$} & \textbf{$t$ pareado $p$} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Comparação} & \textbf{$\Delta$ médio} & \textbf{Wilcoxon $p$} & \textbf{$t$ pareado $p$} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\bottomrule
+\endlastfoot
+MCKP contra \textit{Raw}          & +0.082 & 0.015 & 0.023 \\
+MCKP contra controle uniforme     & +0.051 & 0.052 & 0.090 \\
+\end{longtable}
+}
+
+A diferença entre o MCKP e a estratégia \textit{Raw} é estatisticamente significativa, com teste de Wilcoxon sinalizado $p = 0.015$. A diferença entre o MCKP e o controle uniforme é positiva, com vantagem em 32 casos contra 18, mas marginal e não significativa ao nível de 0.05, com $p = 0.052$. O ganho da alocação seletiva sobre o truncamento é, portanto, sustentado estatisticamente, enquanto o ganho sobre a compressão uniforme, embora consistente na direção, permanece no limiar da significância. O efeito do MCKP sobre o controle uniforme é menor na amostra de vinte casos do que na de dez, o que indica uma diferença real, porém pequena, e sugere que a função de valor ainda não explora todo o potencial da alocação seletiva. A confirmação dessa vantagem depende de amostras maiores, da extensão a outros modelos e do alinhamento da função de valor discutido a seguir, direções retomadas no Capítulo~\ref{cap:conclusao}.
+
+O registro de auditoria esclarece como a política de valor opera e onde ela pode ser aprimorada. A análise a seguir utiliza a execução de 8192 \textit{tokens}, cujo volume de partições torna a distribuição de escolhas mais informativa. Nas 1168 partições processadas, a cópia integral foi escolhida 638 vezes, o LLMLingua-2 431 vezes, o CPC-MiniLM 99 vezes e a omissão nenhuma vez. A Tabela~\ref{tab:mckp-solver-opcoes} apresenta, por compressor, o custo médio em \textit{tokens}, a fidelidade média e o valor médio das opções oferecidas ao resolvedor. Entre os dois compressores ativos, o LLMLingua-2 apresenta simultaneamente o menor custo, com 145.8 \textit{tokens}, e a maior fidelidade, com 0.602, contra 165.6 \textit{tokens} e 0.567 do CPC-MiniLM. Durante a materialização, 27 opções do LLMLingua-2 produziram saída vazia e foram tratadas como equivalentes à omissão, sendo rejeitadas de forma explícita.
+
+{
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{lcccc}
+\caption{Métricas médias das opções por compressor e frequência de seleção no MCKP sob 8192 \textit{tokens}}
+\label{tab:mckp-solver-opcoes} \\
+\toprule
+\textbf{Compressor} & \textbf{Custo (\textit{tokens})} & \textbf{Fidelidade} & \textbf{Valor} & \textbf{Escolhas} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Compressor} & \textbf{Custo (\textit{tokens})} & \textbf{Fidelidade} & \textbf{Valor} & \textbf{Escolhas} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\bottomrule
+\endlastfoot
+Cópia integral & 346.5 & 1.000 & 0.478 & 638 \\
+LLMLingua-2    & \textbf{145.8} & \textbf{0.602} & \textbf{0.289} & 431 \\
+CPC-MiniLM     & 165.6 & 0.567 & 0.269 & 99 \\
+Omissão        & 0.0 & 0.000 & 0.000 & 0 \\
+\end{longtable}
+}
+
+A predominância do LLMLingua-2 é consistente com a formulação da função de valor, que corresponde ao produto da importância pela fidelidade maximizado sob o orçamento, de modo que a opção com maior fidelidade por \textit{token} tende a ser escolhida. Essa preferência, contudo, não corresponde à qualidade final. Uma execução complementar aplicou cada compressor de forma uniforme sob 8192 \textit{tokens}, e o CPC-MiniLM obteve média de 0.466 contra 0.438 do LLMLingua-2, com vantagem em cinco das sete tarefas. A fidelidade medida pelo codificador MiniLM ordena os dois compressores de forma oposta à qualidade observada, o que caracteriza um desalinhamento entre a fidelidade intrínseca e o desempenho \textit{downstream}. Conforme discutido adiante na Seção~\ref{sec:limitacoes-resultados}, essa métrica utiliza o mesmo codificador empregado pelo CPC-MiniLM e mede a cobertura semântica do contexto original, o que não garante correspondência com a qualidade que o modelo alvo extrai do texto comprimido.
+
+Esse desalinhamento indica um caminho de aprimoramento, e não uma falha da alocação seletiva. Mesmo com a função de valor atual, o MCKP apresenta média superior à do controle uniforme sob pressão de orçamento, ainda que essa vantagem seja marginal na amostra ampliada, o que é compatível com um benefício da alocação por partição. O alinhamento da fidelidade com a qualidade final permanece como aprimoramento capaz de fortalecer a seleção de opções, discutido entre os trabalhos futuros no Capítulo~\ref{cap:conclusao}.
+
+Esta avaliação restringe-se a um único modelo e a duas janelas de contexto. Sob orçamento restritivo, a alocação seletiva por partição supera o truncamento de forma estatisticamente significativa e supera a compressão uniforme por margem positiva ainda não significativa. A generalização entre modelos e a confirmação da vantagem sobre a compressão uniforme permanecem como trabalho futuro.
 
 \section{Limitações da Análise}
 \label{sec:limitacoes-resultados}
@@ -147,9 +296,11 @@ A primeira limitação é o tamanho da triagem, composta por 22 casos em cada co
 
 A segunda limitação está associada às adaptações locais. O \textit{scorer} GPT-2 do LLMLingua-GPT2 difere das configurações alinhadas avaliadas no trabalho original, e CPC-MiniLM não incorpora o treinamento contrastivo nem a representação contextual do CPC. A métrica de fidelidade utiliza o mesmo codificador MiniLM empregado por CPC-MiniLM e, portanto, não é inteiramente independente dessa técnica. Por essa razão, a pontuação nas tarefas é adotada como critério principal, enquanto a fidelidade atua apenas como evidência complementar.
 
-A terceira limitação é que a triagem compara compressores aplicados uniformemente a cada entrada, mas não avalia a política seletiva proposta. O \textit{framework} MCKP ainda requer execução sob os mesmos orçamentos, comparação com as melhores estratégias uniformes e estudos de ablação da função de importância e da penalização de transição. Assim, a heterogeneidade observada fundamenta a escolha das opções, mas não demonstra superioridade da alocação por partição.
+A terceira limitação diz respeito ao alcance da avaliação do resolvedor apresentada na Seção~\ref{sec:avaliacao-mckp}. Essa avaliação restringe-se ao Llama 3.1 8B. Na amostra ampliada de vinte casos por \textit{benchmark}, a vantagem do MCKP sobre o truncamento é estatisticamente significativa, com Wilcoxon $p = 0.015$, enquanto a vantagem sobre a compressão uniforme é marginal e não significativa ao nível de 0.05, com $p = 0.052$. O suporte à hipótese H1 é, portanto, parcial e limitado a um modelo. A generalização depende da execução sobre os demais modelos e orçamentos e dos estudos de ablação da função de importância e da penalização de transição, associados às hipóteses H2 e H3, ainda não realizados.
 
 \section{Síntese dos Resultados}
 \label{sec:sintese-resultados}
 
-Três conclusões delimitadas pela evidência podem ser extraídas. Primeiro, nenhuma técnica domina simultaneamente todos os modelos, tarefas e orçamentos. A \textit{Sliding Window} apresenta o melhor equilíbrio recorrente entre as cinco técnicas da etapa inicial, enquanto a estratégia \textit{Raw} se torna mais competitiva com a ampliação do orçamento. Segundo, redução de \textit{tokens}, fidelidade, latência e qualidade final não são objetivos equivalentes: LLMLingua-2 comprime mais, Selective Context preserva maior similaridade semântica e CPC-MiniLM alcança as maiores pontuações entre os compressores em oito das dez combinações. Terceiro, o Qwen 3 30B-A3B altera essa ordenação em favor de LLMLingua-2, e o CPC-MiniLM supera toda a matriz apenas no Gemma 4 26B sob 32768 \textit{tokens}. Em conjunto, os resultados justificam manter opções de compressão com perfis distintos no espaço de decisão do MCKP. A ausência da avaliação completa do resolvedor, porém, impede concluir que a alocação seletiva supera a melhor aplicação uniforme dessas opções.
+Três conclusões delimitadas pela evidência podem ser extraídas da matriz multimodelo. Primeiro, nenhuma técnica domina simultaneamente todos os modelos, tarefas e orçamentos. A \textit{Sliding Window} apresenta o melhor equilíbrio recorrente entre as cinco técnicas da etapa inicial, enquanto a estratégia \textit{Raw} se torna mais competitiva com a ampliação do orçamento. Segundo, redução de \textit{tokens}, fidelidade, latência e qualidade final não são objetivos equivalentes, uma vez que LLMLingua-2 comprime mais, Selective Context preserva maior similaridade semântica e CPC-MiniLM alcança as maiores pontuações entre os compressores em oito das dez combinações. Terceiro, o Qwen 3 30B-A3B altera essa ordenação em favor de LLMLingua-2, e o CPC-MiniLM supera toda a matriz apenas no Gemma 4 26B sob 32768 \textit{tokens}. Em conjunto, esses resultados justificam manter opções de compressão com perfis distintos no espaço de decisão do MCKP.
+
+A avaliação do resolvedor no Llama 3.1 8B, descrita na Seção~\ref{sec:avaliacao-mckp}, indica que o efeito da alocação seletiva depende da pressão de orçamento. No agregado de 8192 \textit{tokens}, dominado por casos cujo contexto já cabe na janela, a estratégia \textit{Raw} lidera, mas, quando o contexto excede o orçamento, a compressão supera o envio truncado. Sob 2048 \textit{tokens}, em que a maioria dos casos excede a janela, o MCKP alcança 0.416 nos casos \textit{binding} contra 0.347 do controle uniforme e 0.307 da estratégia \textit{Raw} na amostra inicial de dez casos por \textit{benchmark}. Na amostra ampliada de vinte casos, a vantagem do MCKP sobre o truncamento é estatisticamente significativa, com Wilcoxon $p = 0.015$, e a vantagem sobre a compressão uniforme é positiva, porém marginal, com $p = 0.052$. O suporte à hipótese H1 é, portanto, parcial, consistente na direção e significativo frente ao truncamento, mas ainda não conclusivo frente à compressão uniforme, o que reflete o desalinhamento da função de valor e motiva amostras maiores e a avaliação de outros modelos.

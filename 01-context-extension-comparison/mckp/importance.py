@@ -62,10 +62,11 @@ class ImportanceScorer:
             from rig.dartboard_processor import DartboardProcessor
         except ImportError:
             from ..rig.dartboard_processor import DartboardProcessor
+        from .compressors import _embedder
 
         if self._dartboard is None:
             self._dartboard = DartboardProcessor(
-                embedding_model=self.config.embedding_model
+                embedding_model=_embedder(self.config.embedding_model)
             )
         db = self._dartboard
         db.index_chunks(texts)

@@ -16,7 +16,7 @@ from __future__ import annotations
 import logging
 import hashlib
 from datetime import datetime, timezone
-from typing import Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Optional, Tuple
 
 from .audit import append_audit
 from .importance import ImportanceScorer
@@ -24,7 +24,8 @@ from .models import MCKPConfig
 from .options import OptionGenerator
 from .partitioner import build_partitioner
 from .reconstructor import reconstruct
-from .solver import MCKPSolver
+from .reconstructor import serialized_option_cost
+from .solver import MCKPSolver, UniformControlSolver
 from .tokenization import DEFAULT_TOKEN_COUNTER, TokenCounter
 
 try:
@@ -53,18 +54,26 @@ class MCKPStrategy(ContextStrategy):
         config: MCKPConfig,
         token_counter: TokenCounter | None = None,
         prompt_builder: Callable[[str, str], str] | None = None,
+        option_cache: Optional[Dict[str, Tuple[str, float]]] = None,
     ):
         self.config = config
         self.token_counter = token_counter or DEFAULT_TOKEN_COUNTER
         self.prompt_builder = prompt_builder or _default_prompt_builder
         self.partitioner = build_partitioner(config)
         self.importance = ImportanceScorer(config)
-        self.option_generator = OptionGenerator(config, token_counter=self.token_counter)
-        self.solver = MCKPSolver(
-            mu=config.mu,
-            distance=config.distance,
-            budget_bucket=config.budget_bucket,
+        self.option_generator = OptionGenerator(
+            config,
+            token_counter=self.token_counter,
+            cache=option_cache,
         )
+        if config.selection_mode == "uniform_control":
+            self.solver = UniformControlSolver()
+        else:
+            self.solver = MCKPSolver(
+                mu=config.mu,
+                distance=config.distance,
+                budget_bucket=config.budget_bucket,
+            )
         self.last_diagnostics: Dict[str, object] = {}
 
     def _budget(self, query: str) -> int:
@@ -105,7 +114,43 @@ class MCKPStrategy(ContextStrategy):
             return [""]
 
         self.importance.score(partitions, query)
-        options = self.option_generator.generate(partitions, query)
+        option_set = list(self.config.option_set)
+        adaptive_rate = None
+        adaptive_rates: List[float] = []
+        if self.config.adaptive_budget_rate:
+            identity_cost = sum(
+                serialized_option_cost(
+                    partition.text, partition.index, self.token_counter
+                )
+                for partition in partitions
+            )
+            if identity_cost > budget:
+                adaptive_rate = max(
+                    self.config.min_adaptive_rate,
+                    min(1.0, budget / identity_cost * self.config.adaptive_rate_safety),
+                )
+                adaptive_rate = round(adaptive_rate, 4)
+                adaptive_rates = [adaptive_rate]
+                if self.config.min_adaptive_rate < adaptive_rate:
+                    adaptive_rates.append(self.config.min_adaptive_rate)
+                families = {
+                    str(spec["compressor"])
+                    for spec in option_set
+                    if spec["compressor"] not in {"identity", "omission"}
+                }
+                existing = {
+                    (str(spec["compressor"]), float(spec.get("param", 1.0)))
+                    for spec in option_set
+                }
+                for compressor in sorted(families):
+                    for rate in adaptive_rates:
+                        if (compressor, rate) not in existing:
+                            option_set.append(
+                                {"compressor": compressor, "param": rate}
+                            )
+        options = self.option_generator.generate(
+            partitions, query, option_set=option_set
+        )
         solution = self.solver.solve(options, budget)
         compressed = reconstruct(solution.chosen)
         actual_cost = self.token_counter.count(compressed)
@@ -142,8 +187,15 @@ class MCKPStrategy(ContextStrategy):
             "num_partitions": len(partitions),
             "num_options": sum(len(class_options) for class_options in options),
             "num_compressor_failures": len(failures),
+            "num_option_adjustments": len(self.option_generator.adjustments),
+            "option_cache_hits": self.option_generator.cache_hits,
+            "option_cache_misses": self.option_generator.cache_misses,
             "compressor_failures": failures,
             "budget_bucket": self.config.budget_bucket,
+            "selection_mode": self.config.selection_mode,
+            "adaptive_rate": adaptive_rate,
+            "adaptive_rates": adaptive_rates,
+            "evaluated_option_set": option_set,
             "chosen_compressors": [option.compressor for option in solution.chosen],
         }
         chosen_by_partition = {o.partition_index: o for o in solution.chosen}
@@ -164,10 +216,15 @@ class MCKPStrategy(ContextStrategy):
                 "mu": self.config.mu,
                 "distance": self.config.distance,
                 "budget_bucket": self.config.budget_bucket,
+                "selection_mode": self.config.selection_mode,
+                "adaptive_rate": adaptive_rate,
+                "adaptive_rates": adaptive_rates,
+                "evaluated_option_set": option_set,
             },
             "partitions": [],
             "compressor_failures": failures,
             "option_rejections": list(self.option_generator.rejections),
+            "option_adjustments": list(self.option_generator.adjustments),
         }
         for partition, class_options in zip(partitions, options):
             chosen = chosen_by_partition[partition.index]

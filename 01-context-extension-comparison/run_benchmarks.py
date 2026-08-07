@@ -447,6 +447,8 @@ def create_mckp_strategy(
     mu: float | None = None,
     distance: str | None = None,
     budget_bucket: int | None = None,
+    selection_mode: str = "mckp",
+    option_cache: Dict[str, tuple[str, float]] | None = None,
 ) -> Callable[[str, str], str]:
     """
     Estratégia MCKP, compressão seletiva por partição resolvida como problema
@@ -456,6 +458,12 @@ def create_mckp_strategy(
     config_path = Path(__file__).parent / "mckp" / "config.json"
     config = MCKPConfig.from_json(config_path)
     config.summarizer_model = model
+    config.selection_mode = selection_mode
+    # O controle uniforme compartilha as mesmas partições estruturais do MCKP;
+    # ele difere apenas por aplicar uma única família/taxa a todas as partições
+    # (via UniformControlSolver), em vez da alocação seletiva do MCKP. Isso
+    # isola exclusivamente o efeito da alocação e mantém os dois comparáveis
+    # partição a partição, sem a partição-única que estourava o tokenizador.
     if mu is not None:
         config.mu = mu
     if distance is not None:
@@ -468,7 +476,11 @@ def create_mckp_strategy(
     config.audit_log_path = os.environ.get("MCKP_AUDIT_LOG")
     config.validate()
 
-    mckp = MCKPStrategy(config, prompt_builder=build_ollama_prompt)
+    mckp = MCKPStrategy(
+        config,
+        prompt_builder=build_ollama_prompt,
+        option_cache=option_cache,
+    )
     # O MCKP já valida o prompt final no mesmo contador usado pela otimização.
     base_fn = create_ollama_strategy(model, truncate_context=False)
 
@@ -487,6 +499,15 @@ def create_mckp_strategy(
         call = dict(base_fn.last_call)
         call.pop("sent_context", None)
         details.update({f"ollama_{key}": value for key, value in call.items()})
+        actual_prompt_tokens = call.get("prompt_eval_count")
+        if isinstance(actual_prompt_tokens, int):
+            details["mckp_prompt_token_delta"] = (
+                actual_prompt_tokens - int(diagnostics["prompt_tokens"])
+            )
+            details["mckp_actual_prompt_within_budget"] = int(
+                actual_prompt_tokens + config.output_tokens
+                <= int(config.model_context_tokens or config.budget_tokens)
+            )
         return StrategyOutput(
             answer=answer,
             compressed_context=compressed,
@@ -562,7 +583,7 @@ def parse_args() -> argparse.Namespace:
         "--strategies",
         type=str,
         default="all",
-        help="Estratégias a testar (comma-separated). Opções: raw, sliding_window, parallel_window, semantic_compression, llmlingua, llmlingua2, selective_context, cpc, rig, rsaw, mckp, mock, all"
+        help="Estratégias a testar (comma-separated). Opções: raw, sliding_window, parallel_window, semantic_compression, llmlingua, llmlingua2, selective_context, cpc, rig, rsaw, mckp, mckp_uniform_control, mock, all"
     )
     
     parser.add_argument(
@@ -587,6 +608,12 @@ def parse_args() -> argparse.Namespace:
         "--quick",
         action="store_true",
         help="Modo rápido com menos casos de teste"
+    )
+    parser.add_argument(
+        "--examples-per-benchmark",
+        type=int,
+        default=None,
+        help="Limita casos por benchmark real para smoke tests reproduzíveis.",
     )
     
     parser.add_argument(
@@ -655,6 +682,7 @@ def main():
         strategy_types = [s.strip() for s in args.strategies.split(",")]
     
     # Factory functions para cada tipo de estratégia
+    shared_mckp_option_cache: Dict[str, tuple[str, float]] = {}
     strategy_factories = {
         "raw": lambda m: create_raw_strategy(m),
         "sliding_window": lambda m: create_sliding_window_strategy(m),
@@ -671,6 +699,15 @@ def main():
             mu=args.mckp_mu,
             distance=args.mckp_distance,
             budget_bucket=args.mckp_budget_bucket,
+            option_cache=shared_mckp_option_cache,
+        ),
+        "mckp_uniform_control": lambda m: create_mckp_strategy(
+            m,
+            mu=0.0,
+            distance="none",
+            budget_bucket=1,
+            selection_mode="uniform_control",
+            option_cache=shared_mckp_option_cache,
         ),
     }
     
@@ -788,6 +825,14 @@ def main():
             k: v for k, v in benchmark_configs.items()
             if k in selected
         }
+    if args.examples_per_benchmark is not None:
+        if args.examples_per_benchmark < 1:
+            raise ValueError("--examples-per-benchmark deve ser positivo")
+        for name, config in benchmark_configs.items():
+            if name == "longbench":
+                config["num_qa_cases"] = args.examples_per_benchmark
+            elif "num_examples" in config:
+                config["num_examples"] = args.examples_per_benchmark
     
     ollama_models = [m for m in models_to_test if m.startswith("ollama/")]
 

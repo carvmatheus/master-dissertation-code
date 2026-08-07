@@ -26,12 +26,8 @@ from .real_world import (
     HotpotQABenchmark,
     MuSiQueBenchmark,
     MeetingSummarizationBenchmark,
+    LongBenchBenchmark,
 )
-# LongBench sintético (LongBenchTasks), usado na matriz original benchmark_matrix_artigo.
-# Mantido para que os novos compressores rodem sobre exatamente os mesmos casos
-# (longbench_multidoc_qa_1..3, longbench_summarization_1) das cinco estratégias já
-# avaliadas, preservando a comparabilidade da matriz agregada.
-from .longbench import LongBenchTasks
 
 
 @dataclass
@@ -71,7 +67,7 @@ class BenchmarkRunner:
         self.benchmarks: Dict[str, BaseBenchmark] = {
             "needle_in_haystack": NeedleInHaystackBenchmark(),
             "ruler": RulerBenchmark(),
-            "longbench": LongBenchTasks(),
+            "longbench": LongBenchBenchmark(),
             "babilong": BABILongBenchmark(),
             "narrativeqa": NarrativeQABenchmark(),
             "qasper": QASPERBenchmark(),
@@ -302,7 +298,13 @@ class BenchmarkRunner:
             all_detail_keys.update(r.details.keys())
         
         # Remove campos muito longos
-        excluded_keys = {"response", "needle_fact"}
+        excluded_keys = {
+            "response",
+            "needle_fact",
+            "mckp_audit_record",
+            "mckp_evaluated_option_set",
+            "mckp_compressor_failures",
+        }
         detail_keys = sorted(all_detail_keys - excluded_keys)
         fieldnames.extend(detail_keys)
         

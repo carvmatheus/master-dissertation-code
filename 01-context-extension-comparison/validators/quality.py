@@ -96,10 +96,17 @@ _MODEL = None
 def _model():
     global _MODEL
     if _MODEL is None:
-        from sentence_transformers import SentenceTransformer
-
         name = os.environ.get("VALIDATOR_EMB_MODEL", "all-MiniLM-L6-v2")
-        _MODEL = SentenceTransformer(name)
+        try:
+            # O MCKP já mantém este encoder para relevância e CPC-MiniLM.
+            # Compartilhá-lo evita cópias residentes e conflitos entre runtimes.
+            from mckp.compressors import _embedder
+
+            _MODEL = _embedder(name)
+        except ImportError:
+            from sentence_transformers import SentenceTransformer
+
+            _MODEL = SentenceTransformer(name)
     return _MODEL
 
 

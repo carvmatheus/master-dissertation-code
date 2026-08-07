@@ -81,8 +81,11 @@ class DartboardProcessor:
         """
         _ensure_imports()
         
-        print(f"Carregando modelo de embeddings: {embedding_model}...")
-        self.embedding_model = _SentenceTransformer(embedding_model)
+        if isinstance(embedding_model, str):
+            print(f"Carregando modelo de embeddings: {embedding_model}...")
+            self.embedding_model = _SentenceTransformer(embedding_model)
+        else:
+            self.embedding_model = embedding_model
         self.dimension = self.embedding_model.get_sentence_embedding_dimension()
         
         # Índice FAISS para busca por similaridade

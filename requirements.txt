@@ -12,6 +12,8 @@ scikit-learn
 # RSAW (token-based segmentation)
 tiktoken
 llmlingua==0.2.2
+selective-context==0.1.4
+spacy==3.8.14
 
 # Benchmarks long-context (BABILong, NarrativeQA, QASPER, InfiniteBench)
 datasets

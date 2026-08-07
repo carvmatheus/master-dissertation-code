@@ -62,7 +62,7 @@ class Solution:
 class MCKPConfig:
     """Configuração do framework, carregada de mckp/config.json."""
 
-    partitioner: str = "structural"          # "structural" | "semantic"
+    partitioner: str = "structural"          # structural | semantic | whole_context
     max_partition_tokens: int = 400
     weights: Dict[str, float] = field(
         default_factory=lambda: {"w_r": 0.6, "w_d": 0.2, "w_p": 0.2}
@@ -70,11 +70,12 @@ class MCKPConfig:
     positional_shape: str = "central"        # "central" | "u_shaped" | "flat"
     mu: float = 0.0                          # penalização de transição
     distance: str = "compressor_family"      # "compressor_family" | "param_diff" | "none"
+    selection_mode: str = "mckp"             # "mckp" | "uniform_control"
     option_set: List[Dict[str, float]] = field(
         default_factory=lambda: [
             {"compressor": "identity", "param": 1.0},
-            {"compressor": "sentence_extractive", "param": 0.5},
-            {"compressor": "sentence_extractive", "param": 0.3},
+            {"compressor": "cpc_minilm", "param": 0.5},
+            {"compressor": "cpc_minilm", "param": 0.3},
             {"compressor": "omission", "param": 0.0},
         ]
     )
@@ -93,6 +94,11 @@ class MCKPConfig:
     llmlingua2_model: str = (
         "microsoft/llmlingua-2-xlm-roberta-large-meetingbank"
     )
+    selective_context_model: str = "gpt2"
+    selective_context_lang: str = "en"
+    adaptive_budget_rate: bool = True
+    adaptive_rate_safety: float = 0.9
+    min_adaptive_rate: float = 0.05
     required_compressors: List[str] = field(default_factory=list)
     audit_log_path: Optional[str] = None
     audit_include_text: bool = True
@@ -104,6 +110,8 @@ class MCKPConfig:
         """Valida também configurações alteradas após a carga do JSON."""
         if self.max_partition_tokens <= 0:
             raise ValueError("max_partition_tokens deve ser positivo")
+        if self.partitioner not in {"structural", "semantic", "whole_context"}:
+            raise ValueError(f"partitioner inválido: {self.partitioner}")
         if self.budget_tokens < 0:
             raise ValueError("budget_tokens não pode ser negativo")
         if self.model_context_tokens is not None and self.model_context_tokens <= 0:
@@ -116,8 +124,14 @@ class MCKPConfig:
             raise ValueError("mu não pode ser negativo")
         if self.distance not in {"compressor_family", "param_diff", "none"}:
             raise ValueError(f"distance inválida: {self.distance}")
+        if self.selection_mode not in {"mckp", "uniform_control"}:
+            raise ValueError(f"selection_mode inválido: {self.selection_mode}")
         if not self.option_set:
             raise ValueError("option_set não pode ser vazio")
+        if not 0 < self.adaptive_rate_safety <= 1:
+            raise ValueError("adaptive_rate_safety deve estar em (0, 1]")
+        if not 0 < self.min_adaptive_rate <= 1:
+            raise ValueError("min_adaptive_rate deve estar em (0, 1]")
 
     @classmethod
     def from_json(cls, path: str | Path) -> "MCKPConfig":

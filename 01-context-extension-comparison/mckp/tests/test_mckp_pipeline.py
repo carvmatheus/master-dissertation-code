@@ -27,14 +27,32 @@ def test_query_dependent_cache_includes_query(monkeypatch):
     generator._compressors["sentence_extractive"] = QueryCompressor()
 
     first = generator._materialize(
-        "contexto compartilhado", "sentence_extractive", 0.5, "pergunta um"
+        "contexto compartilhado", "sentence_extractive", 0.5, "pergunta um", 0
     )
     second = generator._materialize(
-        "contexto compartilhado", "sentence_extractive", 0.5, "pergunta dois"
+        "contexto compartilhado", "sentence_extractive", 0.5, "pergunta dois", 0
     )
 
     assert first[0] == "resultado para pergunta um"
     assert second[0] == "resultado para pergunta dois"
+
+
+def test_option_cache_can_be_shared_between_selectors(monkeypatch):
+    monkeypatch.setattr(options_module, "fidelity", lambda *args, **kwargs: 0.5)
+    shared = {}
+    config = MCKPConfig(
+        option_set=[{"compressor": "sentence_extractive", "param": 0.5}]
+    )
+    first = OptionGenerator(config, cache=shared)
+    first._compressors["sentence_extractive"] = QueryCompressor()
+    partitions = [Partition(index=0, text="contexto", importance=1.0)]
+    first.generate(partitions, "pergunta")
+
+    second = OptionGenerator(config, cache=shared)
+    second.generate(partitions, "pergunta")
+
+    assert second.cache_hits >= 1
+    assert second.cache_misses == 0
 
 
 def test_reconstruction_never_exceeds_serialized_option_cost():

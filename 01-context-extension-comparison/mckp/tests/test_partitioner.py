@@ -12,7 +12,7 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from mckp.models import MCKPConfig
-from mckp.partitioner import StructuralPartitioner
+from mckp.partitioner import StructuralPartitioner, WholeContextPartitioner
 
 TEXT = (
     "O primeiro paragrafo trata da introducao do problema de compressao. "
@@ -68,3 +68,10 @@ def test_single_partition_for_short_text():
     partitions = StructuralPartitioner(cfg).partition("Frase curta unica.")
     assert len(partitions) == 1
     assert partitions[0].text == "Frase curta unica."
+
+
+def test_whole_context_partitioner_returns_single_partition():
+    partitions = WholeContextPartitioner().partition(TEXT)
+    assert len(partitions) == 1
+    assert partitions[0].kind == "whole_context"
+    assert partitions[0].text == TEXT

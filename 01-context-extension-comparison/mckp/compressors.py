@@ -13,8 +13,9 @@ Compressores sempre presentes.
 Compressores opcionais, com import preguiçoso e dependências opcionais.
   perplexity          remove tokens previsíveis (embrulha PerplexityCompressor).
   semantic            reescreve via LLM local (embrulha OllamaSemanticCompressor).
-  sentence_extractive seleciona sentenças relevantes à consulta (MiniLM).
+  cpc_minilm          aproxima CPC por sentenças relevantes à consulta (MiniLM).
   llmlingua2          compressão por classificação de tokens (pacote llmlingua).
+  selective_context   remoção lexical por auto-informação (GPT-2).
 """
 from __future__ import annotations
 
@@ -99,7 +100,7 @@ class SemanticAdapter(Compressor):
         return self._impl.compress(text, param)
 
 
-class SentenceExtractiveCompressor(Compressor):
+class CPCMiniLMCompressor(Compressor):
     """Seleção extrativa de sentenças orientada à consulta.
 
     Ordena as sentenças da partição pela similaridade de cosseno com a
@@ -109,7 +110,7 @@ class SentenceExtractiveCompressor(Compressor):
     literatura de compressão de contexto.
     """
 
-    name = "sentence_extractive"
+    name = "cpc_minilm"
     query_dependent = True
 
     def __init__(self, embedding_model: str = "all-MiniLM-L6-v2"):
@@ -146,6 +147,12 @@ class SentenceExtractiveCompressor(Compressor):
         return " ".join(sentences[i] for i in range(len(sentences)) if i in kept)
 
 
+class SentenceExtractiveCompressor(CPCMiniLMCompressor):
+    """Alias legado; resultados novos devem usar o nome CPC-MiniLM."""
+
+    name = "sentence_extractive"
+
+
 class LLMLingua2Adapter(Compressor):
     """Compressão por classificação de tokens via pacote llmlingua.
 
@@ -176,6 +183,23 @@ class LLMLingua2Adapter(Compressor):
         return out
 
 
+class SelectiveContextAdapter(Compressor):
+    """Remoção de unidades lexicais por auto-informação via Selective Context."""
+
+    name = "selective_context"
+
+    def __init__(self, model_type: str = "gpt2", lang: str = "en"):
+        from selective_context import SelectiveContext
+
+        self._impl = SelectiveContext(model_type=model_type, lang=lang)
+
+    def compress(self, text: str, param: float, query: Optional[str] = None) -> str:
+        reduce_ratio = max(0.0, min(1.0, 1.0 - float(param)))
+        out = self._impl(text, reduce_ratio=reduce_ratio)
+        compressed = out[0] if isinstance(out, tuple) else out
+        return compressed or text
+
+
 # ---------------------------------------------------------------------------
 # Registry
 # ---------------------------------------------------------------------------
@@ -186,7 +210,7 @@ class CompressorUnavailableError(RuntimeError):
 
 def compressor_uses_query(name: str) -> bool:
     """Indica se a consulta deve fazer parte da chave de cache."""
-    return name == SentenceExtractiveCompressor.name
+    return name in {CPCMiniLMCompressor.name, SentenceExtractiveCompressor.name}
 
 
 def build_compressor(name: str, config) -> Compressor:
@@ -206,8 +230,15 @@ def build_compressor(name: str, config) -> Compressor:
             return SemanticAdapter(model_name=config.summarizer_model)
         if name == "sentence_extractive":
             return SentenceExtractiveCompressor(embedding_model=config.embedding_model)
+        if name == "cpc_minilm":
+            return CPCMiniLMCompressor(embedding_model=config.embedding_model)
         if name == "llmlingua2":
             return LLMLingua2Adapter(model_name=config.llmlingua2_model)
+        if name == "selective_context":
+            return SelectiveContextAdapter(
+                model_type=config.selective_context_model,
+                lang=config.selective_context_lang,
+            )
     except Exception as exc:
         raise CompressorUnavailableError(
             f"compressor '{name}' indisponível: {type(exc).__name__}: {exc}"

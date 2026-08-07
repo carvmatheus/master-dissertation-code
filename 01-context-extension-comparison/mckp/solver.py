@@ -188,3 +188,44 @@ class MCKPSolver:
             total_value=best_val,
             total_cost=sum(op.token_cost for op in best_combo),
         )
+
+
+class UniformControlSolver:
+    """Controle restrito a uma única família e taxa em todas as partições.
+
+    O conjunto viável é um subconjunto daquele usado pelo MCKP. Assim, a
+    comparação isola o efeito da alocação seletiva sem redefinir o Raw como
+    baseline de compressão.
+    """
+
+    def solve(self, options: List[List[CompressionOption]], budget: int) -> Solution:
+        if not options:
+            return Solution(chosen=[], total_value=0.0, total_cost=0)
+        MCKPSolver._validate(options, budget)
+
+        indexed = [
+            {(option.compressor, option.param): option for option in class_options}
+            for class_options in options
+        ]
+        common = set(indexed[0])
+        for class_options in indexed[1:]:
+            common.intersection_update(class_options)
+
+        best = None
+        for key in sorted(common):
+            chosen = [class_options[key] for class_options in indexed]
+            cost = sum(option.token_cost for option in chosen)
+            if cost > budget:
+                continue
+            value = sum(option.value for option in chosen)
+            candidate = (value, -cost, chosen)
+            if best is None or candidate[:2] > best[:2]:
+                best = candidate
+
+        if best is None:
+            raise InfeasibleMCKPError(
+                "nenhuma opção uniforme é viável para "
+                f"{len(options)} partições e orçamento {budget}"
+            )
+        value, neg_cost, chosen = best
+        return Solution(chosen=chosen, total_value=value, total_cost=-neg_cost)

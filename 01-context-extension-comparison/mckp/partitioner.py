@@ -117,6 +117,15 @@ class StructuralPartitioner:
         return out or [block]
 
 
+class WholeContextPartitioner:
+    """Controle uniforme: trata o contexto completo como uma única classe."""
+
+    def partition(self, text: str, query: str = "") -> List[Partition]:
+        if not text.strip():
+            return []
+        return [Partition(index=0, text=text.strip(), kind="whole_context")]
+
+
 class SemanticPartitioner:
     def __init__(self, config: MCKPConfig):
         self.max_tokens = config.max_partition_tokens
@@ -169,6 +178,8 @@ class SemanticPartitioner:
 
 
 def build_partitioner(config: MCKPConfig):
+    if config.partitioner == "whole_context":
+        return WholeContextPartitioner()
     if config.partitioner == "semantic":
         return SemanticPartitioner(config)
     return StructuralPartitioner(config)

@@ -14,7 +14,7 @@ import pytest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from mckp.models import CompressionOption, MCKPConfig
-from mckp.solver import InfeasibleMCKPError, MCKPSolver
+from mckp.solver import InfeasibleMCKPError, MCKPSolver, UniformControlSolver
 
 
 def _random_instance(rng):
@@ -126,3 +126,17 @@ def test_invalid_budget_is_rejected(budget):
     options = [[_option(0, "omission", 0, 0.0)]]
     with pytest.raises(ValueError, match="budget"):
         MCKPSolver().solve(options, budget=budget)
+
+
+def test_mckp_feasible_set_dominates_uniform_control():
+    options = [
+        [_option(0, "identity", 6, 0.9), _option(0, "compressed", 2, 0.5)],
+        [_option(1, "identity", 6, 0.9), _option(1, "compressed", 2, 0.5)],
+    ]
+
+    uniform = UniformControlSolver().solve(options, budget=8)
+    mckp = MCKPSolver(mu=0.0).solve(options, budget=8)
+
+    assert {option.compressor for option in uniform.chosen} == {"compressed"}
+    assert mckp.total_value >= uniform.total_value
+    assert mckp.total_value == pytest.approx(1.4)

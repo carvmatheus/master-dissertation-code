@@ -1,0 +1,4 @@
+Strategy,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+raw_llama3.1-8b-instruct-q8,-,-,0.221,-,-,-,-,0.320,0.654,0.950,0.420,0.131,0.083,0.397
+mckp_llama3.1-8b-instruct-q8,-,-,0.147,-,-,-,-,0.471,0.683,0.900,0.520,0.287,0.193,0.457
+mckp_uniform_control_llama3.1-8b-instruct-q8,-,-,0.163,-,-,-,-,0.361,0.516,0.900,0.628,0.165,0.175,0.416

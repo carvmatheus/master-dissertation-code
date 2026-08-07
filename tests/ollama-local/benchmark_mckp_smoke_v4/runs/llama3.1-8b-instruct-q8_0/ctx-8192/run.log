@@ -1,0 +1,100 @@
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 127304 -> 22308 chars (num_ctx=8192)
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_llama3.1-8b-instruct-q8
+Estratégia registrada: mckp_llama3.1-8b-instruct-q8
+Estratégia registrada: mckp_uniform_control_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['raw', 'mckp', 'mckp_uniform_control']
+Estratégias registradas: ['raw_llama3.1-8b-instruct-q8', 'mckp_llama3.1-8b-instruct-q8', 'mckp_uniform_control_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/1] longbench_0: score 0.48 | 23056ms
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:89: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+   Score médio: 0.483 | Latência média: 23056.0ms | 1 casos
+
+>> Executando longbench com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 110 chunk(s)...
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]
+Batches:  25%|██▌       | 1/4 [00:00<00:00,  6.87it/s]
+Batches:  50%|█████     | 2/4 [00:00<00:00,  7.76it/s]
+Batches:  75%|███████▌  | 3/4 [00:00<00:00,  7.74it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00,  6.95it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00,  7.15it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 110 chunks com sucesso!
+Loading dependencies...
+Using device: cpu
+model loaded
+     [1/1] longbench_0: score 0.20 | 213657ms
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:89: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+   Score médio: 0.200 | Latência média: 213656.9ms | 1 casos
+
+>> Executando longbench com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 110 chunk(s)...
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]
+Batches:  25%|██▌       | 1/4 [00:00<00:00,  6.10it/s]
+Batches:  50%|█████     | 2/4 [00:00<00:00,  7.33it/s]
+Batches:  75%|███████▌  | 3/4 [00:00<00:00,  7.66it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00,  9.30it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 110 chunks com sucesso!
+     [1/1] longbench_0: score 0.00 | 2171ms
+   Score médio: 0.000 | Latência média: 2171.0ms | 1 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v4/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v4/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v4/runs/llama3.1-8b-instruct-q8_0/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 3
+
+--- Métricas por Estratégia ---
+
+raw_llama3.1-8b-instruct-q8:
+  Score médio: 0.483
+  Score min/max: 0.483 / 0.483
+  Latência média: 23056.0ms
+
+mckp_llama3.1-8b-instruct-q8:
+  Score médio: 0.200
+  Score min/max: 0.200 / 0.200
+  Latência média: 213656.9ms
+
+mckp_uniform_control_llama3.1-8b-instruct-q8:
+  Score médio: 0.000
+  Score min/max: 0.000 / 0.000
+  Latência média: 2171.0ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           
+----------------------------------------
+raw_llama3.1-8b-instruct-q80.483               
+mckp_llama3.1-8b-instruct-q80.200               
+mckp_uniform_control_llama3.1-8b-instruct-q80.000               
+
+============================================================
+
+Resultados salvos em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v4/runs/llama3.1-8b-instruct-q8_0/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)

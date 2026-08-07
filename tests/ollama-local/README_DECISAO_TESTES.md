@@ -125,20 +125,45 @@ parte da suíte oficial do artigo e foram deixados de fora da matriz principal.
 .venv/bin/python scripts/calibrate_from_runs.py \
   --output-root tests/ollama-local/benchmark_matrix_artigo
 
-# Método proposto, executado separadamente nos mesmos dois contextos
+# Método proposto, Raw e controle uniforme no mesmo conjunto de casos
 .venv/bin/python scripts/run_ollama_benchmark_matrix.py \
   --models llama3.1:8b-instruct-q8_0,gemma4:26b-mlx,qwen3:30b-a3b,deepseek-r1:32b,gpt-oss:20b \
   --contexts 8192,32768 \
-  --strategies mckp \
+  --strategies raw,mckp,mckp_uniform_control \
   --mckp-mu 0.1 \
   --mckp-budget-bucket 1 \
   --benchmarks longbench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization \
-  --output-root tests/ollama-local/benchmark_mckp_artigo
+  --output-root tests/ollama-local/benchmark_mckp_artigo_v2 \
+  --full
 ```
 
-O valor principal inicial é `mu=0.1`. As ablações `mu=0` e `mu=0.5` devem ser
-executadas em raízes de saída próprias antes da escolha definitiva do
-hiperparâmetro, sempre mantendo `--contexts 8192,32768`.
+Para acompanhar o piloto local do Llama 3.1 8B em outra janela do terminal:
+
+```bash
+./scripts/watch_mckp_progress.sh
+```
+
+O script acompanha por padrão o diretório
+`tests/ollama-local/benchmark_mckp_smoke_v5`. Um caminho de log diferente pode
+ser informado como primeiro argumento.
+
+`Raw` permanece o único baseline. `mckp_uniform_control` é uma ablação: aplica
+uma única família e taxa ao contexto completo sob o mesmo orçamento efetivo.
+Ela não deve ser apresentada como baseline adicional.
+
+O conjunto de opções do MCKP contém CPC-MiniLM, LLMLingua-2 e Selective
+Context, além de identidade e omissão. A escolha decorre da triagem de
+compressores: CPC-MiniLM liderou oito das dez combinações de modelo e orçamento,
+LLMLingua-2 liderou as duas combinações do Qwen 3 30B-A3B e Selective Context
+apresentou a maior fidelidade semântica. As taxas fixas são 0,5 e 0,3. Quando
+elas não são suficientes para satisfazer o orçamento, o runner acrescenta uma
+taxa derivada do orçamento com margem de 10% e uma taxa mínima de 0,05; ambas
+são registradas em `mckp_audit.jsonl`.
+
+O valor principal inicial é `mu=0.1`, não derivado do teorema. Ele corresponde
+a uma regularização de 10% da escala unitária de valor por transição de família.
+As ablações `mu=0` e `mu=0.5` devem ser executadas em raízes próprias e sem
+consultar os resultados finais para selecionar o hiperparâmetro.
 
 ## Triagem de compressores para o MCKP (atualizado em 18/jul/2026)
 

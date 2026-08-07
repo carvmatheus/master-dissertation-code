@@ -1,0 +1,264 @@
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 127304 -> 22308 chars (num_ctx=8192)
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_llama3.1-8b-instruct-q8
+Estratégia registrada: mckp_llama3.1-8b-instruct-q8
+Estratégia registrada: mckp_uniform_control_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['raw', 'mckp', 'mckp_uniform_control']
+Estratégias registradas: ['raw_llama3.1-8b-instruct-q8', 'mckp_llama3.1-8b-instruct-q8', 'mckp_uniform_control_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/1] longbench_0: score 0.48 | 23855ms
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:89: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+   Score médio: 0.483 | Latência média: 23855.2ms | 1 casos
+
+>> Executando longbench com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 110 chunk(s)...
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]
+Batches:  25%|██▌       | 1/4 [00:00<00:00,  5.67it/s]
+Batches:  50%|█████     | 2/4 [00:00<00:00,  7.18it/s]
+Batches:  75%|███████▌  | 3/4 [00:00<00:00,  7.22it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00,  7.37it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00,  7.16it/s]
+WARNING mckp.strategy: MCKP ignorou 17 opção(ões) por falha de compressor
+Construindo índice lexical (TF-IDF)...
+Indexados 110 chunks com sucesso!
+Loading dependencies...
+Using device: cpu
+model loaded
+     [1/1] longbench_0: score 0.05 | 367292ms
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:89: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+   Score médio: 0.054 | Latência média: 367291.9ms | 1 casos
+
+>> Executando longbench com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 12.50it/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (32254 > 512). Running this sequence through the model will result in indexing errors
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+model loaded
+     [1/1] longbench_0: score 0.17 | 240746ms
+   Score médio: 0.171 | Latência média: 240746.1ms | 1 casos
+
+>> Executando zeroscrolls com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/1] zeroscrolls_0: score 0.67 | 10166ms
+   Score médio: 0.667 | Latência média: 10165.6ms | 1 casos
+
+>> Executando zeroscrolls com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 13.81it/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (518 > 512). Running this sequence through the model will result in indexing errors
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+model loaded
+     [1/1] zeroscrolls_0: score 0.67 | 27001ms
+   Score médio: 0.667 | Latência média: 27001.4ms | 1 casos
+
+>> Executando zeroscrolls com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 89.94it/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (3170 > 512). Running this sequence through the model will result in indexing errors
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+model loaded
+     [1/1] zeroscrolls_0: score 0.67 | 13762ms
+   Score médio: 0.667 | Latência média: 13762.1ms | 1 casos
+
+>> Executando naturalquestions com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/1] naturalquestions_0: score 0.33 | 17125ms
+   Score médio: 0.333 | Latência média: 17124.9ms | 1 casos
+
+>> Executando naturalquestions com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 9 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 14.86it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 9 chunks com sucesso!
+model loaded
+     [1/1] naturalquestions_0: score 0.17 | 35632ms
+   Score médio: 0.167 | Latência média: 35631.8ms | 1 casos
+
+>> Executando naturalquestions com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 79.56it/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (3605 > 512). Running this sequence through the model will result in indexing errors
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+model loaded
+     [1/1] naturalquestions_0: score 0.33 | 23930ms
+   Score médio: 0.333 | Latência média: 23929.7ms | 1 casos
+
+>> Executando triviaqa com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/1] triviaqa_0: score 1.00 | 1286ms
+   Score médio: 1.000 | Latência média: 1286.4ms | 1 casos
+
+>> Executando triviaqa com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.46it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.46it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+model loaded
+     [1/1] triviaqa_0: score 1.00 | 4775ms
+   Score médio: 1.000 | Latência média: 4774.9ms | 1 casos
+
+>> Executando triviaqa com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 130.92it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+     [1/1] triviaqa_0: score 1.00 | 781ms
+   Score médio: 1.000 | Latência média: 781.5ms | 1 casos
+
+>> Executando hotpotqa com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/1] hotpotqa_0: score 1.00 | 4808ms
+   Score médio: 1.000 | Latência média: 4807.5ms | 1 casos
+
+>> Executando hotpotqa com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 14.99it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+model loaded
+     [1/1] hotpotqa_0: score 1.00 | 12175ms
+   Score médio: 1.000 | Latência média: 12174.7ms | 1 casos
+
+>> Executando hotpotqa com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 109.17it/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (1176 > 512). Running this sequence through the model will result in indexing errors
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+model loaded
+     [1/1] hotpotqa_0: score 1.00 | 8018ms
+   Score médio: 1.000 | Latência média: 8018.4ms | 1 casos
+
+>> Executando musique com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/1] musique_0: score 1.00 | 12233ms
+   Score médio: 1.000 | Latência média: 12232.9ms | 1 casos
+
+>> Executando musique com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 14.14it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+model loaded
+     [1/1] musique_0: score 1.00 | 30216ms
+   Score médio: 1.000 | Latência média: 30216.1ms | 1 casos
+
+>> Executando musique com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 82.04it/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (3393 > 512). Running this sequence through the model will result in indexing errors
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+model loaded
+     [1/1] musique_0: score 1.00 | 15285ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+   Score médio: 1.000 | Latência média: 15285.2ms | 1 casos
+
+>> Executando meeting_summarization com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/1] meeting_summarization_0: score 0.41 | 22877ms
+   Score médio: 0.413 | Latência média: 22877.1ms | 1 casos
+
+>> Executando meeting_summarization com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.91it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.90it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+model loaded
+     [1/1] meeting_summarization_0: score 0.17 | 136815ms
+   Score médio: 0.173 | Latência média: 136814.9ms | 1 casos
+
+>> Executando meeting_summarization com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 41.66it/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (11517 > 512). Running this sequence through the model will result in indexing errors
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+model loaded
+     [1/1] meeting_summarization_0: score 0.43 | 117686ms
+   Score médio: 0.427 | Latência média: 117686.0ms | 1 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v5/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v5/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v5/runs/llama3.1-8b-instruct-q8_0/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 21
+
+--- Métricas por Estratégia ---
+
+raw_llama3.1-8b-instruct-q8:
+  Score médio: 0.699
+  Score min/max: 0.333 / 1.000
+  Latência média: 13192.8ms
+
+mckp_llama3.1-8b-instruct-q8:
+  Score médio: 0.580
+  Score min/max: 0.054 / 1.000
+  Latência média: 87700.8ms
+
+mckp_uniform_control_llama3.1-8b-instruct-q8:
+  Score médio: 0.657
+  Score min/max: 0.171 / 1.000
+  Latência média: 60029.9ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_llama3.1-8b-instruct-q80.483               0.667               0.333               1.000               1.000               1.000               0.413               
+mckp_llama3.1-8b-instruct-q80.054               0.667               0.167               1.000               1.000               1.000               0.173               
+mckp_uniform_control_llama3.1-8b-instruct-q80.171               0.667               0.333               1.000               1.000               1.000               0.427               
+
+============================================================
+
+Resultados salvos em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v5/runs/llama3.1-8b-instruct-q8_0/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)

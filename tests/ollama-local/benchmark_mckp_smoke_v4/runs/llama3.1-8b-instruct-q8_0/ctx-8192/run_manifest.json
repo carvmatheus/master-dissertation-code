@@ -1,0 +1,44 @@
+{
+  "created_at": "2026-07-24T01:51:26.507970+00:00",
+  "model": "llama3.1:8b-instruct-q8_0",
+  "num_ctx": 8192,
+  "strategies": [
+    "raw",
+    "mckp",
+    "mckp_uniform_control"
+  ],
+  "benchmarks": [
+    "longbench"
+  ],
+  "quick": true,
+  "examples_per_benchmark": 1,
+  "mckp_mu": 0.1,
+  "mckp_distance": null,
+  "mckp_budget_bucket": 1,
+  "command": [
+    "/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/../.venv/bin/python",
+    "/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/run_benchmarks.py",
+    "--models",
+    "ollama/llama3.1:8b-instruct-q8_0",
+    "--strategies",
+    "raw,mckp,mckp_uniform_control",
+    "--benchmarks",
+    "longbench",
+    "--ollama-num-ctx",
+    "8192",
+    "--output-dir",
+    "/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_smoke_v4/runs/llama3.1-8b-instruct-q8_0/ctx-8192",
+    "--quick",
+    "--examples-per-benchmark",
+    "1",
+    "--mckp-mu",
+    "0.1",
+    "--mckp-budget-bucket",
+    "1"
+  ],
+  "dataset_sha256": {
+    "longbench": "123de7251e7336803df67f4e2e0b237dd39332657f7837f4c8076f032af9da2e"
+  },
+  "mckp_config_sha256": "f20fde45ee65410ff44c2bfae0df9045ebd7d2ddca45d9322d24a80391a67a8d",
+  "requirements_sha256": "d7cbe3636b370c0e9bc57d8c8ebc4a0481205ff4fee7cc1f9d7e0657fda03ee0"
+}

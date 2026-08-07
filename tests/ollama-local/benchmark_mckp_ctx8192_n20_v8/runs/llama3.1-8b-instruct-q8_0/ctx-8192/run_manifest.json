@@ -1,0 +1,56 @@
+{
+  "created_at": "2026-07-27T01:58:41.999883+00:00",
+  "model": "llama3.1:8b-instruct-q8_0",
+  "num_ctx": 8192,
+  "strategies": [
+    "raw",
+    "mckp",
+    "mckp_uniform_control"
+  ],
+  "benchmarks": [
+    "longbench",
+    "zeroscrolls",
+    "naturalquestions",
+    "triviaqa",
+    "hotpotqa",
+    "musique",
+    "meeting_summarization"
+  ],
+  "quick": true,
+  "examples_per_benchmark": 20,
+  "mckp_mu": 0.1,
+  "mckp_distance": null,
+  "mckp_budget_bucket": 1,
+  "command": [
+    "/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/.venv/bin/python",
+    "/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/run_benchmarks.py",
+    "--models",
+    "ollama/llama3.1:8b-instruct-q8_0",
+    "--strategies",
+    "raw,mckp,mckp_uniform_control",
+    "--benchmarks",
+    "longbench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization",
+    "--ollama-num-ctx",
+    "8192",
+    "--output-dir",
+    "/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_ctx8192_n20_v8/runs/llama3.1-8b-instruct-q8_0/ctx-8192",
+    "--quick",
+    "--examples-per-benchmark",
+    "20",
+    "--mckp-mu",
+    "0.1",
+    "--mckp-budget-bucket",
+    "1"
+  ],
+  "dataset_sha256": {
+    "longbench": "c193e3eda9f74da12977cc88bfda9229855a3636a0f5643104e381ea13c12996",
+    "zeroscrolls": "d1e13858ff713dbb338393253f2d41119d6a6a86009f5d8288eaa2407792bf3a",
+    "naturalquestions": "7404bfdf1f7bde7670f4c7bcf69dc7539de820cb4979e09b3b7cda95e3a2fa2d",
+    "triviaqa": "159d33ccee17ac6964f56a357edf628e4c6afed76d97d45d47e42607733c3d01",
+    "hotpotqa": "950532dfea4754516cb6536c43d6f0051a76488b2f7a13a8b4a4d45784e9019f",
+    "musique": "b9246ae64900740abc4073eb74d762e8c2f8f915457294bfcf5576fe471b0ca8",
+    "meeting_summarization": "4c4a9fe0c41ff164de3605c910870a03a0e872a9cade0a5bb8de001dbf3e7a71"
+  },
+  "mckp_config_sha256": "1eb63f3cf177a00300751436930f8df6a33f1faa78e168761369cc33538a8d72",
+  "requirements_sha256": "d7cbe3636b370c0e9bc57d8c8ebc4a0481205ff4fee7cc1f9d7e0657fda03ee0"
+}

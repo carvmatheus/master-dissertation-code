@@ -1,0 +1,2 @@
+Model,needle_in_haystack,ruler,longbench,babilong,narrativeqa,qasper,infinitebench,zeroscrolls,naturalquestions,triviaqa,hotpotqa,musique,meeting_summarization,Average
+llama3.1-8b-instruct-q8,-,-,0.274,-,-,-,-,0.654,0.465,0.967,0.513,0.256,0.182,0.473

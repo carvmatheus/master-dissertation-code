@@ -1,0 +1,392 @@
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_llama3.1-8b-instruct-q8
+Estratégia registrada: cpc_llama3.1-8b-instruct-q8
+Estratégia registrada: llmlingua2_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['raw', 'cpc', 'llmlingua2']
+Estratégias registradas: ['raw_llama3.1-8b-instruct-q8', 'cpc_llama3.1-8b-instruct-q8', 'llmlingua2_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 127304 -> 22308 chars (num_ctx=8192)
+     [1/10] longbench_0: score 0.48 | 22898ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 134214 -> 22308 chars (num_ctx=8192)
+     [2/10] longbench_1: score 0.00 | 24656ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 33711 -> 22308 chars (num_ctx=8192)
+     [3/10] longbench_2: score 0.40 | 21092ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 35668 -> 22308 chars (num_ctx=8192)
+     [4/10] longbench_3: score 0.08 | 23782ms
+     [5/10] longbench_4: score 0.20 | 17604ms
+     [6/10] longbench_5: score 0.33 | 16074ms
+     [7/10] longbench_6: score 0.14 | 17717ms
+     [8/10] longbench_7: score 0.57 | 11023ms
+     [9/10] longbench_8: score 0.75 | 6059ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 45634 -> 22308 chars (num_ctx=8192)
+     [10/10] longbench_9: score 0.10 | 23806ms
+   Score médio: 0.306 | Latência média: 18471.1ms | 10 casos
+
+>> Executando longbench com estratégia: cpc_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 64520 -> 22308 chars (num_ctx=8192)
+     [1/10] longbench_0: score 0.17 | 25015ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 66163 -> 22308 chars (num_ctx=8192)
+     [2/10] longbench_1: score 0.00 | 22221ms
+     [3/10] longbench_2: score 0.15 | 15446ms
+     [4/10] longbench_3: score 0.07 | 18720ms
+     [5/10] longbench_4: score 0.25 | 9688ms
+     [6/10] longbench_5: score 0.43 | 8811ms
+     [7/10] longbench_6: score 0.09 | 8909ms
+     [8/10] longbench_7: score 0.25 | 6523ms
+     [9/10] longbench_8: score 0.91 | 3121ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23269 -> 22308 chars (num_ctx=8192)
+     [10/10] longbench_9: score 0.00 | 20995ms
+   Score médio: 0.233 | Latência média: 13944.8ms | 10 casos
+
+>> Executando longbench com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+Token indices sequence length is longer than the specified maximum sequence length for this model (32254 > 512). Running this sequence through the model will result in indexing errors
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 69190 -> 22308 chars (num_ctx=8192)
+     [1/10] longbench_0: score 0.28 | 42652ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 74834 -> 22308 chars (num_ctx=8192)
+     [2/10] longbench_1: score 0.00 | 41187ms
+     [3/10] longbench_2: score 0.25 | 19588ms
+     [4/10] longbench_3: score 0.08 | 22733ms
+     [5/10] longbench_4: score 0.19 | 12121ms
+     [6/10] longbench_5: score 0.34 | 11601ms
+     [7/10] longbench_6: score 0.55 | 14033ms
+     [8/10] longbench_7: score 0.24 | 10575ms
+     [9/10] longbench_8: score 0.75 | 4145ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 24317 -> 22308 chars (num_ctx=8192)
+     [10/10] longbench_9: score 0.17 | 29993ms
+   Score médio: 0.284 | Latência média: 20862.9ms | 10 casos
+
+>> Executando zeroscrolls com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] zeroscrolls_0: score 0.67 | 9890ms
+     [2/10] zeroscrolls_1: score 0.67 | 622ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23483 -> 22308 chars (num_ctx=8192)
+     [3/10] zeroscrolls_2: score 1.00 | 24594ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23483 -> 22308 chars (num_ctx=8192)
+     [4/10] zeroscrolls_3: score 1.00 | 3798ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 29708 -> 22308 chars (num_ctx=8192)
+     [5/10] zeroscrolls_4: score 0.48 | 24156ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 29708 -> 22308 chars (num_ctx=8192)
+     [6/10] zeroscrolls_5: score 0.52 | 7090ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 28884 -> 22308 chars (num_ctx=8192)
+     [7/10] zeroscrolls_6: score 0.50 | 27012ms
+     [8/10] zeroscrolls_7: score 1.00 | 10139ms
+     [9/10] zeroscrolls_8: score 1.00 | 1963ms
+     [10/10] zeroscrolls_9: score 1.00 | 14074ms
+   Score médio: 0.783 | Latência média: 12333.8ms | 10 casos
+
+>> Executando zeroscrolls com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/10] zeroscrolls_0: score 0.67 | 5373ms
+     [2/10] zeroscrolls_1: score 0.67 | 684ms
+     [3/10] zeroscrolls_2: score 0.00 | 9145ms
+     [4/10] zeroscrolls_3: score 0.00 | 635ms
+     [5/10] zeroscrolls_4: score 0.86 | 20067ms
+     [6/10] zeroscrolls_5: score 0.48 | 8735ms
+     [7/10] zeroscrolls_6: score 0.50 | 18146ms
+     [8/10] zeroscrolls_7: score 1.00 | 6378ms
+     [9/10] zeroscrolls_8: score 1.00 | 2160ms
+     [10/10] zeroscrolls_9: score 1.00 | 7257ms
+   Score médio: 0.617 | Latência média: 7858.0ms | 10 casos
+
+>> Executando zeroscrolls com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/10] zeroscrolls_0: score 0.67 | 7601ms
+     [2/10] zeroscrolls_1: score 0.67 | 2979ms
+     [3/10] zeroscrolls_2: score 0.00 | 19681ms
+     [4/10] zeroscrolls_3: score 0.00 | 9081ms
+     [5/10] zeroscrolls_4: score 0.43 | 20413ms
+     [6/10] zeroscrolls_5: score 0.44 | 10089ms
+     [7/10] zeroscrolls_6: score 0.50 | 15024ms
+     [8/10] zeroscrolls_7: score 1.00 | 7842ms
+     [9/10] zeroscrolls_8: score 1.00 | 4117ms
+     [10/10] zeroscrolls_9: score 0.92 | 11294ms
+   Score médio: 0.562 | Latência média: 10812.0ms | 10 casos
+
+>> Executando naturalquestions com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] naturalquestions_0: score 0.33 | 16913ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 41754 -> 22308 chars (num_ctx=8192)
+     [2/10] naturalquestions_1: score 1.00 | 17763ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 50250 -> 22308 chars (num_ctx=8192)
+     [3/10] naturalquestions_2: score 0.00 | 19968ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 36881 -> 22308 chars (num_ctx=8192)
+     [4/10] naturalquestions_3: score 0.00 | 18673ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43344 -> 22308 chars (num_ctx=8192)
+     [5/10] naturalquestions_4: score 0.00 | 18097ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 25806 -> 22308 chars (num_ctx=8192)
+     [6/10] naturalquestions_5: score 0.25 | 19774ms
+     [7/10] naturalquestions_6: score 1.00 | 12724ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 85059 -> 22308 chars (num_ctx=8192)
+     [8/10] naturalquestions_7: score 0.00 | 19899ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23033 -> 22308 chars (num_ctx=8192)
+     [9/10] naturalquestions_8: score 0.50 | 19259ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43093 -> 22308 chars (num_ctx=8192)
+     [10/10] naturalquestions_9: score 1.00 | 21625ms
+   Score médio: 0.408 | Latência média: 18469.7ms | 10 casos
+
+>> Executando naturalquestions com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/10] naturalquestions_0: score 0.94 | 8464ms
+     [2/10] naturalquestions_1: score 1.00 | 18741ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 26383 -> 22308 chars (num_ctx=8192)
+     [3/10] naturalquestions_2: score 0.00 | 20795ms
+     [4/10] naturalquestions_3: score 0.17 | 17737ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23002 -> 22308 chars (num_ctx=8192)
+     [5/10] naturalquestions_4: score 0.00 | 18080ms
+     [6/10] naturalquestions_5: score 0.25 | 14981ms
+     [7/10] naturalquestions_6: score 1.00 | 11094ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43867 -> 22308 chars (num_ctx=8192)
+     [8/10] naturalquestions_7: score 0.00 | 19857ms
+     [9/10] naturalquestions_8: score 0.50 | 10449ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 22389 -> 22308 chars (num_ctx=8192)
+     [10/10] naturalquestions_9: score 1.00 | 22485ms
+   Score médio: 0.486 | Latência média: 16268.3ms | 10 casos
+
+>> Executando naturalquestions com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/10] naturalquestions_0: score 0.50 | 10860ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23241 -> 22308 chars (num_ctx=8192)
+     [2/10] naturalquestions_1: score 1.00 | 27098ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 28557 -> 22308 chars (num_ctx=8192)
+     [3/10] naturalquestions_2: score 0.00 | 31094ms
+     [4/10] naturalquestions_3: score 0.00 | 25383ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 24638 -> 22308 chars (num_ctx=8192)
+     [5/10] naturalquestions_4: score 0.00 | 25392ms
+     [6/10] naturalquestions_5: score 0.00 | 15465ms
+     [7/10] naturalquestions_6: score 1.00 | 9759ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 48778 -> 22308 chars (num_ctx=8192)
+     [8/10] naturalquestions_7: score 1.00 | 32511ms
+     [9/10] naturalquestions_8: score 0.50 | 14173ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23901 -> 22308 chars (num_ctx=8192)
+     [10/10] naturalquestions_9: score 1.00 | 30952ms
+   Score médio: 0.500 | Latência média: 22268.6ms | 10 casos
+
+>> Executando triviaqa com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] triviaqa_0: score 1.00 | 1463ms
+     [2/10] triviaqa_1: score 1.00 | 3054ms
+     [3/10] triviaqa_2: score 1.00 | 3982ms
+     [4/10] triviaqa_3: score 1.00 | 4130ms
+     [5/10] triviaqa_4: score 1.00 | 3626ms
+     [6/10] triviaqa_5: score 1.00 | 3942ms
+     [7/10] triviaqa_6: score 1.00 | 4153ms
+     [8/10] triviaqa_7: score 1.00 | 3887ms
+     [9/10] triviaqa_8: score 1.00 | 4078ms
+     [10/10] triviaqa_9: score 1.00 | 4379ms
+   Score médio: 1.000 | Latência média: 3669.4ms | 10 casos
+
+>> Executando triviaqa com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/10] triviaqa_0: score 1.00 | 900ms
+     [2/10] triviaqa_1: score 1.00 | 1319ms
+     [3/10] triviaqa_2: score 1.00 | 2380ms
+     [4/10] triviaqa_3: score 1.00 | 2486ms
+     [5/10] triviaqa_4: score 1.00 | 2442ms
+     [6/10] triviaqa_5: score 1.00 | 2323ms
+     [7/10] triviaqa_6: score 1.00 | 2672ms
+     [8/10] triviaqa_7: score 1.00 | 2536ms
+     [9/10] triviaqa_8: score 1.00 | 2717ms
+     [10/10] triviaqa_9: score 1.00 | 2900ms
+   Score médio: 1.000 | Latência média: 2267.5ms | 10 casos
+
+>> Executando triviaqa com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/10] triviaqa_0: score 1.00 | 1338ms
+     [2/10] triviaqa_1: score 1.00 | 2507ms
+     [3/10] triviaqa_2: score 1.00 | 3229ms
+     [4/10] triviaqa_3: score 0.00 | 3443ms
+     [5/10] triviaqa_4: score 1.00 | 3008ms
+     [6/10] triviaqa_5: score 1.00 | 3025ms
+     [7/10] triviaqa_6: score 1.00 | 3088ms
+     [8/10] triviaqa_7: score 1.00 | 2761ms
+     [9/10] triviaqa_8: score 1.00 | 3233ms
+     [10/10] triviaqa_9: score 1.00 | 3409ms
+   Score médio: 0.900 | Latência média: 2904.1ms | 10 casos
+
+>> Executando hotpotqa com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] hotpotqa_0: score 1.00 | 4836ms
+     [2/10] hotpotqa_1: score 0.00 | 8135ms
+     [3/10] hotpotqa_2: score 1.00 | 6128ms
+     [4/10] hotpotqa_3: score 0.00 | 3915ms
+     [5/10] hotpotqa_4: score 0.40 | 5214ms
+     [6/10] hotpotqa_5: score 1.00 | 5229ms
+     [7/10] hotpotqa_6: score 1.00 | 7274ms
+     [8/10] hotpotqa_7: score 1.00 | 11309ms
+     [9/10] hotpotqa_8: score 1.00 | 5198ms
+     [10/10] hotpotqa_9: score 0.00 | 5290ms
+   Score médio: 0.640 | Latência média: 6252.7ms | 10 casos
+
+>> Executando hotpotqa com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/10] hotpotqa_0: score 0.00 | 2607ms
+     [2/10] hotpotqa_1: score 0.00 | 5317ms
+     [3/10] hotpotqa_2: score 1.00 | 3429ms
+     [4/10] hotpotqa_3: score 0.00 | 2407ms
+     [5/10] hotpotqa_4: score 0.60 | 2928ms
+     [6/10] hotpotqa_5: score 1.00 | 2785ms
+     [7/10] hotpotqa_6: score 1.00 | 4374ms
+     [8/10] hotpotqa_7: score 0.00 | 6290ms
+     [9/10] hotpotqa_8: score 1.00 | 2965ms
+     [10/10] hotpotqa_9: score 0.00 | 2852ms
+   Score médio: 0.460 | Latência média: 3595.5ms | 10 casos
+
+>> Executando hotpotqa com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/10] hotpotqa_0: score 0.00 | 3404ms
+     [2/10] hotpotqa_1: score 0.00 | 6678ms
+     [3/10] hotpotqa_2: score 1.00 | 4734ms
+     [4/10] hotpotqa_3: score 0.00 | 2798ms
+     [5/10] hotpotqa_4: score 0.40 | 3725ms
+     [6/10] hotpotqa_5: score 0.00 | 3965ms
+     [7/10] hotpotqa_6: score 1.00 | 5395ms
+     [8/10] hotpotqa_7: score 1.00 | 7656ms
+     [9/10] hotpotqa_8: score 1.00 | 3855ms
+     [10/10] hotpotqa_9: score 0.00 | 4141ms
+   Score médio: 0.440 | Latência média: 4635.0ms | 10 casos
+
+>> Executando musique com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] musique_0: score 1.00 | 12215ms
+     [2/10] musique_1: score 0.25 | 10691ms
+     [3/10] musique_2: score 0.00 | 6788ms
+     [4/10] musique_3: score 0.00 | 12549ms
+     [5/10] musique_4: score 1.00 | 10192ms
+     [6/10] musique_5: score 0.00 | 10518ms
+     [7/10] musique_6: score 0.00 | 10866ms
+     [8/10] musique_7: score 0.00 | 9143ms
+     [9/10] musique_8: score 0.00 | 7602ms
+     [10/10] musique_9: score 0.50 | 14203ms
+   Score médio: 0.275 | Latência média: 10476.6ms | 10 casos
+
+>> Executando musique com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/10] musique_0: score 1.00 | 6549ms
+     [2/10] musique_1: score 0.25 | 6806ms
+     [3/10] musique_2: score 0.00 | 3833ms
+     [4/10] musique_3: score 0.00 | 7669ms
+     [5/10] musique_4: score 1.00 | 5355ms
+     [6/10] musique_5: score 0.00 | 6301ms
+     [7/10] musique_6: score 0.00 | 5553ms
+     [8/10] musique_7: score 0.00 | 5280ms
+     [9/10] musique_8: score 0.00 | 3947ms
+     [10/10] musique_9: score 0.50 | 9508ms
+   Score médio: 0.275 | Latência média: 6080.1ms | 10 casos
+
+>> Executando musique com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+     [1/10] musique_0: score 1.00 | 8506ms
+     [2/10] musique_1: score 0.00 | 8809ms
+     [3/10] musique_2: score 0.00 | 4963ms
+     [4/10] musique_3: score 0.00 | 10561ms
+     [5/10] musique_4: score 0.67 | 7102ms
+     [6/10] musique_5: score 0.00 | 7569ms
+     [7/10] musique_6: score 0.00 | 7465ms
+     [8/10] musique_7: score 0.00 | 6466ms
+     [9/10] musique_8: score 0.00 | 5470ms
+     [10/10] musique_9: score 0.50 | 9178ms
+   Score médio: 0.217 | Latência média: 7608.8ms | 10 casos
+
+>> Executando meeting_summarization com estratégia: raw_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+     [1/10] meeting_summarization_0: score 0.41 | 22827ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+     [2/10] meeting_summarization_1: score 0.41 | 30062ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+     [3/10] meeting_summarization_2: score 0.00 | 1296ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+     [4/10] meeting_summarization_3: score 0.28 | 6781ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 52642 -> 22308 chars (num_ctx=8192)
+     [5/10] meeting_summarization_4: score 0.02 | 29214ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 71042 -> 22308 chars (num_ctx=8192)
+     [6/10] meeting_summarization_5: score 0.10 | 34334ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 80071 -> 22308 chars (num_ctx=8192)
+     [7/10] meeting_summarization_6: score 0.05 | 29822ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 80071 -> 22308 chars (num_ctx=8192)
+     [8/10] meeting_summarization_7: score 0.05 | 2227ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 60972 -> 22308 chars (num_ctx=8192)
+     [9/10] meeting_summarization_8: score 0.05 | 23504ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 36577 -> 22308 chars (num_ctx=8192)
+     [10/10] meeting_summarization_9: score 0.59 | 24833ms
+   Score médio: 0.196 | Latência média: 20490.0ms | 10 casos
+
+>> Executando meeting_summarization com estratégia: cpc_llama3.1-8b-instruct-q8
+     [1/10] meeting_summarization_0: score 0.33 | 21448ms
+     [2/10] meeting_summarization_1: score 0.41 | 25258ms
+     [3/10] meeting_summarization_2: score 0.27 | 19930ms
+     [4/10] meeting_summarization_3: score 0.37 | 25666ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 27205 -> 22308 chars (num_ctx=8192)
+     [5/10] meeting_summarization_4: score 0.03 | 27841ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 35430 -> 22308 chars (num_ctx=8192)
+     [6/10] meeting_summarization_5: score 0.11 | 37467ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40884 -> 22308 chars (num_ctx=8192)
+     [7/10] meeting_summarization_6: score 0.04 | 32242ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40366 -> 22308 chars (num_ctx=8192)
+     [8/10] meeting_summarization_7: score 0.02 | 22332ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 30914 -> 22308 chars (num_ctx=8192)
+     [9/10] meeting_summarization_8: score 0.05 | 20457ms
+     [10/10] meeting_summarization_9: score 0.26 | 19795ms
+   Score médio: 0.188 | Latência média: 25243.6ms | 10 casos
+
+>> Executando meeting_summarization com estratégia: llmlingua2_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 25685 -> 22308 chars (num_ctx=8192)
+     [1/10] meeting_summarization_0: score 0.44 | 26790ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [2/10] meeting_summarization_1: score 0.00 | 27842ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [3/10] meeting_summarization_2: score 0.35 | 11689ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 24371 -> 22308 chars (num_ctx=8192)
+     [4/10] meeting_summarization_3: score 0.06 | 12579ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 31673 -> 22308 chars (num_ctx=8192)
+     [5/10] meeting_summarization_4: score 0.02 | 33376ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 39692 -> 22308 chars (num_ctx=8192)
+     [6/10] meeting_summarization_5: score 0.10 | 35984ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 45148 -> 22308 chars (num_ctx=8192)
+     [7/10] meeting_summarization_6: score 0.04 | 39196ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 45148 -> 22308 chars (num_ctx=8192)
+     [8/10] meeting_summarization_7: score 0.03 | 13779ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 34389 -> 22308 chars (num_ctx=8192)
+     [9/10] meeting_summarization_8: score 0.09 | 30118ms
+     [10/10] meeting_summarization_9: score 0.50 | 25562ms
+   Score médio: 0.162 | Latência média: 25691.5ms | 10 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_compressor_downstream_v6/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_compressor_downstream_v6/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_compressor_downstream_v6/runs/llama3.1-8b-instruct-q8_0/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 210
+
+--- Métricas por Estratégia ---
+
+raw_llama3.1-8b-instruct-q8:
+  Score médio: 0.515
+  Score min/max: 0.000 / 1.000
+  Latência média: 12880.5ms
+
+cpc_llama3.1-8b-instruct-q8:
+  Score médio: 0.466
+  Score min/max: 0.000 / 1.000
+  Latência média: 10751.1ms
+
+llmlingua2_llama3.1-8b-instruct-q8:
+  Score médio: 0.438
+  Score min/max: 0.000 / 1.000
+  Latência média: 13540.4ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_llama3.1-8b-instruct-q80.306               0.783               0.408               1.000               0.640               0.275               0.196               
+cpc_llama3.1-8b-instruct-q80.233               0.617               0.486               1.000               0.460               0.275               0.188               
+llmlingua2_llama3.1-8b-instruct-q80.284               0.562               0.500               0.900               0.440               0.217               0.162               
+
+============================================================
+
+Resultados salvos em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_compressor_downstream_v6/runs/llama3.1-8b-instruct-q8_0/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)

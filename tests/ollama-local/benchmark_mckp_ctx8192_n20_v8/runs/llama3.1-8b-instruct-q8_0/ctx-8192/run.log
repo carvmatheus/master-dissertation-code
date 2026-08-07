@@ -1,0 +1,27 @@
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_llama3.1-8b-instruct-q8
+Estratégia registrada: mckp_llama3.1-8b-instruct-q8
+Estratégia registrada: mckp_uniform_control_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['raw', 'mckp', 'mckp_uniform_control']
+Estratégias registradas: ['raw_llama3.1-8b-instruct-q8', 'mckp_llama3.1-8b-instruct-q8', 'mckp_uniform_control_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 127304 -> 22308 chars (num_ctx=8192)
+     [1/20] longbench_0: score 0.48 | 22834ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 134214 -> 22308 chars (num_ctx=8192)
+     [2/20] longbench_1: score 0.00 | 24775ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 33711 -> 22308 chars (num_ctx=8192)
+     [3/20] longbench_2: score 0.40 | 21160ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 35668 -> 22308 chars (num_ctx=8192)
+     [4/20] longbench_3: score 0.08 | 23936ms
+     [5/20] longbench_4: score 0.20 | 17709ms

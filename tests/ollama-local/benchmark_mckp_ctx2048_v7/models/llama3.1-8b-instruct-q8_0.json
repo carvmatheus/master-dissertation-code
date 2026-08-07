@@ -1,0 +1,23 @@
+{
+  "captured_at": "2026-07-25T21:39:13.527791+00:00",
+  "model": "llama3.1:8b-instruct-q8_0",
+  "details": {
+    "parent_model": "",
+    "format": "gguf",
+    "family": "llama",
+    "families": [
+      "llama"
+    ],
+    "parameter_size": "8.0B",
+    "quantization_level": "Q8_0"
+  },
+  "capabilities": [
+    "completion",
+    "tools"
+  ],
+  "parameters": "stop                           \"<|start_header_id|>\"\nstop                           \"<|end_header_id|>\"\nstop                           \"<|eot_id|>\"",
+  "declared_context_length": 131072,
+  "context_length_fields": {
+    "llama.context_length": 131072
+  }
+}

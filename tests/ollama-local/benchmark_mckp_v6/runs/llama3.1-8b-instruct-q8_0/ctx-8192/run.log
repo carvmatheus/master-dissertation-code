@@ -1,0 +1,1255 @@
+======================================================================
+BENCHMARK DE ESTRATÉGIAS DE EXTENSÃO DE CONTEXTO
+======================================================================
+
+Registrando estratégias...
+Estratégia registrada: raw_llama3.1-8b-instruct-q8
+Estratégia registrada: mckp_llama3.1-8b-instruct-q8
+Estratégia registrada: mckp_uniform_control_llama3.1-8b-instruct-q8
+
+Modelos: ['ollama/llama3.1:8b-instruct-q8_0']
+Estratégias base: ['raw', 'mckp', 'mckp_uniform_control']
+Estratégias registradas: ['raw_llama3.1-8b-instruct-q8', 'mckp_llama3.1-8b-instruct-q8', 'mckp_uniform_control_llama3.1-8b-instruct-q8']
+Benchmarks: ['longbench', 'zeroscrolls', 'naturalquestions', 'triviaqa', 'hotpotqa', 'musique', 'meeting_summarization']
+Ollama num_ctx: 8192
+----------------------------------------------------------------------
+Carregando llama3.1:8b-instruct-q8_0 (num_ctx=8192)...
+
+>> Executando longbench com estratégia: raw_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 127304 -> 22308 chars (num_ctx=8192)
+     [1/10] longbench_0: score 0.48 | 22826ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 134214 -> 22308 chars (num_ctx=8192)
+     [2/10] longbench_1: score 0.00 | 24601ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 33711 -> 22308 chars (num_ctx=8192)
+     [3/10] longbench_2: score 0.40 | 21129ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 35668 -> 22308 chars (num_ctx=8192)
+     [4/10] longbench_3: score 0.08 | 23735ms
+     [5/10] longbench_4: score 0.20 | 17578ms
+     [6/10] longbench_5: score 0.33 | 16123ms
+     [7/10] longbench_6: score 0.14 | 17401ms
+     [8/10] longbench_7: score 0.57 | 10921ms
+     [9/10] longbench_8: score 0.75 | 5967ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 45634 -> 22308 chars (num_ctx=8192)
+     [10/10] longbench_9: score 0.10 | 23665ms
+   Score médio: 0.306 | Latência média: 18394.6ms | 10 casos
+
+>> Executando longbench com estratégia: mckp_llama3.1-8b-instruct-q8
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:89: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 110 chunk(s)...
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]
+Batches:  25%|██▌       | 1/4 [00:00<00:00,  6.02it/s]
+Batches:  50%|█████     | 2/4 [00:00<00:00,  7.40it/s]
+Batches:  75%|███████▌  | 3/4 [00:00<00:00,  7.86it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00,  9.23it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 110 chunks com sucesso!
+     [1/10] longbench_0: score 0.12 | 266847ms
+Gerando embeddings para 97 chunk(s)...
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]
+Batches:  25%|██▌       | 1/4 [00:00<00:00,  5.40it/s]
+Batches:  50%|█████     | 2/4 [00:00<00:00,  6.65it/s]
+Batches:  75%|███████▌  | 3/4 [00:00<00:00,  7.45it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00,  9.28it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 97 chunks com sucesso!
+     [2/10] longbench_1: score 0.00 | 236959ms
+Gerando embeddings para 22 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.77it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.76it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+     [3/10] longbench_2: score 0.12 | 80110ms
+Gerando embeddings para 29 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.86it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.86it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 29 chunks com sucesso!
+     [4/10] longbench_3: score 0.08 | 93077ms
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 16.83it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+     [5/10] longbench_4: score 0.20 | 32343ms
+Gerando embeddings para 9 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 15.68it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 9 chunks com sucesso!
+     [6/10] longbench_5: score 0.33 | 28571ms
+Gerando embeddings para 11 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 14.40it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 11 chunks com sucesso!
+     [7/10] longbench_6: score 0.14 | 32785ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 17.24it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [8/10] longbench_7: score 0.57 | 22113ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 19.20it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [9/10] longbench_8: score 0.75 | 14000ms
+Gerando embeddings para 29 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.50it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.49it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 29 chunks com sucesso!
+     [10/10] longbench_9: score 0.00 | 99695ms
+   Score médio: 0.231 | Latência média: 90650.2ms | 10 casos
+
+>> Executando longbench com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+/Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/01-context-extension-comparison/rig/dartboard_processor.py:89: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+Gerando embeddings para 110 chunk(s)...
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]
+Batches:  25%|██▌       | 1/4 [00:00<00:00,  7.71it/s]
+Batches:  50%|█████     | 2/4 [00:00<00:00,  8.34it/s]
+Batches:  75%|███████▌  | 3/4 [00:00<00:00,  8.52it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00, 10.58it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 110 chunks com sucesso!
+     [1/10] longbench_0: score 0.00 | 38754ms
+Gerando embeddings para 97 chunk(s)...
+
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]
+Batches:  25%|██▌       | 1/4 [00:00<00:00,  8.49it/s]
+Batches:  50%|█████     | 2/4 [00:00<00:00,  8.72it/s]
+Batches:  75%|███████▌  | 3/4 [00:00<00:00,  8.77it/s]
+Batches: 100%|██████████| 4/4 [00:00<00:00, 11.49it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 97 chunks com sucesso!
+     [2/10] longbench_1: score 0.00 | 33076ms
+Gerando embeddings para 22 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 11.04it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 22 chunks com sucesso!
+     [3/10] longbench_2: score 0.25 | 27088ms
+Gerando embeddings para 29 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.96it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.96it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 29 chunks com sucesso!
+     [4/10] longbench_3: score 0.08 | 26629ms
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 26.00it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+     [5/10] longbench_4: score 0.20 | 4311ms
+Gerando embeddings para 9 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 24.36it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 9 chunks com sucesso!
+     [6/10] longbench_5: score 0.33 | 4755ms
+Gerando embeddings para 11 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 22.44it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 11 chunks com sucesso!
+     [7/10] longbench_6: score 0.14 | 2022ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 27.80it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [8/10] longbench_7: score 0.57 | 853ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 35.22it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [9/10] longbench_8: score 0.75 | 2801ms
+Gerando embeddings para 29 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  5.31it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  5.30it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 29 chunks com sucesso!
+     [10/10] longbench_9: score 0.02 | 37929ms
+   Score médio: 0.235 | Latência média: 17821.8ms | 10 casos
+
+>> Executando zeroscrolls com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] zeroscrolls_0: score 0.67 | 10002ms
+     [2/10] zeroscrolls_1: score 0.67 | 619ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23483 -> 22308 chars (num_ctx=8192)
+     [3/10] zeroscrolls_2: score 1.00 | 24940ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23483 -> 22308 chars (num_ctx=8192)
+     [4/10] zeroscrolls_3: score 1.00 | 3829ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 29708 -> 22308 chars (num_ctx=8192)
+     [5/10] zeroscrolls_4: score 0.48 | 23897ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 29708 -> 22308 chars (num_ctx=8192)
+     [6/10] zeroscrolls_5: score 0.52 | 6992ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 28884 -> 22308 chars (num_ctx=8192)
+     [7/10] zeroscrolls_6: score 0.50 | 26942ms
+     [8/10] zeroscrolls_7: score 1.00 | 10129ms
+     [9/10] zeroscrolls_8: score 1.00 | 1922ms
+     [10/10] zeroscrolls_9: score 1.00 | 14221ms
+   Score médio: 0.783 | Latência média: 12349.2ms | 10 casos
+
+>> Executando zeroscrolls com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 13.78it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+Token indices sequence length is longer than the specified maximum sequence length for this model (518 > 512). Running this sequence through the model will result in indexing errors
+     [1/10] zeroscrolls_0: score 0.67 | 21937ms
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.30it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [2/10] zeroscrolls_1: score 0.67 | 856ms
+Gerando embeddings para 17 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.41it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.40it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 17 chunks com sucesso!
+Token indices sequence length is longer than the specified maximum sequence length for this model (525 > 512). Running this sequence through the model will result in indexing errors
+     [3/10] zeroscrolls_2: score 0.00 | 50911ms
+Gerando embeddings para 17 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 15.39it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 17 chunks com sucesso!
+     [4/10] zeroscrolls_3: score 0.00 | 4130ms
+Gerando embeddings para 16 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 10.10it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 16 chunks com sucesso!
+     [5/10] zeroscrolls_4: score 0.48 | 52285ms
+Gerando embeddings para 16 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.10it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.09it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 16 chunks com sucesso!
+     [6/10] zeroscrolls_5: score 0.52 | 7960ms
+Gerando embeddings para 16 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 15.39it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 16 chunks com sucesso!
+     [7/10] zeroscrolls_6: score 0.50 | 56940ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 29.26it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [8/10] zeroscrolls_7: score 1.00 | 20305ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 37.89it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [9/10] zeroscrolls_8: score 1.00 | 2181ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 18.96it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [10/10] zeroscrolls_9: score 1.00 | 25644ms
+   Score médio: 0.583 | Latência média: 24314.9ms | 10 casos
+
+>> Executando zeroscrolls com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 27.82it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [1/10] zeroscrolls_0: score 0.67 | 1010ms
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 33.24it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [2/10] zeroscrolls_1: score 0.67 | 806ms
+Gerando embeddings para 17 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 13.08it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 17 chunks com sucesso!
+     [3/10] zeroscrolls_2: score 0.00 | 4461ms
+Gerando embeddings para 17 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 15.87it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 17 chunks com sucesso!
+     [4/10] zeroscrolls_3: score 0.00 | 4070ms
+Gerando embeddings para 16 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 15.31it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 16 chunks com sucesso!
+     [5/10] zeroscrolls_4: score 0.48 | 8850ms
+Gerando embeddings para 16 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 14.53it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 16 chunks com sucesso!
+     [6/10] zeroscrolls_5: score 0.52 | 7834ms
+Gerando embeddings para 16 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 15.21it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 16 chunks com sucesso!
+     [7/10] zeroscrolls_6: score 0.50 | 12894ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 39.54it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [8/10] zeroscrolls_7: score 1.00 | 2365ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 39.11it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [9/10] zeroscrolls_8: score 1.00 | 2220ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 29.06it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [10/10] zeroscrolls_9: score 1.00 | 3318ms
+   Score médio: 0.583 | Latência média: 4783.0ms | 10 casos
+
+>> Executando naturalquestions com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] naturalquestions_0: score 0.33 | 16894ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 41754 -> 22308 chars (num_ctx=8192)
+     [2/10] naturalquestions_1: score 1.00 | 17737ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 50250 -> 22308 chars (num_ctx=8192)
+     [3/10] naturalquestions_2: score 0.00 | 20101ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 36881 -> 22308 chars (num_ctx=8192)
+     [4/10] naturalquestions_3: score 0.00 | 18664ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43344 -> 22308 chars (num_ctx=8192)
+     [5/10] naturalquestions_4: score 0.00 | 18084ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 25806 -> 22308 chars (num_ctx=8192)
+     [6/10] naturalquestions_5: score 0.25 | 19725ms
+     [7/10] naturalquestions_6: score 1.00 | 12746ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 85059 -> 22308 chars (num_ctx=8192)
+     [8/10] naturalquestions_7: score 0.00 | 19839ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 23033 -> 22308 chars (num_ctx=8192)
+     [9/10] naturalquestions_8: score 0.50 | 19190ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43093 -> 22308 chars (num_ctx=8192)
+     [10/10] naturalquestions_9: score 1.00 | 21386ms
+   Score médio: 0.408 | Latência média: 18436.8ms | 10 casos
+
+>> Executando naturalquestions com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 9 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 15.20it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 9 chunks com sucesso!
+     [1/10] naturalquestions_0: score 0.17 | 28983ms
+Gerando embeddings para 28 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  6.30it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  6.30it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 28 chunks com sucesso!
+     [2/10] naturalquestions_1: score 1.00 | 90068ms
+Gerando embeddings para 34 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  6.03it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00, 11.49it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 34 chunks com sucesso!
+     [3/10] naturalquestions_2: score 1.00 | 106415ms
+Gerando embeddings para 23 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  6.71it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  6.71it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 23 chunks com sucesso!
+     [4/10] naturalquestions_3: score 0.00 | 82260ms
+Gerando embeddings para 25 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.56it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.55it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 25 chunks com sucesso!
+Token indices sequence length is longer than the specified maximum sequence length for this model (528 > 512). Running this sequence through the model will result in indexing errors
+     [5/10] naturalquestions_4: score 0.00 | 86568ms
+Gerando embeddings para 15 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 10.08it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 15 chunks com sucesso!
+     [6/10] naturalquestions_5: score 0.25 | 44531ms
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 33.13it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [7/10] naturalquestions_6: score 1.00 | 22469ms
+Gerando embeddings para 54 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  8.32it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00,  9.91it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 54 chunks com sucesso!
+     [8/10] naturalquestions_7: score 1.00 | 144056ms
+Gerando embeddings para 14 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 10.65it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 14 chunks com sucesso!
+     [9/10] naturalquestions_8: score 1.00 | 38981ms
+Gerando embeddings para 30 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  6.69it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  6.69it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 30 chunks com sucesso!
+     [10/10] naturalquestions_9: score 1.00 | 96465ms
+   Score médio: 0.642 | Latência média: 74079.6ms | 10 casos
+
+>> Executando naturalquestions com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 9 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 26.60it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 9 chunks com sucesso!
+     [1/10] naturalquestions_0: score 0.17 | 3986ms
+Gerando embeddings para 28 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.38it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.38it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 28 chunks com sucesso!
+     [2/10] naturalquestions_1: score 1.00 | 30132ms
+Gerando embeddings para 34 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  8.39it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00, 15.71it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 34 chunks com sucesso!
+     [3/10] naturalquestions_2: score 0.00 | 29193ms
+Gerando embeddings para 23 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 11.13it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 23 chunks com sucesso!
+     [4/10] naturalquestions_3: score 0.00 | 31703ms
+Gerando embeddings para 25 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.89it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.88it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 25 chunks com sucesso!
+     [5/10] naturalquestions_4: score 0.00 | 29537ms
+Gerando embeddings para 15 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 17.24it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 15 chunks com sucesso!
+     [6/10] naturalquestions_5: score 0.25 | 2881ms
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 32.03it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [7/10] naturalquestions_6: score 1.00 | 3803ms
+Gerando embeddings para 54 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  7.90it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00,  9.36it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 54 chunks com sucesso!
+     [8/10] naturalquestions_7: score 1.00 | 29463ms
+Gerando embeddings para 14 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 17.97it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 14 chunks com sucesso!
+     [9/10] naturalquestions_8: score 1.00 | 995ms
+Gerando embeddings para 30 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.59it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.58it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 30 chunks com sucesso!
+     [10/10] naturalquestions_9: score 1.00 | 32779ms
+   Score médio: 0.542 | Latência média: 19447.3ms | 10 casos
+
+>> Executando triviaqa com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] triviaqa_0: score 1.00 | 1272ms
+     [2/10] triviaqa_1: score 1.00 | 3029ms
+     [3/10] triviaqa_2: score 1.00 | 3968ms
+     [4/10] triviaqa_3: score 1.00 | 4126ms
+     [5/10] triviaqa_4: score 1.00 | 3641ms
+     [6/10] triviaqa_5: score 1.00 | 4002ms
+     [7/10] triviaqa_6: score 1.00 | 4205ms
+     [8/10] triviaqa_7: score 1.00 | 3943ms
+     [9/10] triviaqa_8: score 1.00 | 4083ms
+     [10/10] triviaqa_9: score 1.00 | 4473ms
+   Score médio: 1.000 | Latência média: 3674.1ms | 10 casos
+
+>> Executando triviaqa com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 17.55it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+     [1/10] triviaqa_0: score 1.00 | 2847ms
+Gerando embeddings para 2 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 34.68it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+     [2/10] triviaqa_1: score 1.00 | 5244ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 52.02it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [3/10] triviaqa_2: score 1.00 | 8709ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 37.85it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [4/10] triviaqa_3: score 0.00 | 8005ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 55.12it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [5/10] triviaqa_4: score 1.00 | 7195ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.51it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [6/10] triviaqa_5: score 1.00 | 8588ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 70.70it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [7/10] triviaqa_6: score 1.00 | 7572ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 56.58it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [8/10] triviaqa_7: score 1.00 | 7434ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 72.45it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [9/10] triviaqa_8: score 1.00 | 7775ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 69.46it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [10/10] triviaqa_9: score 1.00 | 9169ms
+   Score médio: 0.900 | Latência média: 7253.8ms | 10 casos
+
+>> Executando triviaqa com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 1 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 152.81it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 1 chunks com sucesso!
+     [1/10] triviaqa_0: score 1.00 | 692ms
+Gerando embeddings para 2 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 89.72it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 2 chunks com sucesso!
+     [2/10] triviaqa_1: score 1.00 | 803ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 52.81it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [3/10] triviaqa_2: score 1.00 | 708ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 67.93it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [4/10] triviaqa_3: score 0.00 | 778ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 71.39it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [5/10] triviaqa_4: score 1.00 | 691ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 72.48it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [6/10] triviaqa_5: score 1.00 | 737ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 68.39it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [7/10] triviaqa_6: score 1.00 | 992ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 63.66it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [8/10] triviaqa_7: score 1.00 | 795ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 73.28it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [9/10] triviaqa_8: score 1.00 | 831ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 67.21it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [10/10] triviaqa_9: score 1.00 | 897ms
+   Score médio: 0.900 | Latência média: 792.3ms | 10 casos
+
+>> Executando hotpotqa com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] hotpotqa_0: score 1.00 | 4793ms
+     [2/10] hotpotqa_1: score 0.00 | 7964ms
+     [3/10] hotpotqa_2: score 1.00 | 6163ms
+     [4/10] hotpotqa_3: score 0.00 | 4039ms
+     [5/10] hotpotqa_4: score 0.40 | 5145ms
+     [6/10] hotpotqa_5: score 1.00 | 5201ms
+     [7/10] hotpotqa_6: score 1.00 | 7250ms
+     [8/10] hotpotqa_7: score 1.00 | 11184ms
+     [9/10] hotpotqa_8: score 1.00 | 5322ms
+     [10/10] hotpotqa_9: score 0.00 | 5235ms
+   Score médio: 0.640 | Latência média: 6229.5ms | 10 casos
+
+>> Executando hotpotqa com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 22.35it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+     [1/10] hotpotqa_0: score 1.00 | 9692ms
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 45.69it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+     [2/10] hotpotqa_1: score 0.00 | 12654ms
+Gerando embeddings para 5 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 39.90it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+     [3/10] hotpotqa_2: score 1.00 | 13245ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 69.27it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [4/10] hotpotqa_3: score 0.00 | 7641ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 35.16it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [5/10] hotpotqa_4: score 0.40 | 13400ms
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 46.23it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+     [6/10] hotpotqa_5: score 1.00 | 9796ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 34.94it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [7/10] hotpotqa_6: score 1.00 | 15681ms
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 19.82it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+     [8/10] hotpotqa_7: score 1.00 | 24206ms
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 37.78it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+     [9/10] hotpotqa_8: score 1.00 | 10070ms
+Gerando embeddings para 5 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 39.58it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+     [10/10] hotpotqa_9: score 0.00 | 12340ms
+   Score médio: 0.640 | Latência média: 12872.5ms | 10 casos
+
+>> Executando hotpotqa com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 50.98it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+     [1/10] hotpotqa_0: score 1.00 | 841ms
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 52.86it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+     [2/10] hotpotqa_1: score 0.00 | 3846ms
+Gerando embeddings para 5 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 37.00it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+     [3/10] hotpotqa_2: score 1.00 | 939ms
+Gerando embeddings para 3 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 59.97it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 3 chunks com sucesso!
+     [4/10] hotpotqa_3: score 0.00 | 654ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 31.35it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [5/10] hotpotqa_4: score 0.40 | 802ms
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 51.37it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+     [6/10] hotpotqa_5: score 1.00 | 753ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 37.26it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [7/10] hotpotqa_6: score 1.00 | 974ms
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 21.97it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+     [8/10] hotpotqa_7: score 1.00 | 839ms
+Gerando embeddings para 4 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 53.67it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 4 chunks com sucesso!
+     [9/10] hotpotqa_8: score 1.00 | 821ms
+Gerando embeddings para 5 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 45.50it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+     [10/10] hotpotqa_9: score 0.00 | 654ms
+   Score médio: 0.640 | Latência média: 1112.4ms | 10 casos
+
+>> Executando musique com estratégia: raw_llama3.1-8b-instruct-q8
+     [1/10] musique_0: score 1.00 | 12174ms
+     [2/10] musique_1: score 0.25 | 10684ms
+     [3/10] musique_2: score 0.00 | 6796ms
+     [4/10] musique_3: score 0.00 | 12516ms
+     [5/10] musique_4: score 1.00 | 10280ms
+     [6/10] musique_5: score 0.00 | 10442ms
+     [7/10] musique_6: score 0.00 | 10826ms
+     [8/10] musique_7: score 0.00 | 9252ms
+     [9/10] musique_8: score 0.00 | 7682ms
+     [10/10] musique_9: score 0.50 | 14305ms
+   Score médio: 0.275 | Latência média: 10495.7ms | 10 casos
+
+>> Executando musique com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 22.99it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+     [1/10] musique_0: score 1.00 | 25535ms
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 25.41it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [2/10] musique_1: score 0.25 | 20259ms
+Gerando embeddings para 5 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 31.24it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+     [3/10] musique_2: score 0.00 | 14160ms
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 19.90it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+     [4/10] musique_3: score 0.00 | 25721ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 30.24it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [5/10] musique_4: score 1.00 | 21126ms
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 33.56it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [6/10] musique_5: score 0.00 | 20835ms
+Gerando embeddings para 9 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 25.73it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 9 chunks com sucesso!
+     [7/10] musique_6: score 0.00 | 23712ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 26.08it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [8/10] musique_7: score 0.00 | 19887ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 35.25it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [9/10] musique_8: score 0.00 | 16248ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 27.53it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [10/10] musique_9: score 0.50 | 23402ms
+   Score médio: 0.275 | Latência média: 21088.4ms | 10 casos
+
+>> Executando musique com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 24.03it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+     [1/10] musique_0: score 1.00 | 912ms
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 34.61it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [2/10] musique_1: score 0.25 | 2050ms
+Gerando embeddings para 5 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 47.43it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 5 chunks com sucesso!
+     [3/10] musique_2: score 0.00 | 895ms
+Gerando embeddings para 10 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 24.14it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 10 chunks com sucesso!
+     [4/10] musique_3: score 0.00 | 1541ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 28.73it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [5/10] musique_4: score 1.00 | 1071ms
+Gerando embeddings para 7 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 33.91it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 7 chunks com sucesso!
+     [6/10] musique_5: score 0.00 | 2329ms
+Gerando embeddings para 9 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 24.66it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 9 chunks com sucesso!
+     [7/10] musique_6: score 0.00 | 865ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 30.31it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [8/10] musique_7: score 0.00 | 783ms
+Gerando embeddings para 6 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 35.46it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 6 chunks com sucesso!
+     [9/10] musique_8: score 0.00 | 624ms
+Gerando embeddings para 8 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 30.75it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 8 chunks com sucesso!
+     [10/10] musique_9: score 0.50 | 2834ms
+   Score médio: 0.275 | Latência média: 1390.4ms | 10 casos
+
+>> Executando meeting_summarization com estratégia: raw_llama3.1-8b-instruct-q8
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 43538 -> 22308 chars (num_ctx=8192)
+     [1/10] meeting_summarization_0: score 0.41 | 22726ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+     [2/10] meeting_summarization_1: score 0.41 | 29670ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+     [3/10] meeting_summarization_2: score 0.00 | 1291ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 40498 -> 22308 chars (num_ctx=8192)
+     [4/10] meeting_summarization_3: score 0.28 | 6809ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 52642 -> 22308 chars (num_ctx=8192)
+     [5/10] meeting_summarization_4: score 0.02 | 29182ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 71042 -> 22308 chars (num_ctx=8192)
+     [6/10] meeting_summarization_5: score 0.10 | 34484ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 80071 -> 22308 chars (num_ctx=8192)
+     [7/10] meeting_summarization_6: score 0.05 | 29832ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 80071 -> 22308 chars (num_ctx=8192)
+     [8/10] meeting_summarization_7: score 0.05 | 2219ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 60972 -> 22308 chars (num_ctx=8192)
+     [9/10] meeting_summarization_8: score 0.05 | 23325ms
+WARNING __main__: [ollama/llama3.1:8b-instruct-q8_0] Contexto truncado: 36577 -> 22308 chars (num_ctx=8192)
+     [10/10] meeting_summarization_9: score 0.59 | 24945ms
+   Score médio: 0.196 | Latência média: 20448.3ms | 10 casos
+
+>> Executando meeting_summarization com estratégia: mckp_llama3.1-8b-instruct-q8
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.35it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.34it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+     [1/10] meeting_summarization_0: score 0.17 | 90971ms
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 10.14it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+     [2/10] meeting_summarization_1: score 0.16 | 102371ms
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.23it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.22it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+     [3/10] meeting_summarization_2: score 0.35 | 42456ms
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 10.09it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+     [4/10] meeting_summarization_3: score 0.09 | 46732ms
+Gerando embeddings para 32 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.24it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  8.24it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 32 chunks com sucesso!
+     [5/10] meeting_summarization_4: score 0.03 | 109086ms
+Gerando embeddings para 42 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  6.87it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00, 10.20it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 42 chunks com sucesso!
+     [6/10] meeting_summarization_5: score 0.10 | 146625ms
+Gerando embeddings para 46 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  7.72it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00, 10.89it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 46 chunks com sucesso!
+     [7/10] meeting_summarization_6: score 0.06 | 141993ms
+Gerando embeddings para 46 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  6.32it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00,  9.43it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 46 chunks com sucesso!
+     [8/10] meeting_summarization_7: score 0.51 | 68230ms
+Gerando embeddings para 33 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  8.34it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00, 15.71it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 33 chunks com sucesso!
+     [9/10] meeting_summarization_8: score 0.31 | 106705ms
+Gerando embeddings para 23 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.60it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.59it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 23 chunks com sucesso!
+     [10/10] meeting_summarization_9: score 0.09 | 82928ms
+   Score médio: 0.187 | Latência média: 93809.9ms | 10 casos
+
+>> Executando meeting_summarization com estratégia: mckp_uniform_control_llama3.1-8b-instruct-q8
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.16it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.15it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+     [1/10] meeting_summarization_0: score 0.44 | 34164ms
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  6.45it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  6.44it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+     [2/10] meeting_summarization_1: score 0.41 | 38216ms
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.49it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  9.48it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+     [3/10] meeting_summarization_2: score 0.43 | 6196ms
+Gerando embeddings para 26 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 10.06it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 26 chunks com sucesso!
+     [4/10] meeting_summarization_3: score 0.46 | 9668ms
+Gerando embeddings para 32 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.85it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00,  7.84it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 32 chunks com sucesso!
+     [5/10] meeting_summarization_4: score 0.09 | 50480ms
+Gerando embeddings para 42 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  8.07it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00, 12.37it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 42 chunks com sucesso!
+     [6/10] meeting_summarization_5: score 0.06 | 54701ms
+Gerando embeddings para 46 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  7.13it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00, 10.18it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 46 chunks com sucesso!
+     [7/10] meeting_summarization_6: score 0.40 | 31528ms
+Gerando embeddings para 46 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  5.37it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00,  8.37it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 46 chunks com sucesso!
+     [8/10] meeting_summarization_7: score 0.52 | 4888ms
+Gerando embeddings para 33 chunk(s)...
+
+Batches:   0%|          | 0/2 [00:00<?, ?it/s]
+Batches:  50%|█████     | 1/2 [00:00<00:00,  8.59it/s]
+Batches: 100%|██████████| 2/2 [00:00<00:00, 16.26it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 33 chunks com sucesso!
+     [9/10] meeting_summarization_8: score 0.09 | 33780ms
+Gerando embeddings para 23 chunk(s)...
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 11.19it/s]
+Construindo índice lexical (TF-IDF)...
+Indexados 23 chunks com sucesso!
+     [10/10] meeting_summarization_9: score 0.44 | 32329ms
+   Score médio: 0.335 | Latência média: 29595.0ms | 10 casos
+Descarregando llama3.1:8b-instruct-q8_0...
+
+Salvando resultados...
+Resultados salvos em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_v6/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.csv
+Relatório JSON salvo em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_v6/runs/llama3.1-8b-instruct-q8_0/ctx-8192/benchmark_results.json
+Tabela de comparação salva em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_v6/runs/llama3.1-8b-instruct-q8_0/ctx-8192/comparison_table.csv
+  - model_comparison.csv          (modelo × benchmark)
+
+============================================================
+SUMÁRIO DOS BENCHMARKS
+============================================================
+
+Total de testes: 210
+
+--- Métricas por Estratégia ---
+
+raw_llama3.1-8b-instruct-q8:
+  Score médio: 0.515
+  Score min/max: 0.000 / 1.000
+  Latência média: 12861.2ms
+
+mckp_llama3.1-8b-instruct-q8:
+  Score médio: 0.494
+  Score min/max: 0.000 / 1.000
+  Latência média: 46295.6ms
+
+mckp_uniform_control_llama3.1-8b-instruct-q8:
+  Score médio: 0.501
+  Score min/max: 0.000 / 1.000
+  Latência média: 10706.0ms
+
+--- Matriz Estratégia x Benchmark ---
+Strategy            longbench           zeroscrolls         naturalquestions    triviaqa            hotpotqa            musique             meeting_summarization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+raw_llama3.1-8b-instruct-q80.306               0.783               0.408               1.000               0.640               0.275               0.196               
+mckp_llama3.1-8b-instruct-q80.231               0.583               0.642               0.900               0.640               0.275               0.187               
+mckp_uniform_control_llama3.1-8b-instruct-q80.235               0.583               0.542               0.900               0.640               0.275               0.335               
+
+============================================================
+
+Resultados salvos em: /Users/mathcardoso/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documentos - MacBook Pro de matheus/Repositories/master-dissertation-code/tests/ollama-local/benchmark_mckp_v6/runs/llama3.1-8b-instruct-q8_0/ctx-8192/
+  - benchmark_results.csv         (todos os resultados)
+  - benchmark_results.json        (relatório completo)
+  - comparison_table.csv          (estratégia × benchmark)
+  - model_comparison.csv          (modelo × benchmark)

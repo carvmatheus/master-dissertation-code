@@ -1,0 +1,4 @@
+model,num_ctx,strategy,avg_score,avg_latency_ms,num_tests,score_longbench
+llama3.1-8b-instruct-q8_0,8192,mckp_llama3.1-8b-instruct-q8,0.2,213656.93212498445,1,0.2
+llama3.1-8b-instruct-q8_0,8192,mckp_uniform_control_llama3.1-8b-instruct-q8,0.0,2170.9872920182534,1,0.0
+llama3.1-8b-instruct-q8_0,8192,raw_llama3.1-8b-instruct-q8,0.48275862068965514,23055.950583016966,1,0.48275862068965514

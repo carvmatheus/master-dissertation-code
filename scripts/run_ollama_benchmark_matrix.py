@@ -3,7 +3,9 @@
 
 import argparse
 import csv
+import hashlib
 import json
+import os
 import subprocess
 import sys
 import time
@@ -15,6 +17,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK_RUNNER = REPO_ROOT / "01-context-extension-comparison" / "run_benchmarks.py"
+MCKP_PREFLIGHT = REPO_ROOT / "scripts" / "preflight_mckp.py"
 DEFAULT_OUTPUT_ROOT = REPO_ROOT / "tests" / "ollama-local" / "ollama_benchmark_runs"
 DEFAULT_MODEL = "llama3.1:8b-instruct-q8_0"
 DEFAULT_BENCHMARKS = (
@@ -106,6 +109,68 @@ def unload_model(model: str) -> None:
     subprocess.run(["ollama", "stop", model], check=False, timeout=60)
 
 
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def write_run_manifest(
+    output_dir: Path, command: list[str], model: str, num_ctx: int, args: argparse.Namespace
+) -> None:
+    data_dir = REPO_ROOT / "data" / "benchmarks"
+    benchmarks = [name.strip() for name in args.benchmarks.split(",") if name.strip()]
+    dataset_hashes = {
+        name: file_sha256(data_dir / f"{name}.jsonl")
+        for name in benchmarks
+        if (data_dir / f"{name}.jsonl").exists()
+    }
+    manifest = {
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "model": model,
+        "num_ctx": num_ctx,
+        "strategies": args.strategies.split(","),
+        "benchmarks": benchmarks,
+        "quick": not args.full,
+        "examples_per_benchmark": args.examples_per_benchmark,
+        "mckp_mu": args.mckp_mu,
+        "mckp_distance": args.mckp_distance,
+        "mckp_budget_bucket": args.mckp_budget_bucket,
+        "command": command,
+        "dataset_sha256": dataset_hashes,
+        "mckp_config_sha256": file_sha256(
+            REPO_ROOT / "01-context-extension-comparison" / "mckp" / "config.json"
+        ),
+        "requirements_sha256": file_sha256(REPO_ROOT / "requirements.txt"),
+    }
+    output_dir.mkdir(parents=True, exist_ok=True)
+    with (output_dir / "run_manifest.json").open("w", encoding="utf-8") as stream:
+        json.dump(manifest, stream, ensure_ascii=False, indent=2)
+
+
+def run_and_tee(command: list[str], cwd: Path, log_path: Path) -> int:
+    child_env = os.environ.copy()
+    child_env["PYTHONUNBUFFERED"] = "1"
+    with log_path.open("w", encoding="utf-8") as log:
+        process = subprocess.Popen(
+            command,
+            cwd=cwd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1,
+            env=child_env,
+        )
+        assert process.stdout is not None
+        for line in process.stdout:
+            print(line, end="")
+            log.write(line)
+            log.flush()
+        return process.wait()
+
+
 def save_context_comparison(output_root: Path) -> Path:
     rows = []
     benchmark_names = set()
@@ -178,6 +243,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--benchmarks", default=DEFAULT_BENCHMARKS)
     parser.add_argument("--strategies", default="raw")
+    parser.add_argument("--examples-per-benchmark", type=int, default=None)
     parser.add_argument("--mckp-mu", type=float, default=None)
     parser.add_argument(
         "--mckp-distance",
@@ -192,11 +258,17 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Atualiza context_comparison.csv sem executar modelos",
     )
+    parser.add_argument(
+        "--skip-completed",
+        action="store_true",
+        help="Pula combinações que já possuem benchmark_results.json.",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    args.output_root = args.output_root.expanduser().resolve()
     models = [model.strip().removeprefix("ollama/") for model in args.models.split(",")]
     contexts = sorted({int(value.strip()) for value in args.contexts.split(",")})
     if not models or not contexts or any(value <= 756 for value in contexts):
@@ -206,6 +278,21 @@ def main() -> int:
     if args.summarize_only:
         print(f"Comparação salva em: {save_context_comparison(args.output_root)}")
         return 0
+
+    if any(name.strip().startswith("mckp") for name in args.strategies.split(",")):
+        minimum = "20" if args.full else "3"
+        subprocess.run(
+            [
+                sys.executable,
+                str(MCKP_PREFLIGHT),
+                "--benchmarks",
+                args.benchmarks,
+                "--minimum-examples",
+                minimum,
+            ],
+            cwd=REPO_ROOT,
+            check=True,
+        )
 
     ensure_server(args.output_root)
     failures = 0
@@ -222,6 +309,15 @@ def main() -> int:
                     continue
 
                 output_dir = args.output_root / "runs" / model_slug(model) / f"ctx-{num_ctx}"
+                result_path = output_dir / "benchmark_results.json"
+                if result_path.exists():
+                    if args.skip_completed:
+                        print(f"SKIP concluído: {result_path}")
+                        continue
+                    raise FileExistsError(
+                        f"resultado já existe: {result_path}. "
+                        "Use outra --output-root ou --skip-completed."
+                    )
                 command = [
                     sys.executable,
                     str(BENCHMARK_RUNNER),
@@ -238,6 +334,10 @@ def main() -> int:
                 ]
                 if not args.full:
                     command.append("--quick")
+                if args.examples_per_benchmark is not None:
+                    command.extend(
+                        ["--examples-per-benchmark", str(args.examples_per_benchmark)]
+                    )
                 if args.mckp_mu is not None:
                     command.extend(["--mckp-mu", str(args.mckp_mu)])
                 if args.mckp_distance is not None:
@@ -248,10 +348,11 @@ def main() -> int:
                     )
 
                 print(f"\nRUN {model} com num_ctx={num_ctx}")
-                completed = subprocess.run(command, cwd=REPO_ROOT, check=False)
-                if completed.returncode != 0:
+                write_run_manifest(output_dir, command, model, num_ctx, args)
+                returncode = run_and_tee(command, REPO_ROOT, output_dir / "run.log")
+                if returncode != 0:
                     failures += 1
-                    print(f"FALHA {model} num_ctx={num_ctx}: código {completed.returncode}")
+                    print(f"FALHA {model} num_ctx={num_ctx}: código {returncode}")
         finally:
             # Descarrega o modelo assim que ele não é mais usado (libera a RAM).
             unload_model(model)

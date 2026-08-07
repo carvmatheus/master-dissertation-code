@@ -82,14 +82,30 @@ def split_zeroscrolls_input(ex: dict) -> tuple[str, str]:
     return context, query
 
 
+def zero_scrolls_task_rows(task: str, limit: int) -> Iterable[dict]:
+    """Lê o JSONL publicado no ZIP, sem depender do loading script legado."""
+    from huggingface_hub import hf_hub_download
+
+    archive_path = hf_hub_download(
+        repo_id="tau/zero_scrolls",
+        filename=f"{task}.zip",
+        repo_type="dataset",
+    )
+    with zipfile.ZipFile(archive_path) as archive:
+        member = f"{task}/validation.jsonl"
+        with archive.open(member) as raw_source:
+            source = io.TextIOWrapper(raw_source, encoding="utf-8")
+            for line in islice((line for line in source if line.strip()), limit):
+                yield json.loads(line)
+
+
 def zero_scrolls_rows(limit: int) -> Iterable[dict]:
     # QMSum e MuSiQue têm adaptadores próprios; não os duplica neste agregado.
     tasks = ["qasper", "narrative_qa"]
     per_task = max(1, limit // len(tasks) + 1)
     emitted = 0
     for task in tasks:
-        ds = load_dataset_compat("tau/zero_scrolls", task, "validation")
-        for ex in islice(ds, per_task):
+        for ex in zero_scrolls_task_rows(task, per_task):
             context, query = split_zeroscrolls_input(ex)
             yield {
                 "id": f"{task}:{ex.get('id', ex.get('pid', emitted))}",
@@ -104,8 +120,7 @@ def zero_scrolls_rows(limit: int) -> Iterable[dict]:
 
 
 def musique_rows(limit: int) -> Iterable[dict]:
-    ds = load_dataset_compat("tau/zero_scrolls", "musique", "validation")
-    for ex in islice(ds, limit):
+    for ex in zero_scrolls_task_rows("musique", limit):
         context, query = split_zeroscrolls_input(ex)
         yield {
             "id": str(ex.get("id", ex.get("pid", ""))),
@@ -117,8 +132,7 @@ def musique_rows(limit: int) -> Iterable[dict]:
 
 
 def qmsum_rows(limit: int) -> Iterable[dict]:
-    ds = load_dataset_compat("tau/zero_scrolls", "qmsum", "validation")
-    for ex in islice(ds, limit):
+    for ex in zero_scrolls_task_rows("qmsum", limit):
         context, query = split_zeroscrolls_input(ex)
         yield {
             "id": str(ex.get("id", ex.get("pid", ""))),

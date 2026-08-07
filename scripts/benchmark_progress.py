@@ -2,8 +2,8 @@
 """
 Barra de progresso da matriz de benchmarks.
 
-Lê o log do run (linhas ">> Executando <benchmark> com estratégia: <strategy>")
-e mostra quanto já rodou e quanto falta, no total e por contexto.
+Lê o log do run e mostra quanto já terminou, qual caso está em execução e
+quanto falta, no total e por contexto.
 
 Uso:
   python scripts/benchmark_progress.py --log <arquivo.log> \
@@ -22,6 +22,7 @@ from collections import Counter
 from pathlib import Path
 
 EXEC_RE = re.compile(r">> Executando (\S+) com estratégia: (\S+)")
+SCORE_RE = re.compile(r"^\s*Score médio:")
 # O contexto atual vem da linha do processo filho "Carregando ... (num_ctx=N)"
 # ou, quando não bufferizada, da linha "RUN ... num_ctx=N" do processo pai.
 RUN_RE = re.compile(r"num_ctx=(\d+)")
@@ -61,6 +62,7 @@ def render(
     seen_ctx_order: list[str] = []
     per_model_ctx_done: Counter = Counter()
     seen_model_contexts: set[tuple[str, str]] = set()
+    current_execution = None
     for line in text.splitlines():
         model_match = MODEL_LOAD_RE.search(line) or MODEL_RUN_RE.search(line)
         if model_match:
@@ -69,11 +71,18 @@ def render(
             if current_ctx not in seen_ctx_order:
                 seen_ctx_order.append(current_ctx)
             continue
-        if EXEC_RE.search(line):
-            if current_ctx is not None:
-                per_ctx_done[current_ctx] += 1
-            if current_model is not None and current_ctx is not None:
-                per_model_ctx_done[(current_model, current_ctx)] += 1
+        execution_match = EXEC_RE.search(line)
+        if execution_match:
+            benchmark, strategy = execution_match.groups()
+            current_execution = (current_model, current_ctx, benchmark, strategy)
+            continue
+        if SCORE_RE.search(line) and current_execution is not None:
+            execution_model, execution_ctx, _, _ = current_execution
+            if execution_ctx is not None:
+                per_ctx_done[execution_ctx] += 1
+            if execution_model is not None and execution_ctx is not None:
+                per_model_ctx_done[(execution_model, execution_ctx)] += 1
+            current_execution = None
             continue
         m = RUN_RE.search(line)
         if m:
@@ -86,7 +95,8 @@ def render(
         done_total = sum(per_model_ctx_done[key] for key in selected)
     else:
         done_total = sum(per_ctx_done.values())
-    finished = bool(DONE_RE.search(text)) and done_total >= total
+    result_exists = (log.parent / "benchmark_results.json").exists()
+    finished = (bool(DONE_RE.search(text)) or result_exists) and done_total >= total
 
     lines = [
         "Matriz de benchmarks — progresso" + (f"   ({stamp})" if stamp else ""),
@@ -127,6 +137,11 @@ def render(
             lines.append(f"ctx-{ctx:<6} {_bar(d, per_ctx)}  {d}/{per_ctx}{status}")
 
     lines.append("")
+    if current_execution is not None:
+        _, current_execution_ctx, benchmark, strategy = current_execution
+        lines.append(
+            f"Em execução: ctx-{current_execution_ctx} | {benchmark} | {strategy}"
+        )
     if finished:
         lines.append("Status: CONCLUÍDO ✓")
     else:
